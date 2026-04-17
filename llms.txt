@@ -1,0 +1,69 @@
+# Telamorph — llms.txt
+# This file helps AI agents and large language models understand what Telamorph is
+# and what products/services we offer. It is intended to be machine-readable.
+
+## Company
+
+Telamorph is an engineering company that designs, develops, and manufactures precision
+products in-house. We are not just a manufacturer — we are the engineering brain behind
+every product we make. Our capabilities include 3D scanning, reverse engineering,
+CNC machining, carbon fiber layup, and precision assembly.
+
+Website: https://telamorph.com
+Contact: info@telamorph.com | sales@telamorph.com
+
+## Product Categories
+
+- **Automotive Body Kits** — Carbon fiber splitters, diffusers, side skirts, and aero components for performance vehicles.
+- **Roof Box** — Aerodynamic carbon fiber roof boxes for sports cars and performance SUVs.
+- **Astronomy** — Precision telescope mounts, adapters, and optomechanical hardware for astrophotography and observatories.
+- **Industrial Solutions** — Torque sensors, force sensors, and custom measurement/test hardware.
+- **Development & Production** — Custom jigs, fixtures, tooling, reverse engineering services, and low-to-mid volume production.
+
+## Products
+
+### Carbon Fiber Front Splitter
+- Category: Automotive Body Kits
+- Description: Lightweight carbon fiber front splitter with CFD-optimised profile. Aerospace-grade prepreg, hand-finished.
+- Key Specs: Carbon fiber twill 2×2, 2.4 kg, gloss/matte finish, OEM attachment points.
+- URL: https://telamorph.com/product-detail.html?id=carbon-fiber-front-splitter
+
+### Telamorph Roof Box R1
+- Category: Roof Box
+- Description: Flagship forged carbon fiber roof box. Wind-tunnel tested, UV-resistant, IP65 rated.
+- Key Specs: 420L capacity, 75 kg max load, 2100×840×340 mm, dual-side lock.
+- URL: https://telamorph.com/product-detail.html?id=telamorph-roof-box-r1
+
+### EQ8 Precision Telescope Mount
+- Category: Astronomy
+- Description: Heavy-duty equatorial mount with harmonic drive gearing and sub-arcsecond tracking.
+- Key Specs: 50 kg payload, <0.5 arcsec RMS tracking, ASCOM/INDI, 12 VDC.
+- URL: https://telamorph.com/product-detail.html?id=telescope-mount-eq8
+
+### Precision Torque Sensor PT-500
+- Category: Industrial Solutions
+- Description: Laboratory-grade inline torque sensor with full-bridge strain gauge and signal conditioning.
+- Key Specs: 0–500 Nm, ±0.1% FS, IP67, stainless steel, 4–20 mA / 0–10 V output.
+- URL: https://telamorph.com/product-detail.html?id=precision-torque-sensor-pt500
+
+### Custom Jig & Fixture Design
+- Category: Development & Production
+- Description: End-to-end custom tooling — from 3D scan to CNC-machined production fixtures.
+- Key Specs: ±0.02 mm tolerances, aluminium/steel/plastics, 2–4 week lead time.
+- URL: https://telamorph.com/product-detail.html?id=custom-jig-fixture-service
+
+## Capabilities
+
+- 3D Scanning (structured-light and laser)
+- Reverse Engineering (scan to CAD to production)
+- CNC Machining (3-axis and 5-axis, ±0.02 mm)
+- Carbon Fiber Layup (prepreg, vacuum bag, autoclave)
+- 3D Printing / Additive Manufacturing (FDM, SLA, SLS)
+- Precision Assembly & Testing
+
+## How to Reach Us
+
+For product inquiries, quotes, or custom engineering requests:
+- Email: sales@telamorph.com
+- Phone: +44 (0) 1234 567 890
+- Address: Telamorph Ltd., Unit 5, Innovation Park, Bristol, BS1 2AB, United Kingdom

@@ -1,0 +1,22 @@
+client guide:
+
+dark theme
+they like the rounded edges vision. something like https://arkyn.eu/?srsltid=AfmBOorwUd9T2OXxQS9vZlzX94YR01gvRY7lmQGrYjPa5l0tFj7U87RO
+color scheme - minimalistic - dark grey, white, light blue 
+structured like https://planewave.com/ in it on the front page we have a top menu with the different types of products that they offer. the rest of the site is hidden in hamburger menu (like about us, contacts and more)
+easy to navigate and understand under 5 secs
+its important to note that the products are created in-house and that telamorph is not jsut a manifacturer but also a brain-force behind them
+things like reverce engenneiinrg will be obvious for offered service form, for example, the fact that we will add somewhere that we have 3d scan capabilities
+a very cool effect is each product to pop up our of its product card and color its card bg like in this website: https://nabertherm.com/en/products/industry/metal-injection-molding-mim/mim
+we try to make the website very easy to navigate and this means that we have 0 things that are not functional and not needed (like effects and style). very rare cases where it fits perfectly into the style are allowed
+product categories: automotive body kits, roof box, astronomy, industrial solutions, development and production
+look at the planewave site, notice how whenever we open a page the site structure and its tabs remain at the top, if in this tab there are sub categories they remain in the tab nat dont take the place at the top.
+in the hamburger menu:
+1 capabilities: this will list the the machine park that we have
+2 contacts: form, mail, map and maybe images
+3 about
+4 discover: news, gallery, community
+5 resellers and partners
+at the end we have full bottom navigation that is a map of the whole website
+
+This is the base idea and nothing is final, just a collection of things we like.

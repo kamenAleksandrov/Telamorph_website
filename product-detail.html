@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Product — Telamorph</title>
+  <meta name="description" id="page-description" content="">
+  <link rel="canonical" id="page-canonical" href="">
+
+  <!-- Open Graph (dynamically updated by JS) -->
+  <meta property="og:title" id="og-title" content="">
+  <meta property="og:description" id="og-description" content="">
+  <meta property="og:type" content="product">
+
+  <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/pages/products.css">
+
+  <!-- Structured Data: Product (populated by JS) -->
+  <script type="application/ld+json" id="product-jsonld"></script>
+</head>
+<body>
+
+  <div id="nav-placeholder"></div>
+
+  <noscript>
+    <div class="noscript-banner">This site requires JavaScript to display product details.</div>
+  </noscript>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <nav id="breadcrumb" aria-label="breadcrumb"></nav>
+
+        <div id="product-content" class="row g-4">
+          <!-- Populated by product-detail.js -->
+        </div>
+
+        <!-- Fallback if product not found -->
+        <div id="product-not-found" class="text-center py-5" style="display: none;">
+          <h2>Product Not Found</h2>
+          <p class="text-secondary">The product you're looking for doesn't exist or has been removed.</p>
+          <a href="products.html" class="btn btn-accent">Browse All Products</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
+  <script src="assets/js/utils.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/product-detail.js" defer></script>
+</body>
+</html>

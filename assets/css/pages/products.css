@@ -1,0 +1,49 @@
+/* ==========================================================================
+   Telamorph — Products page overrides
+   ========================================================================== */
+
+.products-header {
+  padding: 2rem 0 1rem;
+}
+
+.products-filters {
+  margin-bottom: 2rem;
+}
+
+/* Product grid responsive tweaks */
+.products-grid .col {
+  margin-bottom: 1.5rem;
+}
+
+/* Detail page image gallery */
+.product-gallery-main {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  background-color: var(--bg-elevated);
+  margin-bottom: 1rem;
+}
+
+.product-gallery-thumbs {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+}
+
+.product-gallery-thumbs img {
+  width: 72px;
+  height: 54px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 2px solid transparent;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity var(--transition), border-color var(--transition);
+}
+
+.product-gallery-thumbs img:hover,
+.product-gallery-thumbs img.active {
+  opacity: 1;
+  border-color: var(--accent);
+}

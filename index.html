@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telamorph — Engineering Beyond Manufacturing</title>
+  <meta name="description" content="Telamorph designs, engineers, and manufactures precision products — automotive body kits, roof boxes, astronomy equipment, industrial solutions, and custom development. We are the brain behind the product.">
+  <link rel="canonical" href="https://telamorph.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Telamorph — Engineering Beyond Manufacturing">
+  <meta property="og:description" content="We don't just manufacture — we design, engineer, and build. Automotive body kits, roof boxes, astronomy hardware, industrial solutions.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://telamorph.com/">
+  <meta property="og:image" content="https://telamorph.com/assets/images/og-home.jpg">
+
+  <!-- Preload critical CSS -->
+  <link rel="preload" href="assets/vendor/bootstrap/bootstrap.min.css" as="style">
+  <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/pages/home.css">
+
+  <!-- Structured Data: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Telamorph",
+    "url": "https://telamorph.com",
+    "description": "We design, engineer, and manufacture precision products — body kits, roof boxes, astronomy hardware, industrial solutions.",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": "info@telamorph.com",
+      "contactType": "sales"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Nav -->
+  <div id="nav-placeholder"></div>
+
+  <noscript>
+    <div class="noscript-banner">This site works best with JavaScript enabled.</div>
+  </noscript>
+
+  <main>
+    <!-- Hero Section — full-width background image -->
+    <section class="hero" style="background: url('assets/images/placeholder_wide_full.png') center/cover no-repeat; position: relative;">
+      <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(17,18,21,0.92) 40%, rgba(17,18,21,0.4) 100%);"></div>
+      <div class="container position-relative" style="z-index: 1;">
+        <div class="row align-items-center">
+          <div class="col-lg-7">
+            <h1 class="hero-title">We Don't Just Manufacture.<br>We Engineer.</h1>
+            <p class="hero-subtitle">From concept to production — Telamorph is the brain behind the product. Body kits, roof boxes, astronomy hardware, industrial solutions, and beyond.</p>
+            <a href="products.html" class="btn btn-accent btn-lg">Explore Products</a>
+            <a href="capabilities.html" class="btn btn-outline-accent btn-lg ms-2">Our Capabilities</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">Featured Products</h2>
+        <p class="section-subtitle">Designed and built in-house — from our minds to your hands.</p>
+        <div id="featured-products" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Telamorph -->
+    <section class="section" style="background-color: var(--bg-secondary);">
+      <div class="container">
+        <h2 class="section-title text-center">Why Telamorph</h2>
+        <p class="section-subtitle text-center">Not just a manufacturer — a full-service engineering partner.</p>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="value-card text-center">
+              <h3>Designed In-House</h3>
+              <p>Every product starts in our engineering studio. CAD, CFD, FEA — we do the thinking before the making.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="value-card text-center">
+              <h3>3D Scanning &amp; Reverse Engineering</h3>
+              <p>High-precision 3D scanning capabilities for reverse engineering, quality control, and rapid development.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="value-card text-center">
+              <h3>Concept to Production</h3>
+              <p>From an idea or a broken part to a finished production run — we handle the entire lifecycle under one roof.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
+  <script src="assets/js/utils.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+  <script defer>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const products = await loadJSON("data/products.json");
+      const container = document.getElementById("featured-products");
+      if (!container || !products.length) return;
+      products.forEach(product => {
+        container.appendChild(createProductCard(product));
+      });
+    });
+  </script>
+</body>
+</html>

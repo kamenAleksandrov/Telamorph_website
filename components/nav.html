@@ -1,0 +1,73 @@
+<!-- ============================================================
+     Telamorph Navigation
+     Top bar: Logo + product category tabs + hamburger for secondary pages
+     ============================================================ -->
+<nav class="navbar navbar-telamorph">
+  <div class="container-fluid px-3 px-lg-4">
+
+    <!-- Logo -->
+    <a class="navbar-brand" href="index.html">
+      <img src="assets/images/placeholder_cropped_bg.png" alt="Telamorph" class="nav-logo" width="40" height="40">
+      <span class="brand-text">Telamorph</span>
+    </a>
+
+    <!-- Product category tabs — visible on desktop -->
+    <div class="product-tabs d-none d-lg-flex">
+      <a href="products.html?cat=automotive-body-kits" class="product-tab" data-category="automotive-body-kits">Body Kits</a>
+      <a href="products.html?cat=roof-box" class="product-tab" data-category="roof-box">Roof Box</a>
+      <a href="products.html?cat=astronomy" class="product-tab" data-category="astronomy">Astronomy</a>
+      <a href="products.html?cat=industrial-solutions" class="product-tab" data-category="industrial-solutions">Industrial</a>
+      <a href="products.html?cat=development-production" class="product-tab" data-category="development-production">Dev &amp; Production</a>
+    </div>
+
+    <!-- Hamburger toggle -->
+    <button class="hamburger-btn" type="button" 
+            data-bs-toggle="offcanvas" data-bs-target="#sideMenu" 
+            aria-controls="sideMenu" aria-label="Open menu">
+      <span class="hamburger-icon">
+        <span></span><span></span><span></span>
+      </span>
+    </button>
+  </div>
+</nav>
+
+<!-- Offcanvas side menu -->
+<div class="offcanvas offcanvas-end offcanvas-telamorph" tabindex="-1" id="sideMenu" aria-labelledby="sideMenuLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="sideMenuLabel">Menu</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+
+    <!-- Mobile-only: product categories -->
+    <div class="d-lg-none mb-4">
+      <h6 class="menu-heading">Products</h6>
+      <ul class="menu-list">
+        <li><a href="products.html?cat=automotive-body-kits">Automotive Body Kits</a></li>
+        <li><a href="products.html?cat=roof-box">Roof Box</a></li>
+        <li><a href="products.html?cat=astronomy">Astronomy</a></li>
+        <li><a href="products.html?cat=industrial-solutions">Industrial Solutions</a></li>
+        <li><a href="products.html?cat=development-production">Development &amp; Production</a></li>
+      </ul>
+    </div>
+
+    <h6 class="menu-heading">Capabilities</h6>
+    <ul class="menu-list">
+      <li><a href="capabilities.html">Our Machine Park</a></li>
+    </ul>
+
+    <h6 class="menu-heading">Discover</h6>
+    <ul class="menu-list">
+      <li><a href="discover.html#news">News</a></li>
+      <li><a href="discover.html#gallery">Gallery</a></li>
+      <li><a href="discover.html#community">Community</a></li>
+    </ul>
+
+    <h6 class="menu-heading">Company</h6>
+    <ul class="menu-list">
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="resellers.html">Resellers &amp; Partners</a></li>
+    </ul>
+  </div>
+</div>

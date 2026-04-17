@@ -1,0 +1,122 @@
+[
+  {
+    "id": "carbon-fiber-front-splitter",
+    "name": "Carbon Fiber Front Splitter",
+    "category": "Automotive Body Kits",
+    "categorySlug": "automotive-body-kits",
+    "subcategory": "Splitters",
+    "subcategorySlug": "splitters",
+    "shortDescription": "Lightweight carbon fiber front splitter designed for improved downforce and aggressive aesthetics.",
+    "description": "Engineered in-house using aerospace-grade carbon fiber prepreg, our front splitter delivers measurable aerodynamic downforce while maintaining a clean, OEM-integrated look. Each unit is designed using CFD analysis and hand-finished to exacting tolerances. Available for a range of performance platforms.",
+    "specifications": {
+      "Material": "Carbon Fiber (Twill 2×2)",
+      "Weight": "2.4 kg",
+      "Finish": "Gloss / Matte Clear Coat",
+      "Mounting": "OEM attachment points + hardware included",
+      "Compatibility": "Platform-specific (see options)"
+    },
+    "images": [
+      "products/carbon-fiber-front-splitter/hero.webp"
+    ],
+    "thumbnail": "placeholder_cropped_bg.png",
+    "quoteEmail": "sales@telamorph.com",
+    "keywords": ["carbon fiber splitter", "front splitter", "body kit", "aero", "downforce"]
+  },
+  {
+    "id": "telamorph-roof-box-r1",
+    "name": "Telamorph Roof Box R1",
+    "category": "Roof Box",
+    "categorySlug": "roof-box",
+    "subcategory": "Roof Boxes",
+    "subcategorySlug": "roof-boxes",
+    "shortDescription": "Aerodynamic carbon fiber roof box for sports cars and performance SUVs.",
+    "description": "The R1 is our flagship roof box — designed, prototyped, and manufactured entirely in-house. Built from forged carbon fiber with an aerodynamically optimised profile, it adds storage without compromising your vehicle's performance or silhouette. Wind-tunnel tested, UV-resistant, and IP65 rated.",
+    "specifications": {
+      "Material": "Forged Carbon Fiber",
+      "Capacity": "420 litres",
+      "Max Load": "75 kg",
+      "Dimensions": "2100 × 840 × 340 mm",
+      "Mounting": "Universal T-slot / crossbar compatible",
+      "Protection": "IP65",
+      "Lock": "Dual-side keyed lock"
+    },
+    "images": [
+      "products/telamorph-roof-box-r1/hero.webp"
+    ],
+    "thumbnail": "placeholder_cropped_bg.png",
+    "quoteEmail": "sales@telamorph.com",
+    "keywords": ["roof box", "carbon fiber roof box", "sports car storage", "aerodynamic roof box"]
+  },
+  {
+    "id": "telescope-mount-eq8",
+    "name": "EQ8 Precision Telescope Mount",
+    "category": "Astronomy",
+    "categorySlug": "astronomy",
+    "subcategory": "Mounts",
+    "subcategorySlug": "mounts",
+    "shortDescription": "Heavy-duty equatorial mount with sub-arcsecond tracking for observatory-grade imaging.",
+    "description": "Designed for serious astrophotographers and remote observatory setups, the EQ8 mount combines a rigid steel framework with precision harmonic drive gearing and integrated GPS/autoguiding. The entire drive system is engineered and assembled in our facility, ensuring traceable quality and long-term reliability.",
+    "specifications": {
+      "Payload Capacity": "50 kg",
+      "Tracking Accuracy": "< 0.5 arcsec RMS",
+      "Drive": "Harmonic drive (RA + DEC)",
+      "Control": "ASCOM / INDI compatible",
+      "Power": "12 VDC, 3A",
+      "Weight (head only)": "18 kg"
+    },
+    "images": [
+      "products/telescope-mount-eq8/hero.webp"
+    ],
+    "thumbnail": "placeholder_cropped_bg.png",
+    "quoteEmail": "sales@telamorph.com",
+    "keywords": ["telescope mount", "equatorial mount", "astrophotography", "observatory mount"]
+  },
+  {
+    "id": "precision-torque-sensor-pt500",
+    "name": "Precision Torque Sensor PT-500",
+    "category": "Industrial Solutions",
+    "categorySlug": "industrial-solutions",
+    "subcategory": "Sensors",
+    "subcategorySlug": "sensors",
+    "shortDescription": "High-accuracy torque measurement for industrial and test applications.",
+    "description": "The PT-500 Precision Torque Sensor delivers laboratory-grade accuracy in a rugged, industrial-ready package. Designed for inline and reaction torque measurement, it features a full-bridge strain gauge configuration with built-in signal conditioning. Ideal for automotive test rigs, production line QC, and R&D environments.",
+    "specifications": {
+      "Capacity": "0–500 Nm",
+      "Accuracy": "±0.1% FS",
+      "Output": "4–20 mA / 0–10 V",
+      "Operating Temp": "-20°C to +80°C",
+      "Protection": "IP67",
+      "Material": "Stainless Steel 17-4PH",
+      "Weight": "1.2 kg"
+    },
+    "images": [
+      "products/precision-torque-sensor/hero.webp"
+    ],
+    "thumbnail": "placeholder_cropped_bg.png",
+    "quoteEmail": "sales@telamorph.com",
+    "keywords": ["torque sensor", "torque measurement", "inline torque", "industrial sensor"]
+  },
+  {
+    "id": "custom-jig-fixture-service",
+    "name": "Custom Jig & Fixture Design",
+    "category": "Development & Production",
+    "categorySlug": "development-production",
+    "subcategory": "Jigs & Fixtures",
+    "subcategorySlug": "jigs-fixtures",
+    "shortDescription": "End-to-end design and manufacture of custom jigs, fixtures, and tooling.",
+    "description": "From concept sketch to production-ready tooling, our Development & Production team delivers precision jigs and fixtures tailored to your manufacturing workflow. Using 3D scanning, reverse engineering, and CNC machining, we ensure perfect fit and repeatable accuracy. Ideal for low-to-mid volume production runs.",
+    "specifications": {
+      "Process": "3D Scan → CAD → CNC / 3D Print",
+      "Materials": "Aluminium, Steel, Engineering Plastics",
+      "Tolerances": "±0.02 mm (CNC)",
+      "Lead Time": "2–4 weeks typical",
+      "Batch Size": "Prototype to 500+ units"
+    },
+    "images": [
+      "products/custom-jig-fixture/hero.webp"
+    ],
+    "thumbnail": "placeholder_cropped_bg.png",
+    "quoteEmail": "sales@telamorph.com",
+    "keywords": ["custom jig", "fixture design", "tooling", "reverse engineering", "CNC machining"]
+  }
+]
