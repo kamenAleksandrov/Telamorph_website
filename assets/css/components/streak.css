@@ -3,13 +3,15 @@
 
 :where(
   .footer-contact,
+  .product-tabs,
   .showcase-band,
   .value-card,
   .product-card,
   .btn-accent,
   .btn-outline-accent
 )::before,
-:where(.product-tab, .footer-links a, .menu-list li a)::after {
+:where(.footer-links a, .menu-list li a)::after,
+.product-tab::after {
   content: "";
   position: absolute;
   left: var(--streak-left, 0);
@@ -31,6 +33,7 @@
 
 :where(
   .footer-contact,
+  .product-tabs,
   .showcase-band,
   .value-card,
   .product-card,
@@ -41,7 +44,8 @@
   z-index: var(--streak-z, 1);
 }
 
-:where(.product-tab, .footer-links a, .menu-list li a)::after {
+:where(.footer-links a, .menu-list li a)::after,
+.product-tab::after {
   bottom: var(--streak-bottom, 0);
   transform: scaleX(0.35);
   transform-origin: var(--streak-origin, center);
@@ -49,6 +53,7 @@
 
 :where(
   .footer-contact,
+  .product-tabs,
   .showcase-band,
   .value-card,
   .product-card,
@@ -61,14 +66,15 @@
   .btn-accent,
   .btn-outline-accent
 ):focus-visible::before,
-:where(.product-tab, .footer-links a, .menu-list li a):hover::after,
-:where(.product-tab, .footer-links a, .menu-list li a):focus-visible::after,
+.product-tabs:focus-within::before,
+:where(.footer-links a, .menu-list li a):hover::after,
+:where(.footer-links a, .menu-list li a):focus-visible::after,
 .product-tab.active::after {
   opacity: 1;
 }
 
-:where(.product-tab, .footer-links a, .menu-list li a):hover::after,
-:where(.product-tab, .footer-links a, .menu-list li a):focus-visible::after,
+:where(.footer-links a, .menu-list li a):hover::after,
+:where(.footer-links a, .menu-list li a):focus-visible::after,
 .product-tab.active::after {
   transform: scaleX(1);
 }
@@ -84,6 +90,15 @@
 
 .footer-contact::before {
   opacity: 0.4;
+}
+
+.product-tabs {
+  --streak-height: 2px;
+}
+
+.product-tabs::before {
+  top: auto;
+  bottom: 0;
 }
 
 .showcase-band {

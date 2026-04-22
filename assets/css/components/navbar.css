@@ -57,6 +57,7 @@
 
 /* Product category tabs (desktop) — hidden by default, shown from 600px up */
 .product-tabs {
+  position: relative;
   display: none;
   align-items: center;
   gap: 0.1rem;

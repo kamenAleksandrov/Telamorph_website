@@ -51,6 +51,7 @@ async function loadFooter() {
 
 const cursorStreakSelector = [
   ".footer-contact",
+  ".product-tabs",
   ".product-tab",
   ".footer-links a",
   ".menu-list li a",
