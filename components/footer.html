@@ -1,18 +1,72 @@
 <!-- ============================================================
-     Telamorph Footer — Full site map navigation
+     Telamorph Footer — Quick contact + full site map
      ============================================================ -->
 <footer class="footer-telamorph">
   <div class="container">
-    <div class="row g-4">
+
+    <!-- Quick Contact strip -->
+    <div class="footer-contact">
+      <div class="footer-contact-info">
+        <div class="footer-contact-item">
+          <div class="footer-contact-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </div>
+          <div class="footer-contact-text">
+            <span class="footer-contact-label">Phone</span>
+            <a href="tel:+441234567890" class="footer-contact-value">+44 (0) 1234 567 890</a>
+          </div>
+        </div>
+
+        <div class="footer-contact-item">
+          <div class="footer-contact-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
+          <div class="footer-contact-text">
+            <span class="footer-contact-label">Email</span>
+            <a href="mailto:info@telamorph.com" class="footer-contact-value">info@telamorph.com</a>
+          </div>
+        </div>
+
+        <div class="footer-contact-item">
+          <div class="footer-contact-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <div class="footer-contact-text">
+            <span class="footer-contact-label">Visit</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Bristol+BS1+2AB" target="_blank" rel="noopener" class="footer-contact-value">Innovation Park, Bristol BS1 2AB</a>
+          </div>
+        </div>
+      </div>
+
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Bristol+BS1+2AB" target="_blank" rel="noopener" class="footer-contact-map" aria-label="Open Telamorph location in Google Maps">
+        <iframe
+          src="https://maps.google.com/maps?q=Bristol+BS1+2AB&amp;z=14&amp;output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Telamorph location"
+          tabindex="-1"></iframe>
+      </a>
+    </div>
+
+    <!-- Sitemap columns -->
+    <div class="row g-4 footer-sitemap">
 
       <!-- Brand column -->
-      <div class="col-6 col-md-3 col-lg-2">
-        <h5 class="footer-heading">Telamorph</h5>
+      <div class="col-12 col-md-4 col-lg-3">
+        <h5 class="footer-heading footer-brand">Telamorph</h5>
         <p class="footer-tagline">Engineering the future.<br>Designed &amp; built in-house.</p>
       </div>
 
       <!-- Products -->
-      <div class="col-6 col-md-3 col-lg-2">
+      <div class="col-6 col-md-4 col-lg-2">
         <h6 class="footer-heading">Products</h6>
         <ul class="footer-links">
           <li><a href="products.html?cat=automotive-body-kits">Automotive Body Kits</a></li>
@@ -24,7 +78,7 @@
       </div>
 
       <!-- Capabilities -->
-      <div class="col-6 col-md-3 col-lg-2">
+      <div class="col-6 col-md-4 col-lg-2">
         <h6 class="footer-heading">Capabilities</h6>
         <ul class="footer-links">
           <li><a href="capabilities.html">Machine Park</a></li>
@@ -34,7 +88,7 @@
       </div>
 
       <!-- Discover -->
-      <div class="col-6 col-md-3 col-lg-2">
+      <div class="col-6 col-md-4 col-lg-2">
         <h6 class="footer-heading">Discover</h6>
         <ul class="footer-links">
           <li><a href="discover.html#news">News</a></li>
@@ -44,21 +98,12 @@
       </div>
 
       <!-- Company -->
-      <div class="col-6 col-md-3 col-lg-2">
+      <div class="col-6 col-md-4 col-lg-3">
         <h6 class="footer-heading">Company</h6>
         <ul class="footer-links">
           <li><a href="about.html">About Us</a></li>
           <li><a href="resellers.html">Resellers &amp; Partners</a></li>
-        </ul>
-      </div>
-
-      <!-- Contact -->
-      <div class="col-6 col-md-3 col-lg-2">
-        <h6 class="footer-heading">Contact</h6>
-        <ul class="footer-links">
-          <li><a href="mailto:info@telamorph.com">info@telamorph.com</a></li>
-          <li><a href="mailto:sales@telamorph.com">sales@telamorph.com</a></li>
-          <li><a href="contact.html">Contact Page</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
 

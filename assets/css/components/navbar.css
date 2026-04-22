@@ -1,0 +1,189 @@
+/* --- Navbar --- */
+#nav-placeholder {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+}
+
+.navbar-telamorph {
+  background-color: rgba(24, 25, 29, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(42, 48, 56, 0.5);
+  padding: 0;
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-telamorph .container-fluid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Brand / Logo */
+.navbar-telamorph .navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.98rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.navbar-telamorph .navbar-brand .brand-text {
+  color: #fff;
+}
+
+.navbar-telamorph .navbar-brand:hover {
+  color: var(--accent);
+}
+
+.navbar-telamorph .navbar-brand:hover .brand-text {
+  color: var(--accent);
+}
+
+.nav-logo {
+  border-radius: 6px;
+  object-fit: contain;
+  width: 46px;
+  height: 46px;
+}
+
+/* Product category tabs (desktop) — hidden by default, shown from 600px up */
+.product-tabs {
+  display: none;
+  align-items: center;
+  gap: 0.1rem;
+  flex: 1;
+  justify-content: center;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.product-tab {
+  color: var(--text-secondary);
+  text-decoration: none;
+  /* Dynamic scaling between 600px and ~1900px viewport widths */
+  font-size: clamp(0.75rem, 0.5rem + 0.6vw, 1.2rem);
+  font-weight: 500;
+  padding: 1.35rem clamp(0.3rem, 0.55vw, 1rem);
+  position: relative;
+  transition: color var(--transition), text-shadow var(--transition);
+  white-space: nowrap;
+}
+
+/* Reveal top tabs and hide mobile product list at ≥600px */
+@media (min-width: 600px) {
+  .product-tabs {
+    display: flex;
+  }
+  .menu-products-mobile {
+    display: none !important;
+  }
+}
+
+/* Shrink brand text between 600–900px so tabs have breathing room */
+@media (max-width: 899.98px) {
+  .navbar-telamorph .navbar-brand {
+    font-size: 1.35rem;
+  }
+}
+
+.product-tab:hover,
+.product-tab:focus-visible,
+.product-tab.active {
+  color: var(--text-primary);
+}
+
+/* Hamburger button */
+.hamburger-btn {
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 0.9rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 52px;
+  min-height: 52px;
+}
+
+.hamburger-btn:hover {
+  border-color: var(--text-secondary);
+  background-color: var(--bg-elevated);
+}
+
+.hamburger-icon {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 26px;
+}
+
+.hamburger-icon span {
+  display: block;
+  height: 2.5px;
+  width: 100%;
+  background: var(--text-primary);
+  border-radius: 1px;
+  transition: all var(--transition);
+}
+
+/* Offcanvas side menu */
+.offcanvas-telamorph {
+  --bs-offcanvas-bg: var(--bg-secondary);
+  --bs-offcanvas-color: var(--text-primary);
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+  border-left: 1px solid var(--border-color);
+  max-width: 340px;
+}
+
+.offcanvas-telamorph .offcanvas-header {
+  border-bottom: 1px solid var(--border-color);
+  padding: 1.15rem 1.5rem;
+}
+
+.offcanvas-telamorph .offcanvas-title {
+  font-weight: 700;
+  font-size: 1.68rem;
+  color: var(--text-primary);
+}
+
+.menu-heading {
+  font-size: 1.08rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin: 1.5rem 0 0.6rem;
+  font-weight: 600;
+}
+
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.5rem;
+}
+
+.menu-list li a {
+  display: block;
+  position: relative;
+  padding: 0.5rem 0;
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 1.26rem;
+  transition: color var(--transition), text-shadow var(--transition);
+}
+
+.menu-list li a:hover,
+.menu-list li a:focus-visible {
+  color: var(--accent);
+}

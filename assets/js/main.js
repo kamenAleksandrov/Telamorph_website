@@ -6,7 +6,18 @@
 document.addEventListener("DOMContentLoaded", async () => {
   await Promise.all([loadNav(), loadFooter()]);
   highlightActiveTab();
+  initCursorStreaks();
 });
+
+/**
+ * Strip dev-server injected scripts (e.g. Live Server hot-reload)
+ * from a partial HTML string before inserting it into the DOM.
+ */
+function sanitizePartial(html) {
+  return html
+    .replace(/<!--\s*Code injected by live-server\s*-->/gi, "")
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "");
+}
 
 /**
  * Fetch and inject the navigation partial.
@@ -17,7 +28,7 @@ async function loadNav() {
   try {
     const res = await fetch("components/nav.html");
     if (!res.ok) throw new Error(`Nav load failed: ${res.status}`);
-    target.innerHTML = await res.text();
+    target.innerHTML = sanitizePartial(await res.text());
   } catch (err) {
     console.error(err);
   }
@@ -32,11 +43,54 @@ async function loadFooter() {
   try {
     const res = await fetch("components/footer.html");
     if (!res.ok) throw new Error(`Footer load failed: ${res.status}`);
-    target.innerHTML = await res.text();
+    target.innerHTML = sanitizePartial(await res.text());
   } catch (err) {
     console.error(err);
   }
 }
+
+const cursorStreakSelector = [
+  ".footer-contact",
+  ".product-tab",
+  ".footer-links a",
+  ".menu-list li a",
+  ".showcase-band",
+  ".value-card",
+  ".product-card",
+  ".btn-accent",
+  ".btn-outline-accent"
+].join(", ");
+
+/**
+ * Attach the cursor-tracked streak effect within a root element.
+ * Safe to call again after dynamic content renders.
+ */
+function initCursorStreaks(root = document) {
+  const elements = [];
+  if (root.matches?.(cursorStreakSelector)) elements.push(root);
+  elements.push(...root.querySelectorAll(cursorStreakSelector));
+
+  elements.forEach((element) => {
+    if (element.dataset.cursorStreakReady) return;
+    element.dataset.cursorStreakReady = "true";
+
+    element.addEventListener("pointermove", (e) => {
+      const rect = element.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      element.style.setProperty("--streak-x", `${x}%`);
+      element.style.setProperty("--streak-y", `${y}%`);
+    });
+
+    element.addEventListener("pointerleave", () => {
+      element.style.removeProperty("--streak-x");
+      element.style.removeProperty("--streak-y");
+    });
+  });
+}
+
+window.initCursorStreaks = initCursorStreaks;
 
 /**
  * Highlight the active product-tab if on products page with ?cat= param.

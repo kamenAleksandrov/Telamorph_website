@@ -1,0 +1,13 @@
+/* --- Section headers --- */
+.section-title {
+  font-size: 2.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.section-subtitle {
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}

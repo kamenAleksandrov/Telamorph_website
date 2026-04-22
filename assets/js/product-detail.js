@@ -108,6 +108,7 @@ function renderProduct(product) {
       </div>
     </div>
   `;
+  window.initCursorStreaks?.(container);
 }
 
 /**

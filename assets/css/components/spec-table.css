@@ -1,0 +1,23 @@
+/* --- Spec table --- */
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.spec-table tr {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.spec-table td {
+  padding: 0.75rem 0;
+}
+
+.spec-table td:first-child {
+  color: var(--text-muted);
+  font-weight: 500;
+  width: 40%;
+}
+
+.spec-table td:last-child {
+  color: var(--text-primary);
+}

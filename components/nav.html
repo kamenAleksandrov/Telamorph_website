@@ -7,12 +7,12 @@
 
     <!-- Logo -->
     <a class="navbar-brand" href="index.html">
-      <img src="assets/images/placeholder_cropped_bg.png" alt="Telamorph" class="nav-logo" width="40" height="40">
+      <img src="assets/images/placeholder_cropped_bg.png" alt="Telamorph" class="nav-logo" width="46" height="46">
       <span class="brand-text">Telamorph</span>
     </a>
 
-    <!-- Product category tabs — visible on desktop -->
-    <div class="product-tabs d-none d-lg-flex">
+    <!-- Product category tabs — visible at ≥900px; collapses into hamburger below -->
+    <div class="product-tabs">
       <a href="products.html?cat=automotive-body-kits" class="product-tab" data-category="automotive-body-kits">Body Kits</a>
       <a href="products.html?cat=roof-box" class="product-tab" data-category="roof-box">Roof Box</a>
       <a href="products.html?cat=astronomy" class="product-tab" data-category="astronomy">Astronomy</a>
@@ -39,8 +39,8 @@
   </div>
   <div class="offcanvas-body">
 
-    <!-- Mobile-only: product categories -->
-    <div class="d-lg-none mb-4">
+    <!-- Mobile-only: product categories (shown below 900px; hidden when top tabs are visible) -->
+    <div class="menu-products-mobile mb-4">
       <h6 class="menu-heading">Products</h6>
       <ul class="menu-list">
         <li><a href="products.html?cat=automotive-body-kits">Automotive Body Kits</a></li>

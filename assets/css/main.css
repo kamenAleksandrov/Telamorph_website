@@ -22,7 +22,13 @@
   /* Accent — light blue */
   --accent: #5ba8f5;
   --accent-hover: #3d93ed;
+  --accent-deep: #3d93ed;
+  --accent-deep-hover: #2d79c7;
   --accent-subtle: rgba(91, 168, 245, 0.1);
+
+  /* Teal — pairs with --accent for the gradient-border buttons */
+  --accent-teal: #2dd4bf;
+  --accent-gradient: linear-gradient(90deg, var(--accent-teal), var(--accent));
 
   /* Borders */
   --border-color: #2a3038;

@@ -1,0 +1,106 @@
+/* Reusable cursor-tracked streaks.
+   JS updates --streak-x so the brightest point follows the pointer. */
+
+:where(
+  .footer-contact,
+  .showcase-band,
+  .value-card,
+  .product-card,
+  .btn-accent,
+  .btn-outline-accent
+)::before,
+:where(.product-tab, .footer-links a, .menu-list li a)::after {
+  content: "";
+  position: absolute;
+  left: var(--streak-left, 0);
+  right: var(--streak-right, 0);
+  height: var(--streak-height, 1px);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(91, 168, 245, 0.22) calc(var(--streak-x, 50%) - 20%),
+    var(--accent) var(--streak-x, 50%),
+    rgba(91, 168, 245, 0.22) calc(var(--streak-x, 50%) + 20%),
+    transparent 100%
+  );
+  box-shadow: 0 0 10px rgba(91, 168, 245, 0.16);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+:where(
+  .footer-contact,
+  .showcase-band,
+  .value-card,
+  .product-card,
+  .btn-accent,
+  .btn-outline-accent
+)::before {
+  top: 0;
+  z-index: var(--streak-z, 1);
+}
+
+:where(.product-tab, .footer-links a, .menu-list li a)::after {
+  bottom: var(--streak-bottom, 0);
+  transform: scaleX(0.35);
+  transform-origin: var(--streak-origin, center);
+}
+
+:where(
+  .footer-contact,
+  .showcase-band,
+  .value-card,
+  .product-card,
+  .btn-accent,
+  .btn-outline-accent
+):hover::before,
+:where(
+  .showcase-band,
+  .product-card,
+  .btn-accent,
+  .btn-outline-accent
+):focus-visible::before,
+:where(.product-tab, .footer-links a, .menu-list li a):hover::after,
+:where(.product-tab, .footer-links a, .menu-list li a):focus-visible::after,
+.product-tab.active::after {
+  opacity: 1;
+}
+
+:where(.product-tab, .footer-links a, .menu-list li a):hover::after,
+:where(.product-tab, .footer-links a, .menu-list li a):focus-visible::after,
+.product-tab.active::after {
+  transform: scaleX(1);
+}
+
+:where(.product-tab, .footer-links a, .menu-list li a):hover,
+:where(.product-tab, .footer-links a, .menu-list li a):focus-visible {
+  text-shadow: 0 0 12px rgba(91, 168, 245, 0.16);
+}
+
+.footer-contact {
+  --streak-x: 82%;
+}
+
+.footer-contact::before {
+  opacity: 0.4;
+}
+
+.showcase-band {
+  --streak-z: 3;
+}
+
+.product-tab {
+  --streak-height: 2px;
+  --streak-left: clamp(0.3rem, 0.55vw, 1rem);
+  --streak-right: clamp(0.3rem, 0.55vw, 1rem);
+}
+
+.footer-links a {
+  --streak-bottom: -0.12rem;
+}
+
+.menu-list li a {
+  --streak-bottom: 0.32rem;
+  --streak-origin: left;
+}

@@ -1,0 +1,23 @@
+/* --- Breadcrumb --- */
+.breadcrumb-telamorph {
+  background: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.05rem;
+}
+
+.breadcrumb-telamorph .breadcrumb-item a {
+  color: var(--text-muted);
+}
+
+.breadcrumb-telamorph .breadcrumb-item a:hover {
+  color: var(--accent);
+}
+
+.breadcrumb-telamorph .breadcrumb-item.active {
+  color: var(--text-secondary);
+}
+
+.breadcrumb-telamorph .breadcrumb-item + .breadcrumb-item::before {
+  color: var(--text-muted);
+}

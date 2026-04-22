@@ -1,0 +1,75 @@
+/* --- Product Card with pop-out effect --- */
+.product-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: visible;
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.product-card:hover {
+  border-color: var(--border-light);
+  box-shadow: var(--shadow);
+}
+
+/* Image container — product "pops out" above the card */
+.product-card .card-img-wrap {
+  position: relative;
+  height: 200px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: visible;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background: var(--bg-elevated);
+  transition: background-color 0.4s ease;
+}
+
+.product-card .card-img-pop {
+  max-height: 220px;
+  max-width: 85%;
+  object-fit: contain;
+  transform: translateY(-20px);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.4));
+  position: relative;
+  z-index: 1;
+}
+
+.product-card:hover .card-img-pop {
+  transform: translateY(-36px);
+}
+
+/* Card body */
+.product-card .card-body {
+  padding: 1.25rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card .card-title {
+  font-size: 1.26rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: var(--text-primary);
+}
+
+.product-card .card-text {
+  color: var(--text-secondary);
+  font-size: 1.02rem;
+  flex: 1;
+}
+
+.product-card .card-category {
+  font-size: 0.84rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+}

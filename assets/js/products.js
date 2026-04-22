@@ -139,4 +139,5 @@ function renderProducts(products) {
   products.forEach(product => {
     grid.appendChild(createProductCard(product));
   });
+  window.initCursorStreaks?.(grid);
 }

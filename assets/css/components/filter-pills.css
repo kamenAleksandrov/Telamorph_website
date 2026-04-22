@@ -1,0 +1,20 @@
+/* --- Category filter pills --- */
+.filter-pill {
+  display: inline-block;
+  padding: 0.375rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 2rem;
+  font-size: 1.02rem;
+  color: var(--text-secondary);
+  background: transparent;
+  cursor: pointer;
+  transition: all var(--transition);
+  margin: 0.25rem;
+}
+
+.filter-pill:hover,
+.filter-pill.active {
+  background-color: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
