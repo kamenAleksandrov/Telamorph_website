@@ -18,6 +18,16 @@
   <link rel="preload" href="assets/vendor/bootstrap/bootstrap.min.css" as="style">
   <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components/navbar.css">
+  <link rel="stylesheet" href="assets/css/components/footer.css">
+  <link rel="stylesheet" href="assets/css/components/product-card.css">
+  <link rel="stylesheet" href="assets/css/components/buttons.css">
+  <link rel="stylesheet" href="assets/css/components/breadcrumb.css">
+  <link rel="stylesheet" href="assets/css/components/section-header.css">
+  <link rel="stylesheet" href="assets/css/components/filter-pills.css">
+  <link rel="stylesheet" href="assets/css/components/spec-table.css">
+  <link rel="stylesheet" href="assets/css/components/noscript.css">
+  <link rel="stylesheet" href="assets/css/components/streak.css">
   <link rel="stylesheet" href="assets/css/pages/home.css">
 
   <!-- Structured Data: Organization -->
@@ -35,11 +45,37 @@
     }
   }
   </script>
+  <style>
+    html, body { background-color: #111215; }
+  </style>
+  <script>
+    (() => {
+      const cacheKeys = {
+        nav: "telamorph-shell-nav-v1",
+        footer: "telamorph-shell-footer-v1"
+      };
+
+      window.__hydrateTelamorphShell = (targetId, slot) => {
+        try {
+          const target = document.getElementById(targetId);
+          const html = sessionStorage.getItem(cacheKeys[slot]);
+          if (!target || !html || target.innerHTML.trim()) return;
+          target.innerHTML = html;
+          target.dataset.shellHydrated = "true";
+        } catch {
+          // Ignore storage access failures.
+        }
+      };
+    })();
+  </script>
 </head>
 <body>
 
   <!-- Nav -->
   <div id="nav-placeholder"></div>
+  <script>
+    window.__hydrateTelamorphShell?.("nav-placeholder", "nav");
+  </script>
 
   <noscript>
     <div class="noscript-banner">This site works best with JavaScript enabled.</div>
@@ -52,10 +88,10 @@
       <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(17,18,21,0.92) 40%, rgba(17,18,21,0.4) 100%); z-index: 1;"></div>
       <div class="container position-relative" style="z-index: 2;">
         <div class="row align-items-center">
-          <div class="col-lg-7">
-            <h1 class="hero-title">We Don't Just Manufacture.<br>We Engineer.</h1>
-            <p class="hero-subtitle">From concept to production — Telamorph is the brain behind the product. Body kits, roof boxes, astronomy hardware, industrial solutions, and beyond.</p>
-            <div class="hero-actions">
+          <div class="col-lg-7 reveal-stagger">
+            <h1 class="hero-title reveal">We Don't Just Manufacture.<br>We Engineer.</h1>
+            <p class="hero-subtitle reveal">From concept to production — Telamorph is the brain behind the product. Body kits, roof boxes, astronomy hardware, industrial solutions, and beyond.</p>
+            <div class="hero-actions reveal">
               <a href="products.html" class="btn btn-accent btn-lg btn-arrow">
                 <span>Explore Products</span>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
@@ -72,13 +108,13 @@
 
     <!-- Category Showcase -->
     <section class="category-showcase">
-      <div class="container">
-        <h2 class="section-title">What We Build</h2>
-        <p class="section-subtitle">From aerodynamics to astrophotography — explore what our engineering team delivers.</p>
+      <div class="container reveal-stagger">
+        <h2 class="section-title reveal">What We Build</h2>
+        <p class="section-subtitle reveal">From aerodynamics to astrophotography — explore what our engineering team delivers.</p>
       </div>
       <div class="showcase-stack">
-        <div class="showcase-row">
-        <a href="products.html?cat=automotive-body-kits" class="showcase-band">
+        <div class="showcase-row reveal-stagger">
+        <a href="products.html?cat=automotive-body-kits" class="showcase-band reveal">
           <div class="showcase-bg parallax-bg" style="background-image: url('assets/images/placeholder_wide_full.png');"></div>
           <div class="showcase-overlay"></div>
           <div class="showcase-content container">
@@ -88,7 +124,7 @@
             <span class="showcase-cta">Explore Category <span aria-hidden="true">&rarr;</span></span>
           </div>
         </a>
-        <a href="products.html?cat=roof-box" class="showcase-band">
+        <a href="products.html?cat=roof-box" class="showcase-band reveal">
           <div class="showcase-bg parallax-bg" style="background-image: url('assets/images/placeholder_wide_full.png');"></div>
           <div class="showcase-overlay"></div>
           <div class="showcase-content container">
@@ -98,7 +134,7 @@
             <span class="showcase-cta">Explore Category <span aria-hidden="true">&rarr;</span></span>
           </div>
         </a>
-        <a href="products.html?cat=astronomy" class="showcase-band">
+        <a href="products.html?cat=astronomy" class="showcase-band reveal">
           <div class="showcase-bg parallax-bg" style="background-image: url('assets/images/placeholder_wide_full.png');"></div>
           <div class="showcase-overlay"></div>
           <div class="showcase-content container">
@@ -109,8 +145,8 @@
           </div>
         </a>
         </div>
-        <div class="showcase-row">
-        <a href="products.html?cat=industrial-solutions" class="showcase-band">
+        <div class="showcase-row reveal-stagger">
+        <a href="products.html?cat=industrial-solutions" class="showcase-band reveal">
           <div class="showcase-bg parallax-bg" style="background-image: url('assets/images/placeholder_wide_full.png');"></div>
           <div class="showcase-overlay"></div>
           <div class="showcase-content container">
@@ -120,7 +156,7 @@
             <span class="showcase-cta">Explore Category <span aria-hidden="true">&rarr;</span></span>
           </div>
         </a>
-        <a href="products.html?cat=development-production" class="showcase-band">
+        <a href="products.html?cat=development-production" class="showcase-band reveal">
           <div class="showcase-bg parallax-bg" style="background-image: url('assets/images/placeholder_wide_full.png');"></div>
           <div class="showcase-overlay"></div>
           <div class="showcase-content container">
@@ -137,11 +173,11 @@
     <!-- Why Telamorph -->
     <section class="section why-telamorph">
       <div class="container">
-        <span class="section-eyebrow">Why Telamorph</span>
-        <h2 class="section-title text-center">Engineering, Not Just Manufacturing</h2>
-        <p class="section-subtitle text-center">A full-service partner — from first sketch to production line.</p>
-        <div class="row g-4 mt-2">
-          <div class="col-md-4">
+        <span class="section-eyebrow reveal">Why Telamorph</span>
+        <h2 class="section-title text-center reveal">Engineering, Not Just Manufacturing</h2>
+        <p class="section-subtitle text-center reveal">A full-service partner — from first sketch to production line.</p>
+        <div class="row g-4 mt-2 reveal-stagger">
+          <div class="col-md-4 reveal">
             <div class="value-card">
               <div class="value-card-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
@@ -154,7 +190,7 @@
               <p>Every product starts in our engineering studio. CAD, CFD, FEA &mdash; we do the thinking before the making.</p>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4 reveal">
             <div class="value-card">
               <div class="value-card-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
@@ -166,7 +202,7 @@
               <p>High-precision 3D scanning for reverse engineering, quality control, and rapid product development.</p>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4 reveal">
             <div class="value-card">
               <div class="value-card-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
@@ -184,6 +220,9 @@
 
   <!-- Footer -->
   <div id="footer-placeholder"></div>
+  <script>
+    window.__hydrateTelamorphShell?.("footer-placeholder", "footer");
+  </script>
 
   <!-- Scripts -->
   <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>

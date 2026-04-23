@@ -14,17 +14,53 @@
 
   <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components/navbar.css">
+  <link rel="stylesheet" href="assets/css/components/footer.css">
+  <link rel="stylesheet" href="assets/css/components/product-card.css">
+  <link rel="stylesheet" href="assets/css/components/buttons.css">
+  <link rel="stylesheet" href="assets/css/components/breadcrumb.css">
+  <link rel="stylesheet" href="assets/css/components/section-header.css">
+  <link rel="stylesheet" href="assets/css/components/filter-pills.css">
+  <link rel="stylesheet" href="assets/css/components/spec-table.css">
+  <link rel="stylesheet" href="assets/css/components/noscript.css">
+  <link rel="stylesheet" href="assets/css/components/streak.css">
+  <style>
+    html, body { background-color: #111215; }
+  </style>
+  <script>
+    (() => {
+      const cacheKeys = {
+        nav: "telamorph-shell-nav-v1",
+        footer: "telamorph-shell-footer-v1"
+      };
+
+      window.__hydrateTelamorphShell = (targetId, slot) => {
+        try {
+          const target = document.getElementById(targetId);
+          const html = sessionStorage.getItem(cacheKeys[slot]);
+          if (!target || !html || target.innerHTML.trim()) return;
+          target.innerHTML = html;
+          target.dataset.shellHydrated = "true";
+        } catch {
+          // Ignore storage access failures.
+        }
+      };
+    })();
+  </script>
 </head>
 <body>
 
   <div id="nav-placeholder"></div>
+  <script>
+    window.__hydrateTelamorphShell?.("nav-placeholder", "nav");
+  </script>
 
   <main>
     <!-- About Hero -->
     <section class="section">
       <div class="container">
-        <div class="row align-items-center g-5">
-          <div class="col-lg-7">
+        <div class="row align-items-center g-5 reveal-stagger">
+          <div class="col-lg-7 reveal">
             <h1 class="section-title">About Telamorph</h1>
             <p class="lead" style="color: var(--text-secondary);">
               We're not just a manufacturer — we're the engineering brain behind the product.
@@ -36,7 +72,7 @@
               Our capabilities include 3D scanning, reverse engineering, CNC machining, carbon fiber layup, and precision assembly. Every product we ship is designed, tested, and refined under one roof.
             </p>
           </div>
-          <div class="col-lg-5">
+          <div class="col-lg-5 reveal">
             <!-- About image placeholder -->
             <div style="background: var(--bg-elevated); border-radius: var(--radius-lg); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
               About Image
@@ -49,29 +85,29 @@
     <!-- Capabilities -->
     <section class="section" style="background-color: var(--bg-secondary);">
       <div class="container">
-        <h2 class="section-title text-center">What We Do</h2>
-        <p class="section-subtitle text-center">Full-service engineering — no outsourcing, no shortcuts.</p>
-        <div class="row g-4">
-          <div class="col-md-4">
+        <h2 class="section-title text-center reveal">What We Do</h2>
+        <p class="section-subtitle text-center reveal">Full-service engineering — no outsourcing, no shortcuts.</p>
+        <div class="row g-4 reveal-stagger">
+          <div class="col-md-4 reveal">
             <div class="value-card">
               <h3>Design &amp; Development</h3>
               <p>CAD, CFD, FEA, and rapid prototyping. We think through every detail before cutting material.</p>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4 reveal">
             <div class="value-card">
               <h3>In-House Manufacturing</h3>
               <p>CNC, 3D printing, carbon fiber layup, and precision assembly — all under our roof.</p>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4 reveal">
             <div class="value-card">
               <h3>Reverse Engineering</h3>
               <p>Lost the drawings? We 3D scan, reconstruct, and reproduce — from legacy parts to modern production.</p>
             </div>
           </div>
         </div>
-        <div class="text-center mt-4">
+        <div class="text-center mt-4 reveal">
           <a href="capabilities.html" class="btn btn-outline-accent">See Our Full Machine Park</a>
         </div>
       </div>
@@ -79,6 +115,9 @@
   </main>
 
   <div id="footer-placeholder"></div>
+  <script>
+    window.__hydrateTelamorphShell?.("footer-placeholder", "footer");
+  </script>
 
   <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
   <script src="assets/js/utils.js" defer></script>

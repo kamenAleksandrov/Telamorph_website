@@ -1,38 +1,48 @@
 /* ==========================================================================
    Telamorph — Products Listing Page (products.js)
-   Loads products from JSON, renders cards with category filter
-   Supports ?cat= URL param for direct category links from nav
+   Loads product data once, renders category views, and switches categories
+   in-place so product-tab clicks do not force a full document reload.
    ========================================================================== */
 
-document.addEventListener("DOMContentLoaded", async () => {
-  const products = await loadJSON("data/products.json");
-  if (!products.length) return;
+let allProducts = [];
 
-  initBreadcrumb();
-  const activeCat = getParam("cat") || null;
+initProductsPage();
 
-  if (activeCat) {
-    // Filter to products in this category, show subcategory filters
-    const catProducts = products.filter(p => p.categorySlug === activeCat);
-    const catLabel = catProducts.length ? catProducts[0].category : activeCat;
-    updatePageHeading(catLabel);
-    initSubcategoryFilters(catProducts);
-    renderProducts(catProducts);
-  } else {
-    // No category selected — show all with category-level filters
-    initFilters(products, null);
-    renderProducts(products);
-  }
-});
+async function initProductsPage() {
+  allProducts = await loadJSON("data/products.json");
+  if (!allProducts.length) return;
+
+  bindCategoryNavigation();
+  window.addEventListener("popstate", renderCurrentProductsView);
+  renderCurrentProductsView();
+}
+
+function isProductsPage() {
+  const currentPage = window.location.pathname.split("/").pop() || "index.html";
+  return currentPage === "products.html";
+}
 
 function initBreadcrumb() {
   const el = document.getElementById("breadcrumb");
-  if (el) {
-    renderBreadcrumb(el, [
-      { label: "Home", href: "index.html" },
-      { label: "Products" }
-    ]);
-  }
+  if (!el) return;
+
+  const activeCat = getParam("cat") || null;
+  const activeProduct = activeCat
+    ? allProducts.find((product) => product.categorySlug === activeCat)
+    : null;
+
+  renderBreadcrumb(el, [
+    { label: "Home", href: "index.html" },
+    { label: "Products", href: activeProduct ? "products.html" : undefined },
+    ...(activeProduct ? [{ label: activeProduct.category }] : [])
+  ]);
+}
+
+function resetPageHeading() {
+  const title = document.querySelector(".products-header .section-title");
+  const subtitle = document.querySelector(".products-header .section-subtitle");
+  if (title) title.textContent = "Products";
+  if (subtitle) subtitle.textContent = "Browse our full range of engineering hardware.";
 }
 
 /**
@@ -45,6 +55,67 @@ function updatePageHeading(categoryLabel) {
   if (subtitle) subtitle.textContent = "Filter by subcategory below.";
 }
 
+function clearFilters() {
+  const container = document.getElementById("category-filters");
+  if (container) container.innerHTML = "";
+}
+
+function renderCurrentProductsView() {
+  if (!allProducts.length) return;
+
+  clearFilters();
+  initBreadcrumb();
+
+  const activeCat = getParam("cat") || null;
+  setActiveProductTabs(activeCat);
+
+  if (activeCat) {
+    const catProducts = allProducts.filter((product) => product.categorySlug === activeCat);
+    const catLabel = catProducts.length ? catProducts[0].category : activeCat;
+    updatePageHeading(catLabel);
+    initSubcategoryFilters(catProducts);
+    renderProducts(catProducts);
+    return;
+  }
+
+  resetPageHeading();
+  initFilters(allProducts);
+  renderProducts(allProducts);
+}
+
+function bindCategoryNavigation() {
+  document.addEventListener("click", (event) => {
+    if (!isProductsPage()) return;
+
+    const link = event.target.closest("a[href]");
+    if (!link) return;
+
+    const targetURL = new URL(link.href, window.location.href);
+    const targetPage = targetURL.pathname.split("/").pop() || "index.html";
+    if (targetPage !== "products.html") return;
+
+    const currentURL = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+    const nextURL = `${targetURL.pathname}${targetURL.search}${targetURL.hash}`;
+    const nextCat = targetURL.searchParams.get("cat");
+    const isCategoryRoute = Boolean(nextCat) || targetURL.searchParams.toString() === "";
+
+    if (!isCategoryRoute) return;
+
+    event.preventDefault();
+    if (nextURL === currentURL) return;
+
+    history.pushState(null, "", nextURL);
+    renderCurrentProductsView();
+  });
+}
+
+function setActiveProductTabs(activeCat) {
+  document.querySelectorAll(".product-tab").forEach((tab) => {
+    const isActive = Boolean(activeCat) && tab.getAttribute("data-category") === activeCat;
+    tab.classList.toggle("active", isActive);
+  });
+}
+
 /**
  * Build subcategory filter pills for products within a single category.
  */
@@ -52,7 +123,6 @@ function initSubcategoryFilters(catProducts) {
   const container = document.getElementById("category-filters");
   if (!container) return;
 
-  // "All" pill — shows all products in this category
   const allBtn = document.createElement("button");
   allBtn.className = "filter-pill active";
   allBtn.textContent = "All";
@@ -63,17 +133,18 @@ function initSubcategoryFilters(catProducts) {
   });
   container.appendChild(allBtn);
 
-  // Subcategory pills
-  const subs = [...new Set(catProducts.map(p => p.subcategorySlug))];
-  subs.forEach(subSlug => {
-    const label = catProducts.find(p => p.subcategorySlug === subSlug).subcategory;
+  const subs = [...new Set(catProducts.map((product) => product.subcategorySlug))];
+  subs.forEach((subSlug) => {
+    const label = catProducts.find((product) => product.subcategorySlug === subSlug)?.subcategory;
+    if (!label) return;
+
     const btn = document.createElement("button");
     btn.className = "filter-pill";
     btn.textContent = label;
     btn.type = "button";
     btn.addEventListener("click", () => {
       setActiveFilter(container, btn);
-      renderProducts(catProducts.filter(p => p.subcategorySlug === subSlug));
+      renderProducts(catProducts.filter((product) => product.subcategorySlug === subSlug));
     });
     container.appendChild(btn);
   });
@@ -83,11 +154,10 @@ function initSubcategoryFilters(catProducts) {
  * Build category filter pills from product data.
  * Used when no ?cat= is present (all products view).
  */
-function initFilters(products, activeCat) {
+function initFilters(products) {
   const container = document.getElementById("category-filters");
   if (!container) return;
 
-  // "All" pill
   const allBtn = document.createElement("button");
   allBtn.className = "filter-pill active";
   allBtn.textContent = "All";
@@ -98,10 +168,11 @@ function initFilters(products, activeCat) {
   });
   container.appendChild(allBtn);
 
-  // Category pills — link to ?cat= to switch to subcategory view
-  const slugs = [...new Set(products.map(p => p.categorySlug))];
-  slugs.forEach(slug => {
-    const label = products.find(p => p.categorySlug === slug).category;
+  const slugs = [...new Set(products.map((product) => product.categorySlug))];
+  slugs.forEach((slug) => {
+    const label = products.find((product) => product.categorySlug === slug)?.category;
+    if (!label) return;
+
     const btn = document.createElement("a");
     btn.className = "filter-pill";
     btn.textContent = label;
@@ -111,18 +182,8 @@ function initFilters(products, activeCat) {
 }
 
 function setActiveFilter(container, activeBtn) {
-  container.querySelectorAll(".filter-pill").forEach(b => b.classList.remove("active"));
+  container.querySelectorAll(".filter-pill").forEach((button) => button.classList.remove("active"));
   activeBtn.classList.add("active");
-}
-
-function updateURL(cat) {
-  const url = new URL(window.location);
-  if (cat) {
-    url.searchParams.set("cat", cat);
-  } else {
-    url.searchParams.delete("cat");
-  }
-  history.replaceState(null, "", url);
 }
 
 /**
@@ -131,13 +192,18 @@ function updateURL(cat) {
 function renderProducts(products) {
   const grid = document.getElementById("product-grid");
   if (!grid) return;
+
   grid.innerHTML = "";
   if (!products.length) {
     grid.innerHTML = '<div class="col-12 text-center py-4" style="color: var(--text-muted);">No products in this category yet.</div>';
     return;
   }
-  products.forEach(product => {
-    grid.appendChild(createProductCard(product));
+
+  products.forEach((product) => {
+    const card = createProductCard(product);
+    card.classList.add("reveal");
+    grid.appendChild(card);
   });
   window.initCursorStreaks?.(grid);
+  window.initRevealOnScroll?.(grid);
 }

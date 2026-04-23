@@ -14,14 +14,50 @@
 
   <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components/navbar.css">
+  <link rel="stylesheet" href="assets/css/components/footer.css">
+  <link rel="stylesheet" href="assets/css/components/product-card.css">
+  <link rel="stylesheet" href="assets/css/components/buttons.css">
+  <link rel="stylesheet" href="assets/css/components/breadcrumb.css">
+  <link rel="stylesheet" href="assets/css/components/section-header.css">
+  <link rel="stylesheet" href="assets/css/components/filter-pills.css">
+  <link rel="stylesheet" href="assets/css/components/spec-table.css">
+  <link rel="stylesheet" href="assets/css/components/noscript.css">
+  <link rel="stylesheet" href="assets/css/components/streak.css">
   <link rel="stylesheet" href="assets/css/pages/products.css">
 
   <!-- Structured Data: Product (populated by JS) -->
   <script type="application/ld+json" id="product-jsonld"></script>
+  <style>
+    html, body { background-color: #111215; }
+  </style>
+  <script>
+    (() => {
+      const cacheKeys = {
+        nav: "telamorph-shell-nav-v1",
+        footer: "telamorph-shell-footer-v1"
+      };
+
+      window.__hydrateTelamorphShell = (targetId, slot) => {
+        try {
+          const target = document.getElementById(targetId);
+          const html = sessionStorage.getItem(cacheKeys[slot]);
+          if (!target || !html || target.innerHTML.trim()) return;
+          target.innerHTML = html;
+          target.dataset.shellHydrated = "true";
+        } catch {
+          // Ignore storage access failures.
+        }
+      };
+    })();
+  </script>
 </head>
 <body>
 
   <div id="nav-placeholder"></div>
+  <script>
+    window.__hydrateTelamorphShell?.("nav-placeholder", "nav");
+  </script>
 
   <noscript>
     <div class="noscript-banner">This site requires JavaScript to display product details.</div>
@@ -30,23 +66,26 @@
   <main>
     <section class="section">
       <div class="container">
-        <nav id="breadcrumb" aria-label="breadcrumb"></nav>
+        <nav id="breadcrumb" aria-label="breadcrumb" class="reveal"></nav>
 
-        <div id="product-content" class="row g-4">
+        <div id="product-content" class="row g-4 reveal-stagger">
           <!-- Populated by product-detail.js -->
         </div>
 
         <!-- Fallback if product not found -->
-        <div id="product-not-found" class="text-center py-5" style="display: none;">
-          <h2>Product Not Found</h2>
-          <p class="text-secondary">The product you're looking for doesn't exist or has been removed.</p>
-          <a href="products.html" class="btn btn-accent">Browse All Products</a>
+        <div id="product-not-found" class="text-center py-5 reveal-stagger" style="display: none;">
+          <h2 class="reveal">Product Not Found</h2>
+          <p class="text-secondary reveal">The product you're looking for doesn't exist or has been removed.</p>
+          <a href="products.html" class="btn btn-accent reveal">Browse All Products</a>
         </div>
       </div>
     </section>
   </main>
 
   <div id="footer-placeholder"></div>
+  <script>
+    window.__hydrateTelamorphShell?.("footer-placeholder", "footer");
+  </script>
 
   <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
   <script src="assets/js/utils.js" defer></script>

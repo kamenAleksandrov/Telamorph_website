@@ -7,23 +7,62 @@
   <meta name="robots" content="noindex">
   <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components/navbar.css">
+  <link rel="stylesheet" href="assets/css/components/footer.css">
+  <link rel="stylesheet" href="assets/css/components/product-card.css">
+  <link rel="stylesheet" href="assets/css/components/buttons.css">
+  <link rel="stylesheet" href="assets/css/components/breadcrumb.css">
+  <link rel="stylesheet" href="assets/css/components/section-header.css">
+  <link rel="stylesheet" href="assets/css/components/filter-pills.css">
+  <link rel="stylesheet" href="assets/css/components/spec-table.css">
+  <link rel="stylesheet" href="assets/css/components/noscript.css">
+  <link rel="stylesheet" href="assets/css/components/streak.css">
+  <style>
+    html, body { background-color: #111215; }
+  </style>
+  <script>
+    (() => {
+      const cacheKeys = {
+        nav: "telamorph-shell-nav-v1",
+        footer: "telamorph-shell-footer-v1"
+      };
+
+      window.__hydrateTelamorphShell = (targetId, slot) => {
+        try {
+          const target = document.getElementById(targetId);
+          const html = sessionStorage.getItem(cacheKeys[slot]);
+          if (!target || !html || target.innerHTML.trim()) return;
+          target.innerHTML = html;
+          target.dataset.shellHydrated = "true";
+        } catch {
+          // Ignore storage access failures.
+        }
+      };
+    })();
+  </script>
 </head>
 <body>
 
   <div id="nav-placeholder"></div>
+  <script>
+    window.__hydrateTelamorphShell?.("nav-placeholder", "nav");
+  </script>
 
   <main>
     <section class="section">
-      <div class="container text-center py-5">
-        <h1 style="font-size: 4rem; font-weight: 800; color: var(--accent);">404</h1>
-        <h2 class="section-title">Page Not Found</h2>
-        <p class="section-subtitle">The page you're looking for doesn't exist or has been moved.</p>
-        <a href="index.html" class="btn btn-accent">Back to Home</a>
+      <div class="container text-center py-5 reveal-stagger">
+        <h1 class="reveal" style="font-size: 4rem; font-weight: 800; color: var(--accent);">404</h1>
+        <h2 class="section-title reveal">Page Not Found</h2>
+        <p class="section-subtitle reveal">The page you're looking for doesn't exist or has been moved.</p>
+        <a href="index.html" class="btn btn-accent reveal">Back to Home</a>
       </div>
     </section>
   </main>
 
   <div id="footer-placeholder"></div>
+  <script>
+    window.__hydrateTelamorphShell?.("footer-placeholder", "footer");
+  </script>
 
   <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
   <script src="assets/js/utils.js" defer></script>

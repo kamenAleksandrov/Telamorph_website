@@ -14,16 +14,52 @@
 
   <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components/navbar.css">
+  <link rel="stylesheet" href="assets/css/components/footer.css">
+  <link rel="stylesheet" href="assets/css/components/product-card.css">
+  <link rel="stylesheet" href="assets/css/components/buttons.css">
+  <link rel="stylesheet" href="assets/css/components/breadcrumb.css">
+  <link rel="stylesheet" href="assets/css/components/section-header.css">
+  <link rel="stylesheet" href="assets/css/components/filter-pills.css">
+  <link rel="stylesheet" href="assets/css/components/spec-table.css">
+  <link rel="stylesheet" href="assets/css/components/noscript.css">
+  <link rel="stylesheet" href="assets/css/components/streak.css">
+  <style>
+    html, body { background-color: #111215; }
+  </style>
+  <script>
+    (() => {
+      const cacheKeys = {
+        nav: "telamorph-shell-nav-v1",
+        footer: "telamorph-shell-footer-v1"
+      };
+
+      window.__hydrateTelamorphShell = (targetId, slot) => {
+        try {
+          const target = document.getElementById(targetId);
+          const html = sessionStorage.getItem(cacheKeys[slot]);
+          if (!target || !html || target.innerHTML.trim()) return;
+          target.innerHTML = html;
+          target.dataset.shellHydrated = "true";
+        } catch {
+          // Ignore storage access failures.
+        }
+      };
+    })();
+  </script>
 </head>
 <body>
 
   <div id="nav-placeholder"></div>
+  <script>
+    window.__hydrateTelamorphShell?.("nav-placeholder", "nav");
+  </script>
 
   <main>
     <section class="section">
       <div class="container">
-        <div class="row g-5">
-          <div class="col-lg-6">
+        <div class="row g-5 reveal-stagger">
+          <div class="col-lg-6 reveal">
             <h1 class="section-title">Contact Us</h1>
             <p class="section-subtitle">We'd love to hear from you. Reach out for product inquiries, quotes, or custom engineering requests.</p>
 
@@ -79,7 +115,7 @@
             </div>
           </div>
 
-          <div class="col-lg-6">
+          <div class="col-lg-6 reveal">
             <!-- Google Maps embed — no API key needed -->
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2486.0!2d-2.5879!3d51.4545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sBristol%2C+UK!5e0!3m2!1sen!2suk!4v1"
@@ -98,6 +134,9 @@
   </main>
 
   <div id="footer-placeholder"></div>
+  <script>
+    window.__hydrateTelamorphShell?.("footer-placeholder", "footer");
+  </script>
 
   <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
   <script src="assets/js/utils.js" defer></script>

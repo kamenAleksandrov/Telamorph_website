@@ -7,7 +7,15 @@
 }
 
 .products-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
   margin-bottom: 2rem;
+}
+
+.products-grid {
+  margin-top: 1.25rem;
 }
 
 /* Product grid responsive tweaks */

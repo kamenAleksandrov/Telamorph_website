@@ -1,4 +1,15 @@
 /* --- Footer (full sitemap + quick contact) --- */
+#footer-placeholder {
+  min-height: 24rem;
+  background-color: var(--bg-secondary);
+}
+
+@media (min-width: 768px) {
+  #footer-placeholder {
+    min-height: 20rem;
+  }
+}
+
 .footer-telamorph {
   background-color: var(--bg-secondary);
   border-top: 1px solid var(--border-color);

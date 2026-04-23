@@ -75,8 +75,8 @@ function renderProduct(product) {
 
   container.innerHTML = `
     <!-- Image column -->
-    <div class="col-lg-6">
-      <img class="product-gallery-main" 
+    <div class="col-lg-6 reveal">
+      <img class="product-gallery-main"
            src="assets/images/${product.images[0] || product.thumbnail}" 
            alt="${escapeHTML(product.name)}"
            width="600" height="450">
@@ -94,7 +94,7 @@ function renderProduct(product) {
     </div>
 
     <!-- Detail column -->
-    <div class="col-lg-6">
+    <div class="col-lg-6 reveal">
       <span class="card-category">${escapeHTML(product.category)}</span>
       <h1 class="section-title">${escapeHTML(product.name)}</h1>
       <p style="color: var(--text-secondary); margin-bottom: 2rem;">${product.description}</p>
@@ -109,6 +109,7 @@ function renderProduct(product) {
     </div>
   `;
   window.initCursorStreaks?.(container);
+  window.initRevealOnScroll?.(container);
 }
 
 /**

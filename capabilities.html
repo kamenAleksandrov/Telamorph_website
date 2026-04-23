@@ -14,56 +14,92 @@
 
   <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components/navbar.css">
+  <link rel="stylesheet" href="assets/css/components/footer.css">
+  <link rel="stylesheet" href="assets/css/components/product-card.css">
+  <link rel="stylesheet" href="assets/css/components/buttons.css">
+  <link rel="stylesheet" href="assets/css/components/breadcrumb.css">
+  <link rel="stylesheet" href="assets/css/components/section-header.css">
+  <link rel="stylesheet" href="assets/css/components/filter-pills.css">
+  <link rel="stylesheet" href="assets/css/components/spec-table.css">
+  <link rel="stylesheet" href="assets/css/components/noscript.css">
+  <link rel="stylesheet" href="assets/css/components/streak.css">
+  <style>
+    html, body { background-color: #111215; }
+  </style>
+  <script>
+    (() => {
+      const cacheKeys = {
+        nav: "telamorph-shell-nav-v1",
+        footer: "telamorph-shell-footer-v1"
+      };
+
+      window.__hydrateTelamorphShell = (targetId, slot) => {
+        try {
+          const target = document.getElementById(targetId);
+          const html = sessionStorage.getItem(cacheKeys[slot]);
+          if (!target || !html || target.innerHTML.trim()) return;
+          target.innerHTML = html;
+          target.dataset.shellHydrated = "true";
+        } catch {
+          // Ignore storage access failures.
+        }
+      };
+    })();
+  </script>
 </head>
 <body>
 
   <div id="nav-placeholder"></div>
+  <script>
+    window.__hydrateTelamorphShell?.("nav-placeholder", "nav");
+  </script>
 
   <main>
     <section class="section">
       <div class="container">
-        <h1 class="section-title">Our Capabilities</h1>
-        <p class="section-subtitle">Everything under one roof — from scanning to shipping.</p>
+        <h1 class="section-title reveal">Our Capabilities</h1>
+        <p class="section-subtitle reveal">Everything under one roof — from scanning to shipping.</p>
 
         <!-- Machine Park Grid -->
-        <div class="row g-4">
+        <div class="row g-4 reveal-stagger">
 
-          <div class="col-md-6 col-lg-4" id="3d-scanning">
+          <div class="col-md-6 col-lg-4 reveal" id="3d-scanning">
             <div class="value-card">
               <h3>3D Scanning</h3>
               <p>High-precision structured-light and laser scanning for reverse engineering, quality inspection, and digital twin creation.</p>
             </div>
           </div>
 
-          <div class="col-md-6 col-lg-4" id="reverse-engineering">
+          <div class="col-md-6 col-lg-4 reveal" id="reverse-engineering">
             <div class="value-card">
               <h3>Reverse Engineering</h3>
               <p>From scan data to production-ready CAD. We reconstruct, optimise, and prepare parts for manufacture — no original drawings needed.</p>
             </div>
           </div>
 
-          <div class="col-md-6 col-lg-4">
+          <div class="col-md-6 col-lg-4 reveal">
             <div class="value-card">
               <h3>CNC Machining</h3>
               <p>3-axis and 5-axis CNC milling and turning in aluminium, steel, titanium, and engineering plastics. Tolerances to ±0.02 mm.</p>
             </div>
           </div>
 
-          <div class="col-md-6 col-lg-4">
+          <div class="col-md-6 col-lg-4 reveal">
             <div class="value-card">
               <h3>Carbon Fiber Layup</h3>
               <p>In-house prepreg layup, vacuum bagging, and autoclave curing for aerospace and automotive-grade composite parts.</p>
             </div>
           </div>
 
-          <div class="col-md-6 col-lg-4">
+          <div class="col-md-6 col-lg-4 reveal">
             <div class="value-card">
               <h3>3D Printing / Additive</h3>
               <p>FDM, SLA, and SLS printing for rapid prototyping, jigs, fixtures, and low-volume production tooling.</p>
             </div>
           </div>
 
-          <div class="col-md-6 col-lg-4">
+          <div class="col-md-6 col-lg-4 reveal">
             <div class="value-card">
               <h3>Assembly &amp; Testing</h3>
               <p>Controlled assembly environment with in-house metrology, functional testing, and quality documentation.</p>
@@ -76,15 +112,18 @@
 
     <!-- CTA -->
     <section class="section" style="background-color: var(--bg-secondary);">
-      <div class="container text-center">
-        <h2 class="section-title">Have a Project in Mind?</h2>
-        <p class="section-subtitle">Tell us what you need — from a napkin sketch to a full production run.</p>
-        <a href="contact.html" class="btn btn-accent btn-lg">Get in Touch</a>
+      <div class="container text-center reveal-stagger">
+        <h2 class="section-title reveal">Have a Project in Mind?</h2>
+        <p class="section-subtitle reveal">Tell us what you need — from a napkin sketch to a full production run.</p>
+        <a href="contact.html" class="btn btn-accent btn-lg reveal">Get in Touch</a>
       </div>
     </section>
   </main>
 
   <div id="footer-placeholder"></div>
+  <script>
+    window.__hydrateTelamorphShell?.("footer-placeholder", "footer");
+  </script>
 
   <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
   <script src="assets/js/utils.js" defer></script>

@@ -7,7 +7,39 @@ document.addEventListener("DOMContentLoaded", async () => {
   await Promise.all([loadNav(), loadFooter()]);
   highlightActiveTab();
   initCursorStreaks();
+  initRevealOnScroll();
+  warmProductDataCache();
 });
+
+const shellCacheKeys = {
+  nav: "telamorph-shell-nav-v1",
+  footer: "telamorph-shell-footer-v1"
+};
+
+function readShellCache(cacheKey) {
+  try {
+    return sessionStorage.getItem(cacheKey) || "";
+  } catch {
+    return "";
+  }
+}
+
+function writeShellCache(cacheKey, html) {
+  try {
+    sessionStorage.setItem(cacheKey, html);
+  } catch {
+    // Ignore storage failures in private or restricted browsing modes.
+  }
+}
+
+function hydratePartialFromCache(target, cacheKey) {
+  const cachedHTML = readShellCache(cacheKey);
+  if (cachedHTML && !target.innerHTML.trim()) {
+    target.innerHTML = cachedHTML;
+    target.dataset.shellHydrated = "true";
+  }
+  return cachedHTML;
+}
 
 /**
  * Strip dev-server injected scripts (e.g. Live Server hot-reload)
@@ -25,10 +57,17 @@ function sanitizePartial(html) {
 async function loadNav() {
   const target = document.getElementById("nav-placeholder");
   if (!target) return;
+  const cachedHTML = hydratePartialFromCache(target, shellCacheKeys.nav);
   try {
     const res = await fetch("components/nav.html");
     if (!res.ok) throw new Error(`Nav load failed: ${res.status}`);
-    target.innerHTML = sanitizePartial(await res.text());
+    const html = sanitizePartial(await res.text()).trim();
+    if (!html) return;
+    if (html !== cachedHTML) {
+      target.innerHTML = html;
+    }
+    target.dataset.shellHydrated = "true";
+    writeShellCache(shellCacheKeys.nav, html);
   } catch (err) {
     console.error(err);
   }
@@ -40,13 +79,25 @@ async function loadNav() {
 async function loadFooter() {
   const target = document.getElementById("footer-placeholder");
   if (!target) return;
+  const cachedHTML = hydratePartialFromCache(target, shellCacheKeys.footer);
   try {
     const res = await fetch("components/footer.html");
     if (!res.ok) throw new Error(`Footer load failed: ${res.status}`);
-    target.innerHTML = sanitizePartial(await res.text());
+    const html = sanitizePartial(await res.text()).trim();
+    if (!html) return;
+    if (html !== cachedHTML) {
+      target.innerHTML = html;
+    }
+    target.dataset.shellHydrated = "true";
+    writeShellCache(shellCacheKeys.footer, html);
   } catch (err) {
     console.error(err);
   }
+}
+
+function warmProductDataCache() {
+  if (typeof prefetchJSON !== "function") return;
+  prefetchJSON("data/products.json");
 }
 
 const cursorStreakSelector = [
@@ -92,6 +143,56 @@ function initCursorStreaks(root = document) {
 }
 
 window.initCursorStreaks = initCursorStreaks;
+
+/**
+ * Fade + float-up each .reveal element when it scrolls into view.
+ * Elements inside .reveal-stagger groups stagger by sibling index.
+ * Idempotent and accepts a root so dynamically rendered content can opt in.
+ */
+let revealObserver = null;
+
+function initRevealOnScroll(root = document) {
+  const matches = (el, sel) => typeof el?.matches === "function" && el.matches(sel);
+
+  if (!("IntersectionObserver" in window)) {
+    if (matches(root, ".reveal")) root.classList.add("is-visible");
+    root.querySelectorAll?.(".reveal").forEach((el) => el.classList.add("is-visible"));
+    return;
+  }
+
+  if (!revealObserver) {
+    revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+    );
+  }
+
+  const groups = [];
+  if (matches(root, ".reveal-stagger")) groups.push(root);
+  groups.push(...(root.querySelectorAll?.(".reveal-stagger") || []));
+  groups.forEach((group) => {
+    group.querySelectorAll(":scope > .reveal").forEach((el, i) => {
+      el.style.transitionDelay = `${i * 90}ms`;
+    });
+  });
+
+  const items = [];
+  if (matches(root, ".reveal")) items.push(root);
+  items.push(...(root.querySelectorAll?.(".reveal") || []));
+  items.forEach((el) => {
+    if (el.dataset.revealReady) return;
+    el.dataset.revealReady = "true";
+    revealObserver.observe(el);
+  });
+}
+
+window.initRevealOnScroll = initRevealOnScroll;
 
 /**
  * Highlight the active product-tab if on products page with ?cat= param.

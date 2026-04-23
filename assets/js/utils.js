@@ -6,15 +6,52 @@
 /**
  * Fetch and parse a JSON file. Returns parsed data or empty array on error.
  */
+const jsonMemoryCache = new Map();
+
+function readJSONCache(path) {
+  if (jsonMemoryCache.has(path)) {
+    return jsonMemoryCache.get(path);
+  }
+
+  try {
+    const cached = sessionStorage.getItem(`telamorph-json:${path}`);
+    if (!cached) return null;
+    const parsed = JSON.parse(cached);
+    jsonMemoryCache.set(path, parsed);
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+function writeJSONCache(path, data) {
+  jsonMemoryCache.set(path, data);
+
+  try {
+    sessionStorage.setItem(`telamorph-json:${path}`, JSON.stringify(data));
+  } catch {
+    // Ignore storage quota or restricted mode failures.
+  }
+}
+
 async function loadJSON(path) {
+  const cached = readJSONCache(path);
+  if (cached) return cached;
+
   try {
     const res = await fetch(path);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return await res.json();
+    const data = await res.json();
+    writeJSONCache(path, data);
+    return data;
   } catch (err) {
     console.error(`Failed to load ${path}:`, err);
     return [];
   }
+}
+
+function prefetchJSON(path) {
+  return loadJSON(path).catch(() => []);
 }
 
 /**
