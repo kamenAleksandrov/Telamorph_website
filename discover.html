@@ -30,7 +30,7 @@
   <script>
     (() => {
       const cacheKeys = {
-        nav: "telamorph-shell-nav-v1",
+        nav: "telamorph-shell-nav-v2",
         footer: "telamorph-shell-footer-v1"
       };
 
@@ -79,29 +79,10 @@
         <h2 class="section-title reveal">Gallery</h2>
         <p class="section-subtitle reveal">A look at our work, workspace, and finished products.</p>
 
-        <div class="row g-3 reveal-stagger">
-          <!-- Placeholder gallery items -->
-          <div class="col-6 col-md-4 col-lg-3 reveal">
-            <div style="background: var(--bg-elevated); border-radius: var(--radius-md); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.85rem;">
-              Photo 1
-            </div>
-          </div>
-          <div class="col-6 col-md-4 col-lg-3 reveal">
-            <div style="background: var(--bg-elevated); border-radius: var(--radius-md); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.85rem;">
-              Photo 2
-            </div>
-          </div>
-          <div class="col-6 col-md-4 col-lg-3 reveal">
-            <div style="background: var(--bg-elevated); border-radius: var(--radius-md); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.85rem;">
-              Photo 3
-            </div>
-          </div>
-          <div class="col-6 col-md-4 col-lg-3 reveal">
-            <div style="background: var(--bg-elevated); border-radius: var(--radius-md); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.85rem;">
-              Photo 4
-            </div>
-          </div>
-        </div>
+        <div class="row g-3 reveal-stagger gallery-grid"
+             id="discover-gallery"
+             data-gallery-src="data/gallery.json"
+             data-gallery-folder="assets/images/gallery"></div>
       </div>
     </section>
 
@@ -127,6 +108,7 @@
 
   <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
   <script src="assets/js/utils.js" defer></script>
-  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/gallery.js?v=20260427" defer></script>
+  <script src="assets/js/main.js?v=20260427" defer></script>
 </body>
 </html>

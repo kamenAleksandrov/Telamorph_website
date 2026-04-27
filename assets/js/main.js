@@ -12,8 +12,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 const shellCacheKeys = {
-  nav: "telamorph-shell-nav-v1",
+  nav: "telamorph-shell-nav-v2",
   footer: "telamorph-shell-footer-v1"
+};
+
+const shellPartialUrls = {
+  nav: "components/nav.html?v=20260427",
+  footer: "components/footer.html"
 };
 
 function readShellCache(cacheKey) {
@@ -59,7 +64,7 @@ async function loadNav() {
   if (!target) return;
   const cachedHTML = hydratePartialFromCache(target, shellCacheKeys.nav);
   try {
-    const res = await fetch("components/nav.html");
+    const res = await fetch(shellPartialUrls.nav);
     if (!res.ok) throw new Error(`Nav load failed: ${res.status}`);
     const html = sanitizePartial(await res.text()).trim();
     if (!html) return;
@@ -81,7 +86,7 @@ async function loadFooter() {
   if (!target) return;
   const cachedHTML = hydratePartialFromCache(target, shellCacheKeys.footer);
   try {
-    const res = await fetch("components/footer.html");
+    const res = await fetch(shellPartialUrls.footer);
     if (!res.ok) throw new Error(`Footer load failed: ${res.status}`);
     const html = sanitizePartial(await res.text()).trim();
     if (!html) return;

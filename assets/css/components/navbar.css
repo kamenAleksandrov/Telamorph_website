@@ -160,31 +160,89 @@
 }
 
 .menu-heading {
-  font-size: 1.08rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.74rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-secondary);
-  margin: 1.5rem 0 0.6rem;
-  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+  margin: 1.7rem 0 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.menu-heading:first-child {
+  margin-top: 0;
+}
+
+.menu-heading::after {
+  content: "";
+  flex: 1;
+  min-width: 2rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border-light), transparent);
 }
 
 .menu-list {
   list-style: none;
   padding: 0;
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.65rem;
 }
 
 .menu-list li a {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
   position: relative;
-  padding: 0.5rem 0;
+  padding: 0.62rem 0.75rem;
   color: var(--text-primary);
   text-decoration: none;
-  font-size: 1.26rem;
-  transition: color var(--transition), text-shadow var(--transition);
+  font-size: 1.1rem;
+  line-height: 1.25;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition), background-color var(--transition), text-shadow var(--transition);
+}
+
+.menu-list li a::before {
+  content: "";
+  width: 0.42rem;
+  height: 0.42rem;
+  border-top: 1px solid currentColor;
+  border-right: 1px solid currentColor;
+  opacity: 0;
+  transform: translateX(-0.35rem) rotate(45deg);
+  transition: opacity var(--transition), transform var(--transition);
+  order: 2;
 }
 
 .menu-list li a:hover,
 .menu-list li a:focus-visible {
   color: var(--accent);
+  background-color: var(--accent-subtle);
+}
+
+.menu-list li a:hover::before,
+.menu-list li a:focus-visible::before {
+  opacity: 0.85;
+  transform: rotate(45deg);
+}
+
+@media (max-width: 599.98px) {
+  .menu-heading {
+    margin-top: 1.45rem;
+  }
+
+  .menu-list li a {
+    min-height: 46px;
+    padding: 0.68rem 0.8rem;
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.035);
+  }
+
+  .menu-list li + li {
+    margin-top: 0.4rem;
+  }
 }
