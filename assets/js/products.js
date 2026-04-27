@@ -5,6 +5,8 @@
    ========================================================================== */
 
 let allProducts = [];
+let productFilters = getFiltersFromURL();
+let filterInputTimer = null;
 
 initProductsPage();
 
@@ -42,7 +44,7 @@ function resetPageHeading() {
   const title = document.querySelector(".products-header .section-title");
   const subtitle = document.querySelector(".products-header .section-subtitle");
   if (title) title.textContent = "Products";
-  if (subtitle) subtitle.textContent = "Browse our full range of engineering hardware.";
+  if (subtitle) subtitle.textContent = "Browse and refine our full range of engineering hardware.";
 }
 
 /**
@@ -52,35 +54,83 @@ function updatePageHeading(categoryLabel) {
   const title = document.querySelector(".products-header .section-title");
   const subtitle = document.querySelector(".products-header .section-subtitle");
   if (title) title.textContent = categoryLabel;
-  if (subtitle) subtitle.textContent = "Filter by subcategory below.";
-}
-
-function clearFilters() {
-  const container = document.getElementById("category-filters");
-  if (container) container.innerHTML = "";
+  if (subtitle) subtitle.textContent = "Refine by type, subcategory, price, or product name.";
 }
 
 function renderCurrentProductsView() {
   if (!allProducts.length) return;
 
-  clearFilters();
+  productFilters = getFiltersFromURL();
   initBreadcrumb();
 
-  const activeCat = getParam("cat") || null;
+  const activeCat = productFilters.category || null;
   setActiveProductTabs(activeCat);
 
   if (activeCat) {
-    const catProducts = allProducts.filter((product) => product.categorySlug === activeCat);
-    const catLabel = catProducts.length ? catProducts[0].category : activeCat;
+    const activeProduct = allProducts.find((product) => product.categorySlug === activeCat);
+    const catLabel = activeProduct?.category || activeCat;
     updatePageHeading(catLabel);
-    initSubcategoryFilters(catProducts);
-    renderProducts(catProducts);
+  } else {
+    resetPageHeading();
+  }
+
+  initFilters(allProducts);
+  applyAndRenderFilters();
+}
+
+function getFiltersFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    search: params.get("q") || "",
+    type: params.get("type") || "",
+    category: params.get("cat") || "",
+    subcategory: params.get("sub") || "",
+    minPrice: params.get("min") || "",
+    maxPrice: params.get("max") || ""
+  };
+}
+
+function updateFilters(nextFilters, { replace = true } = {}) {
+  productFilters = {
+    ...productFilters,
+    ...nextFilters
+  };
+
+  syncURLFromFilters(replace);
+  syncFilterControls();
+  initBreadcrumb();
+  setActiveProductTabs(productFilters.category || null);
+
+  if (productFilters.category) {
+    const activeProduct = allProducts.find((product) => product.categorySlug === productFilters.category);
+    updatePageHeading(activeProduct?.category || productFilters.category);
+  } else {
+    resetPageHeading();
+  }
+
+  applyAndRenderFilters();
+}
+
+function syncURLFromFilters(replace = true) {
+  const params = new URLSearchParams();
+  if (productFilters.search) params.set("q", productFilters.search);
+  if (productFilters.type) params.set("type", productFilters.type);
+  if (productFilters.category) params.set("cat", productFilters.category);
+  if (productFilters.subcategory) params.set("sub", productFilters.subcategory);
+  if (productFilters.minPrice) params.set("min", productFilters.minPrice);
+  if (productFilters.maxPrice) params.set("max", productFilters.maxPrice);
+
+  const query = params.toString();
+  const nextURL = `${window.location.pathname}${query ? `?${query}` : ""}${window.location.hash}`;
+  const currentURL = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+  if (nextURL === currentURL) return;
+
+  if (replace) {
+    history.replaceState(null, "", nextURL);
     return;
   }
 
-  resetPageHeading();
-  initFilters(allProducts);
-  renderProducts(allProducts);
+  history.pushState(null, "", nextURL);
 }
 
 function bindCategoryNavigation() {
@@ -117,73 +167,244 @@ function setActiveProductTabs(activeCat) {
 }
 
 /**
- * Build subcategory filter pills for products within a single category.
- */
-function initSubcategoryFilters(catProducts) {
-  const container = document.getElementById("category-filters");
-  if (!container) return;
-
-  const allBtn = document.createElement("button");
-  allBtn.className = "filter-pill active";
-  allBtn.textContent = "All";
-  allBtn.type = "button";
-  allBtn.addEventListener("click", () => {
-    setActiveFilter(container, allBtn);
-    renderProducts(catProducts);
-  });
-  container.appendChild(allBtn);
-
-  const subs = [...new Set(catProducts.map((product) => product.subcategorySlug))];
-  subs.forEach((subSlug) => {
-    const label = catProducts.find((product) => product.subcategorySlug === subSlug)?.subcategory;
-    if (!label) return;
-
-    const btn = document.createElement("button");
-    btn.className = "filter-pill";
-    btn.textContent = label;
-    btn.type = "button";
-    btn.addEventListener("click", () => {
-      setActiveFilter(container, btn);
-      renderProducts(catProducts.filter((product) => product.subcategorySlug === subSlug));
-    });
-    container.appendChild(btn);
-  });
-}
-
-/**
- * Build category filter pills from product data.
- * Used when no ?cat= is present (all products view).
+ * Build a compact filter menu from product data.
  */
 function initFilters(products) {
   const container = document.getElementById("category-filters");
   if (!container) return;
 
-  const allBtn = document.createElement("button");
-  allBtn.className = "filter-pill active";
-  allBtn.textContent = "All";
-  allBtn.type = "button";
-  allBtn.addEventListener("click", () => {
-    setActiveFilter(container, allBtn);
-    renderProducts(products);
-  });
-  container.appendChild(allBtn);
+  container.innerHTML = `
+    <details class="products-filter-menu" open>
+      <summary class="products-filter-summary">
+        <span>Filters</span>
+        <span id="filter-count" class="products-filter-count"></span>
+      </summary>
+      <form class="products-filter-form" role="search">
+        <label class="products-filter-field products-filter-field-wide" for="product-search">
+          <span>Search</span>
+          <input id="product-search" type="search" autocomplete="off" placeholder="Search by name">
+        </label>
 
-  const slugs = [...new Set(products.map((product) => product.categorySlug))];
-  slugs.forEach((slug) => {
-    const label = products.find((product) => product.categorySlug === slug)?.category;
-    if (!label) return;
+        <label class="products-filter-field" for="product-type-filter">
+          <span>Type</span>
+          <select id="product-type-filter"></select>
+        </label>
 
-    const btn = document.createElement("a");
-    btn.className = "filter-pill";
-    btn.textContent = label;
-    btn.href = `products.html?cat=${encodeURIComponent(slug)}`;
-    container.appendChild(btn);
+        <label class="products-filter-field" for="product-category-filter">
+          <span>Category</span>
+          <select id="product-category-filter"></select>
+        </label>
+
+        <label class="products-filter-field" for="product-subcategory-filter">
+          <span>Subcategory</span>
+          <select id="product-subcategory-filter"></select>
+        </label>
+
+        <label class="products-filter-field products-filter-price" for="product-min-price">
+          <span>Min price</span>
+          <input id="product-min-price" type="number" min="0" inputmode="decimal" placeholder="0">
+        </label>
+
+        <label class="products-filter-field products-filter-price" for="product-max-price">
+          <span>Max price</span>
+          <input id="product-max-price" type="number" min="0" inputmode="decimal" placeholder="Any">
+        </label>
+
+        <button class="products-filter-reset" type="reset">Reset</button>
+      </form>
+    </details>
+  `;
+
+  setFilterMenuState(container.querySelector(".products-filter-menu"));
+
+  const form = container.querySelector(".products-filter-form");
+  form.addEventListener("submit", (event) => event.preventDefault());
+  form.addEventListener("reset", (event) => {
+    event.preventDefault();
+    window.clearTimeout(filterInputTimer);
+    updateFilters({
+      search: "",
+      type: "",
+      category: "",
+      subcategory: "",
+      minPrice: "",
+      maxPrice: ""
+    });
   });
+
+  bindFilterInput(container, "product-search", "input", (value) => {
+    window.clearTimeout(filterInputTimer);
+    filterInputTimer = window.setTimeout(() => updateFilters({ search: value.trim() }), 140);
+  });
+
+  bindFilterInput(container, "product-type-filter", "change", (value) => {
+    updateFilters({ type: value, subcategory: "" });
+  });
+
+  bindFilterInput(container, "product-category-filter", "change", (value) => {
+    updateFilters({ category: value, subcategory: "" }, { replace: false });
+  });
+
+  bindFilterInput(container, "product-subcategory-filter", "change", (value) => {
+    updateFilters({ subcategory: value });
+  });
+
+  bindFilterInput(container, "product-min-price", "input", (value) => {
+    window.clearTimeout(filterInputTimer);
+    filterInputTimer = window.setTimeout(() => updateFilters({ minPrice: value }), 180);
+  });
+
+  bindFilterInput(container, "product-max-price", "input", (value) => {
+    window.clearTimeout(filterInputTimer);
+    filterInputTimer = window.setTimeout(() => updateFilters({ maxPrice: value }), 180);
+  });
+
+  syncFilterControls();
+  window.initRevealOnScroll?.(container);
 }
 
-function setActiveFilter(container, activeBtn) {
-  container.querySelectorAll(".filter-pill").forEach((button) => button.classList.remove("active"));
-  activeBtn.classList.add("active");
+function setFilterMenuState(menu) {
+  if (!menu) return;
+  const isCompact = window.matchMedia("(max-width: 767.98px)").matches;
+  menu.open = !isCompact;
+}
+
+function bindFilterInput(container, id, eventName, handler) {
+  const input = container.querySelector(`#${id}`);
+  if (!input) return;
+  input.addEventListener(eventName, () => handler(input.value));
+}
+
+function syncFilterControls() {
+  const container = document.getElementById("category-filters");
+  if (!container) return;
+
+  setInputValue(container, "product-search", productFilters.search);
+  setInputValue(container, "product-min-price", productFilters.minPrice);
+  setInputValue(container, "product-max-price", productFilters.maxPrice);
+
+  populateSelect(
+    container.querySelector("#product-type-filter"),
+    uniqueOptions(allProducts, getProductTypeSlug, getProductTypeLabel),
+    "All types",
+    productFilters.type
+  );
+
+  populateSelect(
+    container.querySelector("#product-category-filter"),
+    uniqueOptions(allProducts, (product) => product.categorySlug, (product) => product.category),
+    "All categories",
+    productFilters.category
+  );
+
+  const subcategoryProducts = productFilters.category
+    ? allProducts.filter((product) => product.categorySlug === productFilters.category)
+    : allProducts;
+
+  populateSelect(
+    container.querySelector("#product-subcategory-filter"),
+    uniqueOptions(subcategoryProducts, (product) => product.subcategorySlug, (product) => product.subcategory),
+    "All subcategories",
+    productFilters.subcategory
+  );
+}
+
+function setInputValue(container, id, value) {
+  const input = container.querySelector(`#${id}`);
+  if (input && input.value !== value) input.value = value;
+}
+
+function populateSelect(select, options, allLabel, activeValue) {
+  if (!select) return;
+
+  const currentOptions = JSON.stringify([...select.options].map((option) => [option.value, option.textContent]));
+  const nextOptions = JSON.stringify([["", allLabel], ...options.map((option) => [option.value, option.label])]);
+
+  if (currentOptions !== nextOptions) {
+    select.innerHTML = "";
+    select.appendChild(new Option(allLabel, ""));
+    options.forEach((option) => select.appendChild(new Option(option.label, option.value)));
+  }
+
+  select.value = options.some((option) => option.value === activeValue) ? activeValue : "";
+  if (activeValue && select.value === "") {
+    productFilters.subcategory = select.id === "product-subcategory-filter" ? "" : productFilters.subcategory;
+  }
+}
+
+function uniqueOptions(products, valueGetter, labelGetter) {
+  const seen = new Map();
+
+  products.forEach((product) => {
+    const value = valueGetter(product);
+    const label = labelGetter(product);
+    if (!value || !label || seen.has(value)) return;
+    seen.set(value, label);
+  });
+
+  return [...seen.entries()]
+    .map(([value, label]) => ({ value, label }))
+    .sort((a, b) => a.label.localeCompare(b.label));
+}
+
+function getProductTypeLabel(product) {
+  if (product.type) return product.type;
+  if (product.productType) return product.productType;
+  if (product.kind) return product.kind;
+
+  const text = `${product.categorySlug || ""} ${product.id || ""} ${product.name || ""}`.toLowerCase();
+  return text.includes("service") || text.includes("development-production") ? "Service" : "Product";
+}
+
+function getProductTypeSlug(product) {
+  return slugifyFilterValue(getProductTypeLabel(product));
+}
+
+function slugifyFilterValue(value) {
+  return String(value || "")
+    .trim()
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
+function getProductPrice(product) {
+  const rawPrice = product.price ?? product.priceFrom ?? product.startingPrice ?? product.basePrice ?? product.priceMin;
+  if (rawPrice === undefined || rawPrice === null || rawPrice === "") return null;
+  if (typeof rawPrice === "number") return Number.isFinite(rawPrice) ? rawPrice : null;
+
+  const normalized = String(rawPrice).replace(/[^0-9.,-]/g, "").replace(",", ".");
+  const parsed = Number.parseFloat(normalized);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function applyAndRenderFilters() {
+  const search = productFilters.search.trim().toLowerCase();
+  const minPrice = Number.parseFloat(productFilters.minPrice);
+  const maxPrice = Number.parseFloat(productFilters.maxPrice);
+
+  const filtered = allProducts.filter((product) => {
+    const productPrice = getProductPrice(product);
+
+    if (search && !product.name.toLowerCase().includes(search)) return false;
+    if (productFilters.type && getProductTypeSlug(product) !== productFilters.type) return false;
+    if (productFilters.category && product.categorySlug !== productFilters.category) return false;
+    if (productFilters.subcategory && product.subcategorySlug !== productFilters.subcategory) return false;
+    if (Number.isFinite(minPrice) && (productPrice === null || productPrice < minPrice)) return false;
+    if (Number.isFinite(maxPrice) && (productPrice === null || productPrice > maxPrice)) return false;
+
+    return true;
+  });
+
+  renderProducts(filtered);
+  updateFilterCount(filtered.length);
+}
+
+function updateFilterCount(count) {
+  const countEl = document.getElementById("filter-count");
+  if (!countEl) return;
+  countEl.textContent = `${count} ${count === 1 ? "item" : "items"}`;
 }
 
 /**
@@ -195,7 +416,7 @@ function renderProducts(products) {
 
   grid.innerHTML = "";
   if (!products.length) {
-    grid.innerHTML = '<div class="col-12 text-center py-4" style="color: var(--text-muted);">No products in this category yet.</div>';
+    grid.innerHTML = '<div class="col-12 text-center py-4" style="color: var(--text-muted);">No products match these filters.</div>';
     return;
   }
 
