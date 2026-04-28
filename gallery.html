@@ -3,10 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Page Not Found — Telamorph</title>
-  <meta name="robots" content="noindex">
+  <title>Gallery - Telamorph</title>
+  <meta name="description" content="A look at Telamorph work, workspace, and finished products.">
+  <link rel="canonical" href="https://telamorph.com/gallery.html">
   <link rel="icon" type="image/png" href="assets/images/logo_cropped.png">
   <link rel="apple-touch-icon" href="assets/images/logo_cropped.png">
+
+  <meta property="og:title" content="Gallery - Telamorph">
+  <meta property="og:description" content="A look at Telamorph work, workspace, and finished products.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://telamorph.com/gallery.html">
+
   <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/components/navbar.css">
@@ -51,12 +58,15 @@
   </script>
 
   <main>
-    <section class="section">
-      <div class="container text-center py-5 reveal-stagger">
-        <h1 class="reveal" style="font-size: 4rem; font-weight: 800; color: var(--accent);">404</h1>
-        <h2 class="section-title reveal">Page Not Found</h2>
-        <p class="section-subtitle reveal">The page you're looking for doesn't exist or has been moved.</p>
-        <a href="index.html" class="btn btn-accent reveal">Back to Home</a>
+    <section class="section" id="gallery">
+      <div class="container">
+        <h1 class="section-title reveal">Gallery</h1>
+        <p class="section-subtitle reveal">A look at our work, workspace, and finished products.</p>
+
+        <div class="row g-3 reveal-stagger gallery-grid"
+             id="discover-gallery"
+             data-gallery-src="data/gallery.json"
+             data-gallery-folder="assets/images/gallery"></div>
       </div>
     </section>
   </main>
@@ -68,6 +78,7 @@
 
   <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
   <script src="assets/js/utils.js" defer></script>
+  <script src="assets/js/gallery.js?v=20260427" defer></script>
   <script src="assets/js/main.js?v=20260427" defer></script>
 </body>
 </html>

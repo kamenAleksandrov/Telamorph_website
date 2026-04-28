@@ -51,7 +51,17 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://telamorph.com/discover.html</loc>
+    <loc>https://telamorph.com/news.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://telamorph.com/gallery.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://telamorph.com/community.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>

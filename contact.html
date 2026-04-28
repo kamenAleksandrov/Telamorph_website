@@ -6,6 +6,8 @@
   <title>Contact — Telamorph Engineering</title>
   <meta name="description" content="Get in touch with Telamorph for product inquiries, quotes, and custom engineering solutions.">
   <link rel="canonical" href="https://telamorph.com/contact.html">
+  <link rel="icon" type="image/png" href="assets/images/logo_cropped.png">
+  <link rel="apple-touch-icon" href="assets/images/logo_cropped.png">
 
   <meta property="og:title" content="Contact — Telamorph">
   <meta property="og:description" content="Product inquiries, quotes, and engineering support.">
@@ -26,6 +28,60 @@
   <link rel="stylesheet" href="assets/css/components/streak.css">
   <style>
     html, body { background-color: #111215; }
+
+    .contact-form-note {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin: 1rem 0 0;
+    }
+
+    .contact-feedback {
+      background: var(--accent-subtle);
+      border: 1px solid rgba(91, 168, 245, 0.35);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+    }
+
+    .contact-method-grid {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .contact-method-card {
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      display: flex;
+      gap: 1rem;
+      justify-content: space-between;
+      padding: 1rem;
+    }
+
+    .contact-method-card h3 {
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 0.2rem;
+    }
+
+    .contact-method-card p {
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .copy-email {
+      flex: 0 0 auto;
+      font-size: 0.9rem;
+      padding: 0.55rem 0.95rem;
+    }
+
+    @media (max-width: 575.98px) {
+      .contact-method-card {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
   </style>
   <script>
     (() => {
@@ -61,42 +117,66 @@
         <div class="row g-5 reveal-stagger">
           <div class="col-lg-6 reveal">
             <h1 class="section-title">Contact Us</h1>
-            <p class="section-subtitle">We'd love to hear from you. Reach out for product inquiries, quotes, or custom engineering requests.</p>
+            <p class="section-subtitle">Tell us what you need and we will prepare an email draft in your mail app for product inquiries, quotes, or custom engineering requests.</p>
 
-            <!-- Contact Form — action TBD, needs backend -->
             <form id="contact-form" class="mb-4">
-
+              <div class="mb-3">
+                <label for="inquiry-type" class="form-label" style="color: var(--text-secondary); font-size: 0.9rem;">Inquiry Type</label>
+                <select class="form-select form-control-dark" id="inquiry-type" name="inquiry-type" required>
+                  <option value="general" data-recipient="info@telamorph.com" data-subject="General Inquiry">General Inquiry</option>
+                  <option value="quote" data-recipient="sales@telamorph.com" data-subject="Request a Quote">Request a Quote</option>
+                  <option value="product" data-recipient="sales@telamorph.com" data-subject="Product Inquiry">Product Inquiry</option>
+                  <option value="engineering" data-recipient="sales@telamorph.com" data-subject="Custom Engineering Inquiry">Custom Engineering</option>
+                </select>
+              </div>
               <div class="mb-3">
                 <label for="name" class="form-label" style="color: var(--text-secondary); font-size: 0.9rem;">Name</label>
-                <input type="text" class="form-control form-control-dark" id="name" name="name" required>
+                <input type="text" class="form-control form-control-dark" id="name" name="name" maxlength="120" required>
               </div>
               <div class="mb-3">
                 <label for="email" class="form-label" style="color: var(--text-secondary); font-size: 0.9rem;">Email</label>
-                <input type="email" class="form-control form-control-dark" id="email" name="email" required>
+                <input type="email" class="form-control form-control-dark" id="email" name="email" maxlength="160" required>
               </div>
               <div class="mb-3">
                 <label for="subject" class="form-label" style="color: var(--text-secondary); font-size: 0.9rem;">Subject</label>
-                <input type="text" class="form-control form-control-dark" id="subject" name="_subject" required>
+                <input type="text" class="form-control form-control-dark" id="subject" name="subject" maxlength="120" placeholder="Short project or product topic">
               </div>
               <div class="mb-3">
                 <label for="message" class="form-label" style="color: var(--text-secondary); font-size: 0.9rem;">Message</label>
-                <textarea class="form-control form-control-dark" id="message" name="message" rows="5" required></textarea>
+                <textarea class="form-control form-control-dark" id="message" name="message" rows="5" maxlength="1800" required></textarea>
               </div>
-              <button type="submit" class="btn btn-accent">Send Message</button>
+              <button type="submit" class="btn btn-accent">Open Email Draft</button>
+              <p class="contact-form-note">Nothing is sent from this website. Review and send the draft from your own email account.</p>
             </form>
 
-            <div id="form-success" class="alert alert-success d-none" style="background: var(--accent-subtle); color: var(--accent); border-color: var(--accent);">
-              Thank you! Your message has been sent.
+            <noscript>
+              <p class="contact-form-note">JavaScript is disabled, so please use the direct email links below.</p>
+            </noscript>
+
+            <div id="form-feedback" class="alert contact-feedback d-none" role="status" aria-live="polite">
+              Your email draft should now be open. If nothing opened, email <a id="form-feedback-email" href="mailto:info@telamorph.com">info@telamorph.com</a> directly.
             </div>
 
             <hr style="border-color: var(--border-color); margin: 2rem 0;">
 
             <div class="mb-4">
               <h3 style="font-size: 1.1rem; font-weight: 600;">Email</h3>
-              <p>
-                <a href="mailto:info@telamorph.com">info@telamorph.com</a><br>
-                <a href="mailto:sales@telamorph.com">sales@telamorph.com</a>
-              </p>
+              <div class="contact-method-grid">
+                <div class="contact-method-card">
+                  <div>
+                    <h3>General Contact</h3>
+                    <p><a href="mailto:info@telamorph.com">info@telamorph.com</a></p>
+                  </div>
+                  <button type="button" class="btn btn-outline-accent copy-email" data-copy-email="info@telamorph.com">Copy</button>
+                </div>
+                <div class="contact-method-card">
+                  <div>
+                    <h3>Sales and Quotes</h3>
+                    <p><a href="mailto:sales@telamorph.com">sales@telamorph.com</a></p>
+                  </div>
+                  <button type="button" class="btn btn-outline-accent copy-email" data-copy-email="sales@telamorph.com">Copy</button>
+                </div>
+              </div>
             </div>
 
             <div class="mb-4">
@@ -147,11 +227,59 @@
       if (form) {
         form.addEventListener("submit", (e) => {
           e.preventDefault();
-          // TODO: replace with own backend endpoint
-          const msg = document.getElementById("form-success");
-          if (msg) msg.classList.remove("d-none");
+
+          if (!form.reportValidity()) return;
+
+          const inquirySelect = document.getElementById("inquiry-type");
+          const selectedInquiry = inquirySelect?.selectedOptions?.[0];
+          const recipient = selectedInquiry?.dataset.recipient || "info@telamorph.com";
+          const defaultSubject = selectedInquiry?.dataset.subject || "Website Inquiry";
+          const inquiryLabel = selectedInquiry?.textContent.trim() || "General Inquiry";
+          const name = document.getElementById("name")?.value.trim() || "";
+          const email = document.getElementById("email")?.value.trim() || "";
+          const subject = document.getElementById("subject")?.value.trim() || defaultSubject;
+          const message = document.getElementById("message")?.value.trim() || "";
+          const body = [
+            "Hello Telamorph,",
+            "",
+            message,
+            "",
+            "Contact details:",
+            `Name: ${name}`,
+            `Email: ${email}`,
+            `Inquiry type: ${inquiryLabel}`
+          ].join("\r\n");
+          const mailto = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+          const feedback = document.getElementById("form-feedback");
+          const feedbackEmail = document.getElementById("form-feedback-email");
+
+          if (feedbackEmail) {
+            feedbackEmail.href = `mailto:${recipient}`;
+            feedbackEmail.textContent = recipient;
+          }
+          if (feedback) feedback.classList.remove("d-none");
+
+          window.location.href = mailto;
         });
       }
+
+      document.querySelectorAll("[data-copy-email]").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const email = button.getAttribute("data-copy-email");
+          if (!email) return;
+
+          try {
+            await navigator.clipboard.writeText(email);
+            const originalText = button.textContent;
+            button.textContent = "Copied";
+            window.setTimeout(() => {
+              button.textContent = originalText;
+            }, 1600);
+          } catch {
+            window.location.href = `mailto:${email}`;
+          }
+        });
+      });
     });
   </script>
 </body>
