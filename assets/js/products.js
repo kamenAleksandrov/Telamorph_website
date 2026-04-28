@@ -54,7 +54,7 @@ function updatePageHeading(categoryLabel) {
   const title = document.querySelector(".products-header .section-title");
   const subtitle = document.querySelector(".products-header .section-subtitle");
   if (title) title.textContent = categoryLabel;
-  if (subtitle) subtitle.textContent = "Refine by type, subcategory, price, or product name.";
+  if (subtitle) subtitle.textContent = "Refine by subcategory, price, or product name.";
 }
 
 function renderCurrentProductsView() {
@@ -82,7 +82,6 @@ function getFiltersFromURL() {
   const params = new URLSearchParams(window.location.search);
   return {
     search: params.get("q") || "",
-    type: params.get("type") || "",
     category: params.get("cat") || "",
     subcategory: params.get("sub") || "",
     minPrice: params.get("min") || "",
@@ -114,7 +113,6 @@ function updateFilters(nextFilters, { replace = true } = {}) {
 function syncURLFromFilters(replace = true) {
   const params = new URLSearchParams();
   if (productFilters.search) params.set("q", productFilters.search);
-  if (productFilters.type) params.set("type", productFilters.type);
   if (productFilters.category) params.set("cat", productFilters.category);
   if (productFilters.subcategory) params.set("sub", productFilters.subcategory);
   if (productFilters.minPrice) params.set("min", productFilters.minPrice);
@@ -174,7 +172,7 @@ function initFilters(products) {
   if (!container) return;
 
   container.innerHTML = `
-    <details class="products-filter-menu" open>
+    <details class="products-filter-menu">
       <summary class="products-filter-summary">
         <span>Filters</span>
         <span id="filter-count" class="products-filter-count"></span>
@@ -183,16 +181,6 @@ function initFilters(products) {
         <label class="products-filter-field products-filter-field-wide" for="product-search">
           <span>Search</span>
           <input id="product-search" type="search" autocomplete="off" placeholder="Search by name">
-        </label>
-
-        <label class="products-filter-field" for="product-type-filter">
-          <span>Type</span>
-          <select id="product-type-filter"></select>
-        </label>
-
-        <label class="products-filter-field" for="product-category-filter">
-          <span>Category</span>
-          <select id="product-category-filter"></select>
         </label>
 
         <label class="products-filter-field" for="product-subcategory-filter">
@@ -224,8 +212,6 @@ function initFilters(products) {
     window.clearTimeout(filterInputTimer);
     updateFilters({
       search: "",
-      type: "",
-      category: "",
       subcategory: "",
       minPrice: "",
       maxPrice: ""
@@ -235,14 +221,6 @@ function initFilters(products) {
   bindFilterInput(container, "product-search", "input", (value) => {
     window.clearTimeout(filterInputTimer);
     filterInputTimer = window.setTimeout(() => updateFilters({ search: value.trim() }), 140);
-  });
-
-  bindFilterInput(container, "product-type-filter", "change", (value) => {
-    updateFilters({ type: value, subcategory: "" });
-  });
-
-  bindFilterInput(container, "product-category-filter", "change", (value) => {
-    updateFilters({ category: value, subcategory: "" }, { replace: false });
   });
 
   bindFilterInput(container, "product-subcategory-filter", "change", (value) => {
@@ -265,8 +243,7 @@ function initFilters(products) {
 
 function setFilterMenuState(menu) {
   if (!menu) return;
-  const isCompact = window.matchMedia("(max-width: 767.98px)").matches;
-  menu.open = !isCompact;
+  menu.open = false;
 }
 
 function bindFilterInput(container, id, eventName, handler) {
@@ -282,20 +259,6 @@ function syncFilterControls() {
   setInputValue(container, "product-search", productFilters.search);
   setInputValue(container, "product-min-price", productFilters.minPrice);
   setInputValue(container, "product-max-price", productFilters.maxPrice);
-
-  populateSelect(
-    container.querySelector("#product-type-filter"),
-    uniqueOptions(allProducts, getProductTypeSlug, getProductTypeLabel),
-    "All types",
-    productFilters.type
-  );
-
-  populateSelect(
-    container.querySelector("#product-category-filter"),
-    uniqueOptions(allProducts, (product) => product.categorySlug, (product) => product.category),
-    "All categories",
-    productFilters.category
-  );
 
   const subcategoryProducts = productFilters.category
     ? allProducts.filter((product) => product.categorySlug === productFilters.category)
@@ -347,28 +310,6 @@ function uniqueOptions(products, valueGetter, labelGetter) {
     .sort((a, b) => a.label.localeCompare(b.label));
 }
 
-function getProductTypeLabel(product) {
-  if (product.type) return product.type;
-  if (product.productType) return product.productType;
-  if (product.kind) return product.kind;
-
-  const text = `${product.categorySlug || ""} ${product.id || ""} ${product.name || ""}`.toLowerCase();
-  return text.includes("service") || text.includes("development-production") ? "Service" : "Product";
-}
-
-function getProductTypeSlug(product) {
-  return slugifyFilterValue(getProductTypeLabel(product));
-}
-
-function slugifyFilterValue(value) {
-  return String(value || "")
-    .trim()
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-}
-
 function getProductPrice(product) {
   const rawPrice = product.price ?? product.priceFrom ?? product.startingPrice ?? product.basePrice ?? product.priceMin;
   if (rawPrice === undefined || rawPrice === null || rawPrice === "") return null;
@@ -388,7 +329,6 @@ function applyAndRenderFilters() {
     const productPrice = getProductPrice(product);
 
     if (search && !product.name.toLowerCase().includes(search)) return false;
-    if (productFilters.type && getProductTypeSlug(product) !== productFilters.type) return false;
     if (productFilters.category && product.categorySlug !== productFilters.category) return false;
     if (productFilters.subcategory && product.subcategorySlug !== productFilters.subcategory) return false;
     if (Number.isFinite(minPrice) && (productPrice === null || productPrice < minPrice)) return false;

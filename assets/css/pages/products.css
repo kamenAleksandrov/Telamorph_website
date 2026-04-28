@@ -26,7 +26,7 @@
 }
 
 .products-filter-summary {
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
@@ -65,10 +65,14 @@
 
 .products-filter-form {
   display: grid;
-  grid-template-columns: minmax(14rem, 1.35fr) repeat(3, minmax(9.5rem, 1fr)) minmax(7rem, 0.65fr) minmax(7rem, 0.65fr) auto;
+  grid-template-columns: minmax(16rem, 1.5fr) minmax(10rem, 1fr) minmax(7rem, 0.65fr) minmax(7rem, 0.65fr) auto;
   gap: 0.75rem;
   align-items: end;
   padding: 0.9rem;
+}
+
+.products-filter-menu:not([open]) .products-filter-form {
+  display: none;
 }
 
 .products-filter-field {
@@ -162,10 +166,6 @@
 
   .products-filter-menu:not([open]) {
     background: rgba(255, 255, 255, 0.018);
-  }
-
-  .products-filter-summary {
-    display: flex;
   }
 
   .products-filter-form {

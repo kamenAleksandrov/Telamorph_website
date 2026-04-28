@@ -4,8 +4,29 @@
 
 /* --- Hero --- */
 .hero {
-  padding: 4rem 0 3rem;
-  text-align: center;
+  min-height: calc(100vh - var(--nav-height, 72px));
+  min-height: calc(100svh - var(--nav-height, 72px));
+  display: flex;
+  align-items: flex-end;
+  padding: 4rem 0 clamp(1.5rem, 7vh, 5rem);
+  text-align: left;
+}
+
+.hero > .container {
+  width: 100%;
+  max-width: none;
+  padding-left: clamp(1rem, 3vw, 3rem);
+  padding-right: clamp(1rem, 3vw, 3rem);
+}
+
+.hero > .container > .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.hero > .container > .row > [class*="col"] {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .hero-parallax-bg {
@@ -19,8 +40,7 @@
 
 @media (min-width: 768px) {
   .hero {
-    padding: 6rem 0 4rem;
-    text-align: left;
+    padding: 6rem 0 clamp(2rem, 8vh, 6rem);
   }
 }
 
@@ -70,7 +90,7 @@
     flex-wrap: wrap;
     gap: 0.875rem;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .hero-actions .btn {
@@ -79,15 +99,10 @@
   }
 }
 
-@media (min-width: 768px) {
-  .hero-actions {
-    justify-content: flex-start;
-  }
-}
-
 /* --- Category Showcase --- */
 .category-showcase {
   padding-top: 2rem;
+  scroll-margin-top: var(--nav-height, 72px);
 }
 
 @media (min-width: 768px) {

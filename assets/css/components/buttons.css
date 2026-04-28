@@ -73,3 +73,7 @@
 .btn-arrow:hover svg {
   transform: translateX(3px);
 }
+
+.btn-arrow-down:hover svg {
+  transform: translateY(3px);
+}
