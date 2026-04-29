@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Development &amp; Production - Telamorph</title>
+  <meta name="description" content="Development and production support across composites, engineering, hardware, and software. Telamorph helps turn physical products and digital systems into buildable, testable outcomes.">
+  <link rel="canonical" href="https://telamorph.com/development-production.html">
+  <link rel="icon" type="image/png" href="assets/images/logo_cropped.png">
+  <link rel="apple-touch-icon" href="assets/images/logo_cropped.png">
+
+  <meta property="og:title" content="Development &amp; Production - Telamorph">
+  <meta property="og:description" content="A multidisciplinary development page for composites, engineering, hardware, and software capabilities.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://telamorph.com/development-production.html">
+
+  <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components/navbar.css">
+  <link rel="stylesheet" href="assets/css/components/footer.css">
+  <link rel="stylesheet" href="assets/css/components/product-card.css">
+  <link rel="stylesheet" href="assets/css/components/buttons.css">
+  <link rel="stylesheet" href="assets/css/components/breadcrumb.css">
+  <link rel="stylesheet" href="assets/css/components/section-header.css">
+  <link rel="stylesheet" href="assets/css/components/filter-pills.css">
+  <link rel="stylesheet" href="assets/css/components/spec-table.css">
+  <link rel="stylesheet" href="assets/css/components/noscript.css">
+  <link rel="stylesheet" href="assets/css/components/streak.css">
+  <link rel="stylesheet" href="assets/css/pages/development-production.css">
+  <style>
+    html, body { background-color: #111215; }
+  </style>
+  <script>
+    (() => {
+      const cacheKeys = {
+        nav: "telamorph-shell-nav-v2",
+        footer: "telamorph-shell-footer-v1"
+      };
+
+      window.__hydrateTelamorphShell = (targetId, slot) => {
+        try {
+          const target = document.getElementById(targetId);
+          const html = sessionStorage.getItem(cacheKeys[slot]);
+          if (!target || !html || target.innerHTML.trim()) return;
+          target.innerHTML = html;
+          target.dataset.shellHydrated = "true";
+        } catch {
+          // Ignore storage access failures.
+        }
+      };
+    })();
+  </script>
+</head>
+<body>
+
+  <div id="nav-placeholder"></div>
+  <script>
+    window.__hydrateTelamorphShell?.("nav-placeholder", "nav");
+  </script>
+
+  <noscript>
+    <div class="noscript-banner">This site works best with JavaScript enabled.</div>
+  </noscript>
+
+  <main>
+    <section class="devprod-hero">
+      <div class="devprod-hero-bg parallax-bg" aria-hidden="true"></div>
+      <div class="devprod-hero-overlay" aria-hidden="true"></div>
+      <div class="container reveal-stagger">
+        <span class="devprod-kicker reveal">Development &amp; production</span>
+        <h1 class="devprod-title reveal">Multidisciplinary Product Development</h1>
+        <p class="devprod-lede reveal">A compact view of the four knowledge areas behind our work: composites, engineering, hardware, and software. This page is designed as a framework for now, ready for detailed team content later.</p>
+        <div class="devprod-actions reveal">
+          <a href="contact.html" class="btn btn-accent btn-lg btn-arrow">
+            <span>Start a Project</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#knowledge-spheres" class="btn btn-outline-accent btn-lg btn-arrow btn-arrow-down">
+            <span>View Spheres</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M19 13l-7 7-7-7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="knowledge-spheres" class="devprod-section">
+      <div class="container">
+        <div class="row g-4 align-items-end mb-4 reveal-stagger">
+          <div class="col-lg-7 reveal">
+            <h2 class="section-title">Four Spheres of Knowledge</h2>
+            <p class="devprod-intro">The content here is intentionally concise. Each area gets a clear visual home now, while your team can later expand the technical wording, examples, and proof points.</p>
+          </div>
+          <div class="col-lg-5 reveal">
+            <p class="devprod-intro mb-0">The design is built around linked disciplines rather than isolated services, because most serious product work needs material, mechanical, electronic, and digital decisions to move together.</p>
+          </div>
+        </div>
+
+        <div class="sphere-overview reveal-stagger">
+          <article class="sphere-card reveal">
+            <span class="sphere-index">01</span>
+            <div>
+              <h3>Composites</h3>
+              <p>Material selection, tooling, layup thinking, finishing, and production-aware part design.</p>
+            </div>
+          </article>
+          <article class="sphere-card reveal">
+            <span class="sphere-index">02</span>
+            <div>
+              <h3>Engineering</h3>
+              <p>CAD, reverse engineering, testing logic, DFM, tolerances, and manufacturing preparation.</p>
+            </div>
+          </article>
+          <article class="sphere-card reveal">
+            <span class="sphere-index">03</span>
+            <div>
+              <h3>Hardware</h3>
+              <p>Control logic, PCB direction, sensors, enclosures, wiring, and device digitalisation.</p>
+            </div>
+          </article>
+          <article class="sphere-card reveal">
+            <span class="sphere-index">04</span>
+            <div>
+              <h3>Software</h3>
+              <p>Embedded behaviour, interfaces, data logging, automation, and connected-device workflows.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="devprod-section devprod-section-muted">
+      <div class="container sphere-stack reveal-stagger">
+        <article class="sphere-panel reveal">
+          <div class="sphere-visual" aria-hidden="true"></div>
+          <div class="sphere-content">
+            <h3>Composites</h3>
+            <p>For composite work, the page should describe how Telamorph approaches carbon fiber parts from concept through tooling and repeatable manufacture. This placeholder keeps the message focused on capability rather than final marketing copy.</p>
+            <ul class="capability-list">
+              <li>Carbon fiber part strategy</li>
+              <li>Tooling concepts</li>
+              <li>Layup planning</li>
+              <li>Prototype to production</li>
+              <li>Finish and inspection</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="sphere-panel reveal">
+          <div class="sphere-visual" aria-hidden="true"></div>
+          <div class="sphere-content">
+            <h3>Engineering</h3>
+            <p>This section can later hold concrete details about CAD, measurement, reverse engineering, simulations, fixtures, and the steps needed to make an idea buildable and testable.</p>
+            <ul class="capability-list">
+              <li>CAD and surfacing</li>
+              <li>Reverse engineering</li>
+              <li>DFM reviews</li>
+              <li>Jigs and fixtures</li>
+              <li>Validation planning</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="sphere-panel reveal">
+          <div class="sphere-visual" aria-hidden="true"></div>
+          <div class="sphere-content">
+            <h3>Hardware</h3>
+            <p>Hardware covers the physical electronics layer of a product: control logic, PCB direction, sensor packages, connectors, housings, and the bridge between a mechanical device and digital control.</p>
+            <ul class="capability-list">
+              <li>Control architecture</li>
+              <li>PCB concepts</li>
+              <li>Sensor integration</li>
+              <li>Wiring and connectors</li>
+              <li>Test rigs</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="sphere-panel reveal">
+          <div class="sphere-visual" aria-hidden="true"></div>
+          <div class="sphere-content">
+            <h3>Software</h3>
+            <p>Software is where embedded behaviour, interfaces, data, and automation make the device useful. The final content can describe firmware, tooling, dashboards, and the systems that support real use.</p>
+            <ul class="capability-list">
+              <li>Embedded software</li>
+              <li>Device interfaces</li>
+              <li>Data logging</li>
+              <li>Automation scripts</li>
+              <li>Production tools</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="devprod-section">
+      <div class="container">
+        <div class="row g-4 align-items-start reveal-stagger">
+          <div class="col-lg-5 reveal">
+            <h2 class="section-title">How the Work Connects</h2>
+            <p class="devprod-intro">This section gives the page a practical rhythm without locking your team into final process language. It can later become a stronger project-flow or case-study area.</p>
+          </div>
+          <div class="col-lg-7">
+            <div class="devprod-workflow reveal-stagger">
+              <article class="workflow-step reveal">
+                <span>01</span>
+                <h3>Define</h3>
+                <p>Clarify the product, constraints, environment, target users, and what needs to be proven first.</p>
+              </article>
+              <article class="workflow-step reveal">
+                <span>02</span>
+                <h3>Prototype</h3>
+                <p>Build the minimum useful version across materials, mechanics, electronics, and software.</p>
+              </article>
+              <article class="workflow-step reveal">
+                <span>03</span>
+                <h3>Prepare</h3>
+                <p>Turn the validated direction into production logic, documentation, tooling, and repeatable checks.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="devprod-section devprod-section-muted">
+      <div class="container">
+        <div class="row g-4 align-items-stretch reveal-stagger">
+          <div class="col-lg-5 reveal">
+            <h2 class="section-title">For Later Content</h2>
+            <p class="devprod-intro">When your colleagues are ready, this area can become the place for examples, proof points, facility details, and the exact technical claims each discipline should make.</p>
+          </div>
+          <div class="col-lg-7 reveal">
+            <div class="quote-panel">
+              <h3>Suggested content to add later</h3>
+              <p>Representative projects, equipment names, development lead times, supported standards, software stacks, electronics constraints, testing methods, production volumes, and clear examples of when a customer should contact Telamorph.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="devprod-section devprod-cta-band">
+      <div class="container devprod-cta-inner reveal-stagger">
+        <div class="reveal">
+          <h2 class="section-title">Need a Multidisciplinary Build Partner?</h2>
+          <p class="section-subtitle mb-0">Send the current state of the project. The final wording can evolve later, but the page now gives each capability area a clear place to live.</p>
+        </div>
+        <a href="contact.html" class="btn btn-accent btn-lg btn-arrow reveal">
+          <span>Get in Touch</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script>
+    window.__hydrateTelamorphShell?.("footer-placeholder", "footer");
+  </script>
+
+  <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
+  <script src="assets/js/utils.js" defer></script>
+  <script src="assets/js/main.js?v=20260429-revealfix" defer></script>
+  <script src="assets/js/parallax.js" defer></script>
+</body>
+</html>

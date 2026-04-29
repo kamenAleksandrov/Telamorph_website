@@ -17,8 +17,8 @@ const shellCacheKeys = {
 };
 
 const shellPartialUrls = {
-  nav: "components/nav.html?v=20260427",
-  footer: "components/footer.html"
+  nav: "components/nav.html?v=20260429-devprod",
+  footer: "components/footer.html?v=20260429-devprod"
 };
 
 function readShellCache(cacheKey) {
@@ -113,6 +113,13 @@ const cursorStreakSelector = [
   ".menu-list li a",
   ".showcase-band",
   ".value-card",
+  ".service-step",
+  ".service-card",
+  ".quote-list",
+  ".sphere-card",
+  ".sphere-panel",
+  ".workflow-step",
+  ".quote-panel",
   ".product-card",
   ".btn-accent",
   ".btn-outline-accent"
@@ -152,6 +159,7 @@ window.initCursorStreaks = initCursorStreaks;
 /**
  * Fade + float-up each .reveal element when it scrolls into view.
  * Elements inside .reveal-stagger groups stagger by sibling index.
+ * Dense card groups reveal together so high-index cards do not feel delayed.
  * Idempotent and accepts a root so dynamically rendered content can opt in.
  */
 let revealObserver = null;
@@ -182,8 +190,25 @@ function initRevealOnScroll(root = document) {
   if (matches(root, ".reveal-stagger")) groups.push(root);
   groups.push(...(root.querySelectorAll?.(".reveal-stagger") || []));
   groups.forEach((group) => {
-    group.querySelectorAll(":scope > .reveal").forEach((el, i) => {
-      el.style.transitionDelay = `${i * 90}ms`;
+    const revealItems = [...group.querySelectorAll(":scope > .reveal")];
+    const cardSelector = [
+      ".value-card",
+      ".showcase-band",
+      ".product-card",
+      ".service-step",
+      ".service-card",
+      ".quote-list",
+      ".sphere-card",
+      ".sphere-panel",
+      ".workflow-step",
+      ".quote-panel"
+    ].join(", ");
+    const isCardGroup = revealItems.length > 1 && revealItems.every((el) => {
+      return el.matches(cardSelector) || Boolean(el.querySelector(cardSelector));
+    });
+
+    revealItems.forEach((el, i) => {
+      el.style.transitionDelay = isCardGroup ? "0ms" : `${Math.min(i * 70, 210)}ms`;
     });
   });
 
@@ -205,6 +230,16 @@ window.initRevealOnScroll = initRevealOnScroll;
 function highlightActiveTab() {
   const page = window.location.pathname.split("/").pop() || "index.html";
   const cat = new URLSearchParams(window.location.search).get("cat");
+
+  const serviceTabByPage = {
+    "body-kits.html": "body-kits.html",
+    "development-production.html": "development-production.html"
+  };
+
+  if (serviceTabByPage[page]) {
+    document.querySelector(`.product-tab[href="${serviceTabByPage[page]}"]`)?.classList.add("active");
+    return;
+  }
 
   if (page === "products.html" && cat) {
     document.querySelectorAll(".product-tab").forEach(tab => {

@@ -1,0 +1,273 @@
+/* ==========================================================================
+   Telamorph - Body Kits service page
+   ========================================================================== */
+
+.service-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: clamp(2.75rem, 5vw, 4.25rem) 0 clamp(2.5rem, 4vw, 3.75rem);
+}
+
+.service-hero-bg {
+  position: absolute;
+  inset: -8% 0;
+  background-image: url("../../images/placeholder_wide_full.jpg");
+  background-position: center;
+  background-size: cover;
+  filter: grayscale(0.15) brightness(0.64);
+  z-index: 0;
+}
+
+.service-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(17, 18, 21, 0.94) 0%,
+    rgba(17, 18, 21, 0.82) 42%,
+    rgba(17, 18, 21, 0.32) 100%
+  );
+  z-index: 1;
+}
+
+.service-hero .container {
+  position: relative;
+  z-index: 2;
+}
+
+.service-kicker {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 0.85rem;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.service-title {
+  max-width: 790px;
+  margin: 0 0 1rem;
+  color: var(--text-primary);
+  font-size: clamp(2.45rem, 5vw, 4.8rem);
+  font-weight: 850;
+  line-height: 0.98;
+}
+
+.service-lede {
+  max-width: 660px;
+  margin: 0 0 1.7rem;
+  color: var(--text-secondary);
+  font-size: clamp(1.08rem, 1.4vw, 1.32rem);
+  line-height: 1.58;
+}
+
+.service-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
+.service-actions .btn {
+  justify-content: center;
+}
+
+@media (min-width: 576px) {
+  .service-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+}
+
+.service-section {
+  padding: clamp(3rem, 7vw, 6rem) 0;
+}
+
+.service-section[id] {
+  scroll-margin-top: var(--nav-height, 72px);
+}
+
+.service-section-muted {
+  background: var(--bg-secondary);
+}
+
+.service-intro {
+  max-width: 760px;
+  color: var(--text-secondary);
+  font-size: 1.12rem;
+  line-height: 1.7;
+}
+
+.service-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .service-grid-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .service-grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.service-step,
+.service-card,
+.quote-list {
+  position: relative;
+  height: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: rgba(30, 32, 36, 0.82);
+  overflow: hidden;
+  transition: border-color var(--transition), transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.service-step:hover,
+.service-card:hover,
+.quote-list:hover {
+  border-color: var(--border-light);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+.service-step,
+.service-card {
+  padding: 1.45rem;
+}
+
+.service-step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  margin-bottom: 1.1rem;
+  border: 1px solid rgba(91, 168, 245, 0.45);
+  border-radius: 8px;
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.service-step h3,
+.service-card h3 {
+  margin: 0 0 0.55rem;
+  color: var(--text-primary);
+  font-size: 1.18rem;
+  font-weight: 750;
+}
+
+.service-step p,
+.service-card p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.62;
+}
+
+.service-media-band {
+  position: relative;
+  height: clamp(300px, 70vw, 520px);
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .service-media-band {
+    height: clamp(340px, 30vw, 460px);
+  }
+}
+
+.service-media-band img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  filter: grayscale(0.12) brightness(0.72);
+}
+
+.service-media-caption {
+  position: absolute;
+  left: clamp(1rem, 5vw, 4rem);
+  bottom: clamp(1rem, 5vw, 4rem);
+  z-index: 2;
+  max-width: 560px;
+  padding-right: 1rem;
+}
+
+.service-media-caption h2 {
+  margin: 0 0 0.7rem;
+  color: #fff;
+  font-size: clamp(2rem, 4vw, 4.2rem);
+  font-weight: 850;
+  line-height: 1;
+}
+
+.service-media-caption p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 1.08rem;
+  line-height: 1.6;
+}
+
+.quote-list {
+  padding: 1.4rem;
+  list-style: none;
+  margin: 0;
+}
+
+.quote-list li {
+  position: relative;
+  padding-left: 1.35rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.quote-list li + li {
+  margin-top: 0.7rem;
+}
+
+.quote-list li::before {
+  content: "";
+  position: absolute;
+  top: 0.62em;
+  left: 0;
+  width: 0.45rem;
+  height: 0.45rem;
+  border: 1px solid var(--accent);
+  transform: rotate(45deg);
+}
+
+.service-cta-band {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+}
+
+.service-cta-inner {
+  display: grid;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .service-cta-inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .service-title {
+    font-size: 2.45rem;
+  }
+
+  .service-actions .btn {
+    width: 100%;
+  }
+}

@@ -6,6 +6,13 @@
   .product-tabs,
   .showcase-band,
   .value-card,
+  .service-step,
+  .service-card,
+  .quote-list,
+  .sphere-card,
+  .sphere-panel,
+  .workflow-step,
+  .quote-panel,
   .product-card,
   .btn-accent,
   .btn-outline-accent
@@ -36,6 +43,13 @@
   .product-tabs,
   .showcase-band,
   .value-card,
+  .service-step,
+  .service-card,
+  .quote-list,
+  .sphere-card,
+  .sphere-panel,
+  .workflow-step,
+  .quote-panel,
   .product-card,
   .btn-accent,
   .btn-outline-accent
@@ -56,12 +70,26 @@
   .product-tabs,
   .showcase-band,
   .value-card,
+  .service-step,
+  .service-card,
+  .quote-list,
+  .sphere-card,
+  .sphere-panel,
+  .workflow-step,
+  .quote-panel,
   .product-card,
   .btn-accent,
   .btn-outline-accent
 ):hover::before,
 :where(
   .showcase-band,
+  .service-step,
+  .service-card,
+  .quote-list,
+  .sphere-card,
+  .sphere-panel,
+  .workflow-step,
+  .quote-panel,
   .product-card,
   .btn-accent,
   .btn-outline-accent
@@ -103,6 +131,16 @@
 
 .showcase-band {
   --streak-z: 3;
+}
+
+.service-step,
+.service-card,
+.quote-list,
+.sphere-card,
+.sphere-panel,
+.workflow-step,
+.quote-panel {
+  --streak-z: 2;
 }
 
 .product-tab {
