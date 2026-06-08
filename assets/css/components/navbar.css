@@ -1,15 +1,19 @@
-/* --- Navbar --- */
+/* --- Navbar ---
+   Overlaid on top of the page (transparent) and scrolls away with the
+   content instead of sticking. A floating scroll-to-top button (.scroll-top)
+   takes over once the bar leaves the viewport. */
 #nav-placeholder {
-  position: sticky;
-  top: 0;
+  position: absolute;
+  top: 25px;
+  left: 0;
+  right: 0;
   z-index: 1030;
 }
 
 .navbar-telamorph {
-  background-color: rgba(24, 25, 29, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(42, 48, 56, 0.5);
+  position: relative; /* anchor for the bar-wide cursor streak (::before) */
+  background-color: transparent;
+  border-bottom: 1px solid transparent;
   padding: 0;
   min-height: var(--nav-height);
   display: flex;
@@ -34,6 +38,7 @@
   letter-spacing: 0.02em;
   text-decoration: none;
   flex-shrink: 0;
+  text-shadow: 0 1px 16px rgba(0, 0, 0, 0.6);
 }
 
 .navbar-telamorph .navbar-brand .brand-text {
@@ -55,7 +60,7 @@
   height: 46px;
 }
 
-/* Product category tabs (desktop) — hidden by default, shown from 600px up */
+/* Product category tabs (desktop) — hidden by default, shown from 700px up */
 .product-tabs {
   position: relative;
   display: none;
@@ -68,19 +73,23 @@
 }
 
 .product-tab {
-  color: var(--text-secondary);
+  color: var(--text-primary);
   text-decoration: none;
-  /* Dynamic scaling between 600px and ~1900px viewport widths */
-  font-size: clamp(0.75rem, 0.5rem + 0.6vw, 1.2rem);
-  font-weight: 500;
-  padding: 1.35rem clamp(0.3rem, 0.55vw, 1rem);
+  /* Dynamic scaling between 600px and ~1900px viewport widths — larger now
+     that the bar floats over the hero rather than sitting in a solid strip */
+  font-size: clamp(0.95rem, 0.6rem + 0.8vw, 1.45rem);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 1.35rem clamp(0.5rem, 0.9vw, 1.5rem);
   position: relative;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.55);
   transition: color var(--transition), text-shadow var(--transition);
   white-space: nowrap;
 }
 
-/* Reveal top tabs and hide mobile product list at ≥600px */
-@media (min-width: 600px) {
+/* Reveal top tabs and hide mobile product list at ≥700px; below that the
+   product categories collapse into the hamburger menu */
+@media (min-width: 700px) {
   .product-tabs {
     display: flex;
   }
@@ -89,23 +98,30 @@
   }
 }
 
-/* Shrink brand text between 600–900px so tabs have breathing room */
-@media (max-width: 899.98px) {
+/* Shrink brand text + tabs between 600–991px so the three tabs fit */
+@media (max-width: 991.98px) {
   .navbar-telamorph .navbar-brand {
     font-size: 1.35rem;
+  }
+  .product-tab {
+    font-size: clamp(0.78rem, 0.4rem + 1.4vw, 1.05rem);
+    padding: 1.35rem clamp(0.3rem, 0.7vw, 0.7rem);
+  }
+  .product-tabs {
+    gap: 0;
   }
 }
 
 .product-tab:hover,
 .product-tab:focus-visible,
 .product-tab.active {
-  color: var(--text-primary);
+  color: var(--accent);
 }
 
-/* Hamburger button */
+/* Hamburger button — borderless, no background shift on hover; the bars react */
 .hamburger-btn {
-  background: none;
-  border: 1px solid var(--border-color);
+  background: transparent;
+  border: none;
   border-radius: var(--radius-sm);
   padding: 0.75rem 0.9rem;
   cursor: pointer;
@@ -117,14 +133,10 @@
   min-height: 52px;
 }
 
-.hamburger-btn:hover {
-  border-color: var(--text-secondary);
-  background-color: var(--bg-elevated);
-}
-
 .hamburger-icon {
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
   gap: 6px;
   width: 26px;
 }
@@ -135,7 +147,24 @@
   width: 100%;
   background: var(--text-primary);
   border-radius: 1px;
-  transition: all var(--transition);
+  transform-origin: right center;
+  transition: transform var(--transition), background-color var(--transition);
+}
+
+/* On hover the bars glow accent and stagger into a right-aligned chevron */
+.hamburger-btn:hover .hamburger-icon span,
+.hamburger-btn:focus-visible .hamburger-icon span {
+  background: var(--accent);
+}
+
+.hamburger-btn:hover .hamburger-icon span:nth-child(1),
+.hamburger-btn:focus-visible .hamburger-icon span:nth-child(1) {
+  transform: scaleX(0.68);
+}
+
+.hamburger-btn:hover .hamburger-icon span:nth-child(3),
+.hamburger-btn:focus-visible .hamburger-icon span:nth-child(3) {
+  transform: scaleX(0.45);
 }
 
 /* Offcanvas side menu */
@@ -230,7 +259,7 @@
   transform: rotate(45deg);
 }
 
-@media (max-width: 599.98px) {
+@media (max-width: 699.98px) {
   .menu-heading {
     margin-top: 1.45rem;
   }

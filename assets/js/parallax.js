@@ -14,6 +14,8 @@
   let ticking = false;
 
   function init() {
+    // The scene deck has no document scroll, so parallax does nothing there.
+    if (window.__deckEnabled) return;
     parallaxElements = Array.from(document.querySelectorAll(".parallax-bg"));
     if (!parallaxElements.length) return;
 

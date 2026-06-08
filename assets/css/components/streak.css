@@ -3,7 +3,7 @@
 
 :where(
   .footer-contact,
-  .product-tabs,
+  .navbar-telamorph,
   .showcase-band,
   .value-card,
   .service-step,
@@ -40,7 +40,7 @@
 
 :where(
   .footer-contact,
-  .product-tabs,
+  .navbar-telamorph,
   .showcase-band,
   .value-card,
   .service-step,
@@ -67,7 +67,7 @@
 
 :where(
   .footer-contact,
-  .product-tabs,
+  .navbar-telamorph,
   .showcase-band,
   .value-card,
   .service-step,
@@ -94,7 +94,7 @@
   .btn-accent,
   .btn-outline-accent
 ):focus-visible::before,
-.product-tabs:focus-within::before,
+.navbar-telamorph:focus-within::before,
 :where(.footer-links a, .menu-list li a):hover::after,
 :where(.footer-links a, .menu-list li a):focus-visible::after,
 .product-tab.active::after {
@@ -120,11 +120,11 @@
   opacity: 0.4;
 }
 
-.product-tabs {
+.navbar-telamorph {
   --streak-height: 2px;
 }
 
-.product-tabs::before {
+.navbar-telamorph::before {
   top: auto;
   bottom: 0;
 }

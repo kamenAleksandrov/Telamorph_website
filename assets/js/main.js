@@ -7,7 +7,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   await Promise.all([loadNav(), loadFooter()]);
   highlightActiveTab();
   initCursorStreaks();
-  initRevealOnScroll();
+  // In deck mode (deck.js) reveals and the scroll-to-top button are driven by
+  // the deck controller, since there is no document scroll to observe.
+  if (!window.__deckEnabled) {
+    initRevealOnScroll();
+    initScrollTopButton();
+  }
   warmProductDataCache();
 });
 
@@ -107,7 +112,7 @@ function warmProductDataCache() {
 
 const cursorStreakSelector = [
   ".footer-contact",
-  ".product-tabs",
+  ".navbar-telamorph",
   ".product-tab",
   ".footer-links a",
   ".menu-list li a",
@@ -223,6 +228,44 @@ function initRevealOnScroll(root = document) {
 }
 
 window.initRevealOnScroll = initRevealOnScroll;
+
+/**
+ * Inject a floating "scroll to top" button. The transparent navbar scrolls
+ * away with the page, so this is the persistent way back up. The button fades
+ * in once the user has scrolled roughly one viewport down.
+ */
+function initScrollTopButton() {
+  if (document.querySelector(".scroll-top")) return;
+
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "scroll-top";
+  btn.setAttribute("aria-label", "Scroll back to top");
+  btn.innerHTML =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>';
+  document.body.appendChild(btn);
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  btn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+  });
+
+  let ticking = false;
+  const update = () => {
+    btn.classList.toggle("is-visible", window.scrollY > window.innerHeight * 0.6);
+    ticking = false;
+  };
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    },
+    { passive: true }
+  );
+  update();
+}
 
 /**
  * Highlight the active product-tab if on products page with ?cat= param.

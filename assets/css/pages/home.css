@@ -2,31 +2,28 @@
    Telamorph — Homepage overrides
    ========================================================================== */
 
-/* --- Hero --- */
+/* --- Hero ---
+   Full viewport. The navbar is transparent and absolutely positioned, so the
+   hero fills the screen behind it and its content sits in the lower third
+   (clear of the floating bar). */
 .hero {
-  min-height: calc(100vh - var(--nav-height, 72px));
-  min-height: calc(100svh - var(--nav-height, 72px));
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   align-items: flex-end;
-  padding: 4rem 0 clamp(1.5rem, 7vh, 5rem);
+  padding: calc(var(--nav-height, 72px) + 3rem) 0 clamp(2rem, 9vh, 6rem);
   text-align: left;
 }
 
-.hero > .container {
+.hero-inner {
+  position: relative;
+  z-index: 2;
   width: 100%;
   max-width: none;
-  padding-left: clamp(1rem, 3vw, 3rem);
-  padding-right: clamp(1rem, 3vw, 3rem);
-}
-
-.hero > .container > .row {
-  margin-left: 0;
-  margin-right: 0;
-}
-
-.hero > .container > .row > [class*="col"] {
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: clamp(1.25rem, 4vw, 4.5rem);
+  padding-right: clamp(1.25rem, 4vw, 4.5rem);
 }
 
 .hero-parallax-bg {
@@ -38,65 +35,367 @@
   z-index: 0;
 }
 
-@media (min-width: 768px) {
-  .hero {
-    padding: 6rem 0 clamp(2rem, 8vh, 6rem);
-  }
+/* Readability scrim over the hero image */
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+      to right,
+      rgba(17, 18, 21, 0.92) 0%,
+      rgba(17, 18, 21, 0.55) 55%,
+      rgba(17, 18, 21, 0.2) 100%
+    ),
+    linear-gradient(to top, rgba(17, 18, 21, 0.85) 0%, transparent 45%);
+}
+
+.hero-eyebrow {
+  display: inline-block;
+  font-size: clamp(0.74rem, 0.6rem + 0.3vw, 0.92rem);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 1.1rem;
 }
 
 .hero-title {
-  font-size: 2.4rem;
+  font-size: clamp(2.6rem, 1.5rem + 5vw, 6rem);
   font-weight: 800;
-  line-height: 1.15;
-  margin-bottom: 1rem;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.4rem;
 }
 
-@media (min-width: 768px) {
-  .hero-title {
-    font-size: 3.6rem;
-  }
-}
-
-.hero-subtitle {
-  font-size: 1.32rem;
+.hero-lead {
+  font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.5rem);
   color: var(--text-secondary);
-  margin-bottom: 2rem;
-  max-width: 540px;
+  line-height: 1.5;
+  margin-bottom: 2.25rem;
+  max-width: 46ch;
 }
 
-@media (max-width: 767.98px) {
-  .hero-subtitle {
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-/* Hero CTA group */
+/* Hero CTA group — buttons keep their natural width at every breakpoint */
 .hero-actions {
   display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  align-items: stretch;
+  flex-flow: row wrap;
+  gap: 0.875rem;
+  align-items: center;
 }
 
 .hero-actions .btn {
-  width: 100%;
+  width: auto;
   justify-content: center;
 }
 
-@media (min-width: 576px) {
-  .hero-actions {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 0.875rem;
-    align-items: center;
-    justify-content: flex-start;
-  }
+/* Animated scroll cue — stacked stylized chevrons */
+.hero-scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 1.5rem;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: block;
+  color: rgba(234, 237, 240, 0.55);
+  transition: color var(--transition);
+}
 
-  .hero-actions .btn {
-    width: auto;
-    justify-content: flex-start;
+.hero-scroll-cue:hover {
+  color: var(--accent);
+}
+
+.hero-chevrons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* overlap the two chevrons into a tight double-arrow */
+  gap: 4px;
+}
+
+.hero-chevrons span {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-right: 2.5px solid currentColor;
+  border-bottom: 2.5px solid currentColor;
+  border-radius: 0 0 3px 0;
+  transform: rotate(45deg);
+  opacity: 0;
+  animation: hero-chevron 1.9s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.hero-chevrons span:nth-child(2) {
+  animation-delay: 0.18s;
+}
+
+@keyframes hero-chevron {
+  0% { opacity: 0; transform: rotate(45deg) translate(-3px, -3px); }
+  45% { opacity: 1; }
+  100% { opacity: 0; transform: rotate(45deg) translate(4px, 4px); }
+}
+
+@media (max-width: 575.98px) {
+  .hero-scroll-cue { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-chevrons span {
+    animation: none;
+    opacity: 0.7;
   }
+}
+
+/* ==========================================================================
+   Approach — alternating split image/text rows
+   ========================================================================== */
+.split {
+  padding: clamp(4rem, 12vh, 9rem) 0;
+  overflow: hidden; /* contain the horizontal slide-in reveal */
+}
+
+.split-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+}
+
+.split-row + .split-row {
+  margin-top: clamp(3.5rem, 10vh, 8rem);
+}
+
+.split-row--reverse {
+  flex-direction: row-reverse;
+}
+
+.split-text {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.split-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+}
+
+.split-eyebrow::before {
+  content: "";
+  width: 1.75rem;
+  height: 2px;
+  background: var(--accent);
+}
+
+.split-line {
+  font-size: clamp(1.3rem, 1rem + 1.2vw, 2.1rem);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.split-line em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.split-media {
+  flex: 1 1 0;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  aspect-ratio: 4 / 3;
+  box-shadow: 0 18px 40px -22px rgba(0, 0, 0, 0.7);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.split-media-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.01);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.split-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(17, 18, 21, 0.55) 0%, transparent 55%);
+  transition: opacity var(--transition);
+  opacity: 0.85;
+}
+
+.split-media:hover {
+  border-color: var(--accent-deep);
+  box-shadow: 0 22px 50px -20px rgba(0, 0, 0, 0.8);
+}
+
+.split-media:hover .split-media-bg {
+  transform: scale(1.08);
+}
+
+.split-media:hover::after {
+  opacity: 1;
+}
+
+.split-media-tag {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 1;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: var(--text-primary);
+  padding: 0.4rem 0.85rem;
+  border-radius: 2rem;
+  background: rgba(17, 18, 21, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* Slide-in reveal variants (layered on top of the base .reveal) */
+.reveal.reveal-left {
+  transform: translateX(-40px);
+}
+
+.reveal.reveal-right {
+  transform: translateX(40px);
+}
+
+.reveal.reveal-left.is-visible,
+.reveal.reveal-right.is-visible {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal.reveal-left,
+  .reveal.reveal-right {
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   Manifesto pull-quote — full-bleed image band
+   ========================================================================== */
+.manifesto {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(6rem, 18vh, 13rem) 0;
+}
+
+.manifesto-bg {
+  position: absolute;
+  inset: -10% 0;
+  background-size: cover;
+  background-position: center;
+  will-change: transform;
+  z-index: 0;
+}
+
+.manifesto-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(
+      120% 120% at 50% 50%,
+      rgba(17, 18, 21, 0.78) 0%,
+      rgba(17, 18, 21, 0.92) 100%
+    );
+}
+
+.manifesto-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 60rem;
+  text-align: center;
+}
+
+.manifesto-kicker {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.manifesto-quote {
+  font-size: clamp(1.6rem, 1.1rem + 2.2vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.manifesto-quote span {
+  display: block;
+  margin-top: 0.6rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.manifesto-quote em {
+  font-style: normal;
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   CTA band — start a composite project
+   ========================================================================== */
+.cta-band {
+  padding: clamp(5rem, 14vh, 10rem) 0 clamp(6rem, 16vh, 11rem);
+  border-top: 1px solid var(--border-color);
+}
+
+.cta-inner {
+  max-width: 52rem;
+  text-align: center;
+}
+
+.cta-eyebrow {
+  display: inline-block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 1.1rem;
+}
+
+.cta-title {
+  font-size: clamp(2rem, 1.3rem + 2.6vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+}
+
+.cta-text {
+  font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.3rem);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 44ch;
+  margin: 0 auto 2.25rem;
+}
+
+.cta-actions {
+  display: flex;
+  justify-content: center;
 }
 
 /* --- Category Showcase --- */
@@ -357,4 +656,58 @@
   font-size: 1.02rem;
   line-height: 1.6;
   margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Responsive — landing page (mobile / small tablet)
+   ========================================================================== */
+@media (max-width: 767.98px) {
+  .hero {
+    padding-top: calc(var(--nav-height, 72px) + 1.25rem);
+    padding-bottom: clamp(3.5rem, 12vh, 5rem);
+    align-items: flex-end; /* keep hero content bottom-aligned on mobile */
+    text-align: left;
+  }
+
+  .hero-lead {
+    max-width: none;
+  }
+
+  /* Stack split rows; image below text, consistent regardless of row order */
+  .split-row,
+  .split-row--reverse {
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  /* Drop flex:1 1 0 — in a column with no shared height, basis-0 collapses the
+     image to nothing. flex:none lets aspect-ratio size it from the full width. */
+  .split-text,
+  .split-media {
+    flex: none;
+    width: 100%;
+  }
+
+  .split-media {
+    aspect-ratio: 16 / 10;
+  }
+
+  /* Switch the horizontal slide to a vertical one so nothing pushes past the
+     viewport edge on narrow screens */
+  .reveal.reveal-left,
+  .reveal.reveal-right {
+    transform: translateY(24px);
+  }
+
+  .manifesto-quote br {
+    display: none;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .split-media-tag {
+    font-size: 0.66rem;
+    left: 0.75rem;
+    bottom: 0.75rem;
+  }
 }
