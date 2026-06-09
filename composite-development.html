@@ -39,6 +39,7 @@
     <link rel="stylesheet" href="assets/css/components/noscript.css" />
     <link rel="stylesheet" href="assets/css/components/streak.css" />
     <link rel="stylesheet" href="assets/css/pages/service.css" />
+    <link rel="stylesheet" href="assets/css/pages/composite.css" />
     <style>
       html,
       body {
@@ -103,206 +104,193 @@
         </div>
       </section>
 
-      <!-- 01 — The design remains yours -->
-      <section class="svc-step">
+      <!-- Scrollytelling: one design "comes into focus" as it is developed.
+           The sticky media panel evolves while the stages scroll past it.
+           Each step also carries its own inline image for the stacked mobile
+           layout (.cd-step-media, shown only below 992px). -->
+      <section class="cd-scrolly">
         <div class="container">
-          <div class="svc-step-grid reveal-stagger">
-            <div class="svc-media reveal reveal-left">
-              <div
-                class="svc-media-bg"
-                style="
-                  background-image: url(&quot;assets/images/Picture5_noBG.png&quot;);
-                "
-              ></div>
-              <span class="svc-media-tag">Your geometry</span>
-            </div>
-            <div class="svc-text reveal reveal-right">
-              <span class="svc-step-eyebrow">01</span>
-              <h2 class="svc-step-title">The design remains yours.</h2>
-              <p class="svc-step-body">
-                The visual direction belongs to the client and their design
-                team. Our role begins when that design needs to become real:
-                reviewed, prepared and developed for manufacturing. Whether the
-                project starts from a 3D CAD model, a scanned vehicle, an
-                existing component or a physical reference, the goal is the same
-                — clear geometry ready for production.
-              </p>
-              <p class="svc-catch">Your design. Production-ready.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+          <div class="cd-scrolly-grid">
+            <!-- Pinned media — swaps per active stage (driven by composite.js) -->
+            <div class="cd-sticky" aria-hidden="true">
+              <div class="cd-stage-media">
+                <div
+                  class="cd-stage-img is-active"
+                  data-stage="1"
+                  style="background-image: url(&quot;assets/images/Picture5_noBG.png&quot;)"
+                ></div>
+                <div
+                  class="cd-stage-img"
+                  data-stage="2"
+                  style="background-image: url(&quot;assets/images/Picture2.jpg&quot;)"
+                ></div>
+                <div
+                  class="cd-stage-img"
+                  data-stage="3"
+                  style="background-image: url(&quot;assets/images/Picture9.jpg&quot;)"
+                ></div>
+                <div
+                  class="cd-stage-img"
+                  data-stage="4"
+                  style="background-image: url(&quot;assets/images/Picture10.jpg&quot;)"
+                ></div>
+                <div
+                  class="cd-stage-img"
+                  data-stage="5"
+                  style="background-image: url(&quot;assets/images/Picture16.jpg&quot;)"
+                ></div>
 
-      <!-- 02 — Design for Manufacturing -->
-      <section class="svc-step svc-step--alt svc-step--reverse">
-        <div class="container">
-          <div class="svc-step-grid reveal-stagger">
-            <div class="svc-media reveal reveal-right">
-              <div
-                class="svc-media-bg"
-                style="
-                  background-image: url(&quot;assets/images/Picture2.jpg&quot;);
-                "
-              ></div>
-              <span class="svc-media-tag">DFM review</span>
-            </div>
-            <div class="svc-text reveal reveal-left">
-              <span class="svc-step-eyebrow">02</span>
-              <h2 class="svc-step-title">Design for manufacturing.</h2>
-              <p class="svc-step-body">
-                A beautiful shape must be carefully thought through before it
-                becomes a manufacturable part. Before production begins, the
-                geometry is reviewed through the logic of composite
-                manufacturing: part split, assembly, fitment, mold strategy and
-                repeatability. The objective is simple — avoid unnecessary
-                complexity before it becomes expensive in production.
-              </p>
-              <p class="svc-catch">
-                The right decisions before the first mold.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 03 — Structure with purpose -->
-      <section class="svc-step">
-        <div class="container">
-          <div class="svc-step-grid reveal-stagger">
-            <div class="svc-media reveal reveal-left">
-              <div
-                class="svc-media-bg"
-                style="
-                  background-image: url(&quot;assets/images/Picture9.jpg&quot;);
-                "
-              ></div>
-              <span class="svc-media-tag">Material &amp; laminate</span>
-            </div>
-            <div class="svc-text reveal reveal-right">
-              <span class="svc-step-eyebrow">03</span>
-              <h2 class="svc-step-title">Structure with purpose.</h2>
-              <p class="svc-step-body">
-                Every composite part has a job. The material structure is
-                selected around that job — weight, strength, environment,
-                surface quality and production requirements. When the part
-                demands it, the structure is supported by calculation, laminate
-                definition and FEA simulation. <br />
-                Reinforcements can be combined with suitable cores, resin
-                systems and coatings and post processing procedures to create
-                the right balance for each component.
-              </p>
-              <div
-                class="svc-chips"
-                aria-label="Reinforcements, cores and processes"
-              >
-                <span class="svc-chip">Carbon fiber</span>
-                <span class="svc-chip">Fiberglass</span>
-                <span class="svc-chip">Aramid</span>
-                <span class="svc-chip">Flax</span>
-                <span class="svc-chip">Cores</span>
-                <span class="svc-chip">Resin systems</span>
-                <span class="svc-chip">Coatings</span>
-                <span class="svc-chip">Post-processing</span>
-                <span class="svc-chip">FEA simulation</span>
+                <div class="cd-progress">
+                  <span class="cd-progress-dot is-active" data-stage="1"></span>
+                  <span class="cd-progress-dot" data-stage="2"></span>
+                  <span class="cd-progress-dot" data-stage="3"></span>
+                  <span class="cd-progress-dot" data-stage="4"></span>
+                  <span class="cd-progress-dot" data-stage="5"></span>
+                </div>
+                <span class="cd-stage-tag">Your geometry</span>
               </div>
-              <p class="svc-catch">
-                Light where possible. Strong where needed.
-              </p>
             </div>
-          </div>
-        </div>
-      </section>
 
-      <!-- 04 — Tooling defines repeatability -->
-      <section class="svc-step svc-step--alt svc-step--reverse">
-        <div class="container">
-          <div class="svc-step-grid reveal-stagger">
-            <div class="svc-media reveal reveal-right">
-              <div
-                class="svc-media-bg"
-                style="
-                  background-image: url(&quot;assets/images/Picture10.jpg&quot;);
-                "
-              ></div>
-              <span class="svc-media-tag">Tooling strategy</span>
-            </div>
-            <div class="svc-text reveal reveal-left">
-              <span class="svc-step-eyebrow">04</span>
-              <h2 class="svc-step-title">Tooling defines repeatability.</h2>
-              <p class="svc-step-body">
-                The mold is not just a tool — it is the foundation of
-                production. Before manufacturing starts, the tooling strategy is
-                defined around geometry, surface requirements and production
-                volume. Master models, milled tooling, direct molds and
-                supporting jigs are selected according to the part and the
-                number of cycles it needs to serve.
-              </p>
-              <p class="svc-catch">Built once. Repeated with control.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+            <!-- Scrolling stages -->
+            <div class="cd-steps">
+              <!-- 01 -->
+              <article class="cd-step" data-stage="1" data-tag="Your geometry">
+                <div
+                  class="cd-step-media"
+                  style="background-image: url(&quot;assets/images/Picture5_noBG.png&quot;)"
+                >
+                  <span class="cd-step-media-tag">Your geometry</span>
+                </div>
+                <span class="cd-step-num">01</span>
+                <h2 class="cd-step-title">The design remains yours.</h2>
+                <p class="cd-step-body">
+                  The visual direction belongs to the client and their design
+                  team. Our role begins when that design needs to become real:
+                  reviewed, prepared and developed for manufacturing. Whether
+                  the project starts from a 3D CAD model, a scanned vehicle, an
+                  existing component or a physical reference, the goal is the
+                  same — clear geometry ready for production.
+                </p>
+                <p class="cd-catch">Your design. Production-ready.</p>
+              </article>
 
-      <!-- 05 — Ready for manufacturing (centered + CAD → Mold → Part sequence) -->
-      <section class="svc-step svc-step--center">
-        <div class="container">
-          <div class="svc-step-head reveal-stagger">
-            <span class="svc-step-eyebrow reveal">05</span>
-            <h2 class="svc-step-title reveal">Ready for manufacturing.</h2>
-            <p class="svc-step-body reveal">
-              Composite development ends when the project is no longer just a
-              design. It becomes a clear production plan: geometry prepared,
-              structure defined, tooling strategy selected and the manufacturing
-              route understood. <br />
-              From automotive and motorsport to aerospace, UAVs, industrial
-              equipment and special composite applications, the process is built
-              around one goal — turning defined ideas into parts that can be
-              produced with confidence.
-            </p>
-            <p class="svc-catch reveal">
-              From digital intent to physical production.
-            </p>
-          </div>
+              <!-- 02 -->
+              <article class="cd-step" data-stage="2" data-tag="DFM review">
+                <div
+                  class="cd-step-media"
+                  style="background-image: url(&quot;assets/images/Picture2.jpg&quot;)"
+                >
+                  <span class="cd-step-media-tag">DFM review</span>
+                </div>
+                <span class="cd-step-num">02</span>
+                <h2 class="cd-step-title">Design for manufacturing.</h2>
+                <p class="cd-step-body">
+                  A beautiful shape must be carefully thought through before it
+                  becomes a manufacturable part. Before production begins, the
+                  geometry is reviewed through the logic of composite
+                  manufacturing: part split, assembly, fitment, mold strategy
+                  and repeatability. The objective is simple — avoid unnecessary
+                  complexity before it becomes expensive in production.
+                </p>
+                <p class="cd-catch">
+                  The right decisions before the first mold.
+                </p>
+              </article>
 
-          <div class="svc-sequence reveal-stagger">
-            <div class="svc-frame reveal">
-              <div
-                class="svc-frame-media"
-                style="
-                  background-image: url(&quot;assets/images/Picture7_noBG.png&quot;);
-                "
-              ></div>
-              <span class="svc-frame-label">CAD &amp; geometry</span>
-            </div>
-            <span class="svc-arrow" aria-hidden="true">&rarr;</span>
-            <div class="svc-frame reveal">
-              <div
-                class="svc-frame-media"
-                style="
-                  background-image: url(&quot;assets/images/Picture10.jpg&quot;);
-                "
-              ></div>
-              <span class="svc-frame-label">Tooling &amp; mold</span>
-            </div>
-            <span class="svc-arrow" aria-hidden="true">&rarr;</span>
-            <div class="svc-frame reveal">
-              <div
-                class="svc-frame-media"
-                style="
-                  background-image: url(&quot;assets/images/Picture16.jpg&quot;);
-                "
-              ></div>
-              <span class="svc-frame-label">Finished part</span>
-            </div>
-          </div>
+              <!-- 03 -->
+              <article
+                class="cd-step"
+                data-stage="3"
+                data-tag="Material &amp; laminate"
+              >
+                <div
+                  class="cd-step-media"
+                  style="background-image: url(&quot;assets/images/Picture9.jpg&quot;)"
+                >
+                  <span class="cd-step-media-tag">Material &amp; laminate</span>
+                </div>
+                <span class="cd-step-num">03</span>
+                <h2 class="cd-step-title">Structure with purpose.</h2>
+                <p class="cd-step-body">
+                  Every composite part has a job. The material structure is
+                  selected around that job — weight, strength, environment,
+                  surface quality and production requirements. When the part
+                  demands it, the structure is supported by calculation,
+                  laminate definition and FEA simulation. Reinforcements can be
+                  combined with suitable cores, resin systems, coatings and
+                  post-processing to create the right balance for each
+                  component.
+                </p>
+                <div
+                  class="svc-chips"
+                  aria-label="Reinforcements, cores and processes"
+                >
+                  <span class="svc-chip">Carbon fiber</span>
+                  <span class="svc-chip">Fiberglass</span>
+                  <span class="svc-chip">Aramid</span>
+                  <span class="svc-chip">Flax</span>
+                  <span class="svc-chip">Cores</span>
+                  <span class="svc-chip">Resin systems</span>
+                  <span class="svc-chip">Coatings</span>
+                  <span class="svc-chip">Post-processing</span>
+                  <span class="svc-chip">FEA simulation</span>
+                </div>
+                <p class="cd-catch">Light where possible. Strong where needed.</p>
+              </article>
 
-          <div class="svc-tags reveal" aria-label="Applications">
-            <span class="svc-chip">Automotive</span>
-            <span class="svc-chip">Motorsport</span>
-            <span class="svc-chip">Aerospace</span>
-            <span class="svc-chip">UAVs</span>
-            <span class="svc-chip">Industrial equipment</span>
-            <span class="svc-chip">Special composites</span>
+              <!-- 04 -->
+              <article class="cd-step" data-stage="4" data-tag="Tooling strategy">
+                <div
+                  class="cd-step-media"
+                  style="background-image: url(&quot;assets/images/Picture10.jpg&quot;)"
+                >
+                  <span class="cd-step-media-tag">Tooling strategy</span>
+                </div>
+                <span class="cd-step-num">04</span>
+                <h2 class="cd-step-title">Tooling defines repeatability.</h2>
+                <p class="cd-step-body">
+                  The mold is not just a tool — it is the foundation of
+                  production. Before manufacturing starts, the tooling strategy
+                  is defined around geometry, surface requirements and
+                  production volume. Master models, milled tooling, direct molds
+                  and supporting jigs are selected according to the part and the
+                  number of cycles it needs to serve.
+                </p>
+                <p class="cd-catch">Built once. Repeated with control.</p>
+              </article>
+
+              <!-- 05 -->
+              <article class="cd-step" data-stage="5" data-tag="Finished part">
+                <div
+                  class="cd-step-media"
+                  style="background-image: url(&quot;assets/images/Picture16.jpg&quot;)"
+                >
+                  <span class="cd-step-media-tag">Finished part</span>
+                </div>
+                <span class="cd-step-num">05</span>
+                <h2 class="cd-step-title">Ready for manufacturing.</h2>
+                <p class="cd-step-body">
+                  Composite development ends when the project is no longer just a
+                  design. It becomes a clear production plan: geometry prepared,
+                  structure defined, tooling strategy selected and the
+                  manufacturing route understood. From automotive and motorsport
+                  to aerospace, UAVs, industrial equipment and special composite
+                  applications, the process is built around one goal — turning
+                  defined ideas into parts that can be produced with confidence.
+                </p>
+                <p class="cd-catch">
+                  From digital intent to physical production.
+                </p>
+                <div class="svc-chips" aria-label="Applications">
+                  <span class="svc-chip">Automotive</span>
+                  <span class="svc-chip">Motorsport</span>
+                  <span class="svc-chip">Aerospace</span>
+                  <span class="svc-chip">UAVs</span>
+                  <span class="svc-chip">Industrial equipment</span>
+                  <span class="svc-chip">Special composites</span>
+                </div>
+              </article>
+            </div>
           </div>
         </div>
       </section>
@@ -353,5 +341,6 @@
     <script src="assets/js/utils.js" defer></script>
     <script src="assets/js/main.js?v=20260427" defer></script>
     <script src="assets/js/parallax.js" defer></script>
+    <script src="assets/js/composite.js" defer></script>
   </body>
 </html>
