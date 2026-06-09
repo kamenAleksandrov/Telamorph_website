@@ -62,49 +62,73 @@ function renderProduct(product) {
   const container = document.getElementById("product-content");
   if (!container) return;
 
-  // Build specs rows
-  const specRows = Object.entries(product.specifications)
-    .map(([key, val]) => `<tr><td>${escapeHTML(key)}</td><td>${escapeHTML(val)}</td></tr>`)
+  // Quiet spec rows — label on the left, value on the right
+  const specRows = Object.entries(product.specifications || {})
+    .map(
+      ([key, val]) =>
+        `<div class="pd-spec-row"><dt>${escapeHTML(key)}</dt><dd>${escapeHTML(val)}</dd></div>`
+    )
     .join("");
 
-  // Build mailto link
-  const mailto = buildMailto(
-    product.quoteEmail,
-    `Quote Request: ${product.name}`
-  );
+  const mailto = buildMailto(product.quoteEmail, `Quote Request: ${product.name}`);
+
+  // Back link points to the product's own category landing
+  const categoryHref =
+    product.categorySlug === "industrial-solutions"
+      ? "industrial.html"
+      : `products.html?cat=${encodeURIComponent(product.categorySlug || "")}`;
+
+  const heroImg = product.images?.[0] || product.thumbnail;
+
+  const thumbs =
+    product.images && product.images.length > 1
+      ? `
+        <div class="pd-thumbs">
+          ${product.images
+            .map(
+              (img, i) => `
+            <img src="assets/images/${img}"
+                 alt="${escapeHTML(product.name)} image ${i + 1}"
+                 class="pd-thumb ${i === 0 ? "is-active" : ""}"
+                 onclick="switchImage(this, '${img}')"
+                 width="84" height="64">`
+            )
+            .join("")}
+        </div>`
+      : "";
 
   container.innerHTML = `
-    <!-- Image column -->
-    <div class="col-lg-6 reveal">
-      <img class="product-gallery-main"
-           src="assets/images/${product.images[0] || product.thumbnail}" 
-           alt="${escapeHTML(product.name)}"
-           width="600" height="450">
-      ${product.images.length > 1 ? `
-        <div class="product-gallery-thumbs">
-          ${product.images.map((img, i) => `
-            <img src="assets/images/${img}" 
-                 alt="${escapeHTML(product.name)} image ${i + 1}" 
-                 class="${i === 0 ? 'active' : ''}"
-                 onclick="switchImage(this, '${img}')"
-                 width="72" height="54">
-          `).join("")}
+    <div class="pd-layout">
+      <!-- Media -->
+      <div class="pd-media reveal reveal-left">
+        <div class="pd-media-frame">
+          <img class="pd-media-img"
+               src="assets/images/${heroImg}"
+               alt="${escapeHTML(product.name)}"
+               width="600" height="450">
         </div>
-      ` : ""}
-    </div>
+        ${thumbs}
+      </div>
 
-    <!-- Detail column -->
-    <div class="col-lg-6 reveal">
-      <span class="card-category">${escapeHTML(product.category)}</span>
-      <h1 class="section-title">${escapeHTML(product.name)}</h1>
-      <p style="color: var(--text-secondary); margin-bottom: 2rem;">${product.description}</p>
+      <!-- Info -->
+      <div class="pd-info reveal reveal-right">
+        <span class="pd-eyebrow">${escapeHTML(product.category)}</span>
+        <h1 class="pd-title">${escapeHTML(product.name)}</h1>
+        <p class="pd-lead">${escapeHTML(product.description)}</p>
 
-      <h2 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem;">Specifications</h2>
-      <table class="spec-table">${specRows}</table>
+        ${
+          specRows
+            ? `<h2 class="pd-specs-title">Specifications</h2>
+               <dl class="pd-spec-list">${specRows}</dl>`
+            : ""
+        }
 
-      <div class="mt-4">
-        <a href="${mailto}" class="btn btn-accent btn-lg">Request a Quote</a>
-        <a href="products.html" class="btn btn-outline-accent btn-lg ms-2">All Products</a>
+        <div class="pd-actions">
+          <a href="${mailto}" class="btn btn-accent btn-lg">Request a quote</a>
+          <a href="${categoryHref}" class="btn btn-outline-accent btn-lg">Back to ${escapeHTML(
+    product.category
+  )}</a>
+        </div>
       </div>
     </div>
   `;
@@ -113,14 +137,16 @@ function renderProduct(product) {
 }
 
 /**
- * Switch the main gallery image on thumbnail click.
+ * Switch the main image on thumbnail click.
  */
 function switchImage(thumb, imgPath) {
-  const main = document.querySelector(".product-gallery-main");
+  const main = document.querySelector(".pd-media-img");
   if (main) main.src = `assets/images/${imgPath}`;
 
-  document.querySelectorAll(".product-gallery-thumbs img").forEach(t => t.classList.remove("active"));
-  thumb.classList.add("active");
+  document
+    .querySelectorAll(".pd-thumb")
+    .forEach((t) => t.classList.remove("is-active"));
+  thumb.classList.add("is-active");
 }
 
 /**

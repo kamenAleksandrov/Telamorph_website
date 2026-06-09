@@ -107,6 +107,19 @@
   color: var(--accent);
 }
 
+/* Two phone numbers sit side by side, separated by a thin divider */
+.footer-phones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem 0.85rem;
+}
+
+.footer-phones .footer-contact-value + .footer-contact-value {
+  padding-left: 0.85rem;
+  border-left: 1px solid var(--border-color);
+}
+
 .footer-contact-map {
   display: block;
   position: relative;
@@ -153,6 +166,7 @@
 /* Sitemap columns */
 .footer-sitemap {
   margin-top: 0;
+  justify-content: center;
 }
 
 .footer-heading {

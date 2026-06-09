@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manufacturing — Telamorph</title>
+    <meta
+      name="description"
+      content="From tooling to finished parts. Telamorph manufactures advanced composite components through controlled processes, modern equipment and a production mindset built around repeatability."
+    />
+    <link rel="canonical" href="https://telamorph.com/manufacturing.html" />
+    <link rel="icon" type="image/png" href="assets/images/logo_cropped.png" />
+    <link rel="apple-touch-icon" href="assets/images/logo_cropped.png" />
+
+    <meta property="og:title" content="Manufacturing — Telamorph" />
+    <meta
+      property="og:description"
+      content="Controlled processes, modern equipment, repeatable results — composite parts that meet the requirements and can be produced again with confidence."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://telamorph.com/manufacturing.html"
+    />
+
+    <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/components/navbar.css" />
+    <link rel="stylesheet" href="assets/css/components/footer.css" />
+    <link rel="stylesheet" href="assets/css/components/product-card.css" />
+    <link rel="stylesheet" href="assets/css/components/buttons.css" />
+    <link rel="stylesheet" href="assets/css/components/breadcrumb.css" />
+    <link rel="stylesheet" href="assets/css/components/section-header.css" />
+    <link rel="stylesheet" href="assets/css/components/filter-pills.css" />
+    <link rel="stylesheet" href="assets/css/components/spec-table.css" />
+    <link rel="stylesheet" href="assets/css/components/noscript.css" />
+    <link rel="stylesheet" href="assets/css/components/streak.css" />
+    <link rel="stylesheet" href="assets/css/pages/service.css" />
+    <style>
+      html,
+      body {
+        background-color: #111215;
+      }
+    </style>
+    <script>
+      (() => {
+        const cacheKeys = {
+          nav: "telamorph-shell-nav-v2",
+          footer: "telamorph-shell-footer-v1",
+        };
+
+        window.__hydrateTelamorphShell = (targetId, slot) => {
+          try {
+            const target = document.getElementById(targetId);
+            const html = sessionStorage.getItem(cacheKeys[slot]);
+            if (!target || !html || target.innerHTML.trim()) return;
+            target.innerHTML = html;
+            target.dataset.shellHydrated = "true";
+          } catch {
+            // Ignore storage access failures.
+          }
+        };
+      })();
+    </script>
+  </head>
+  <body>
+    <!-- Nav -->
+    <div id="nav-placeholder"></div>
+    <script>
+      window.__hydrateTelamorphShell?.("nav-placeholder", "nav");
+    </script>
+
+    <noscript>
+      <div class="noscript-banner">
+        This site works best with JavaScript enabled.
+      </div>
+    </noscript>
+
+    <!-- NOTE: Picture*.jpg are placeholders — swap for real production / tooling /
+       process / equipment imagery when the client supplies them. -->
+    <main>
+      <!-- Hero (compact) -->
+      <section class="svc-hero" id="top">
+        <div
+          class="svc-hero-bg parallax-bg"
+          style="background-image: url(&quot;assets/images/Picture17.jpg&quot;)"
+        ></div>
+        <div class="svc-hero-scrim"></div>
+        <div class="container svc-hero-inner reveal-stagger">
+          <h1 class="svc-hero-title reveal">From tooling to finished parts.</h1>
+          <p class="svc-hero-lead reveal">
+            Telamorph manufactures advanced composite components through
+            controlled processes, modern equipment and a production mindset
+            built around repeatability. <br />
+            Vacuum infusion, prepreg processing, compression molding, bonding,
+            assembly and post-processing are selected around the part — not
+            forced into a single route. <br />
+            The goal is simple: composite parts that meet the requirements and
+            can be produced again with confidence.
+          </p>
+        </div>
+      </section>
+
+      <!-- 01 — Production begins with the tool -->
+      <section class="svc-step">
+        <div class="container">
+          <div class="svc-step-grid reveal-stagger">
+            <div class="svc-media reveal reveal-left">
+              <div
+                class="svc-media-bg"
+                style="
+                  background-image: url(&quot;assets/images/Picture12.jpg&quot;);
+                "
+              ></div>
+              <span class="svc-media-tag">Tooling &amp; molds</span>
+            </div>
+            <div class="svc-text reveal reveal-right">
+              <span class="svc-step-eyebrow">01</span>
+              <h2 class="svc-step-title">Production begins with the tool.</h2>
+              <p class="svc-step-body">
+                The quality of a composite part starts before the material is
+                placed. Tooling, molds, master models and supporting fixtures
+                are prepared according to the geometry, surface requirements and
+                expected production volume. Every production route is built to
+                support accuracy, reliability and control.
+              </p>
+              <p class="svc-catch">The mold defines the part.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 — Built through the right process -->
+      <section class="svc-step svc-step--alt svc-step--reverse">
+        <div class="container">
+          <div class="svc-step-grid reveal-stagger">
+            <div class="svc-media reveal reveal-right">
+              <div
+                class="svc-media-bg"
+                style="
+                  background-image: url(&quot;assets/images/Picture11.jpg&quot;);
+                "
+              ></div>
+              <span class="svc-media-tag">Process</span>
+            </div>
+            <div class="svc-text reveal reveal-left">
+              <span class="svc-step-eyebrow">02</span>
+              <h2 class="svc-step-title">Built through the right process.</h2>
+              <p class="svc-step-body">
+                Different parts require different production routes. The chosen
+                process lets the structure, surface quality and production meet
+                the requirements of the component — no single method is forced
+                onto every part.
+              </p>
+              <div class="svc-chips" aria-label="Production processes">
+                <span class="svc-chip">Vacuum infusion</span>
+                <span class="svc-chip">Prepreg</span>
+                <span class="svc-chip">Compression molding</span>
+                <span class="svc-chip">Bonding</span>
+                <span class="svc-chip">Assembly</span>
+                <span class="svc-chip">Curing</span>
+                <span class="svc-chip">Post-processing</span>
+              </div>
+              <p class="svc-catch">The method follows the part.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 — Finished means ready -->
+      <section class="svc-step">
+        <div class="container">
+          <div class="svc-step-grid reveal-stagger">
+            <div class="svc-media reveal reveal-left">
+              <div
+                class="svc-media-bg"
+                style="
+                  background-image: url(&quot;assets/images/Picture18.jpg&quot;);
+                "
+              ></div>
+              <span class="svc-media-tag">Finishing</span>
+            </div>
+            <div class="svc-text reveal reveal-right">
+              <span class="svc-step-eyebrow">03</span>
+              <h2 class="svc-step-title">Finished means ready.</h2>
+              <p class="svc-step-body">
+                Manufacturing does not end when the part leaves the mold. A
+                final production route can include any of the steps below — the
+                result is a component prepared for use, installation or
+                integration into a larger system.
+              </p>
+              <div class="svc-chips" aria-label="Finishing steps">
+                <span class="svc-chip">Trimming</span>
+                <span class="svc-chip">Milling</span>
+                <span class="svc-chip">Curing</span>
+                <span class="svc-chip">Bonding</span>
+                <span class="svc-chip">Assembly</span>
+                <span class="svc-chip">Surface preparation</span>
+                <span class="svc-chip">Coating</span>
+                <span class="svc-chip">Painting</span>
+              </div>
+              <p class="svc-catch">Not just molded. Completed.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 — First article. Then production -->
+      <section class="svc-step svc-step--alt svc-step--reverse">
+        <div class="container">
+          <div class="svc-step-grid reveal-stagger">
+            <div class="svc-media reveal reveal-right">
+              <div
+                class="svc-media-bg"
+                style="
+                  background-image: url(&quot;assets/images/Picture11.jpg&quot;);
+                "
+              ></div>
+              <span class="svc-media-tag">First article</span>
+            </div>
+            <div class="svc-text reveal reveal-left">
+              <span class="svc-step-eyebrow">04</span>
+              <h2 class="svc-step-title">First article. Then production.</h2>
+              <p class="svc-step-body">
+                The first physical part is where the plan meets reality. It is
+                produced, reviewed and tested against the project requirements.
+                If the structure, materials or process need refinement, they are
+                adjusted before the project moves into series production.
+              </p>
+              <p class="svc-catch">Proven once. Repeated with control.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 — Equipped for modern composite production (centered + montage) -->
+      <section class="svc-step svc-step--center">
+        <div class="container">
+          <div class="svc-step-head reveal-stagger">
+            <span class="svc-step-eyebrow reveal">05</span>
+            <h2 class="svc-step-title reveal">
+              Equipped for modern composite production.
+            </h2>
+            <p class="svc-step-body reveal">
+              Advanced composites demand more than material knowledge. In-house
+              equipment lets Telamorph manage the complete path from tooling to
+              finished part — under one roof.
+            </p>
+            <p class="svc-catch reveal">The full route, under control.</p>
+          </div>
+
+          <div class="svc-sequence reveal-stagger">
+            <div class="svc-frame reveal">
+              <div
+                class="svc-frame-media"
+                style="
+                  background-image: url(&quot;assets/images/Picture8.jpg&quot;);
+                "
+              ></div>
+              <span class="svc-frame-label">CNC router &amp; mills</span>
+            </div>
+            <div class="svc-frame reveal">
+              <div
+                class="svc-frame-media"
+                style="
+                  background-image: url(&quot;assets/images/Picture18.jpg&quot;);
+                "
+              ></div>
+              <span class="svc-frame-label">Curing ovens</span>
+            </div>
+            <div class="svc-frame reveal">
+              <div
+                class="svc-frame-media"
+                style="
+                  background-image: url(&quot;assets/images/Picture15.jpg&quot;);
+                "
+              ></div>
+              <span class="svc-frame-label">Paint booth</span>
+            </div>
+          </div>
+
+          <div
+            class="svc-chips"
+            style="justify-content: center"
+            aria-label="In-house equipment"
+          >
+            <span class="svc-chip">CNC routers</span>
+            <span class="svc-chip">Mills</span>
+            <span class="svc-chip">Curing ovens</span>
+            <span class="svc-chip">Vacuum systems</span>
+            <span class="svc-chip">3D printers</span>
+            <span class="svc-chip">Finishing facilities</span>
+            <span class="svc-chip">Paint booth</span>
+            <span class="svc-chip">Climate control</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 — Made for serious applications (centered + grid) -->
+      <section class="svc-step svc-step--alt svc-step--center">
+        <div class="container">
+          <div class="svc-step-head reveal-stagger">
+            <span class="svc-step-eyebrow reveal">06</span>
+            <h2 class="svc-step-title reveal">
+              Made for serious applications.
+            </h2>
+            <p class="svc-step-body reveal">
+              From lightweight body components to technical composite parts,
+              production is built around strength, weight, finish and
+              repeatability.
+            </p>
+          </div>
+
+          <div class="svc-appgrid reveal-stagger">
+            <div class="svc-appgrid-item reveal">
+              <div
+                class="svc-appgrid-bg"
+                style="
+                  background-image: url(&quot;assets/images/Picture23.jpg&quot;);
+                "
+              ></div>
+              <span class="svc-appgrid-label">Automotive</span>
+            </div>
+            <div class="svc-appgrid-item reveal">
+              <div
+                class="svc-appgrid-bg"
+                style="
+                  background-image: url(&quot;assets/images/Picture19.jpg&quot;);
+                "
+              ></div>
+              <span class="svc-appgrid-label">Motorsport</span>
+            </div>
+            <div class="svc-appgrid-item reveal">
+              <div
+                class="svc-appgrid-bg"
+                style="
+                  background-image: url(&quot;assets/images/Picture25.jpg&quot;);
+                "
+              ></div>
+              <span class="svc-appgrid-label">Aerospace</span>
+            </div>
+            <div class="svc-appgrid-item reveal">
+              <div
+                class="svc-appgrid-bg"
+                style="
+                  background-image: url(&quot;assets/images/Picture25.jpg&quot;);
+                "
+              ></div>
+              <span class="svc-appgrid-label">UAVs</span>
+            </div>
+            <div class="svc-appgrid-item reveal">
+              <div
+                class="svc-appgrid-bg"
+                style="
+                  background-image: url(&quot;assets/images/Picture10.jpg&quot;);
+                "
+              ></div>
+              <span class="svc-appgrid-label">Industrial systems</span>
+            </div>
+            <div class="svc-appgrid-item reveal">
+              <div
+                class="svc-appgrid-bg"
+                style="
+                  background-image: url(&quot;assets/images/3D_object.jpg&quot;);
+                "
+              ></div>
+              <span class="svc-appgrid-label">Special composites</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="svc-cta">
+        <div class="svc-cta-inner reveal-stagger">
+          <span class="svc-eyebrow reveal">Get started</span>
+          <h2 class="svc-cta-title reveal">Start composite production.</h2>
+          <p class="svc-cta-text reveal">
+            Bring the project data, approved geometry, existing tooling or
+            production target. The next step is to define how the part should be
+            built, finished and repeated.
+          </p>
+          <div class="svc-cta-actions reveal">
+            <a href="contact.html" class="btn btn-accent btn-lg btn-arrow">
+              <span>Discuss manufacturing</span>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14" />
+                <path d="M13 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+    <script>
+      window.__hydrateTelamorphShell?.("footer-placeholder", "footer");
+    </script>
+
+    <script
+      src="assets/vendor/bootstrap/bootstrap.bundle.min.js"
+      defer
+    ></script>
+    <script src="assets/js/utils.js" defer></script>
+    <script src="assets/js/main.js?v=20260427" defer></script>
+    <script src="assets/js/parallax.js" defer></script>
+  </body>
+</html>

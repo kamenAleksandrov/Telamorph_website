@@ -54,8 +54,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // How each stage sub-slide enters (its gap with the previous slide):
   // "horizontal" → slides in from the side, "vertical" → slides up from below,
-  // "fade" (default) → cross-fades in place.
-  const enterOf = (i) => (stageSlides[i]?.dataset.enter || "fade").toLowerCase();
+  // "fade" (default) → cross-fades in place. A slide may set data-enter-mobile
+  // to use a calmer transition on small screens (side-slides read poorly there).
+  const mobileMQ = window.matchMedia("(max-width: 767.98px)");
+  const enterOf = (i) => {
+    const slide = stageSlides[i];
+    if (!slide) return "fade";
+    const mobile = slide.dataset.enterMobile;
+    if (mobile && mobileMQ.matches) return mobile.toLowerCase();
+    return (slide.dataset.enter || "fade").toLowerCase();
+  };
 
   // --- Reveal-on-activate (the scroll observer is disabled in deck mode) ---
   function revealWithin(scope) {

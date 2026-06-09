@@ -1,0 +1,537 @@
+/* ==========================================================================
+   Telamorph — Service pages (Composite Development, Manufacturing)
+   A reusable, low-cognitive-load system: a compact hero, then a paced
+   sequence of "steps" (title → quiet paragraph → takeaway line), generous
+   whitespace, alternating layout + tone. Normal scrolling page (no deck).
+   ========================================================================== */
+
+/* --- Shared eyebrow --- */
+.svc-eyebrow {
+  display: inline-block;
+  font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+/* ==========================================================================
+   Compact hero
+   ========================================================================== */
+.svc-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: clamp(420px, 58vh, 640px);
+  display: flex;
+  align-items: flex-end;
+  padding: calc(var(--nav-height, 72px) + 3rem) 0 clamp(2.5rem, 7vh, 4.5rem);
+}
+
+.svc-hero-bg {
+  position: absolute;
+  inset: -10% 0;
+  background-size: cover;
+  background-position: center;
+  will-change: transform;
+  z-index: 0;
+}
+
+.svc-hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+      to right,
+      rgba(17, 18, 21, 0.92) 0%,
+      rgba(17, 18, 21, 0.6) 55%,
+      rgba(17, 18, 21, 0.25) 100%
+    ),
+    linear-gradient(to top, rgba(17, 18, 21, 0.88) 0%, transparent 45%);
+}
+
+.svc-hero-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding-left: clamp(1.25rem, 4vw, 4.5rem);
+  padding-right: clamp(1.25rem, 4vw, 4.5rem);
+}
+
+.svc-hero-title {
+  font-size: clamp(2.2rem, 1.4rem + 3.4vw, 4.2rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+  max-width: 18ch;
+}
+
+.svc-hero-lead {
+  font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.35rem);
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin: 0;
+  max-width: 56ch;
+}
+
+/* ==========================================================================
+   Step — the repeating journey unit (image + takeaway line)
+   ========================================================================== */
+.svc-step {
+  position: relative;
+  overflow: hidden; /* contain the horizontal slide-in reveals */
+  padding: clamp(4rem, 12vh, 8.5rem) 0;
+}
+
+/* Alternating background tone clearly separates neighbouring steps */
+.svc-step--alt {
+  background-color: var(--bg-secondary);
+}
+
+.svc-step-grid {
+  display: flex;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5.5rem);
+}
+
+.svc-step--reverse .svc-step-grid {
+  flex-direction: row-reverse;
+}
+
+.svc-text {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.svc-step-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 1.1rem;
+}
+
+.svc-step-eyebrow::after {
+  content: "";
+  width: clamp(2rem, 6vw, 4rem);
+  height: 2px;
+  background: var(--accent);
+  opacity: 0.5;
+}
+
+.svc-step-title {
+  font-size: clamp(1.7rem, 1.2rem + 1.8vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+  margin: 0 0 1.1rem;
+}
+
+.svc-step-body {
+  font-size: clamp(1.02rem, 0.97rem + 0.25vw, 1.18rem);
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin: 0;
+  max-width: 48ch;
+}
+
+/* Takeaway line — the memorable punch for skimmers */
+.svc-catch {
+  position: relative;
+  margin: 1.75rem 0 0;
+  padding-left: 1.1rem;
+  font-size: clamp(1.15rem, 1rem + 0.7vw, 1.55rem);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--accent);
+}
+
+.svc-catch::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.15em;
+  bottom: 0.15em;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+/* --- Media panel --- */
+.svc-media {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  aspect-ratio: 4 / 3;
+  box-shadow: 0 18px 40px -22px rgba(0, 0, 0, 0.7);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.svc-media-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.01);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.svc-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(17, 18, 21, 0.5) 0%, transparent 55%);
+  opacity: 0.85;
+  transition: opacity var(--transition);
+}
+
+.svc-media:hover {
+  border-color: var(--accent-deep);
+  box-shadow: 0 22px 50px -20px rgba(0, 0, 0, 0.8);
+}
+
+.svc-media:hover .svc-media-bg {
+  transform: scale(1.08);
+}
+
+.svc-media:hover::after {
+  opacity: 1;
+}
+
+.svc-media-tag {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 1;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: var(--text-primary);
+  padding: 0.4rem 0.85rem;
+  border-radius: 2rem;
+  background: rgba(17, 18, 21, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* --- Material chips (Structure with purpose) --- */
+.svc-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.6rem;
+}
+
+.svc-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.95rem;
+  border: 1px solid var(--border-color);
+  border-radius: 2rem;
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: border-color var(--transition), color var(--transition),
+    transform var(--transition);
+}
+
+.svc-chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   Centered step (Ready for manufacturing) + CAD → Mold → Part sequence
+   ========================================================================== */
+.svc-step--center {
+  text-align: center;
+}
+
+.svc-step-head {
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+.svc-step--center .svc-step-eyebrow {
+  justify-content: center;
+}
+
+.svc-step--center .svc-step-body {
+  max-width: 60ch;
+  margin: 0 auto;
+}
+
+.svc-step--center .svc-catch {
+  display: inline-block;
+  margin-top: 1.6rem;
+  padding-left: 0;
+}
+
+.svc-step--center .svc-catch::before {
+  display: none;
+}
+
+.svc-sequence {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: clamp(0.75rem, 2.5vw, 2rem);
+  margin-top: clamp(2.5rem, 6vh, 4rem);
+}
+
+.svc-frame {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 22rem;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-card);
+  transition: border-color var(--transition), transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.svc-frame:hover {
+  border-color: var(--border-light);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px -16px rgba(0, 0, 0, 0.55);
+}
+
+.svc-frame-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background-size: cover;
+  background-position: center;
+}
+
+.svc-frame-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(17, 18, 21, 0.55) 0%, transparent 60%);
+}
+
+.svc-frame-label {
+  display: block;
+  padding: 0.9rem 1rem 1.1rem;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.svc-arrow {
+  flex: 0 0 auto;
+  align-self: center;
+  color: var(--accent);
+  font-size: clamp(1.2rem, 1rem + 1vw, 1.9rem);
+  line-height: 1;
+  opacity: 0.8;
+}
+
+/* Application areas */
+.svc-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.55rem 0.7rem;
+  margin: clamp(2.25rem, 5vh, 3.25rem) auto 0;
+  max-width: 52rem;
+}
+
+.svc-tags .svc-chip {
+  background-color: transparent;
+  font-size: 0.84rem;
+  padding: 0.35rem 0.85rem;
+}
+
+/* --- Application grid (a few strong image tiles) --- */
+.svc-appgrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.6rem, 1.5vw, 1rem);
+  margin-top: clamp(2.25rem, 6vh, 3.5rem);
+  text-align: left;
+}
+
+@media (min-width: 768px) {
+  .svc-appgrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.svc-appgrid-item {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.svc-appgrid-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.01);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.svc-appgrid-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(17, 18, 21, 0.78) 0%, transparent 60%);
+}
+
+.svc-appgrid-item:hover {
+  border-color: var(--accent-deep);
+  box-shadow: 0 18px 40px -22px rgba(0, 0, 0, 0.75);
+}
+
+.svc-appgrid-item:hover .svc-appgrid-bg {
+  transform: scale(1.08);
+}
+
+.svc-appgrid-label {
+  position: absolute;
+  left: 1rem;
+  bottom: 0.9rem;
+  z-index: 1;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   CTA band
+   ========================================================================== */
+.svc-cta {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+  padding: clamp(5rem, 14vh, 9rem) 0 clamp(6rem, 16vh, 10rem);
+}
+
+.svc-cta-inner {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.svc-cta-title {
+  font-size: clamp(2rem, 1.3rem + 2.4vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.2rem;
+}
+
+.svc-cta-text {
+  font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.3rem);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 46ch;
+  margin: 0 auto 2.25rem;
+}
+
+.svc-cta-actions {
+  display: flex;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   Reveal slide-in variants (paired with main.js IntersectionObserver)
+   ========================================================================== */
+.reveal.reveal-left {
+  transform: translateX(-40px);
+}
+
+.reveal.reveal-right {
+  transform: translateX(40px);
+}
+
+.reveal.reveal-left.is-visible,
+.reveal.reveal-right.is-visible {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal.reveal-left,
+  .reveal.reveal-right {
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width: 767.98px) {
+  .svc-hero {
+    align-items: flex-end;
+    padding-top: calc(var(--nav-height, 72px) + 1.5rem);
+  }
+
+  /* Stack each step; image sits above the text consistently */
+  .svc-step-grid,
+  .svc-step--reverse .svc-step-grid {
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .svc-text,
+  .svc-media {
+    flex: none;
+    width: 100%;
+  }
+
+  .svc-media {
+    aspect-ratio: 16 / 10;
+  }
+
+  /* Horizontal slide-ins would push past the viewport edge when stacked */
+  .reveal.reveal-left,
+  .reveal.reveal-right {
+    transform: translateY(24px);
+  }
+
+  /* The 3-step sequence stacks; arrows turn to point downward */
+  .svc-sequence {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .svc-frame {
+    /* In a column, the desktop `flex:1 1 0` (basis 0) collapses the frame to
+       zero height because the media's height comes from aspect-ratio, not
+       content. Size to content instead so the image shows. */
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 26rem;
+  }
+
+  .svc-arrow {
+    transform: rotate(90deg);
+  }
+}

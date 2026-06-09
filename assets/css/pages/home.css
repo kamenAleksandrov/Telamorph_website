@@ -176,9 +176,9 @@
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  font-size: 0.78rem;
+  font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   color: var(--accent);
   font-weight: 700;
   margin-bottom: 1.25rem;
@@ -200,9 +200,11 @@
   margin: 0;
 }
 
+/* Emphasis carried by weight only — no colored words inside the white copy */
 .split-line em {
   font-style: normal;
-  color: var(--accent);
+  font-weight: 700;
+  color: inherit;
 }
 
 .split-media {
@@ -325,9 +327,9 @@
 
 .manifesto-kicker {
   display: block;
-  font-size: 0.8rem;
+  font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
   text-transform: uppercase;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.2em;
   color: var(--accent);
   font-weight: 700;
   margin-bottom: 1.5rem;
@@ -369,9 +371,9 @@
 
 .cta-eyebrow {
   display: inline-block;
-  font-size: 0.8rem;
+  font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
   text-transform: uppercase;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   color: var(--accent);
   font-weight: 700;
   margin-bottom: 1.1rem;

@@ -38,58 +38,55 @@
         background-color: #111215;
       }
 
+      /* Clear the transparent overlaid nav */
+      .contact-section {
+        padding-top: calc(var(--nav-height, 72px) + 25px + clamp(1.5rem, 5vh, 3rem));
+        padding-bottom: clamp(3.5rem, 12vh, 7rem);
+      }
+
+      .contact-wrap {
+        max-width: 640px;
+        margin: 0 auto;
+      }
+
+      .contact-form {
+        margin-top: clamp(1.75rem, 4vh, 2.5rem);
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        padding: clamp(1.5rem, 3vw, 2.25rem);
+      }
+
+      .contact-field {
+        margin-bottom: 1.1rem;
+      }
+
+      .contact-label {
+        display: block;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 0.4rem;
+      }
+
+      .contact-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.85rem;
+        margin-top: 0.5rem;
+      }
+
+      .contact-form .btn[disabled] {
+        opacity: 0.55;
+        cursor: not-allowed;
+      }
+
       .contact-form-note {
         color: var(--text-secondary);
         font-size: 0.95rem;
-        margin: 1rem 0 0;
-      }
-
-      .contact-feedback {
-        background: var(--accent-subtle);
-        border: 1px solid rgba(91, 168, 245, 0.35);
-        border-radius: var(--radius-sm);
-        color: var(--text-primary);
-      }
-
-      .contact-method-grid {
-        display: grid;
-        gap: 0.85rem;
-      }
-
-      .contact-method-card {
-        align-items: center;
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius-sm);
-        display: flex;
-        gap: 1rem;
-        justify-content: space-between;
-        padding: 1rem;
-      }
-
-      .contact-method-card h3 {
-        color: var(--text-primary);
-        font-size: 1rem;
-        font-weight: 600;
-        margin: 0 0 0.2rem;
-      }
-
-      .contact-method-card p {
-        color: var(--text-secondary);
-        margin: 0;
-      }
-
-      .copy-email {
-        flex: 0 0 auto;
-        font-size: 0.9rem;
-        padding: 0.55rem 0.95rem;
-      }
-
-      @media (max-width: 575.98px) {
-        .contact-method-card {
-          align-items: flex-start;
-          flex-direction: column;
-        }
+        line-height: 1.55;
+        margin: 1.15rem 0 0;
       }
     </style>
     <script>
@@ -120,225 +117,103 @@
     </script>
 
     <main>
-      <section class="section">
+      <section class="contact-section">
         <div class="container">
-          <div class="row g-5 reveal-stagger">
-            <div class="col-lg-6 reveal">
-              <h1 class="section-title">Contact Us</h1>
-              <p class="section-subtitle">
-                Tell us what you need and we will prepare an email draft in your
-                mail app for product inquiries, quotes, or custom engineering
-                requests.
-              </p>
+          <div class="contact-wrap reveal-stagger">
+            <h1 class="section-title reveal">Get in touch</h1>
+            <p class="section-subtitle reveal">
+              Tell us what you're building — pick an inquiry type, add a few
+              details, and how to reach you. Full contact details and our
+              location are in the footer below.
+            </p>
 
-              <form id="contact-form" class="mb-4">
-                <div class="mb-3">
-                  <label
-                    for="inquiry-type"
-                    class="form-label"
-                    style="color: var(--text-secondary); font-size: 0.9rem"
-                    >Inquiry Type</label
-                  >
-                  <select
-                    class="form-select form-control-dark"
-                    id="inquiry-type"
-                    name="inquiry-type"
-                    required
-                  >
-                    <option
-                      value="general"
-                      data-recipient="info@telamorph.com"
-                      data-subject="General Inquiry"
-                    >
-                      General Inquiry
-                    </option>
-                    <option
-                      value="quote"
-                      data-recipient="sales@telamorph.com"
-                      data-subject="Request a Quote"
-                    >
-                      Request a Quote
-                    </option>
-                    <option
-                      value="product"
-                      data-recipient="sales@telamorph.com"
-                      data-subject="Product Inquiry"
-                    >
-                      Product Inquiry
-                    </option>
-                    <option
-                      value="engineering"
-                      data-recipient="sales@telamorph.com"
-                      data-subject="Custom Engineering Inquiry"
-                    >
-                      Custom Engineering
-                    </option>
-                  </select>
-                </div>
-                <div class="mb-3">
-                  <label
-                    for="name"
-                    class="form-label"
-                    style="color: var(--text-secondary); font-size: 0.9rem"
-                    >Name</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control form-control-dark"
-                    id="name"
-                    name="name"
-                    maxlength="120"
-                    required
-                  />
-                </div>
-                <div class="mb-3">
-                  <label
-                    for="email"
-                    class="form-label"
-                    style="color: var(--text-secondary); font-size: 0.9rem"
-                    >Email</label
-                  >
-                  <input
-                    type="email"
-                    class="form-control form-control-dark"
-                    id="email"
-                    name="email"
-                    maxlength="160"
-                    required
-                  />
-                </div>
-                <div class="mb-3">
-                  <label
-                    for="subject"
-                    class="form-label"
-                    style="color: var(--text-secondary); font-size: 0.9rem"
-                    >Subject</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control form-control-dark"
-                    id="subject"
-                    name="subject"
-                    maxlength="120"
-                    placeholder="Short project or product topic"
-                  />
-                </div>
-                <div class="mb-3">
-                  <label
-                    for="message"
-                    class="form-label"
-                    style="color: var(--text-secondary); font-size: 0.9rem"
-                    >Message</label
-                  >
-                  <textarea
-                    class="form-control form-control-dark"
-                    id="message"
-                    name="message"
-                    rows="5"
-                    maxlength="1800"
-                    required
-                  ></textarea>
-                </div>
-                <button type="submit" class="btn btn-accent">
-                  Open Email Draft
-                </button>
-                <p class="contact-form-note">
-                  Nothing is sent from this website. Review and send the draft
-                  from your own email account.
-                </p>
-              </form>
-
-              <noscript>
-                <p class="contact-form-note">
-                  JavaScript is disabled, so please use the direct email links
-                  below.
-                </p>
-              </noscript>
-
-              <div
-                id="form-feedback"
-                class="alert contact-feedback d-none"
-                role="status"
-                aria-live="polite"
-              >
-                Your email draft should now be open. If nothing opened, email
-                <a id="form-feedback-email" href="mailto:info@telamorph.com"
-                  >info@telamorph.com</a
+            <!-- NOTE: form is a placeholder until the email backend is live.
+                 Wiring: enable #submit-btn and POST the form to the endpoint. -->
+            <form id="contact-form" class="contact-form reveal">
+              <div class="contact-field">
+                <label class="contact-label" for="inquiry-type">Inquiry type</label>
+                <select
+                  class="form-select form-control-dark"
+                  id="inquiry-type"
+                  name="inquiry-type"
+                  required
                 >
-                directly.
+                  <option value="general">General inquiry</option>
+                  <option value="quote">Request a quote</option>
+                  <option value="product">Product inquiry</option>
+                  <option value="engineering">Custom engineering</option>
+                </select>
               </div>
 
-              <hr style="border-color: var(--border-color); margin: 2rem 0" />
-
-              <div class="mb-4">
-                <h3 style="font-size: 1.1rem; font-weight: 600">Email</h3>
-                <div class="contact-method-grid">
-                  <div class="contact-method-card">
-                    <div>
-                      <h3>General Contact</h3>
-                      <p>
-                        <a href="mailto:info@telamorph.com"
-                          >info@telamorph.com</a
-                        >
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      class="btn btn-outline-accent copy-email"
-                      data-copy-email="info@telamorph.com"
-                    >
-                      Copy
-                    </button>
-                  </div>
-                  <div class="contact-method-card">
-                    <div>
-                      <h3>Sales and Quotes</h3>
-                      <p>
-                        <a href="mailto:sales@telamorph.com"
-                          >sales@telamorph.com</a
-                        >
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      class="btn btn-outline-accent copy-email"
-                      data-copy-email="sales@telamorph.com"
-                    >
-                      Copy
-                    </button>
-                  </div>
-                </div>
+              <div class="contact-field">
+                <label class="contact-label" for="name">Name</label>
+                <input
+                  type="text"
+                  class="form-control form-control-dark"
+                  id="name"
+                  name="name"
+                  maxlength="120"
+                  required
+                />
               </div>
 
-              <div class="mb-4">
-                <h3 style="font-size: 1.1rem; font-weight: 600">Phone</h3>
-                <p style="color: var(--text-secondary)">+44 (0) 1234 567 890</p>
+              <div class="contact-field">
+                <label class="contact-label" for="email">Email</label>
+                <input
+                  type="email"
+                  class="form-control form-control-dark"
+                  id="email"
+                  name="email"
+                  maxlength="160"
+                  required
+                />
               </div>
 
-              <div class="mb-4">
-                <h3 style="font-size: 1.1rem; font-weight: 600">Address</h3>
-                <p style="color: var(--text-secondary)">
-                  Telamorph Ltd.<br />
-                  Unit 5, Innovation Park<br />
-                  Bristol, BS1 2AB<br />
-                  United Kingdom
-                </p>
+              <div class="contact-field">
+                <label class="contact-label" for="subject">Subject</label>
+                <input
+                  type="text"
+                  class="form-control form-control-dark"
+                  id="subject"
+                  name="subject"
+                  maxlength="120"
+                  placeholder="Short project or product topic"
+                />
               </div>
-            </div>
 
-            <div class="col-lg-6 reveal">
-              <!-- Google Maps embed — no API key needed -->
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1261.5523932682433!2d23.412165284826482!3d42.67640705429053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4ee450c173d29fc3%3A0x7d52144affe771c5!2sTelamorph%20Ltd.!5e1!3m2!1sen!2sbg!4v1780938128607!5m2!1sen!2sbg"
-                width="600"
-                height="450"
-                style="border: 0"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                title="Telamorph Location Map"
-              ></iframe>
-            </div>
+              <div class="contact-field">
+                <label class="contact-label" for="message">Message</label>
+                <textarea
+                  class="form-control form-control-dark"
+                  id="message"
+                  name="message"
+                  rows="5"
+                  maxlength="1800"
+                  required
+                ></textarea>
+              </div>
+
+              <div class="contact-actions">
+                <button
+                  type="submit"
+                  id="submit-btn"
+                  class="btn btn-accent"
+                  disabled
+                  aria-disabled="true"
+                >
+                  Send message
+                </button>
+                <a class="btn btn-outline-accent" href="mailto:office@telamorph.com"
+                  >Email us instead</a
+                >
+              </div>
+
+              <p class="contact-form-note">
+                The contact form is coming online shortly. For now, email
+                <a href="mailto:office@telamorph.com">office@telamorph.com</a>
+                and we'll get straight back to you.
+              </p>
+            </form>
           </div>
         </div>
       </section>
@@ -349,80 +224,8 @@
       window.__hydrateTelamorphShell?.("footer-placeholder", "footer");
     </script>
 
-    <script
-      src="assets/vendor/bootstrap/bootstrap.bundle.min.js"
-      defer
-    ></script>
+    <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
     <script src="assets/js/utils.js" defer></script>
     <script src="assets/js/main.js?v=20260427" defer></script>
-    <script defer>
-      document.addEventListener("DOMContentLoaded", () => {
-        const form = document.getElementById("contact-form");
-        if (form) {
-          form.addEventListener("submit", (e) => {
-            e.preventDefault();
-
-            if (!form.reportValidity()) return;
-
-            const inquirySelect = document.getElementById("inquiry-type");
-            const selectedInquiry = inquirySelect?.selectedOptions?.[0];
-            const recipient =
-              selectedInquiry?.dataset.recipient || "info@telamorph.com";
-            const defaultSubject =
-              selectedInquiry?.dataset.subject || "Website Inquiry";
-            const inquiryLabel =
-              selectedInquiry?.textContent.trim() || "General Inquiry";
-            const name = document.getElementById("name")?.value.trim() || "";
-            const email = document.getElementById("email")?.value.trim() || "";
-            const subject =
-              document.getElementById("subject")?.value.trim() ||
-              defaultSubject;
-            const message =
-              document.getElementById("message")?.value.trim() || "";
-            const body = [
-              "Hello Telamorph,",
-              "",
-              message,
-              "",
-              "Contact details:",
-              `Name: ${name}`,
-              `Email: ${email}`,
-              `Inquiry type: ${inquiryLabel}`,
-            ].join("\r\n");
-            const mailto = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            const feedback = document.getElementById("form-feedback");
-            const feedbackEmail = document.getElementById(
-              "form-feedback-email",
-            );
-
-            if (feedbackEmail) {
-              feedbackEmail.href = `mailto:${recipient}`;
-              feedbackEmail.textContent = recipient;
-            }
-            if (feedback) feedback.classList.remove("d-none");
-
-            window.location.href = mailto;
-          });
-        }
-
-        document.querySelectorAll("[data-copy-email]").forEach((button) => {
-          button.addEventListener("click", async () => {
-            const email = button.getAttribute("data-copy-email");
-            if (!email) return;
-
-            try {
-              await navigator.clipboard.writeText(email);
-              const originalText = button.textContent;
-              button.textContent = "Copied";
-              window.setTimeout(() => {
-                button.textContent = originalText;
-              }, 1600);
-            } catch {
-              window.location.href = `mailto:${email}`;
-            }
-          });
-        });
-      });
-    </script>
   </body>
 </html>

@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   await Promise.all([loadNav(), loadFooter()]);
   highlightActiveTab();
   initCursorStreaks();
+  initNavStreakReset();
   // In deck mode (deck.js) reveals and the scroll-to-top button are driven by
   // the deck controller, since there is no document scroll to observe.
   if (!window.__deckEnabled) {
@@ -22,8 +23,8 @@ const shellCacheKeys = {
 };
 
 const shellPartialUrls = {
-  nav: "components/nav.html?v=20260429-devprod",
-  footer: "components/footer.html?v=20260429-devprod"
+  nav: "components/nav.html?v=20260609-industrial",
+  footer: "components/footer.html?v=20260609-industrial"
 };
 
 function readShellCache(cacheKey) {
@@ -162,6 +163,22 @@ function initCursorStreaks(root = document) {
 window.initCursorStreaks = initCursorStreaks;
 
 /**
+ * When the offcanvas menu closes, drop the navbar's frozen streak position.
+ * Bootstrap restores focus to the hamburger on close; paired with the
+ * `:has(:focus-visible)` rule this keeps the streak from lingering, and resets
+ * its position for the keyboard (Escape) close path.
+ */
+function initNavStreakReset() {
+  const menu = document.getElementById("sideMenu");
+  const navbar = document.querySelector(".navbar-telamorph");
+  if (!menu || !navbar) return;
+  menu.addEventListener("hidden.bs.offcanvas", () => {
+    navbar.style.removeProperty("--streak-x");
+    navbar.style.removeProperty("--streak-y");
+  });
+}
+
+/**
  * Fade + float-up each .reveal element when it scrolls into view.
  * Elements inside .reveal-stagger groups stagger by sibling index.
  * Dense card groups reveal together so high-index cards do not feel delayed.
@@ -276,7 +293,10 @@ function highlightActiveTab() {
 
   const serviceTabByPage = {
     "body-kits.html": "body-kits.html",
-    "development-production.html": "development-production.html"
+    "development-production.html": "development-production.html",
+    "composite-development.html": "composite-development.html",
+    "manufacturing.html": "manufacturing.html",
+    "industrial.html": "industrial.html"
   };
 
   if (serviceTabByPage[page]) {

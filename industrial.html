@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Industrial — Telamorph</title>
+    <meta
+      name="description"
+      content="Industrial solutions engineered and built in-house by Telamorph — sensors, fixtures and technical composite systems for demanding applications."
+    />
+    <link rel="canonical" href="https://telamorph.com/industrial.html" />
+    <link rel="icon" type="image/png" href="assets/images/logo_cropped.png" />
+    <link rel="apple-touch-icon" href="assets/images/logo_cropped.png" />
+
+    <meta property="og:title" content="Industrial — Telamorph" />
+    <meta
+      property="og:description"
+      content="In-house engineered industrial solutions for demanding applications."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://telamorph.com/industrial.html" />
+
+    <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/components/navbar.css" />
+    <link rel="stylesheet" href="assets/css/components/footer.css" />
+    <link rel="stylesheet" href="assets/css/components/product-card.css" />
+    <link rel="stylesheet" href="assets/css/components/buttons.css" />
+    <link rel="stylesheet" href="assets/css/components/section-header.css" />
+    <link rel="stylesheet" href="assets/css/components/noscript.css" />
+    <link rel="stylesheet" href="assets/css/components/streak.css" />
+    <link rel="stylesheet" href="assets/css/pages/industrial.css" />
+    <style>
+      html,
+      body {
+        background-color: #111215;
+      }
+    </style>
+    <script>
+      (() => {
+        const cacheKeys = {
+          nav: "telamorph-shell-nav-v2",
+          footer: "telamorph-shell-footer-v1",
+        };
+
+        window.__hydrateTelamorphShell = (targetId, slot) => {
+          try {
+            const target = document.getElementById(targetId);
+            const html = sessionStorage.getItem(cacheKeys[slot]);
+            if (!target || !html || target.innerHTML.trim()) return;
+            target.innerHTML = html;
+            target.dataset.shellHydrated = "true";
+          } catch {
+            // Ignore storage access failures.
+          }
+        };
+      })();
+    </script>
+  </head>
+  <body>
+    <!-- Nav -->
+    <div id="nav-placeholder"></div>
+    <script>
+      window.__hydrateTelamorphShell?.("nav-placeholder", "nav");
+    </script>
+
+    <noscript>
+      <div class="noscript-banner">
+        This site requires JavaScript to display the product listing.
+      </div>
+    </noscript>
+
+    <main>
+      <!-- Compact hero -->
+      <section class="industrial-hero">
+        <div class="container">
+          <span class="industrial-eyebrow reveal">Industrial Solutions</span>
+          <h1 class="industrial-title reveal">Engineered in-house. Built to perform.</h1>
+          <p class="industrial-lead reveal">
+            A growing range of industrial products designed, developed and
+            manufactured under one roof — from sensors and fixtures to technical
+            composite systems for demanding environments.
+          </p>
+        </div>
+      </section>
+
+      <!-- Search + grid -->
+      <section class="industrial-catalog">
+        <div class="container">
+          <div class="industrial-toolbar reveal">
+            <label class="industrial-search" for="industrial-search">
+              <svg
+                class="industrial-search-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.3-4.3" />
+              </svg>
+              <input
+                id="industrial-search"
+                type="search"
+                autocomplete="off"
+                placeholder="Search industrial products"
+                aria-label="Search industrial products"
+              />
+            </label>
+            <span id="industrial-count" class="industrial-count"></span>
+          </div>
+
+          <div
+            id="industrial-grid"
+            class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 industrial-grid reveal-stagger"
+          >
+            <!-- Populated by industrial.js -->
+          </div>
+
+          <div
+            id="industrial-empty"
+            class="industrial-empty"
+            style="display: none"
+          >
+            No industrial products match your search.
+          </div>
+
+          <nav
+            id="industrial-pagination"
+            class="industrial-pagination"
+            aria-label="Product pages"
+          ></nav>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+    <script>
+      window.__hydrateTelamorphShell?.("footer-placeholder", "footer");
+    </script>
+
+    <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
+    <script src="assets/js/utils.js" defer></script>
+    <script src="assets/js/main.js?v=20260427" defer></script>
+    <script src="assets/js/industrial.js" defer></script>
+  </body>
+</html>

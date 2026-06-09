@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Composite Development — Telamorph</title>
+    <meta
+      name="description"
+      content="From geometry to production-ready composite parts. Telamorph develops client-defined designs into manufacturable composite parts — prepared for tooling, structure, fitment and repeatable production."
+    />
+    <link
+      rel="canonical"
+      href="https://telamorph.com/composite-development.html"
+    />
+    <link rel="icon" type="image/png" href="assets/images/logo_cropped.png" />
+    <link rel="apple-touch-icon" href="assets/images/logo_cropped.png" />
+
+    <meta property="og:title" content="Composite Development — Telamorph" />
+    <meta
+      property="og:description"
+      content="Your design. Production-ready. We develop client-defined designs into manufacturable composite parts."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://telamorph.com/composite-development.html"
+    />
+
+    <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/components/navbar.css" />
+    <link rel="stylesheet" href="assets/css/components/footer.css" />
+    <link rel="stylesheet" href="assets/css/components/product-card.css" />
+    <link rel="stylesheet" href="assets/css/components/buttons.css" />
+    <link rel="stylesheet" href="assets/css/components/breadcrumb.css" />
+    <link rel="stylesheet" href="assets/css/components/section-header.css" />
+    <link rel="stylesheet" href="assets/css/components/filter-pills.css" />
+    <link rel="stylesheet" href="assets/css/components/spec-table.css" />
+    <link rel="stylesheet" href="assets/css/components/noscript.css" />
+    <link rel="stylesheet" href="assets/css/components/streak.css" />
+    <link rel="stylesheet" href="assets/css/pages/service.css" />
+    <style>
+      html,
+      body {
+        background-color: #111215;
+      }
+    </style>
+    <script>
+      (() => {
+        const cacheKeys = {
+          nav: "telamorph-shell-nav-v2",
+          footer: "telamorph-shell-footer-v1",
+        };
+
+        window.__hydrateTelamorphShell = (targetId, slot) => {
+          try {
+            const target = document.getElementById(targetId);
+            const html = sessionStorage.getItem(cacheKeys[slot]);
+            if (!target || !html || target.innerHTML.trim()) return;
+            target.innerHTML = html;
+            target.dataset.shellHydrated = "true";
+          } catch {
+            // Ignore storage access failures.
+          }
+        };
+      })();
+    </script>
+  </head>
+  <body>
+    <!-- Nav -->
+    <div id="nav-placeholder"></div>
+    <script>
+      window.__hydrateTelamorphShell?.("nav-placeholder", "nav");
+    </script>
+
+    <noscript>
+      <div class="noscript-banner">
+        This site works best with JavaScript enabled.
+      </div>
+    </noscript>
+
+    <!-- NOTE: Picture*.jpg are placeholders — swap for real CAD / scan / mold /
+       fiber imagery when the client supplies them. -->
+    <main>
+      <!-- Hero (compact) -->
+      <section class="svc-hero" id="top">
+        <div
+          class="svc-hero-bg parallax-bg"
+          style="background-image: url(&quot;assets/images/Picture20.jpg&quot;)"
+        ></div>
+        <div class="svc-hero-scrim"></div>
+        <div class="container svc-hero-inner reveal-stagger">
+          <h1 class="svc-hero-title reveal">
+            From geometry to production-ready composite parts.
+          </h1>
+          <p class="svc-hero-lead reveal">
+            A successful composite project starts long before the first layer is
+            placed. It starts with geometry, purpose and a clear production
+            direction. Telamorph develops client-defined designs into
+            manufacturable composite parts — prepared for tooling, structure,
+            fitment and repeatable production.
+          </p>
+        </div>
+      </section>
+
+      <!-- 01 — The design remains yours -->
+      <section class="svc-step">
+        <div class="container">
+          <div class="svc-step-grid reveal-stagger">
+            <div class="svc-media reveal reveal-left">
+              <div
+                class="svc-media-bg"
+                style="
+                  background-image: url(&quot;assets/images/Picture5_noBG.png&quot;);
+                "
+              ></div>
+              <span class="svc-media-tag">Your geometry</span>
+            </div>
+            <div class="svc-text reveal reveal-right">
+              <span class="svc-step-eyebrow">01</span>
+              <h2 class="svc-step-title">The design remains yours.</h2>
+              <p class="svc-step-body">
+                The visual direction belongs to the client and their design
+                team. Our role begins when that design needs to become real:
+                reviewed, prepared and developed for manufacturing. Whether the
+                project starts from a 3D CAD model, a scanned vehicle, an
+                existing component or a physical reference, the goal is the same
+                — clear geometry ready for production.
+              </p>
+              <p class="svc-catch">Your design. Production-ready.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 — Design for Manufacturing -->
+      <section class="svc-step svc-step--alt svc-step--reverse">
+        <div class="container">
+          <div class="svc-step-grid reveal-stagger">
+            <div class="svc-media reveal reveal-right">
+              <div
+                class="svc-media-bg"
+                style="
+                  background-image: url(&quot;assets/images/Picture2.jpg&quot;);
+                "
+              ></div>
+              <span class="svc-media-tag">DFM review</span>
+            </div>
+            <div class="svc-text reveal reveal-left">
+              <span class="svc-step-eyebrow">02</span>
+              <h2 class="svc-step-title">Design for manufacturing.</h2>
+              <p class="svc-step-body">
+                A beautiful shape must be carefully thought through before it
+                becomes a manufacturable part. Before production begins, the
+                geometry is reviewed through the logic of composite
+                manufacturing: part split, assembly, fitment, mold strategy and
+                repeatability. The objective is simple — avoid unnecessary
+                complexity before it becomes expensive in production.
+              </p>
+              <p class="svc-catch">
+                The right decisions before the first mold.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 — Structure with purpose -->
+      <section class="svc-step">
+        <div class="container">
+          <div class="svc-step-grid reveal-stagger">
+            <div class="svc-media reveal reveal-left">
+              <div
+                class="svc-media-bg"
+                style="
+                  background-image: url(&quot;assets/images/Picture9.jpg&quot;);
+                "
+              ></div>
+              <span class="svc-media-tag">Material &amp; laminate</span>
+            </div>
+            <div class="svc-text reveal reveal-right">
+              <span class="svc-step-eyebrow">03</span>
+              <h2 class="svc-step-title">Structure with purpose.</h2>
+              <p class="svc-step-body">
+                Every composite part has a job. The material structure is
+                selected around that job — weight, strength, environment,
+                surface quality and production requirements. When the part
+                demands it, the structure is supported by calculation, laminate
+                definition and FEA simulation. <br />
+                Reinforcements can be combined with suitable cores, resin
+                systems and coatings and post processing procedures to create
+                the right balance for each component.
+              </p>
+              <div
+                class="svc-chips"
+                aria-label="Reinforcements, cores and processes"
+              >
+                <span class="svc-chip">Carbon fiber</span>
+                <span class="svc-chip">Fiberglass</span>
+                <span class="svc-chip">Aramid</span>
+                <span class="svc-chip">Flax</span>
+                <span class="svc-chip">Cores</span>
+                <span class="svc-chip">Resin systems</span>
+                <span class="svc-chip">Coatings</span>
+                <span class="svc-chip">Post-processing</span>
+                <span class="svc-chip">FEA simulation</span>
+              </div>
+              <p class="svc-catch">
+                Light where possible. Strong where needed.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 — Tooling defines repeatability -->
+      <section class="svc-step svc-step--alt svc-step--reverse">
+        <div class="container">
+          <div class="svc-step-grid reveal-stagger">
+            <div class="svc-media reveal reveal-right">
+              <div
+                class="svc-media-bg"
+                style="
+                  background-image: url(&quot;assets/images/Picture10.jpg&quot;);
+                "
+              ></div>
+              <span class="svc-media-tag">Tooling strategy</span>
+            </div>
+            <div class="svc-text reveal reveal-left">
+              <span class="svc-step-eyebrow">04</span>
+              <h2 class="svc-step-title">Tooling defines repeatability.</h2>
+              <p class="svc-step-body">
+                The mold is not just a tool — it is the foundation of
+                production. Before manufacturing starts, the tooling strategy is
+                defined around geometry, surface requirements and production
+                volume. Master models, milled tooling, direct molds and
+                supporting jigs are selected according to the part and the
+                number of cycles it needs to serve.
+              </p>
+              <p class="svc-catch">Built once. Repeated with control.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 — Ready for manufacturing (centered + CAD → Mold → Part sequence) -->
+      <section class="svc-step svc-step--center">
+        <div class="container">
+          <div class="svc-step-head reveal-stagger">
+            <span class="svc-step-eyebrow reveal">05</span>
+            <h2 class="svc-step-title reveal">Ready for manufacturing.</h2>
+            <p class="svc-step-body reveal">
+              Composite development ends when the project is no longer just a
+              design. It becomes a clear production plan: geometry prepared,
+              structure defined, tooling strategy selected and the manufacturing
+              route understood. <br />
+              From automotive and motorsport to aerospace, UAVs, industrial
+              equipment and special composite applications, the process is built
+              around one goal — turning defined ideas into parts that can be
+              produced with confidence.
+            </p>
+            <p class="svc-catch reveal">
+              From digital intent to physical production.
+            </p>
+          </div>
+
+          <div class="svc-sequence reveal-stagger">
+            <div class="svc-frame reveal">
+              <div
+                class="svc-frame-media"
+                style="
+                  background-image: url(&quot;assets/images/Picture7_noBG.png&quot;);
+                "
+              ></div>
+              <span class="svc-frame-label">CAD &amp; geometry</span>
+            </div>
+            <span class="svc-arrow" aria-hidden="true">&rarr;</span>
+            <div class="svc-frame reveal">
+              <div
+                class="svc-frame-media"
+                style="
+                  background-image: url(&quot;assets/images/Picture10.jpg&quot;);
+                "
+              ></div>
+              <span class="svc-frame-label">Tooling &amp; mold</span>
+            </div>
+            <span class="svc-arrow" aria-hidden="true">&rarr;</span>
+            <div class="svc-frame reveal">
+              <div
+                class="svc-frame-media"
+                style="
+                  background-image: url(&quot;assets/images/Picture16.jpg&quot;);
+                "
+              ></div>
+              <span class="svc-frame-label">Finished part</span>
+            </div>
+          </div>
+
+          <div class="svc-tags reveal" aria-label="Applications">
+            <span class="svc-chip">Automotive</span>
+            <span class="svc-chip">Motorsport</span>
+            <span class="svc-chip">Aerospace</span>
+            <span class="svc-chip">UAVs</span>
+            <span class="svc-chip">Industrial equipment</span>
+            <span class="svc-chip">Special composites</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="svc-cta">
+        <div class="svc-cta-inner reveal-stagger">
+          <span class="svc-eyebrow reveal">Get started</span>
+          <h2 class="svc-cta-title reveal">
+            Prepare your project for production.
+          </h2>
+          <p class="svc-cta-text reveal">
+            Send the design data, scan data, existing part or technical brief.
+            The next step is to understand what needs to be built, how it should
+            perform and how it should be produced.
+          </p>
+          <div class="svc-cta-actions reveal">
+            <a href="contact.html" class="btn btn-accent btn-lg btn-arrow">
+              <span>Start composite development</span>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14" />
+                <path d="M13 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+    <script>
+      window.__hydrateTelamorphShell?.("footer-placeholder", "footer");
+    </script>
+
+    <script
+      src="assets/vendor/bootstrap/bootstrap.bundle.min.js"
+      defer
+    ></script>
+    <script src="assets/js/utils.js" defer></script>
+    <script src="assets/js/main.js?v=20260427" defer></script>
+    <script src="assets/js/parallax.js" defer></script>
+  </body>
+</html>
