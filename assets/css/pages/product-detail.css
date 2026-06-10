@@ -146,22 +146,22 @@
 
 /* --- Reveal slide-in variants (paired with main.js IntersectionObserver) --- */
 .reveal.reveal-left {
-  transform: translateX(-32px);
+  translate: -32px 0;
 }
 
 .reveal.reveal-right {
-  transform: translateX(32px);
+  translate: 32px 0;
 }
 
 .reveal.reveal-left.is-visible,
 .reveal.reveal-right.is-visible {
-  transform: none;
+  translate: 0 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal.reveal-left,
   .reveal.reveal-right {
-    transform: none;
+    translate: none;
   }
 }
 
@@ -172,7 +172,7 @@
 
   .reveal.reveal-left,
   .reveal.reveal-right {
-    transform: translateY(24px);
+    translate: 0 24px;
   }
 
   .pd-media {

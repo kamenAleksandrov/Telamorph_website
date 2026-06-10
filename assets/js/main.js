@@ -128,7 +128,8 @@ const cursorStreakSelector = [
   ".quote-panel",
   ".product-card",
   ".btn-accent",
-  ".btn-outline-accent"
+  ".btn-outline-accent",
+  ".svc-chip"
 ].join(", ");
 
 /**
@@ -204,7 +205,7 @@ function initRevealOnScroll(root = document) {
           revealObserver.unobserve(entry.target);
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px 10% 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -6% 0px" }
     );
   }
 

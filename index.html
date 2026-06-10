@@ -30,7 +30,6 @@
   <link rel="stylesheet" href="assets/css/components/spec-table.css">
   <link rel="stylesheet" href="assets/css/components/noscript.css">
   <link rel="stylesheet" href="assets/css/components/streak.css">
-  <link rel="stylesheet" href="assets/css/components/deck.css">
   <link rel="stylesheet" href="assets/css/pages/home.css">
 
   <!-- Structured Data: Organization -->
@@ -51,20 +50,6 @@
   <style>
     html, body { background-color: #111215; }
   </style>
-  <script>
-    /* Enable the scene deck before first paint to avoid a flash of the
-       fallback (normally-scrolling) layout. deck.js does the rest. */
-    (() => {
-      try {
-        if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
-          document.documentElement.classList.add("deck-enabled");
-          window.__deckEnabled = true;
-        }
-      } catch {
-        /* leave the page in its normal-scroll fallback */
-      }
-    })();
-  </script>
   <script>
     (() => {
       const cacheKeys = {
@@ -98,114 +83,101 @@
     <div class="noscript-banner">This site works best with JavaScript enabled.</div>
   </noscript>
 
-  <!-- Scene deck — one gesture per stop (see deck.js). Falls back to a normal
-       scrolling page when JS is off or reduced-motion is requested. -->
-  <main class="deck" id="deck">
-    <div class="deck-track" id="deckTrack">
+  <main>
 
-      <!-- Panel 0 — Hero -->
-      <section class="deck-panel hero hero-home" data-panel="hero" id="top">
-        <div class="hero-parallax-bg parallax-bg" style="background-image: url('assets/images/Picture19.jpg');"></div>
-        <div class="hero-scrim"></div>
-        <div class="container hero-inner reveal-stagger">
-          <h1 class="hero-title reveal">Built Light.<br>Engineered Strong.</h1>
-          <p class="hero-lead reveal">Telamorph develops and manufactures advanced composite components for applications where conventional materials are no longer enough.</p>
-          <div class="hero-actions reveal">
+    <!-- Hero -->
+    <section class="hero" id="top">
+      <div class="hero-parallax-bg parallax-bg" style="background-image: url('assets/images/Picture19.jpg');"></div>
+      <div class="hero-scrim"></div>
+      <div class="container hero-inner reveal-stagger">
+        <h1 class="hero-title reveal">Built Light.<br>Engineered Strong.</h1>
+        <p class="hero-lead reveal">Telamorph develops and manufactures advanced composite components for applications where conventional materials are no longer enough.</p>
+        <div class="hero-actions reveal">
+          <a href="contact.html" class="btn btn-accent btn-lg btn-arrow">
+            <span>Start a project</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+      <a href="#approach" class="hero-scroll-cue reveal" aria-label="Go to next section">
+        <span class="hero-chevrons">
+          <span></span>
+          <span></span>
+        </span>
+      </a>
+    </section>
+
+    <!-- Approach — alternating image/text rows. Each row brightens as it passes
+         through the middle of the screen and dims as it leaves (home-scroll.js). -->
+    <section class="split" id="approach">
+      <div class="container">
+
+        <div class="split-row scroll-fade">
+          <div class="split-text">
+            <span class="split-eyebrow">Where it performs</span>
+            <p class="split-line">From track-built cars and superbikes to aerospace components, drones and technical systems, the work is built around one idea — create parts that are lighter, stronger and made with purpose.</p>
+          </div>
+          <div class="split-media">
+            <div class="split-media-bg" style="background-image: url('assets/images/Picture26.jpg');"></div>
+          </div>
+        </div>
+
+        <div class="split-row split-row--reverse scroll-fade">
+          <div class="split-text">
+            <span class="split-eyebrow">The full path</span>
+            <p class="split-line">Telamorph works across the full path of a composite project — from geometry preparation and production planning to tooling and manufacturing.</p>
+          </div>
+          <div class="split-media">
+            <div class="split-media-bg" style="background-image: url('assets/images/Picture2.jpg');"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Manifesto pull-quote -->
+    <section class="manifesto">
+      <div class="manifesto-bg parallax-bg" style="background-image: url('assets/images/Picture17.jpg');"></div>
+      <div class="manifesto-scrim"></div>
+      <div class="container manifesto-inner reveal-stagger">
+        <p class="manifesto-kicker reveal">The result</p>
+        <blockquote class="manifesto-quote reveal">
+          It is not just a composite part.<br>
+          It is a component prepared to fit, perform and be produced with control.
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-band" id="start">
+      <div class="container">
+        <div class="cta-inner reveal-stagger">
+          <span class="cta-eyebrow reveal">Get started</span>
+          <h2 class="cta-title reveal">Start a composite project.</h2>
+          <p class="cta-text reveal">Share the design data, existing part, production target or technical challenge. The next step starts with understanding what needs to be built — and how it should perform.</p>
+          <div class="cta-actions reveal">
             <a href="contact.html" class="btn btn-accent btn-lg btn-arrow">
               <span>Start a project</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
-        <a href="#approach" class="hero-scroll-cue reveal" aria-label="Go to next section">
-          <span class="hero-chevrons">
-            <span></span>
-            <span></span>
-          </span>
-        </a>
-      </section>
+      </div>
+    </section>
 
-      <!-- Panel 1 — Approach stage (4 sub-slides that cross-fade) -->
-      <section class="deck-panel deck-stage" data-panel="stage" id="approach">
-
-        <!-- 1.0 — Approach row 1 -->
-        <div class="stage-slide" data-sub="0">
-          <div class="container stage-inner">
-            <div class="split-row reveal-stagger">
-              <div class="split-text reveal reveal-left">
-                <span class="split-eyebrow">Where it performs</span>
-                <p class="split-line">From track-built cars and superbikes to aerospace components, drones and technical systems, the work is built around one idea — create parts that are lighter, stronger and made with purpose.</p>
-              </div>
-              <div class="split-media reveal reveal-right">
-                <div class="split-media-bg" style="background-image: url('assets/images/Picture26.jpg');"></div>
-                <span class="split-media-tag">Built for the limit</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 1.1 — Approach row 2 (slides up from below, same on every device) -->
-        <div class="stage-slide" data-sub="1" data-enter="vertical">
-          <div class="container stage-inner">
-            <div class="split-row split-row--reverse reveal-stagger">
-              <div class="split-text reveal reveal-right">
-                <span class="split-eyebrow">The full path</span>
-                <p class="split-line">Telamorph works across the full path of a composite project — from geometry preparation and production planning to tooling and manufacturing.</p>
-              </div>
-              <div class="split-media reveal reveal-left">
-                <div class="split-media-bg" style="background-image: url('assets/images/Picture2.jpg');"></div>
-                <span class="split-media-tag">Concept to part</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 1.2 — Manifesto (slides up from below, like the hero→approach step) -->
-        <div class="stage-slide stage-slide--media" data-sub="2" data-enter="vertical">
-          <div class="stage-bg parallax-bg" style="background-image: url('assets/images/Picture17.jpg');"></div>
-          <div class="stage-scrim"></div>
-          <div class="container manifesto-inner reveal-stagger">
-            <p class="manifesto-kicker reveal">The result</p>
-            <blockquote class="manifesto-quote reveal">
-              It is not just a composite part.<br>
-              It is a component prepared to fit, perform and be produced with control.
-            </blockquote>
-          </div>
-        </div>
-
-        <!-- 1.3 — CTA (cross-fades in place) -->
-        <div class="stage-slide" data-sub="3" data-enter="fade" id="start">
-          <div class="container cta-inner reveal-stagger">
-            <span class="cta-eyebrow reveal">Get started</span>
-            <h2 class="cta-title reveal">Start a composite project.</h2>
-            <p class="cta-text reveal">Share the design data, existing part, production target or technical challenge. The next step starts with understanding what needs to be built — and how it should perform.</p>
-            <div class="cta-actions reveal">
-              <a href="contact.html" class="btn btn-accent btn-lg btn-arrow">
-                <span>Start a project</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
-              </a>
-            </div>
-          </div>
-        </div>
-
-      </section>
-
-      <!-- Panel 2 — Footer -->
-      <section class="deck-panel deck-footer" data-panel="footer">
-        <div id="footer-placeholder"></div>
-        <script>
-          window.__hydrateTelamorphShell?.("footer-placeholder", "footer");
-        </script>
-      </section>
-
-    </div>
   </main>
+
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
+  <script>
+    window.__hydrateTelamorphShell?.("footer-placeholder", "footer");
+  </script>
 
   <!-- Scripts -->
   <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
   <script src="assets/js/utils.js" defer></script>
   <script src="assets/js/main.js?v=20260427" defer></script>
   <script src="assets/js/parallax.js" defer></script>
-  <script src="assets/js/deck.js" defer></script>
+  <script src="assets/js/home-scroll.js" defer></script>
 </body>
 </html>

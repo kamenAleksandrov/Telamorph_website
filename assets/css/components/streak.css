@@ -15,7 +15,8 @@
   .quote-panel,
   .product-card,
   .btn-accent,
-  .btn-outline-accent
+  .btn-outline-accent,
+  .svc-chip
 )::before,
 :where(.footer-links a, .menu-list li a)::after,
 .product-tab::after {
@@ -52,7 +53,8 @@
   .quote-panel,
   .product-card,
   .btn-accent,
-  .btn-outline-accent
+  .btn-outline-accent,
+  .svc-chip
 )::before {
   top: 0;
   z-index: var(--streak-z, 1);
@@ -79,7 +81,8 @@
   .quote-panel,
   .product-card,
   .btn-accent,
-  .btn-outline-accent
+  .btn-outline-accent,
+  .svc-chip
 ):hover::before,
 :where(
   .showcase-band,

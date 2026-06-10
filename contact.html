@@ -40,7 +40,9 @@
 
       /* Clear the transparent overlaid nav */
       .contact-section {
-        padding-top: calc(var(--nav-height, 72px) + 25px + clamp(1.5rem, 5vh, 3rem));
+        padding-top: calc(
+          var(--nav-height, 72px) + 25px + clamp(1.5rem, 5vh, 3rem)
+        );
         padding-bottom: clamp(3.5rem, 12vh, 7rem);
       }
 
@@ -69,10 +71,23 @@
         margin-bottom: 0.4rem;
       }
 
+      .contact-optional {
+        color: var(--text-muted);
+        font-weight: 500;
+      }
+
+      .contact-hint {
+        margin: 0.5rem 0 0;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        line-height: 1.5;
+      }
+
       .contact-actions {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
+        justify-content: center;
         gap: 0.85rem;
         margin-top: 0.5rem;
       }
@@ -80,6 +95,11 @@
       .contact-form .btn[disabled] {
         opacity: 0.55;
         cursor: not-allowed;
+      }
+
+      #copy-email-btn.is-copied {
+        color: var(--accent);
+        border-color: var(--accent);
       }
 
       .contact-form-note {
@@ -122,16 +142,18 @@
           <div class="contact-wrap reveal-stagger">
             <h1 class="section-title reveal">Get in touch</h1>
             <p class="section-subtitle reveal">
-              Tell us what you're building — pick an inquiry type, add a few
-              details, and how to reach you. Full contact details and our
-              location are in the footer below.
+              Tell us what you're building. The more you share, the faster and
+              more precisely we can help — so don't hold back on the details.
+              Full contact information and our location are in the footer below.
             </p>
 
             <!-- NOTE: form is a placeholder until the email backend is live.
                  Wiring: enable #submit-btn and POST the form to the endpoint. -->
             <form id="contact-form" class="contact-form reveal">
               <div class="contact-field">
-                <label class="contact-label" for="inquiry-type">Inquiry type</label>
+                <label class="contact-label" for="inquiry-type"
+                  >Inquiry type</label
+                >
                 <select
                   class="form-select form-control-dark"
                   id="inquiry-type"
@@ -139,9 +161,15 @@
                   required
                 >
                   <option value="general">General inquiry</option>
+                  <option value="composite-development">
+                    Composite development
+                  </option>
+                  <option value="manufacturing">
+                    Manufacturing / production
+                  </option>
+                  <option value="industrial">Industrial solution</option>
                   <option value="quote">Request a quote</option>
-                  <option value="product">Product inquiry</option>
-                  <option value="engineering">Custom engineering</option>
+                  <option value="other">Something else</option>
                 </select>
               </div>
 
@@ -154,6 +182,20 @@
                   name="name"
                   maxlength="120"
                   required
+                />
+              </div>
+
+              <div class="contact-field">
+                <label class="contact-label" for="company"
+                  >Company / organisation
+                  <span class="contact-optional">(optional)</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control form-control-dark"
+                  id="company"
+                  name="company"
+                  maxlength="120"
                 />
               </div>
 
@@ -182,15 +224,25 @@
               </div>
 
               <div class="contact-field">
-                <label class="contact-label" for="message">Message</label>
+                <label class="contact-label" for="message"
+                  >Project details</label
+                >
                 <textarea
                   class="form-control form-control-dark"
                   id="message"
                   name="message"
-                  rows="5"
-                  maxlength="1800"
+                  rows="7"
+                  maxlength="3000"
+                  placeholder="e.g. I'm developing a carbon-fiber front splitter for a track car. I have a CAD model and need ~20 units, gloss finish, target weight under 2 kg, delivered within 8 weeks."
                   required
                 ></textarea>
+                <p class="contact-hint">
+                  The more detail the better. Helpful to include: what you're
+                  making and its application; materials, finish or performance
+                  targets; quantity or production volume; your timeline; and
+                  whether you already have CAD data, a 3D scan, drawings or a
+                  physical sample.
+                </p>
               </div>
 
               <div class="contact-actions">
@@ -203,16 +255,20 @@
                 >
                   Send message
                 </button>
-                <a class="btn btn-outline-accent" href="mailto:office@telamorph.com"
-                  >Email us instead</a
+                <a
+                  class="btn btn-outline-accent"
+                  href="mailto:office@telamorph.com"
+                  >Email us</a
                 >
+                <button
+                  type="button"
+                  id="copy-email-btn"
+                  class="btn btn-outline-accent"
+                  data-email="office@telamorph.com"
+                >
+                  Copy email
+                </button>
               </div>
-
-              <p class="contact-form-note">
-                The contact form is coming online shortly. For now, email
-                <a href="mailto:office@telamorph.com">office@telamorph.com</a>
-                and we'll get straight back to you.
-              </p>
             </form>
           </div>
         </div>
@@ -224,8 +280,62 @@
       window.__hydrateTelamorphShell?.("footer-placeholder", "footer");
     </script>
 
-    <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
+    <script
+      src="assets/vendor/bootstrap/bootstrap.bundle.min.js"
+      defer
+    ></script>
     <script src="assets/js/utils.js" defer></script>
     <script src="assets/js/main.js?v=20260427" defer></script>
+    <script>
+      (() => {
+        const btn = document.getElementById("copy-email-btn");
+        if (!btn) return;
+        const email = btn.dataset.email;
+        const original = btn.textContent.trim();
+        let resetTimer;
+
+        const flash = (label) => {
+          clearTimeout(resetTimer);
+          btn.textContent = label;
+          btn.classList.add("is-copied");
+          resetTimer = setTimeout(() => {
+            btn.textContent = original;
+            btn.classList.remove("is-copied");
+          }, 1800);
+        };
+
+        const fallbackCopy = () => {
+          const ta = document.createElement("textarea");
+          ta.value = email;
+          ta.setAttribute("readonly", "");
+          ta.style.position = "absolute";
+          ta.style.left = "-9999px";
+          document.body.appendChild(ta);
+          ta.select();
+          let ok = false;
+          try {
+            ok = document.execCommand("copy");
+          } catch {
+            ok = false;
+          }
+          document.body.removeChild(ta);
+          return ok;
+        };
+
+        btn.addEventListener("click", async () => {
+          let copied = false;
+          if (navigator.clipboard?.writeText) {
+            try {
+              await navigator.clipboard.writeText(email);
+              copied = true;
+            } catch {
+              copied = false;
+            }
+          }
+          if (!copied) copied = fallbackCopy();
+          flash(copied ? "Copied!" : email);
+        });
+      })();
+    </script>
   </body>
 </html>

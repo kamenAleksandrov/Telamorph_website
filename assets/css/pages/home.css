@@ -167,6 +167,12 @@
   flex-direction: row-reverse;
 }
 
+/* Rows whose brightness is driven by scroll position (home-scroll.js). The
+   layout stays fixed; only opacity + a small vertical drift change. */
+.scroll-fade {
+  will-change: opacity, transform;
+}
+
 .split-text {
   flex: 1 1 0;
   min-width: 0;
@@ -270,22 +276,22 @@
 
 /* Slide-in reveal variants (layered on top of the base .reveal) */
 .reveal.reveal-left {
-  transform: translateX(-40px);
+  translate: -40px 0;
 }
 
 .reveal.reveal-right {
-  transform: translateX(40px);
+  translate: 40px 0;
 }
 
 .reveal.reveal-left.is-visible,
 .reveal.reveal-right.is-visible {
-  transform: none;
+  translate: 0 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal.reveal-left,
   .reveal.reveal-right {
-    transform: none;
+    translate: none;
   }
 }
 
@@ -366,6 +372,7 @@
 
 .cta-inner {
   max-width: 52rem;
+  margin: 0 auto;
   text-align: center;
 }
 
@@ -698,7 +705,7 @@
      viewport edge on narrow screens */
   .reveal.reveal-left,
   .reveal.reveal-right {
-    transform: translateY(24px);
+    translate: 0 24px;
   }
 
   .manifesto-quote br {
