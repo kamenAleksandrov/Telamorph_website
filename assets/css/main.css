@@ -331,6 +331,197 @@ html .reveal {
   }
 }
 
+/* --- Toast notifications (bottom-center, transient) --- */
+.toast-stack {
+  position: fixed;
+  left: 50%;
+  top: clamp(1.25rem, 4vh, 2.5rem);
+  translate: -50% 0;
+  z-index: 1070;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  pointer-events: none;
+}
+
+.toast-msg {
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-lg);
+  background: rgba(30, 32, 36, 0.92);
+  border: 1px solid var(--border-light);
+  color: var(--text-primary);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  translate: 0 14px;
+  transition: opacity 0.35s ease, translate 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.toast-msg.is-visible {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.toast-msg.is-success {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast-msg {
+    transition: opacity 0.2s ease;
+    translate: none;
+  }
+}
+
+/* --- Icon cycle: a chevron "head" (same shape as the hero scroll cue) that
+   swaps for a second identical chevron on hover ---
+   Two CSS-border chevrons (::before idle, ::after waiting just off the opposite
+   edge) share one small overflow-hidden box. On hover/focus of the containing
+   link or button, the first chevron slides out + fades in its pointing
+   direction while the second slides in + fades from behind — and reverses on
+   mouse-leave, since it's a plain hover-state transition. `rotate` orients the
+   chevron; `translate` drives the slide. They're independent transform
+   properties (translate is applied in screen axes regardless of rotation) so
+   the chevron always points one way while sliding cleanly along the other.
+   Presets: default → right; --down / --up for the vertical cues (jump-to-
+   section buttons and the scroll-to-top chip). Border width / chevron size are
+   tunable below. */
+.icon-cycle {
+  --icon-cycle-rotate: -45deg; /* right-pointing */
+  --icon-cycle-shift-x: 150%;
+  --icon-cycle-shift-y: 0%;
+  --icon-cycle-nudge: 3px 0; /* the subtle hover slide the old arrows had */
+  /* Feather the travel edges so a chevron dissolves into the frame instead of
+     being hard-clipped by the box. Solid band (15–85%) clears the resting,
+     rotated chevron; the outer 15% on each side fades. Axis matches the slide:
+     horizontal here, vertical on the --down/--up variants. */
+  --icon-cycle-fade: linear-gradient(
+    90deg,
+    transparent,
+    #000 40%,
+    #000 50%,
+    transparent
+  );
+  position: relative;
+  display: inline-block;
+  width: 0.85em;
+  height: 0.85em;
+  flex-shrink: 0;
+  overflow: hidden;
+  -webkit-mask: var(--icon-cycle-fade) center / 100% 100% no-repeat;
+  mask: var(--icon-cycle-fade) center / 100% 100% no-repeat;
+  translate: 0 0;
+  transition: translate 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.icon-cycle::before,
+.icon-cycle::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto; /* centre the fixed-size chevron in the box */
+  width: 45%;
+  height: 45%;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  border-radius: 0 0 2px 0; /* round the chevron's vertex, like the hero cue */
+  rotate: var(--icon-cycle-rotate);
+  transition: translate 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
+}
+
+.icon-cycle::before {
+  translate: 0 0;
+  opacity: 1;
+}
+
+.icon-cycle::after {
+  translate: calc(-1 * var(--icon-cycle-shift-x)) calc(-1 * var(--icon-cycle-shift-y));
+  opacity: 0;
+}
+
+a:hover .icon-cycle::before,
+a:focus-visible .icon-cycle::before,
+button:hover .icon-cycle::before,
+button:focus-visible .icon-cycle::before {
+  translate: var(--icon-cycle-shift-x) var(--icon-cycle-shift-y);
+  opacity: 0;
+}
+
+a:hover .icon-cycle::after,
+a:focus-visible .icon-cycle::after,
+button:hover .icon-cycle::after,
+button:focus-visible .icon-cycle::after {
+  translate: 0 0;
+  opacity: 1;
+}
+
+/* The whole icon also nudges a touch in its pointing direction on hover —
+   the small slide the trailing arrows had before the chevron swap. */
+a:hover .icon-cycle,
+a:focus-visible .icon-cycle,
+button:hover .icon-cycle,
+button:focus-visible .icon-cycle {
+  translate: var(--icon-cycle-nudge);
+}
+
+.icon-cycle--down {
+  --icon-cycle-rotate: 45deg; /* down-pointing (same as hero cue) */
+  --icon-cycle-shift-x: 0%;
+  --icon-cycle-shift-y: 150%;
+  --icon-cycle-nudge: 0 3px;
+  --icon-cycle-fade: linear-gradient(
+    180deg,
+    transparent,
+    #000 15%,
+    #000 85%,
+    transparent
+  );
+}
+
+.icon-cycle--up {
+  --icon-cycle-rotate: -135deg; /* up-pointing */
+  --icon-cycle-shift-x: 0%;
+  --icon-cycle-shift-y: -150%;
+  --icon-cycle-nudge: 0 -3px;
+  --icon-cycle-fade: linear-gradient(
+    180deg,
+    transparent,
+    #000 15%,
+    #000 85%,
+    transparent
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon-cycle,
+  .icon-cycle::before,
+  .icon-cycle::after {
+    transition: none;
+  }
+  .icon-cycle::after {
+    content: none;
+  }
+  a:hover .icon-cycle,
+  a:focus-visible .icon-cycle,
+  button:hover .icon-cycle,
+  button:focus-visible .icon-cycle {
+    translate: 0 0;
+  }
+  a:hover .icon-cycle::before,
+  a:focus-visible .icon-cycle::before,
+  button:hover .icon-cycle::before,
+  button:focus-visible .icon-cycle::before {
+    translate: 0 0;
+    opacity: 1;
+  }
+}
+
 /* --- Scroll-to-top button (bottom-right, fades in once scrolled) --- */
 .scroll-top {
   position: fixed;
@@ -373,7 +564,7 @@ html .reveal {
     0 0 0 4px var(--accent-subtle);
 }
 
-.scroll-top svg {
+.scroll-top .icon-cycle {
   width: 22px;
   height: 22px;
 }

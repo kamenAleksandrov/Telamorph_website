@@ -90,9 +90,9 @@
       "Weight": "1.2 kg"
     },
     "images": [
-      "products/precision-torque-sensor/hero.webp"
+      "products/placeholder_cropped_bg.png"
     ],
-    "thumbnail": "placeholder_cropped_bg.png",
+    "thumbnail": "products/placeholder_cropped_bg.png",
     "quoteEmail": "sales@telamorph.com",
     "keywords": ["torque sensor", "torque measurement", "inline torque", "industrial sensor"]
   },

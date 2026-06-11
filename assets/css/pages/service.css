@@ -140,57 +140,38 @@
   max-width: 48ch;
 }
 
-/* Takeaway line — the memorable punch for skimmers */
+/* Takeaway line — glass "pill" CTA; hover lift + cursor streak (::before)
+   come from streak.css, which also drives --streak-x via main.js */
 .svc-catch {
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
   margin: 1.75rem 0 0;
-  padding-left: 1.1rem;
+  padding: 0.85rem 1.5rem;
   font-size: clamp(1.15rem, 1rem + 0.7vw, 1.55rem);
   font-weight: 700;
   line-height: 1.3;
   letter-spacing: -0.01em;
   color: var(--accent);
-}
-
-.svc-catch::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.15em;
-  bottom: 0.15em;
-  width: 3px;
-  border-radius: 2px;
-  background: var(--accent);
-}
-
-/* Catch lines double as links to the contact page — animated on hover */
-.svc-catch {
-  display: inline-block;
   text-decoration: none;
   cursor: pointer;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.svc-catch::after {
-  content: "\2192"; /* → */
-  display: inline-block;
-  margin-left: 0.5rem;
-  font-weight: 700;
-  opacity: 0;
-  transform: translateX(-8px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1.5px solid rgba(255, 255, 255, 0.09);
+  background-color: rgba(24, 26, 32, 0.55);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  transition: border-color var(--transition), color var(--transition),
+    transform var(--transition), box-shadow var(--transition);
 }
 
 .svc-catch:hover,
 .svc-catch:focus-visible {
   color: var(--accent-hover);
-  transform: translateX(4px);
-}
-
-.svc-catch:hover::after,
-.svc-catch:focus-visible::after {
-  opacity: 1;
-  transform: translateX(0);
+  border-color: var(--border-light);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
 }
 
 /* ==========================================================================
@@ -336,13 +317,7 @@
 }
 
 .svc-step--center .svc-catch {
-  display: inline-block;
   margin-top: 1.6rem;
-  padding-left: 0;
-}
-
-.svc-step--center .svc-catch::before {
-  display: none;
 }
 
 .svc-sequence {

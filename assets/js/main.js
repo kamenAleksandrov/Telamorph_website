@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // In deck mode (deck.js) reveals and the scroll-to-top button are driven by
   // the deck controller, since there is no document scroll to observe.
   if (!window.__deckEnabled) {
+    initHeroReveal();
     initRevealOnScroll();
     initScrollTopButton();
   }
@@ -116,6 +117,7 @@ const cursorStreakSelector = [
   ".navbar-telamorph",
   ".product-tab",
   ".footer-links a",
+  ".footer-contact-value",
   ".menu-list li a",
   ".showcase-band",
   ".value-card",
@@ -129,7 +131,9 @@ const cursorStreakSelector = [
   ".product-card",
   ".btn-accent",
   ".btn-outline-accent",
-  ".svc-chip"
+  ".svc-chip",
+  ".svc-catch",
+  ".cd-catch"
 ].join(", ");
 
 /**
@@ -176,6 +180,35 @@ function initNavStreakReset() {
   menu.addEventListener("hidden.bs.offcanvas", () => {
     navbar.style.removeProperty("--streak-x");
     navbar.style.removeProperty("--streak-y");
+  });
+}
+
+/**
+ * Reveal the hero's .reveal elements (heading, lead, actions, scroll cue)
+ * immediately on load instead of waiting for the scroll observer. The hero
+ * fills the viewport, so its bottom-anchored elements (especially the scroll
+ * cue) sit right at the edge of the observer's rootMargin and may not cross
+ * the intersection threshold until the user scrolls.
+ */
+function initHeroReveal() {
+  const heroItems = document.querySelectorAll(".hero .reveal");
+  if (!heroItems.length) return;
+
+  heroItems.forEach((el) => {
+    el.dataset.revealReady = "true";
+  });
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      heroItems.forEach((el) => {
+        if (el.matches(".hero-scroll-cue")) {
+          // Trail slightly behind the staggered hero text.
+          setTimeout(() => el.classList.add("is-visible"), 250);
+        } else {
+          el.classList.add("is-visible");
+        }
+      });
+    });
   });
 }
 
@@ -259,8 +292,7 @@ function initScrollTopButton() {
   btn.type = "button";
   btn.className = "scroll-top";
   btn.setAttribute("aria-label", "Scroll back to top");
-  btn.innerHTML =
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>';
+  btn.innerHTML = '<span class="icon-cycle icon-cycle--up" aria-hidden="true"></span>';
   document.body.appendChild(btn);
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

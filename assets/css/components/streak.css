@@ -16,9 +16,13 @@
   .product-card,
   .btn-accent,
   .btn-outline-accent,
-  .svc-chip
+  .svc-chip,
+  .svc-catch,
+  .cd-catch,
+  .footer-links a,
+  .footer-contact-value
 )::before,
-:where(.footer-links a, .menu-list li a)::after,
+.menu-list li a::after,
 .product-tab::after {
   content: "";
   position: absolute;
@@ -54,13 +58,17 @@
   .product-card,
   .btn-accent,
   .btn-outline-accent,
-  .svc-chip
+  .svc-chip,
+  .svc-catch,
+  .cd-catch,
+  .footer-links a,
+  .footer-contact-value
 )::before {
   top: 0;
   z-index: var(--streak-z, 1);
 }
 
-:where(.footer-links a, .menu-list li a)::after,
+.menu-list li a::after,
 .product-tab::after {
   bottom: var(--streak-bottom, 0);
   transform: scaleX(0.35);
@@ -82,7 +90,11 @@
   .product-card,
   .btn-accent,
   .btn-outline-accent,
-  .svc-chip
+  .svc-chip,
+  .svc-catch,
+  .cd-catch,
+  .footer-links a,
+  .footer-contact-value
 ):hover::before,
 :where(
   .showcase-band,
@@ -95,26 +107,30 @@
   .quote-panel,
   .product-card,
   .btn-accent,
-  .btn-outline-accent
+  .btn-outline-accent,
+  .svc-catch,
+  .cd-catch,
+  .footer-links a,
+  .footer-contact-value
 ):focus-visible::before,
 /* Only light the bar for keyboard focus — not the focus Bootstrap restores to
    the hamburger after a mouse-driven offcanvas close (which froze the streak
    on-screen). */
 .navbar-telamorph:has(:focus-visible)::before,
-:where(.footer-links a, .menu-list li a):hover::after,
-:where(.footer-links a, .menu-list li a):focus-visible::after,
+.menu-list li a:hover::after,
+.menu-list li a:focus-visible::after,
 .product-tab.active::after {
   opacity: 1;
 }
 
-:where(.footer-links a, .menu-list li a):hover::after,
-:where(.footer-links a, .menu-list li a):focus-visible::after,
+.menu-list li a:hover::after,
+.menu-list li a:focus-visible::after,
 .product-tab.active::after {
   transform: scaleX(1);
 }
 
-:where(.product-tab, .footer-links a, .menu-list li a):hover,
-:where(.product-tab, .footer-links a, .menu-list li a):focus-visible {
+:where(.product-tab, .footer-links a, .footer-contact-value, .menu-list li a):hover,
+:where(.product-tab, .footer-links a, .footer-contact-value, .menu-list li a):focus-visible {
   text-shadow: 0 0 12px rgba(91, 168, 245, 0.16);
 }
 
@@ -153,10 +169,6 @@
   --streak-height: 2px;
   --streak-left: clamp(0.3rem, 0.55vw, 1rem);
   --streak-right: clamp(0.3rem, 0.55vw, 1rem);
-}
-
-.footer-links a {
-  --streak-bottom: -0.12rem;
 }
 
 .menu-list li a {

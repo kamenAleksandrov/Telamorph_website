@@ -2,10 +2,11 @@
    Telamorph — Composite Development scrollytelling controller
    Desktop: one media panel pins beside the text and swaps the active stage
    image as each step crosses the middle of the viewport (CSS dims the rest).
-   Mobile: the image becomes a band pinned to the top of the screen; it swaps
-   per stage while each stage's text fades in and FULLY out before it slips
-   behind the image. Progressive enhancement — without JS the page is a normal
-   stacked read with one image per step.
+   Mobile: NO pinning — a plain stacked read with one inline image per step.
+   The per-step text fade-in (both viewports) is handled site-wide by the
+   `.reveal` system in main.js; this controller only drives the desktop panel.
+   Active-stage detection is one discrete, monotonic test ("which step's top
+   has passed the viewport middle?"), so it can't break on resizing chrome.
    ========================================================================== */
 
 document.addEventListener("DOMContentLoaded", initCompositeScrolly);
@@ -18,15 +19,13 @@ function initCompositeScrolly() {
   const stageImages = document.querySelectorAll(".cd-stage-img");
   const progressDots = document.querySelectorAll(".cd-progress-dot");
   const stageTag = document.querySelector(".cd-stage-tag");
+  const desktopMQ = window.matchMedia("(min-width: 992px)");
 
-  // Mark JS-enhanced so the CSS focus effect (desktop dim) activates.
-  scrolly.classList.add("is-enhanced");
-  steps[0].classList.add("is-active");
-
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const mobileMQ = window.matchMedia("(max-width: 991.98px)");
-
-  const setActiveStage = (stage, stepEl) => {
+  let activeStep = null;
+  const setActiveStep = (stepEl) => {
+    if (stepEl === activeStep) return;
+    activeStep = stepEl;
+    const stage = stepEl.dataset.stage;
     steps.forEach((s) => s.classList.toggle("is-active", s === stepEl));
     stageImages.forEach((img) =>
       img.classList.toggle("is-active", img.dataset.stage === stage)
@@ -37,88 +36,49 @@ function initCompositeScrolly() {
     if (stageTag && stepEl.dataset.tag) stageTag.textContent = stepEl.dataset.tag;
   };
 
-  // ---- Active-stage observer (swaps the pinned image) -----------------------
-  let observer = null;
-  const buildObserver = () => {
-    if (!("IntersectionObserver" in window)) return;
-    if (observer) observer.disconnect();
-    // Mobile: activate in the readable zone *below* the top image band.
-    // Desktop: activate across the vertical middle (media sits beside the text).
-    const rootMargin = mobileMQ.matches
-      ? "-64% 0px -24% 0px"
-      : "-45% 0px -45% 0px";
-    observer = new IntersectionObserver(
-      (entries) => {
-        entries
-          .filter((entry) => entry.isIntersecting)
-          .forEach((entry) =>
-            setActiveStage(entry.target.dataset.stage, entry.target)
-          );
-      },
-      { rootMargin, threshold: 0 }
-    );
-    steps.forEach((step) => observer.observe(step));
-  };
-
-  // ---- Mobile text fade -----------------------------------------------------
-  // Opacity is driven by each step centre's position in the viewport: fully
-  // gone at/above the image band (so nothing bleeds behind it), bright in the
-  // readable zone below the band, fading back in from the bottom edge.
-  const BAND = 0.44; // image band height as a fraction of the viewport
-  const TOP_OUT = BAND + 0.01; // centre at/above here → opacity 0 (behind image)
-  const TOP_FULL = BAND + 0.18; // fully visible from here down
-  const BOT_FULL = 0.84; // …to here
-  const BOT_OUT = 1.3; // fully faded once the centre passes the bottom edge — raise to start the next step's fade-in earlier (more overlap with the outgoing step)
-  const smoothstep = (t) => t * t * (3 - 2 * t);
-
   let ticking = false;
-  const paintFade = () => {
-    ticking = false;
+  const updateActive = () => {
     const vh = window.innerHeight || document.documentElement.clientHeight;
-    steps.forEach((step) => {
-      const rect = step.getBoundingClientRect();
-      const ratio = (rect.top + rect.height / 2) / vh;
-      let o;
-      if (ratio <= TOP_OUT || ratio >= BOT_OUT) o = 0;
-      else if (ratio < TOP_FULL) o = smoothstep((ratio - TOP_OUT) / (TOP_FULL - TOP_OUT));
-      else if (ratio <= BOT_FULL) o = 1;
-      else o = smoothstep((BOT_OUT - ratio) / (BOT_OUT - BOT_FULL));
-      step.style.opacity = o.toFixed(3);
-    });
+    const lineY = vh * 0.5;
+    let current = steps[0];
+    for (const step of steps) {
+      if (step.getBoundingClientRect().top <= lineY) current = step;
+      else break;
+    }
+    setActiveStep(current);
   };
   const onScroll = () => {
     if (ticking) return;
     ticking = true;
-    requestAnimationFrame(paintFade);
+    requestAnimationFrame(() => {
+      ticking = false;
+      updateActive();
+    });
   };
 
-  let fadeOn = false;
-  const enableFade = () => {
-    if (fadeOn) return;
-    fadeOn = true;
+  // The pinned panel only exists on desktop; toggle the focus logic when
+  // crossing the breakpoint so mobile is left as a plain stacked read.
+  let desktopOn = false;
+  const enableDesktop = () => {
+    if (desktopOn) return;
+    desktopOn = true;
+    scrolly.classList.add("is-enhanced");
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll, { passive: true });
-    paintFade();
+    updateActive();
   };
-  const disableFade = () => {
-    if (!fadeOn) return;
-    fadeOn = false;
+  const disableDesktop = () => {
+    if (!desktopOn) return;
+    desktopOn = false;
     window.removeEventListener("scroll", onScroll);
     window.removeEventListener("resize", onScroll);
-    // Hand opacity back to the CSS (desktop dim / mobile fallback).
-    steps.forEach((step) => step.style.removeProperty("opacity"));
+    scrolly.classList.remove("is-enhanced");
+    steps.forEach((s) => s.classList.remove("is-active"));
+    activeStep = null;
   };
 
-  // ---- Mode switching (re-evaluated when crossing the breakpoint) -----------
-  const applyMode = () => {
-    buildObserver();
-    const bandMode = mobileMQ.matches && !reduceMotion && "IntersectionObserver" in window;
-    scrolly.classList.toggle("cd-band", bandMode);
-    if (bandMode) enableFade();
-    else disableFade();
-  };
-
+  const applyMode = () => (desktopMQ.matches ? enableDesktop() : disableDesktop());
   applyMode();
-  if (mobileMQ.addEventListener) mobileMQ.addEventListener("change", applyMode);
-  else if (mobileMQ.addListener) mobileMQ.addListener(applyMode); // older Safari
+  if (desktopMQ.addEventListener) desktopMQ.addEventListener("change", applyMode);
+  else if (desktopMQ.addListener) desktopMQ.addListener(applyMode); // older Safari
 }

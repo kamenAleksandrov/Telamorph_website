@@ -57,23 +57,14 @@
   transform: translateY(0);
 }
 
-/* Trailing arrow — subtle nudge on hover */
+/* Trailing arrow — icon-cycle swap on hover (see main.css) */
 .btn-arrow {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.btn-arrow svg {
+.btn-arrow .icon-cycle {
   width: 18px;
   height: 18px;
-  transition: transform var(--transition);
-}
-
-.btn-arrow:hover svg {
-  transform: translateX(3px);
-}
-
-.btn-arrow-down:hover svg {
-  transform: translateY(3px);
 }

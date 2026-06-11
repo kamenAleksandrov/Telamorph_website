@@ -6,6 +6,86 @@
    Reuses service.css for the hero, CTA, chips and catch line.
    ========================================================================== */
 
+/* ==========================================================================
+   Carbon-fiber weave backdrop (Composite Development page only)
+   A fixed 2/2 twill texture sits behind the page — quite literally the material
+   we make — with a faint blue accent sheen drifting across it for depth. Both
+   layers live on body::before/::after, pulled behind content via negative
+   z-index. For a negative-z layer to show, <body> must be transparent: the
+   `html body` selector (specificity 0,0,2) overrides this page's inline
+   `html, body { background-color: #111215 }` (0,0,1) without editing the HTML;
+   <html> keeps the base colour, so there is no white flash. This file only
+   loads on composite-development.html, so no other page is affected.
+   ========================================================================== */
+html body {
+  background-color: transparent;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-color: var(--bg-primary);
+  background-image:
+    linear-gradient(27deg, #0a0b0d 5px, transparent 5px),
+    linear-gradient(207deg, #0a0b0d 5px, transparent 5px),
+    linear-gradient(27deg, #1d2026 5px, transparent 5px),
+    linear-gradient(207deg, #1d2026 5px, transparent 5px),
+    linear-gradient(90deg, #141519 10px, transparent 10px),
+    linear-gradient(
+      180deg,
+      #181b21 25%,
+      #131419 25%,
+      #131419 50%,
+      #1d2026 50%,
+      #1d2026 75%,
+      #0c0d10 75%
+    );
+  background-size: 20px 20px;
+  background-position: 0 5px, 10px 0, 0 10px, 10px 5px, 0 0, 0 0;
+  opacity: 0.4;
+}
+
+/* Slow-drifting accent sheen — blue only (on-palette), oversized so the drift
+   never exposes an edge. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -25%;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(
+      40% 50% at 28% 22%,
+      rgba(91, 168, 245, 0.18),
+      transparent 70%
+    ),
+    radial-gradient(
+      45% 55% at 78% 82%,
+      rgba(61, 147, 237, 0.13),
+      transparent 70%
+    );
+  filter: blur(40px);
+  animation: cf-sheen 26s ease-in-out infinite alternate;
+}
+
+@keyframes cf-sheen {
+  from {
+    transform: translate3d(-9%, -6%, 0) scale(1.05);
+  }
+  to {
+    transform: translate3d(11%, 7%, 0) scale(1.2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::after {
+    animation: none;
+  }
+}
+
 .cd-scrolly {
   padding: clamp(1.5rem, 5vh, 3.5rem) 0 clamp(3rem, 9vh, 6rem);
 }
@@ -159,56 +239,39 @@
   max-width: 46ch;
 }
 
+/* Takeaway line — glass "pill" CTA; hover lift + cursor streak (::before)
+   come from streak.css, which also drives --streak-x via main.js */
 .cd-catch {
   position: relative;
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 0.65rem;
   margin: 1.75rem 0 0;
-  padding-left: 1.1rem;
+  padding: 0.85rem 1.5rem;
   font-size: clamp(1.15rem, 1rem + 0.7vw, 1.5rem);
   font-weight: 700;
   line-height: 1.3;
   letter-spacing: -0.01em;
   color: var(--accent);
-}
-
-.cd-catch::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.15em;
-  bottom: 0.15em;
-  width: 3px;
-  border-radius: 2px;
-  background: var(--accent);
-}
-
-/* Catch lines double as links to the contact page — animated on hover */
-.cd-catch {
-  display: inline-block;
   text-decoration: none;
   cursor: pointer;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.cd-catch::after {
-  content: "\2192"; /* → */
-  display: inline-block;
-  margin-left: 0.5rem;
-  font-weight: 700;
-  opacity: 0;
-  transform: translateX(-8px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1.5px solid rgba(255, 255, 255, 0.09);
+  background-color: rgba(24, 26, 32, 0.55);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  transition: border-color var(--transition), color var(--transition),
+    transform var(--transition), box-shadow var(--transition);
 }
 
 .cd-catch:hover,
 .cd-catch:focus-visible {
   color: var(--accent-hover);
-  transform: translateX(4px);
-}
-
-.cd-catch:hover::after,
-.cd-catch:focus-visible::after {
-  opacity: 1;
-  transform: translateX(0);
+  border-color: var(--border-light);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
 }
 
 /* Inline media — only shown on the stacked mobile layout */
@@ -249,10 +312,10 @@
 
 /* ==========================================================================
    Mobile / tablet
-   Default (no JS / reduced motion): a safe stacked layout — each step shows its
-   own inline image. With JS + motion allowed, composite.js adds `.cd-band` and
-   the image becomes a pinned band at the top that swaps per stage while each
-   stage's text fades in and fully out before it slips behind the image.
+   A plain stacked read — each step shows its own inline image (no pinning).
+   The per-step text fade-in comes from the site-wide `.reveal` system (main.js)
+   applied to each step's content in the markup, so there is nothing layout- or
+   scroll-position-dependent here — just the stacked layout itself.
    ========================================================================== */
 @media (max-width: 991.98px) {
   .cd-scrolly-grid {
@@ -273,44 +336,8 @@
     padding: clamp(2.25rem, 7vh, 3.5rem) 0;
   }
 
-  .cd-scrolly.is-enhanced .cd-step {
-    opacity: 1;
-  }
-
   .cd-step-num {
     margin-bottom: 0.4rem;
-  }
-
-  /* ---- Enhanced: pinned image band + fading text ---- */
-  .cd-scrolly.cd-band .cd-sticky {
-    display: block;
-    position: sticky;
-    top: 0.5rem;
-    z-index: 5;
-  }
-
-  .cd-scrolly.cd-band .cd-stage-media {
-    aspect-ratio: auto;
-    height: 40vh;
-    max-height: none;
-    margin-inline: 0;
-    box-shadow: 0 22px 36px -22px rgba(0, 0, 0, 0.92);
-  }
-
-  .cd-scrolly.cd-band .cd-step-media {
-    display: none;
-  }
-
-  .cd-scrolly.cd-band .cd-step {
-    /* Shorter than the viewport so paragraphs sit close together and their
-       fades overlap. The text stays centred in the box (the fade is driven by
-       the box centre, so the two must match); a shorter box simply means less
-       empty space above/below each paragraph. */
-    min-height: 58vh;
-    padding: 1vh 0;
-    justify-content: center;
-    /* composite.js drives per-frame opacity — no transition to lag the scroll */
-    transition: none;
   }
 }
 

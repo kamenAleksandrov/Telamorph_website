@@ -164,3 +164,31 @@ function escapeHTML(str) {
 function getCategories(products) {
   return [...new Set(products.map(p => p.category))].sort();
 }
+
+/**
+ * Show a transient toast notification at the bottom of the viewport.
+ * @param {string} message
+ * @param {{ duration?: number, variant?: "success" }} [options]
+ */
+function showToast(message, { duration = 2400, variant } = {}) {
+  let stack = document.querySelector(".toast-stack");
+  if (!stack) {
+    stack = document.createElement("div");
+    stack.className = "toast-stack";
+    stack.setAttribute("role", "status");
+    stack.setAttribute("aria-live", "polite");
+    document.body.appendChild(stack);
+  }
+
+  const toast = document.createElement("div");
+  toast.className = "toast-msg" + (variant ? ` is-${variant}` : "");
+  toast.textContent = message;
+  stack.appendChild(toast);
+
+  requestAnimationFrame(() => toast.classList.add("is-visible"));
+
+  setTimeout(() => {
+    toast.classList.remove("is-visible");
+    toast.addEventListener("transitionend", () => toast.remove(), { once: true });
+  }, duration);
+}
