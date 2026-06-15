@@ -13,7 +13,11 @@
   line-height: 1;
   color: var(--text-secondary);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015)),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.04),
+      rgba(255, 255, 255, 0.015)
+    ),
     rgba(255, 255, 255, 0.015);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.04),

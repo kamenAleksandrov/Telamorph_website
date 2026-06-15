@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (!productId) return showNotFound();
 
   const products = await loadJSON("data/products.json");
-  const product = products.find(p => p.id === productId);
+  const product = products.find((p) => p.id === productId);
 
   if (!product) return showNotFound();
 
@@ -35,7 +35,11 @@ function updateMeta(product) {
   if (desc) desc.setAttribute("content", product.shortDescription);
 
   const canonical = document.getElementById("page-canonical");
-  if (canonical) canonical.setAttribute("href", `https://telamorph.com/product-detail.html?id=${product.id}`);
+  if (canonical)
+    canonical.setAttribute(
+      "href",
+      `https://telamorph.com/product-detail.html?id=${product.id}`,
+    );
 
   const ogTitle = document.getElementById("og-title");
   if (ogTitle) ogTitle.setAttribute("content", product.name);
@@ -50,7 +54,7 @@ function initBreadcrumb(product) {
     renderBreadcrumb(el, [
       { label: "Home", href: "index.html" },
       { label: "Industrial", href: "industrial.html" },
-      { label: product.name }
+      { label: product.name },
     ]);
   }
 }
@@ -66,11 +70,14 @@ function renderProduct(product) {
   const specRows = Object.entries(product.specifications || {})
     .map(
       ([key, val]) =>
-        `<div class="pd-spec-row"><dt>${escapeHTML(key)}</dt><dd>${escapeHTML(val)}</dd></div>`
+        `<div class="pd-spec-row"><dt>${escapeHTML(key)}</dt><dd>${escapeHTML(val)}</dd></div>`,
     )
     .join("");
 
-  const mailto = buildMailto(product.quoteEmail, `Quote Request: ${product.name}`);
+  const mailto = buildMailto(
+    product.quoteEmail,
+    `Quote Request: ${product.name}`,
+  );
 
   // Back link points to the product's own category landing
   const categoryHref = "industrial.html";
@@ -88,7 +95,7 @@ function renderProduct(product) {
                  alt="${escapeHTML(product.name)} image ${i + 1}"
                  class="pd-thumb ${i === 0 ? "is-active" : ""}"
                  onclick="switchImage(this, '${img}')"
-                 width="84" height="64">`
+                 width="84" height="64">`,
             )
             .join("")}
         </div>`
@@ -123,8 +130,8 @@ function renderProduct(product) {
         <div class="pd-actions">
           <a href="${mailto}" class="btn btn-accent btn-lg">Request a quote</a>
           <a href="${categoryHref}" class="btn btn-outline-accent btn-lg">Back to ${escapeHTML(
-    product.category
-  )}</a>
+            product.category,
+          )}</a>
         </div>
       </div>
     </div>
@@ -156,14 +163,16 @@ function injectStructuredData(product) {
   const data = {
     "@context": "https://schema.org",
     "@type": "Product",
-    "name": product.name,
-    "description": product.shortDescription,
-    "brand": {
+    name: product.name,
+    description: product.shortDescription,
+    brand: {
       "@type": "Brand",
-      "name": "Telamorph"
+      name: "Telamorph",
     },
-    "category": product.category,
-    "image": product.images.map(img => `https://telamorph.com/assets/images/${img}`)
+    category: product.category,
+    image: product.images.map(
+      (img) => `https://telamorph.com/assets/images/${img}`,
+    ),
   };
 
   el.textContent = JSON.stringify(data);

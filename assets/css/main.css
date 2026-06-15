@@ -52,8 +52,9 @@ html {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
   background-color: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.6;
@@ -91,7 +92,9 @@ img {
   padding: 2rem 1.75rem;
   height: 100%;
   overflow: hidden;
-  transition: border-color var(--transition), transform var(--transition),
+  transition:
+    border-color var(--transition),
+    transform var(--transition),
     box-shadow var(--transition);
 }
 
@@ -168,10 +171,15 @@ img {
 html .reveal {
   opacity: 0;
   translate: 0 24px;
-  transition: opacity 1.5s ease, translate 1.5s cubic-bezier(0.16, 1, 0.3, 1),
-    transform var(--transition), scale var(--transition),
-    border-color var(--transition), box-shadow var(--transition),
-    color var(--transition), background-color var(--transition);
+  transition:
+    opacity 1.5s ease,
+    translate 1.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform var(--transition),
+    scale var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition),
+    color var(--transition),
+    background-color var(--transition);
   will-change: opacity, translate;
 }
 
@@ -217,7 +225,9 @@ html .reveal {
   -webkit-backdrop-filter: blur(10px);
   opacity: 0;
   translate: 0 14px;
-  transition: opacity 0.35s ease, translate 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    opacity 0.35s ease,
+    translate 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .toast-msg.is-visible {
@@ -290,7 +300,9 @@ html .reveal {
   border-bottom: 2px solid currentColor;
   border-radius: 0 0 2px 0; /* round the chevron's vertex, like the hero cue */
   rotate: var(--icon-cycle-rotate);
-  transition: translate 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
+  transition:
+    translate 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.6s ease;
 }
 
 .icon-cycle::before {
@@ -299,7 +311,8 @@ html .reveal {
 }
 
 .icon-cycle::after {
-  translate: calc(-1 * var(--icon-cycle-shift-x)) calc(-1 * var(--icon-cycle-shift-y));
+  translate: calc(-1 * var(--icon-cycle-shift-x))
+    calc(-1 * var(--icon-cycle-shift-y));
   opacity: 0;
 }
 
@@ -399,14 +412,19 @@ button:focus-visible .icon-cycle {
   -webkit-backdrop-filter: blur(10px);
   color: var(--text-primary);
   cursor: pointer;
-  box-shadow: 0 8px 26px -10px rgba(0, 0, 0, 0.6),
+  box-shadow:
+    0 8px 26px -10px rgba(0, 0, 0, 0.6),
     0 0 0 0 rgba(91, 168, 245, 0);
   opacity: 0;
   visibility: hidden;
   transform: translateY(14px) scale(0.92);
-  transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-    visibility 0.35s ease, border-color var(--transition),
-    box-shadow var(--transition), color var(--transition);
+  transition:
+    opacity 0.35s ease,
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.35s ease,
+    border-color var(--transition),
+    box-shadow var(--transition),
+    color var(--transition);
 }
 
 .scroll-top.is-visible {
@@ -418,7 +436,8 @@ button:focus-visible .icon-cycle {
 .scroll-top:hover {
   color: #fff;
   border-color: var(--accent);
-  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.65),
+  box-shadow:
+    0 12px 30px -10px rgba(0, 0, 0, 0.65),
     0 0 0 4px var(--accent-subtle);
 }
 
@@ -429,11 +448,12 @@ button:focus-visible .icon-cycle {
 
 @media (prefers-reduced-motion: reduce) {
   .scroll-top {
-    transition: opacity 0.2s ease, visibility 0.2s ease;
+    transition:
+      opacity 0.2s ease,
+      visibility 0.2s ease;
     transform: none;
   }
   .scroll-top.is-visible {
     transform: none;
   }
 }
-

@@ -40,7 +40,9 @@
   box-shadow: 0 0 10px rgba(91, 168, 245, 0.16);
   opacity: 0;
   pointer-events: none;
-  transition: opacity var(--transition), transform var(--transition);
+  transition:
+    opacity var(--transition),
+    transform var(--transition);
 }
 
 :where(
@@ -129,8 +131,18 @@
   transform: scaleX(1);
 }
 
-:where(.product-tab, .footer-links a, .footer-contact-value, .menu-list li a):hover,
-:where(.product-tab, .footer-links a, .footer-contact-value, .menu-list li a):focus-visible {
+:where(
+  .product-tab,
+  .footer-links a,
+  .footer-contact-value,
+  .menu-list li a
+):hover,
+:where(
+  .product-tab,
+  .footer-links a,
+  .footer-contact-value,
+  .menu-list li a
+):focus-visible {
   text-shadow: 0 0 12px rgba(91, 168, 245, 0.16);
 }
 

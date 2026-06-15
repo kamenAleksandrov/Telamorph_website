@@ -8,7 +8,9 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+  transition:
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
 .product-card:hover {

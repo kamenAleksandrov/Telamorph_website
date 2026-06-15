@@ -21,7 +21,7 @@ async function initIndustrialPage() {
 
   const products = await loadJSON("data/products.json");
   industrialAll = products.filter(
-    (product) => product.categorySlug === INDUSTRIAL_CATEGORY
+    (product) => product.categorySlug === INDUSTRIAL_CATEGORY,
   );
   industrialFiltered = industrialAll;
 
@@ -109,7 +109,11 @@ function renderIndustrialPagination(totalPages) {
   nav.innerHTML = "";
   if (totalPages <= 1) return;
 
-  const makeButton = (label, page, { disabled = false, active = false } = {}) => {
+  const makeButton = (
+    label,
+    page,
+    { disabled = false, active = false } = {},
+  ) => {
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "industrial-page-btn";
@@ -124,19 +128,19 @@ function renderIndustrialPagination(totalPages) {
   };
 
   nav.appendChild(
-    makeButton("Prev", industrialPage - 1, { disabled: industrialPage === 1 })
+    makeButton("Prev", industrialPage - 1, { disabled: industrialPage === 1 }),
   );
 
   for (let page = 1; page <= totalPages; page += 1) {
     nav.appendChild(
-      makeButton(String(page), page, { active: page === industrialPage })
+      makeButton(String(page), page, { active: page === industrialPage }),
     );
   }
 
   nav.appendChild(
     makeButton("Next", industrialPage + 1, {
       disabled: industrialPage === totalPages,
-    })
+    }),
   );
 }
 

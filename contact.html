@@ -335,8 +335,10 @@
           if (!copied) copied = fallbackCopy();
           flash(copied ? "Copied!" : email);
           showToast(
-            copied ? "Email copied to clipboard" : "Couldn't copy — email shown instead",
-            { variant: copied ? "success" : undefined }
+            copied
+              ? "Email copied to clipboard"
+              : "Couldn't copy — email shown instead",
+            { variant: copied ? "success" : undefined },
           );
         });
       })();
@@ -346,7 +348,9 @@
         if (!form) return;
         form.addEventListener("submit", (e) => {
           e.preventDefault();
-          showToast("Message sent — we'll get back to you shortly", { variant: "success" });
+          showToast("Message sent — we'll get back to you shortly", {
+            variant: "success",
+          });
         });
       })();
     </script>

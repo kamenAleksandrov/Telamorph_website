@@ -78,7 +78,8 @@ function renderBreadcrumb(container, items) {
   ol.className = "breadcrumb breadcrumb-telamorph";
   items.forEach((item, i) => {
     const li = document.createElement("li");
-    li.className = "breadcrumb-item" + (i === items.length - 1 ? " active" : "");
+    li.className =
+      "breadcrumb-item" + (i === items.length - 1 ? " active" : "");
     if (item.href && i < items.length - 1) {
       const a = document.createElement("a");
       a.href = item.href;
@@ -105,7 +106,9 @@ function createProductCard(product) {
   card.className = "product-card text-decoration-none";
 
   // Build category-based accent colour for the card bg on hover
-  const accentColor = getCategoryColor(product.categorySlug || product.category);
+  const accentColor = getCategoryColor(
+    product.categorySlug || product.category,
+  );
 
   card.innerHTML = `
     <div class="card-img-wrap" style="--card-accent: ${accentColor}">
@@ -142,9 +145,9 @@ function getCategoryColor(category) {
   const colors = {
     "automotive-body-kits": "rgba(245, 91, 91, 0.15)",
     "roof-box": "rgba(91, 168, 245, 0.15)",
-    "astronomy": "rgba(148, 91, 245, 0.15)",
+    astronomy: "rgba(148, 91, 245, 0.15)",
     "industrial-solutions": "rgba(245, 185, 91, 0.15)",
-    "development-production": "rgba(91, 245, 168, 0.15)"
+    "development-production": "rgba(91, 245, 168, 0.15)",
   };
   return colors[category] || "rgba(91, 168, 245, 0.1)";
 }
@@ -162,7 +165,7 @@ function escapeHTML(str) {
  * Extract unique categories from a products array.
  */
 function getCategories(products) {
-  return [...new Set(products.map(p => p.category))].sort();
+  return [...new Set(products.map((p) => p.category))].sort();
 }
 
 /**
@@ -189,6 +192,8 @@ function showToast(message, { duration = 2400, variant } = {}) {
 
   setTimeout(() => {
     toast.classList.remove("is-visible");
-    toast.addEventListener("transitionend", () => toast.remove(), { once: true });
+    toast.addEventListener("transitionend", () => toast.remove(), {
+      once: true,
+    });
   }, duration);
 }

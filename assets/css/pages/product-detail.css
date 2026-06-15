@@ -58,7 +58,9 @@
   border: 1px solid var(--border-color);
   cursor: pointer;
   opacity: 0.55;
-  transition: opacity var(--transition), border-color var(--transition);
+  transition:
+    opacity var(--transition),
+    border-color var(--transition);
 }
 
 .pd-thumb:hover,

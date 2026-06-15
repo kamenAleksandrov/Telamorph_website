@@ -28,12 +28,13 @@ function initCompositeScrolly() {
     const stage = stepEl.dataset.stage;
     steps.forEach((s) => s.classList.toggle("is-active", s === stepEl));
     stageImages.forEach((img) =>
-      img.classList.toggle("is-active", img.dataset.stage === stage)
+      img.classList.toggle("is-active", img.dataset.stage === stage),
     );
     progressDots.forEach((dot) =>
-      dot.classList.toggle("is-active", dot.dataset.stage === stage)
+      dot.classList.toggle("is-active", dot.dataset.stage === stage),
     );
-    if (stageTag && stepEl.dataset.tag) stageTag.textContent = stepEl.dataset.tag;
+    if (stageTag && stepEl.dataset.tag)
+      stageTag.textContent = stepEl.dataset.tag;
   };
 
   let ticking = false;
@@ -77,8 +78,10 @@ function initCompositeScrolly() {
     activeStep = null;
   };
 
-  const applyMode = () => (desktopMQ.matches ? enableDesktop() : disableDesktop());
+  const applyMode = () =>
+    desktopMQ.matches ? enableDesktop() : disableDesktop();
   applyMode();
-  if (desktopMQ.addEventListener) desktopMQ.addEventListener("change", applyMode);
+  if (desktopMQ.addEventListener)
+    desktopMQ.addEventListener("change", applyMode);
   else if (desktopMQ.addListener) desktopMQ.addListener(applyMode); // older Safari
 }

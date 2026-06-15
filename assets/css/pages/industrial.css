@@ -80,7 +80,9 @@
   background-color: rgba(17, 18, 21, 0.88);
   font: inherit;
   outline: none;
-  transition: border-color var(--transition), background-color var(--transition),
+  transition:
+    border-color var(--transition),
+    background-color var(--transition),
     box-shadow var(--transition);
 }
 
@@ -135,7 +137,9 @@
   font: inherit;
   font-weight: 600;
   cursor: pointer;
-  transition: color var(--transition), border-color var(--transition),
+  transition:
+    color var(--transition),
+    border-color var(--transition),
     background-color var(--transition);
 }
 

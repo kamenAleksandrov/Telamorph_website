@@ -103,7 +103,9 @@ body::after {
   background-position: center;
   opacity: 0;
   transform: scale(1.05);
-  transition: opacity 0.75s ease, transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    opacity 0.75s ease,
+    transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
@@ -160,7 +162,9 @@ body::after {
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.25);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  transition: background-color var(--transition), transform var(--transition);
+  transition:
+    background-color var(--transition),
+    transform var(--transition);
 }
 
 .cd-progress-dot.is-active {
@@ -243,8 +247,11 @@ body::after {
   background-color: rgba(24, 26, 32, 0.55);
   backdrop-filter: blur(20px) saturate(160%);
   -webkit-backdrop-filter: blur(20px) saturate(160%);
-  transition: border-color var(--transition), color var(--transition),
-    transform var(--transition), box-shadow var(--transition);
+  transition:
+    border-color var(--transition),
+    color var(--transition),
+    transform var(--transition),
+    box-shadow var(--transition);
 }
 
 .cd-catch:hover,
@@ -272,7 +279,11 @@ body::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(17, 18, 21, 0.5) 0%, transparent 55%);
+  background: linear-gradient(
+    to top,
+    rgba(17, 18, 21, 0.5) 0%,
+    transparent 55%
+  );
 }
 
 .cd-step-media-tag {

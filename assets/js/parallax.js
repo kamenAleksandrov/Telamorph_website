@@ -8,7 +8,7 @@
 
   // Maximum portion of the parent's height that the bg can shift.
   // Must be <= the CSS overshoot (inset: -10% 0  →  0.10).
-  const MAX_SHIFT_RATIO = 0.10;
+  const MAX_SHIFT_RATIO = 0.1;
 
   let parallaxElements = [];
   let ticking = false;

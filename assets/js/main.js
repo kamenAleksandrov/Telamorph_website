@@ -20,12 +20,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 const shellCacheKeys = {
   nav: "telamorph-shell-nav-v2",
-  footer: "telamorph-shell-footer-v1"
+  footer: "telamorph-shell-footer-v1",
 };
 
 const shellPartialUrls = {
   nav: "components/nav.html?v=20260609-industrial",
-  footer: "components/footer.html?v=20260609-industrial"
+  footer: "components/footer.html?v=20260609-industrial",
 };
 
 function readShellCache(cacheKey) {
@@ -133,7 +133,7 @@ const cursorStreakSelector = [
   ".btn-outline-accent",
   ".svc-chip",
   ".svc-catch",
-  ".cd-catch"
+  ".cd-catch",
 ].join(", ");
 
 /**
@@ -221,11 +221,14 @@ function initHeroReveal() {
 let revealObserver = null;
 
 function initRevealOnScroll(root = document) {
-  const matches = (el, sel) => typeof el?.matches === "function" && el.matches(sel);
+  const matches = (el, sel) =>
+    typeof el?.matches === "function" && el.matches(sel);
 
   if (!("IntersectionObserver" in window)) {
     if (matches(root, ".reveal")) root.classList.add("is-visible");
-    root.querySelectorAll?.(".reveal").forEach((el) => el.classList.add("is-visible"));
+    root
+      .querySelectorAll?.(".reveal")
+      .forEach((el) => el.classList.add("is-visible"));
     return;
   }
 
@@ -238,7 +241,7 @@ function initRevealOnScroll(root = document) {
           revealObserver.unobserve(entry.target);
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -6% 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -6% 0px" },
     );
   }
 
@@ -257,14 +260,20 @@ function initRevealOnScroll(root = document) {
       ".sphere-card",
       ".sphere-panel",
       ".workflow-step",
-      ".quote-panel"
+      ".quote-panel",
     ].join(", ");
-    const isCardGroup = revealItems.length > 1 && revealItems.every((el) => {
-      return el.matches(cardSelector) || Boolean(el.querySelector(cardSelector));
-    });
+    const isCardGroup =
+      revealItems.length > 1 &&
+      revealItems.every((el) => {
+        return (
+          el.matches(cardSelector) || Boolean(el.querySelector(cardSelector))
+        );
+      });
 
     revealItems.forEach((el, i) => {
-      el.style.transitionDelay = isCardGroup ? "0ms" : `${Math.min(i * 70, 210)}ms`;
+      el.style.transitionDelay = isCardGroup
+        ? "0ms"
+        : `${Math.min(i * 70, 210)}ms`;
     });
   });
 
@@ -292,17 +301,23 @@ function initScrollTopButton() {
   btn.type = "button";
   btn.className = "scroll-top";
   btn.setAttribute("aria-label", "Scroll back to top");
-  btn.innerHTML = '<span class="icon-cycle icon-cycle--up" aria-hidden="true"></span>';
+  btn.innerHTML =
+    '<span class="icon-cycle icon-cycle--up" aria-hidden="true"></span>';
   document.body.appendChild(btn);
 
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
   btn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
   });
 
   let ticking = false;
   const update = () => {
-    btn.classList.toggle("is-visible", window.scrollY > window.innerHeight * 0.6);
+    btn.classList.toggle(
+      "is-visible",
+      window.scrollY > window.innerHeight * 0.6,
+    );
     ticking = false;
   };
   window.addEventListener(
@@ -312,7 +327,7 @@ function initScrollTopButton() {
       ticking = true;
       requestAnimationFrame(update);
     },
-    { passive: true }
+    { passive: true },
   );
   update();
 }
@@ -326,10 +341,12 @@ function highlightActiveTab() {
   const servicePages = [
     "composite-development.html",
     "manufacturing.html",
-    "industrial.html"
+    "industrial.html",
   ];
 
   if (servicePages.includes(page)) {
-    document.querySelector(`.product-tab[href="${page}"]`)?.classList.add("active");
+    document
+      .querySelector(`.product-tab[href="${page}"]`)
+      ?.classList.add("active");
   }
 }
