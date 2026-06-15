@@ -49,7 +49,7 @@ function initBreadcrumb(product) {
   if (el) {
     renderBreadcrumb(el, [
       { label: "Home", href: "index.html" },
-      { label: "Products", href: "products.html" },
+      { label: "Industrial", href: "industrial.html" },
       { label: product.name }
     ]);
   }
@@ -73,10 +73,7 @@ function renderProduct(product) {
   const mailto = buildMailto(product.quoteEmail, `Quote Request: ${product.name}`);
 
   // Back link points to the product's own category landing
-  const categoryHref =
-    product.categorySlug === "industrial-solutions"
-      ? "industrial.html"
-      : `products.html?cat=${encodeURIComponent(product.categorySlug || "")}`;
+  const categoryHref = "industrial.html";
 
   const heroImg = product.images?.[0] || product.thumbnail;
 

@@ -27,8 +27,20 @@
   gap: 1rem;
 }
 
-/* Brand / Logo */
+/* Brand / Logo
+   Pinned to the viewport so the logo stays in the upper-left at every scroll
+   position, while the rest of the bar (centered tabs + hamburger) keeps its
+   original scroll-away behaviour. `top`/`height` reproduce the brand's spot in
+   the bar: the placeholder sits at top:10px and the bar is --nav-height tall,
+   so a matching fixed box with align-items:center lands the logo identically.
+   z-index sits just above the bar (1030) but below the offcanvas (1040+), so
+   the open side menu still covers it. */
 .navbar-telamorph .navbar-brand {
+  position: fixed;
+  top: 10px;
+  left: 1rem;
+  height: var(--nav-height);
+  z-index: 1031;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -39,6 +51,18 @@
   text-decoration: none;
   flex-shrink: 0;
   text-shadow: 0 1px 16px rgba(0, 0, 0, 0.6);
+}
+
+@media (min-width: 992px) {
+  .navbar-telamorph .navbar-brand {
+    left: 1.5rem; /* match container px-lg-4 */
+  }
+}
+
+/* Brand is now fixed (out of the bar's flex flow); keep the hamburger pinned
+   to the right rather than collapsing to the left. */
+.navbar-telamorph .hamburger-btn {
+  margin-left: auto;
 }
 
 .navbar-telamorph .navbar-brand .brand-text {

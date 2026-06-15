@@ -7,20 +7,21 @@
    ========================================================================== */
 
 /* ==========================================================================
-   Carbon-fiber weave backdrop (Composite Development page only)
-   A fixed 2/2 twill texture sits behind the page — quite literally the material
-   we make — with a faint blue accent sheen drifting across it for depth. Both
-   layers live on body::before/::after, pulled behind content via negative
-   z-index. For a negative-z layer to show, <body> must be transparent: the
-   `html body` selector (specificity 0,0,2) overrides this page's inline
-   `html, body { background-color: #111215 }` (0,0,1) without editing the HTML;
-   <html> keeps the base colour, so there is no white flash. This file only
-   loads on composite-development.html, so no other page is affected.
+   Ambient backdrop (Composite Development page only)
+   A faint blue accent sheen drifts across the page for depth, on body::after,
+   pulled behind content via negative z-index. For a negative-z layer to show,
+   <body> must be transparent: the `html body` selector (specificity 0,0,2)
+   overrides this page's inline `html, body { background-color: #111215 }`
+   (0,0,1) without editing the HTML; <html> keeps the base colour, so there is
+   no white flash. This file only loads on composite-development.html, so no
+   other page is affected.
    ========================================================================== */
 html body {
   background-color: transparent;
 }
 
+/* Slow-drifting accent sheen — blue only (on-palette), oversized so the drift
+   never exposes an edge. */
 body::before {
   content: "";
   position: fixed;
@@ -28,28 +29,8 @@ body::before {
   z-index: -2;
   pointer-events: none;
   background-color: var(--bg-primary);
-  background-image:
-    linear-gradient(27deg, #0a0b0d 5px, transparent 5px),
-    linear-gradient(207deg, #0a0b0d 5px, transparent 5px),
-    linear-gradient(27deg, #1d2026 5px, transparent 5px),
-    linear-gradient(207deg, #1d2026 5px, transparent 5px),
-    linear-gradient(90deg, #141519 10px, transparent 10px),
-    linear-gradient(
-      180deg,
-      #181b21 25%,
-      #131419 25%,
-      #131419 50%,
-      #1d2026 50%,
-      #1d2026 75%,
-      #0c0d10 75%
-    );
-  background-size: 20px 20px;
-  background-position: 0 5px, 10px 0, 0 10px, 10px 5px, 0 0, 0 0;
-  opacity: 0.4;
 }
 
-/* Slow-drifting accent sheen — blue only (on-palette), oversized so the drift
-   never exposes an edge. */
 body::after {
   content: "";
   position: fixed;

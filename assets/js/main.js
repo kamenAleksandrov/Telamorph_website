@@ -318,30 +318,18 @@ function initScrollTopButton() {
 }
 
 /**
- * Highlight the active product-tab if on products page with ?cat= param.
+ * Highlight the active product-tab for the current service page.
  */
 function highlightActiveTab() {
   const page = window.location.pathname.split("/").pop() || "index.html";
-  const cat = new URLSearchParams(window.location.search).get("cat");
 
-  const serviceTabByPage = {
-    "body-kits.html": "body-kits.html",
-    "development-production.html": "development-production.html",
-    "composite-development.html": "composite-development.html",
-    "manufacturing.html": "manufacturing.html",
-    "industrial.html": "industrial.html"
-  };
+  const servicePages = [
+    "composite-development.html",
+    "manufacturing.html",
+    "industrial.html"
+  ];
 
-  if (serviceTabByPage[page]) {
-    document.querySelector(`.product-tab[href="${serviceTabByPage[page]}"]`)?.classList.add("active");
-    return;
-  }
-
-  if (page === "products.html" && cat) {
-    document.querySelectorAll(".product-tab").forEach(tab => {
-      if (tab.getAttribute("data-category") === cat) {
-        tab.classList.add("active");
-      }
-    });
+  if (servicePages.includes(page)) {
+    document.querySelector(`.product-tab[href="${page}"]`)?.classList.add("active");
   }
 }
