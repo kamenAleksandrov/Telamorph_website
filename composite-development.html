@@ -12,8 +12,8 @@
       rel="canonical"
       href="https://telamorph.com/composite-development.html"
     />
-    <link rel="icon" type="image/png" href="assets/images/logo_cropped.png" />
-    <link rel="apple-touch-icon" href="assets/images/logo_cropped.png" />
+    <link rel="icon" type="image/png" href="assets/images/brand/logo-cropped.png" />
+    <link rel="apple-touch-icon" href="assets/images/brand/logo-cropped.png" />
 
     <meta property="og:title" content="Composite Development — Telamorph" />
     <meta
@@ -38,6 +38,7 @@
     <link rel="stylesheet" href="assets/css/components/spec-table.css" />
     <link rel="stylesheet" href="assets/css/components/noscript.css" />
     <link rel="stylesheet" href="assets/css/components/streak.css" />
+    <link rel="stylesheet" href="assets/css/components/carousel.css" />
     <link rel="stylesheet" href="assets/css/pages/service.css" />
     <link rel="stylesheet" href="assets/css/pages/composite.css" />
     <style>
@@ -49,8 +50,8 @@
     <script>
       (() => {
         const cacheKeys = {
-          nav: "telamorph-shell-nav-v2",
-          footer: "telamorph-shell-footer-v1",
+          nav: "telamorph-shell-nav-v3",
+          footer: "telamorph-shell-footer-v2",
         };
 
         window.__hydrateTelamorphShell = (targetId, slot) => {
@@ -87,7 +88,7 @@
       <section class="svc-hero" id="top">
         <div
           class="svc-hero-bg parallax-bg"
-          style="background-image: url(&quot;assets/images/Picture20.jpg&quot;)"
+          style="background-image: url(&quot;assets/images/finished/car-in-painting-camera.jpg&quot;)"
         ></div>
         <div class="svc-hero-scrim"></div>
         <div class="container svc-hero-inner reveal-stagger">
@@ -124,35 +125,44 @@
                   class="cd-stage-img is-active"
                   data-stage="1"
                   style="
-                    background-image: url(&quot;assets/images/Picture5_noBG.png&quot;);
+                    background-image: url(&quot;assets/images/sketches/plane-sketch.png&quot;);
                   "
                 ></div>
                 <div
                   class="cd-stage-img"
                   data-stage="2"
                   style="
-                    background-image: url(&quot;assets/images/Picture2.jpg&quot;);
+                    background-image: url(&quot;assets/images/3d-models/3d-model-car-body.png&quot;);
                   "
                 ></div>
                 <div
                   class="cd-stage-img"
                   data-stage="3"
                   style="
-                    background-image: url(&quot;assets/images/Picture9.jpg&quot;);
+                    background-image: url(&quot;assets/images/materials/carbon-materials.jpg&quot;);
                   "
                 ></div>
-                <div
-                  class="cd-stage-img"
-                  data-stage="4"
-                  style="
-                    background-image: url(&quot;assets/images/Picture10.jpg&quot;);
-                  "
-                ></div>
+                <div class="cd-stage-img" data-stage="4" data-carousel>
+                  <div
+                    class="media-carousel-slide is-active"
+                    data-carousel-slide
+                    style="
+                      background-image: url(&quot;assets/images/3d-models/3d-model-car-bumper.jpg&quot;);
+                    "
+                  ></div>
+                  <div
+                    class="media-carousel-slide"
+                    data-carousel-slide
+                    style="
+                      background-image: url(&quot;assets/images/cad/cad-model-car-part.png&quot;);
+                    "
+                  ></div>
+                </div>
                 <div
                   class="cd-stage-img"
                   data-stage="5"
                   style="
-                    background-image: url(&quot;assets/images/Picture16.jpg&quot;);
+                    background-image: url(&quot;assets/images/process/worker-spraying-carbon-element.jpg&quot;);
                   "
                 ></div>
 
@@ -177,7 +187,7 @@
                 <div
                   class="cd-step-media reveal"
                   style="
-                    background-image: url(&quot;assets/images/Picture5_noBG.png&quot;);
+                    background-image: url(&quot;assets/images/sketches/plane-sketch.png&quot;);
                   "
                 ></div>
                 <span class="cd-step-num reveal">01</span>
@@ -207,7 +217,7 @@
                 <div
                   class="cd-step-media reveal"
                   style="
-                    background-image: url(&quot;assets/images/Picture2.jpg&quot;);
+                    background-image: url(&quot;assets/images/3d-models/3d-model-car-body.png&quot;);
                   "
                 ></div>
                 <span class="cd-step-num reveal">02</span>
@@ -237,7 +247,7 @@
                 <div
                   class="cd-step-media reveal"
                   style="
-                    background-image: url(&quot;assets/images/Picture9.jpg&quot;);
+                    background-image: url(&quot;assets/images/materials/carbon-materials.jpg&quot;);
                   "
                 ></div>
                 <span class="cd-step-num reveal">03</span>
@@ -283,7 +293,7 @@
                 <div
                   class="cd-step-media reveal"
                   style="
-                    background-image: url(&quot;assets/images/Picture10.jpg&quot;);
+                    background-image: url(&quot;assets/images/3d-models/3d-model-car-bumper.jpg&quot;);
                   "
                 ></div>
                 <span class="cd-step-num reveal">04</span>
@@ -315,7 +325,7 @@
                 <div
                   class="cd-step-media reveal"
                   style="
-                    background-image: url(&quot;assets/images/Picture16.jpg&quot;);
+                    background-image: url(&quot;assets/images/process/worker-spraying-carbon-element.jpg&quot;);
                   "
                 ></div>
                 <span class="cd-step-num reveal">05</span>
@@ -385,5 +395,6 @@
     <script src="assets/js/main.js?v=20260427" defer></script>
     <script src="assets/js/parallax.js" defer></script>
     <script src="assets/js/composite.js" defer></script>
+    <script src="assets/js/carousel.js" defer></script>
   </body>
 </html>

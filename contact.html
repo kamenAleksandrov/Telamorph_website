@@ -9,8 +9,8 @@
       content="Get in touch with Telamorph for product inquiries, quotes, and custom engineering solutions."
     />
     <link rel="canonical" href="https://telamorph.com/contact.html" />
-    <link rel="icon" type="image/png" href="assets/images/logo_cropped.png" />
-    <link rel="apple-touch-icon" href="assets/images/logo_cropped.png" />
+    <link rel="icon" type="image/png" href="assets/images/brand/logo-cropped.png" />
+    <link rel="apple-touch-icon" href="assets/images/brand/logo-cropped.png" />
 
     <meta property="og:title" content="Contact — Telamorph" />
     <meta
@@ -108,12 +108,65 @@
         line-height: 1.55;
         margin: 1.15rem 0 0;
       }
+
+      /* Slightly lighter field backgrounds for contrast against the form card */
+      .contact-form .form-control-dark {
+        background-color: #373a41;
+        transition:
+          border-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      /* Hover glow */
+      .contact-form .form-control-dark:hover {
+        border-color: rgba(91, 168, 245, 0.5);
+        box-shadow: 0 0 0 3px rgba(91, 168, 245, 0.08);
+      }
+
+      /* "Other" field animated reveal */
+      #other-description-field {
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        margin-bottom: 0;
+        transition:
+          max-height 0.3s ease,
+          opacity 0.25s ease,
+          margin-bottom 0.3s ease;
+      }
+
+      #other-description-field.is-visible {
+        max-height: 120px;
+        opacity: 1;
+        margin-bottom: 1.1rem;
+      }
+
+      /* Honeypot: off-screen, skipped by keyboard + assistive tech, ignored by autofill. */
+      .hp-field {
+        position: absolute;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      }
+
+      .contact-charcount {
+        margin: 0.4rem 0 0;
+        text-align: right;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .contact-charcount.is-near {
+        color: #e0a458;
+      }
     </style>
     <script>
       (() => {
         const cacheKeys = {
-          nav: "telamorph-shell-nav-v2",
-          footer: "telamorph-shell-footer-v1",
+          nav: "telamorph-shell-nav-v3",
+          footer: "telamorph-shell-footer-v2",
         };
 
         window.__hydrateTelamorphShell = (targetId, slot) => {
@@ -150,6 +203,19 @@
             <!-- NOTE: form is a placeholder until the email backend is live.
                  Wiring: enable #submit-btn and POST the form to the endpoint. -->
             <form id="contact-form" class="contact-form reveal">
+              <!-- Honeypot: humans never see or reach this; bots tend to fill it.
+                   A filled value is flagged (not blocked) server-side. -->
+              <div class="hp-field" aria-hidden="true">
+                <label for="contact_reason_2">Leave this field empty</label>
+                <input
+                  type="text"
+                  id="contact_reason_2"
+                  name="contact_reason_2"
+                  tabindex="-1"
+                  autocomplete="off"
+                />
+              </div>
+
               <div class="contact-field">
                 <label class="contact-label" for="inquiry-type"
                   >Inquiry type</label
@@ -168,13 +234,30 @@
                     Manufacturing / production
                   </option>
                   <option value="industrial">Industrial solution</option>
-                  <option value="quote">Request a quote</option>
+                  <option value="partnership">
+                    Partnership / reseller inquiry
+                  </option>
                   <option value="other">Something else</option>
                 </select>
               </div>
 
+              <div id="other-description-field" class="contact-field">
+                <label class="contact-label" for="other-description"
+                  >Briefly describe your inquiry
+                  <span class="contact-optional">(optional)</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control form-control-dark"
+                  id="other-description"
+                  name="other-description"
+                  maxlength="200"
+                  placeholder="e.g. Partnership proposal, press inquiry, general question…"
+                />
+              </div>
+
               <div class="contact-field">
-                <label class="contact-label" for="name">Name</label>
+                <label class="contact-label" for="name">Your Name</label>
                 <input
                   type="text"
                   class="form-control form-control-dark"
@@ -200,7 +283,7 @@
               </div>
 
               <div class="contact-field">
-                <label class="contact-label" for="email">Email</label>
+                <label class="contact-label" for="email">Your Email</label>
                 <input
                   type="email"
                   class="form-control form-control-dark"
@@ -233,26 +316,22 @@
                   name="message"
                   rows="7"
                   maxlength="3000"
-                  placeholder="e.g. I'm developing a carbon-fiber front splitter for a track car. I have a CAD model and need ~20 units, gloss finish, target weight under 2 kg, delivered within 8 weeks."
+                  placeholder="e.g. I need help developing a composite part for production. I have an initial CAD model, but I need DFM, FEA simulation, and guidance on materials and manufacturing. Estimated quantity: 10 units. JPEG references are attached."
                   required
                 ></textarea>
+                <p class="contact-charcount" id="message-count">
+                  <span id="message-count-num">0</span> / 3,000
+                </p>
                 <p class="contact-hint">
-                  The more detail the better. Helpful to include: what you're
-                  making and its application; materials, finish or performance
-                  targets; quantity or production volume; your timeline; and
-                  whether you already have CAD data, a 3D scan, drawings or a
-                  physical sample.
+                  Please share as much relevant information as possible to help
+                  us understand your project scope, technical requirements,
+                  available data, production needs, and timeline. CAD files,
+                  scans, drawings, photos, or physical samples are also helpful.
                 </p>
               </div>
 
               <div class="contact-actions">
-                <button
-                  type="submit"
-                  id="submit-btn"
-                  class="btn btn-accent"
-                  disabled
-                  aria-disabled="true"
-                >
+                <button type="submit" id="submit-btn" class="btn btn-accent">
                   Send message
                 </button>
                 <a
@@ -287,6 +366,24 @@
     <script src="assets/js/utils.js" defer></script>
     <script src="assets/js/main.js?v=20260427" defer></script>
     <script>
+      (() => {
+        const sel = document.getElementById("inquiry-type");
+        const field = document.getElementById("other-description-field");
+        if (!sel || !field) return;
+
+        const presetType = new URLSearchParams(location.search).get("type");
+        if (presetType && /^[a-z-]+$/.test(presetType)) {
+          const match = Array.from(sel.options).find(
+            (opt) => opt.value === presetType,
+          );
+          if (match) sel.value = presetType;
+        }
+
+        sel.addEventListener("change", () => {
+          field.classList.toggle("is-visible", sel.value === "other");
+        });
+      })();
+
       (() => {
         const btn = document.getElementById("copy-email-btn");
         if (!btn) return;
@@ -345,12 +442,65 @@
 
       (() => {
         const form = document.getElementById("contact-form");
-        if (!form) return;
-        form.addEventListener("submit", (e) => {
+        const btn = document.getElementById("submit-btn");
+        if (!form || !btn) return;
+
+        // When the form became interactive — used to flag suspiciously fast submits.
+        const renderedAt = Date.now();
+
+        // Live character counter for the message field.
+        const msg = form.querySelector("#message");
+        const countWrap = document.getElementById("message-count");
+        const countNum = document.getElementById("message-count-num");
+        if (msg && countWrap && countNum) {
+          const max = Number(msg.getAttribute("maxlength")) || 3000;
+          const updateCount = () => {
+            const n = msg.value.length;
+            countNum.textContent = n.toLocaleString();
+            countWrap.classList.toggle("is-near", n >= max * 0.9);
+          };
+          msg.addEventListener("input", updateCount);
+          updateCount();
+        }
+
+        form.addEventListener("submit", async (e) => {
           e.preventDefault();
-          showToast("Message sent — we'll get back to you shortly", {
-            variant: "success",
-          });
+          btn.disabled = true;
+          btn.textContent = "Sending…";
+
+          const data = {
+            "inquiry-type": form.querySelector('[name="inquiry-type"]').value,
+            "other-description": form.querySelector(
+              '[name="other-description"]',
+            ).value,
+            name: form.querySelector('[name="name"]').value,
+            company: form.querySelector('[name="company"]').value,
+            email: form.querySelector('[name="email"]').value,
+            subject: form.querySelector('[name="subject"]').value,
+            message: form.querySelector('[name="message"]').value,
+            // Soft-flag signals — server tags, never blocks, on these.
+            contact_reason_2: form.querySelector('[name="contact_reason_2"]')
+              .value,
+            elapsed_ms: Date.now() - renderedAt,
+          };
+
+          try {
+            const res = await fetch("/api/sendContactEmail", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data),
+            });
+            if (!res.ok) throw new Error();
+            showToast("Message sent — we'll get back to you shortly", {
+              variant: "success",
+            });
+            form.reset();
+          } catch {
+            showToast("Something went wrong — please email us directly", {});
+          } finally {
+            btn.disabled = false;
+            btn.textContent = "Send message";
+          }
         });
       })();
     </script>

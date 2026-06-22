@@ -19,13 +19,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 const shellCacheKeys = {
-  nav: "telamorph-shell-nav-v2",
-  footer: "telamorph-shell-footer-v1",
+  nav: "telamorph-shell-nav-v3",
+  footer: "telamorph-shell-footer-v2",
 };
 
 const shellPartialUrls = {
-  nav: "components/nav.html?v=20260609-industrial",
-  footer: "components/footer.html?v=20260609-industrial",
+  nav: "components/nav.html?v=20260622-partner",
+  footer: "components/footer.html?v=20260622-partner",
 };
 
 function readShellCache(cacheKey) {

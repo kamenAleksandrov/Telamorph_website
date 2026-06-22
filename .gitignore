@@ -1,1 +1,10 @@
 client_explanation
+/.agents
+functions/node_modules
+firebase-debug.log
+.firebase/hosting..cache
+.firebaserc
+/functions
+skills-lock.json
+IMAGE_NAMING_PLAN.md
+firebase.json

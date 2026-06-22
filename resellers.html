@@ -3,19 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Resellers &amp; Partners — Telamorph</title>
+    <title>Become a Partner — Telamorph</title>
     <meta
       name="description"
-      content="Find Telamorph resellers and distribution partners worldwide, or enquire about becoming a partner."
+      content="Interested in distributing Telamorph products? Enquire about becoming a partner."
     />
     <link rel="canonical" href="https://telamorph.com/resellers.html" />
-    <link rel="icon" type="image/png" href="assets/images/logo_cropped.png" />
-    <link rel="apple-touch-icon" href="assets/images/logo_cropped.png" />
+    <link rel="icon" type="image/png" href="assets/images/brand/logo-cropped.png" />
+    <link rel="apple-touch-icon" href="assets/images/brand/logo-cropped.png" />
 
-    <meta property="og:title" content="Resellers & Partners — Telamorph" />
+    <meta property="og:title" content="Become a Partner — Telamorph" />
     <meta
       property="og:description"
-      content="Telamorph's global reseller and partner network."
+      content="Interested in distributing Telamorph products? Enquire about becoming a partner."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://telamorph.com/resellers.html" />
@@ -37,12 +37,26 @@
       body {
         background-color: #111215;
       }
+
+      /* Clear the transparent overlaid nav, and let the lone CTA fill and
+         center within the screen rather than sitting as a small block up top */
+      .partner-section {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding-top: calc(var(--nav-height, 72px) + 25px);
+        padding-bottom: clamp(2rem, 6vh, 3.5rem);
+      }
+
+      .partner-section .container {
+        width: 100%;
+      }
     </style>
     <script>
       (() => {
         const cacheKeys = {
-          nav: "telamorph-shell-nav-v2",
-          footer: "telamorph-shell-footer-v1",
+          nav: "telamorph-shell-nav-v3",
+          footer: "telamorph-shell-footer-v2",
         };
 
         window.__hydrateTelamorphShell = (targetId, slot) => {
@@ -66,39 +80,17 @@
     </script>
 
     <main>
-      <section class="section">
-        <div class="container">
-          <h1 class="section-title reveal">Resellers &amp; Partners</h1>
-          <p class="section-subtitle reveal">
-            Our network of trusted distribution partners.
-          </p>
-
-          <div class="row g-4 reveal-stagger">
-            <!-- Placeholder partner cards -->
-            <div class="col-md-6 col-lg-4 reveal">
-              <div class="value-card">
-                <h3>Partner Placeholder</h3>
-                <p>
-                  Partner details, region, and contact info will go here as the
-                  network grows.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <!-- Become a Partner CTA -->
-      <section class="section" style="background-color: var(--bg-secondary)">
+      <section class="section partner-section">
         <div class="container text-center reveal-stagger">
-          <h2 class="section-title reveal">Become a Partner</h2>
+          <h1 class="section-title reveal">Become a Partner</h1>
           <p class="section-subtitle reveal">
             Interested in distributing Telamorph products? Let's talk.
           </p>
           <a
-            href="mailto:sales@telamorph.com"
+            href="contact.html?type=partnership"
             class="btn btn-accent btn-lg reveal"
-            >Contact Sales</a
+            >Get in Touch</a
           >
         </div>
       </section>

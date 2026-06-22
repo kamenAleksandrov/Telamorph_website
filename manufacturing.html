@@ -9,8 +9,8 @@
       content="From tooling to finished parts. Telamorph manufactures advanced composite components through controlled processes, modern equipment and a production mindset built around repeatability."
     />
     <link rel="canonical" href="https://telamorph.com/manufacturing.html" />
-    <link rel="icon" type="image/png" href="assets/images/logo_cropped.png" />
-    <link rel="apple-touch-icon" href="assets/images/logo_cropped.png" />
+    <link rel="icon" type="image/png" href="assets/images/brand/logo-cropped.png" />
+    <link rel="apple-touch-icon" href="assets/images/brand/logo-cropped.png" />
 
     <meta property="og:title" content="Manufacturing — Telamorph" />
     <meta
@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="assets/css/components/spec-table.css" />
     <link rel="stylesheet" href="assets/css/components/noscript.css" />
     <link rel="stylesheet" href="assets/css/components/streak.css" />
+    <link rel="stylesheet" href="assets/css/components/carousel.css" />
     <link rel="stylesheet" href="assets/css/pages/service.css" />
     <style>
       html,
@@ -45,8 +46,8 @@
     <script>
       (() => {
         const cacheKeys = {
-          nav: "telamorph-shell-nav-v2",
-          footer: "telamorph-shell-footer-v1",
+          nav: "telamorph-shell-nav-v3",
+          footer: "telamorph-shell-footer-v2",
         };
 
         window.__hydrateTelamorphShell = (targetId, slot) => {
@@ -83,7 +84,7 @@
       <section class="svc-hero" id="top">
         <div
           class="svc-hero-bg parallax-bg"
-          style="background-image: url(&quot;assets/images/Picture17.jpg&quot;)"
+          style="background-image: url(&quot;assets/images/process/carbon-part-1.jpg&quot;)"
         ></div>
         <div class="svc-hero-scrim"></div>
         <div class="container svc-hero-inner reveal-stagger">
@@ -114,7 +115,7 @@
               <div
                 class="svc-media-bg"
                 style="
-                  background-image: url(&quot;assets/images/Picture12.jpg&quot;);
+                  background-image: url(&quot;assets/images/process/finished-carbon-part.jpg&quot;);
                 "
               ></div>
             </div>
@@ -143,11 +144,40 @@
       <section class="svc-step svc-step--alt svc-step--reverse">
         <div class="container">
           <div class="svc-step-grid reveal-stagger">
-            <div class="svc-media reveal">
+            <div class="svc-media reveal" data-carousel>
+              <div
+                class="svc-media-bg is-active"
+                data-carousel-slide
+                style="
+                  background-image: url(&quot;assets/images/process/worker-cutting-carbon.jpg&quot;);
+                "
+              ></div>
               <div
                 class="svc-media-bg"
+                data-carousel-slide
                 style="
-                  background-image: url(&quot;assets/images/Picture11.jpg&quot;);
+                  background-image: url(&quot;assets/images/process/composite-manufacturing-process-image.jpg&quot;);
+                "
+              ></div>
+              <div
+                class="svc-media-bg"
+                data-carousel-slide
+                style="
+                  background-image: url(&quot;assets/images/process/worker-shaping-carbon-1.jpg&quot;);
+                "
+              ></div>
+              <div
+                class="svc-media-bg"
+                data-carousel-slide
+                style="
+                  background-image: url(&quot;assets/images/process/carbon-prepared-for-processing.jpg&quot;);
+                "
+              ></div>
+              <div
+                class="svc-media-bg"
+                data-carousel-slide
+                style="
+                  background-image: url(&quot;assets/images/process/welding-instrument-measurements.jpg&quot;);
                 "
               ></div>
             </div>
@@ -184,11 +214,26 @@
       <section class="svc-step">
         <div class="container">
           <div class="svc-step-grid reveal-stagger">
-            <div class="svc-media reveal">
+            <div class="svc-media reveal" data-carousel>
+              <div
+                class="svc-media-bg is-active"
+                data-carousel-slide
+                style="
+                  background-image: url(&quot;assets/images/process/carbon-car-headlights.jpg&quot;);
+                "
+              ></div>
               <div
                 class="svc-media-bg"
+                data-carousel-slide
                 style="
-                  background-image: url(&quot;assets/images/Picture18.jpg&quot;);
+                  background-image: url(&quot;assets/images/process/worker-sanding-carbon-3.jpg&quot;);
+                "
+              ></div>
+              <div
+                class="svc-media-bg"
+                data-carousel-slide
+                style="
+                  background-image: url(&quot;assets/images/process/carbon-part-2.jpg&quot;);
                 "
               ></div>
             </div>
@@ -230,7 +275,7 @@
               <div
                 class="svc-media-bg"
                 style="
-                  background-image: url(&quot;assets/images/Picture11.jpg&quot;);
+                  background-image: url(&quot;assets/images/process/verifying-manufactured-product-measurements.jpg&quot;);
                 "
               ></div>
             </div>
@@ -280,27 +325,54 @@
               <div
                 class="svc-frame-media"
                 style="
-                  background-image: url(&quot;assets/images/Picture8.jpg&quot;);
+                  background-image: url(&quot;assets/images/process/car-part-right-headlight-blue.png&quot;);
                 "
               ></div>
               <span class="svc-frame-label">CNC router &amp; mills</span>
             </div>
             <div class="svc-frame reveal">
-              <div
-                class="svc-frame-media"
-                style="
-                  background-image: url(&quot;assets/images/Picture18.jpg&quot;);
-                "
-              ></div>
+              <div class="svc-frame-media" data-carousel>
+                <div
+                  class="media-carousel-slide is-active"
+                  data-carousel-slide
+                  style="
+                    background-image: url(&quot;assets/images/finished/furnaces.jpg&quot;);
+                  "
+                ></div>
+                <div
+                  class="media-carousel-slide"
+                  data-carousel-slide
+                  style="
+                    background-image: url(&quot;assets/images/process/worker-using-furnace-hmi.jpg&quot;);
+                  "
+                ></div>
+                <div
+                  class="media-carousel-slide"
+                  data-carousel-slide
+                  style="
+                    background-image: url(&quot;assets/images/finished/furnace-control-hmis.jpg&quot;);
+                  "
+                ></div>
+              </div>
               <span class="svc-frame-label">Curing ovens</span>
             </div>
             <div class="svc-frame reveal">
-              <div
-                class="svc-frame-media"
-                style="
-                  background-image: url(&quot;assets/images/Picture15.jpg&quot;);
-                "
-              ></div>
+              <div class="svc-frame-media" data-carousel>
+                <div
+                  class="media-carousel-slide is-active"
+                  data-carousel-slide
+                  style="
+                    background-image: url(&quot;assets/images/process/manufactured-car-ready-for-paint.jpg&quot;);
+                  "
+                ></div>
+                <div
+                  class="media-carousel-slide"
+                  data-carousel-slide
+                  style="
+                    background-image: url(&quot;assets/images/process/worker-painting-car-carbon-parts.jpg&quot;);
+                  "
+                ></div>
+              </div>
               <span class="svc-frame-label">Paint booth</span>
             </div>
           </div>
@@ -430,5 +502,6 @@
     <script src="assets/js/main.js?v=20260427" defer></script>
     <script src="assets/js/parallax.js" defer></script>
     <script src="assets/js/service-motion.js" defer></script>
+    <script src="assets/js/carousel.js" defer></script>
   </body>
 </html>
