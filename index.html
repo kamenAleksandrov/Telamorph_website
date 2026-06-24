@@ -46,6 +46,7 @@
     <link rel="stylesheet" href="assets/css/components/spec-table.css" />
     <link rel="stylesheet" href="assets/css/components/noscript.css" />
     <link rel="stylesheet" href="assets/css/components/streak.css" />
+    <link rel="stylesheet" href="assets/css/components/media-fit.css" />
     <link rel="stylesheet" href="assets/css/pages/home.css" />
 
     <!-- Structured Data: Organization -->
@@ -108,7 +109,7 @@
       <section class="hero" id="top">
         <div
           class="hero-parallax-bg parallax-bg"
-          style="background-image: url(&quot;assets/images/finished/manifactured-car-milky-way.jpg&quot;)"
+          style="background-image: url(&quot;assets/images/finished/manifactured-car-milky-way.png&quot;)"
         ></div>
         <div class="hero-scrim"></div>
         <div class="container hero-inner reveal-stagger">
@@ -151,11 +152,12 @@
                 — create parts that are lighter, stronger and made with purpose.
               </p>
             </div>
-            <div class="split-media">
+            <div class="split-media" data-fit>
               <div
                 class="split-media-bg"
                 style="
-                  background-image: url(&quot;assets/images/finished/finished-car-on-road-6.jpg&quot;);
+                  background-image: url(&quot;assets/images/finished/finished-car-on-road-6.png&quot;);
+                  --focus: 50% 45%;
                 "
               ></div>
             </div>
@@ -170,7 +172,7 @@
                 manufacturing.
               </p>
             </div>
-            <div class="split-media">
+            <div class="split-media" data-fit>
               <div
                 class="split-media-bg"
                 style="
@@ -236,5 +238,6 @@
     <script src="assets/js/main.js?v=20260427" defer></script>
     <script src="assets/js/parallax.js" defer></script>
     <script src="assets/js/home-scroll.js" defer></script>
+    <script src="assets/js/media-fit.js" defer></script>
   </body>
 </html>

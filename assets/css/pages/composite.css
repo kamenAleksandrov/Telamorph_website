@@ -100,7 +100,7 @@ body::after {
   position: absolute;
   inset: 0;
   background-size: cover;
-  background-position: center;
+  background-position: var(--focus, center);
   opacity: 0;
   transform: scale(1.05);
   transition:
@@ -272,7 +272,7 @@ body::after {
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-color);
   background-size: cover;
-  background-position: center;
+  background-position: var(--focus, center);
 }
 
 .cd-step-media::after {

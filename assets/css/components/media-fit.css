@@ -1,0 +1,58 @@
+/* ==========================================================================
+   Telamorph — Media fit-to-image
+   Containers marked [data-fit] follow their image's aspect ratio (set by
+   media-fit.js via --media-ratio) instead of a fixed slot, and animate the
+   change so a carousel/scrolly swap looks like the frame resizes itself.
+   The selectors are element-qualified so they win over the page defaults
+   regardless of stylesheet order. Fallback ratio applies before JS runs.
+   ========================================================================== */
+
+.svc-media[data-fit],
+.split-media[data-fit],
+.cd-step-media[data-fit] {
+  aspect-ratio: var(--media-ratio, 4 / 3);
+  transition: aspect-ratio 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cd-stage-media[data-fit] {
+  aspect-ratio: var(--media-ratio, 4 / 5);
+  transition: aspect-ratio 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-fit] {
+    transition: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Reserved slot
+   Holds a stable height so a resizing fit box never pushes the rest of the
+   page. The box still hugs (and animates to) its image inside the slot; any
+   leftover space is just the section background. `--fit-reserve` sets how much
+   height is held — a taller ratio reserves more height (less empty space for
+   landscape, more cropping of tall images), a wider ratio the opposite.
+   -------------------------------------------------------------------------- */
+.media-fit-slot {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: var(--fit-reserve, 1 / 1);
+}
+
+.media-fit-slot > [data-fit] {
+  flex: none;
+  width: 100%;
+  max-height: 100%;
+}
+
+/* In the stacked (mobile) layout the slot is a flex-column child; flex:1 1 0
+   would collapse it to zero height, so size it to content like the step did. */
+@media (max-width: 767.98px) {
+  .media-fit-slot {
+    flex: none;
+    width: 100%;
+  }
+}

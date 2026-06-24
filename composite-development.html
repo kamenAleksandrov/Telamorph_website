@@ -39,6 +39,7 @@
     <link rel="stylesheet" href="assets/css/components/noscript.css" />
     <link rel="stylesheet" href="assets/css/components/streak.css" />
     <link rel="stylesheet" href="assets/css/components/carousel.css" />
+    <link rel="stylesheet" href="assets/css/components/media-fit.css" />
     <link rel="stylesheet" href="assets/css/pages/service.css" />
     <link rel="stylesheet" href="assets/css/pages/composite.css" />
     <style>
@@ -120,7 +121,7 @@
           <div class="cd-scrolly-grid">
             <!-- Pinned media — swaps per active stage (driven by composite.js) -->
             <div class="cd-sticky" aria-hidden="true">
-              <div class="cd-stage-media">
+              <div class="cd-stage-media" data-fit>
                 <div
                   class="cd-stage-img is-active"
                   data-stage="1"
@@ -163,6 +164,7 @@
                   data-stage="5"
                   style="
                     background-image: url(&quot;assets/images/process/worker-spraying-carbon-element.jpg&quot;);
+                    --focus: 50% 30%;
                   "
                 ></div>
 
@@ -185,7 +187,7 @@
                 data-tag="Your geometry"
               >
                 <div
-                  class="cd-step-media reveal"
+                  class="cd-step-media reveal" data-fit
                   style="
                     background-image: url(&quot;assets/images/sketches/plane-sketch.png&quot;);
                   "
@@ -215,7 +217,7 @@
                 data-tag="DFM review"
               >
                 <div
-                  class="cd-step-media reveal"
+                  class="cd-step-media reveal" data-fit
                   style="
                     background-image: url(&quot;assets/images/3d-models/3d-model-car-body.png&quot;);
                   "
@@ -245,7 +247,7 @@
                 data-tag="Material &amp; laminate"
               >
                 <div
-                  class="cd-step-media reveal"
+                  class="cd-step-media reveal" data-fit
                   style="
                     background-image: url(&quot;assets/images/materials/carbon-materials.jpg&quot;);
                   "
@@ -291,7 +293,7 @@
                 data-tag="Tooling strategy"
               >
                 <div
-                  class="cd-step-media reveal"
+                  class="cd-step-media reveal" data-fit
                   style="
                     background-image: url(&quot;assets/images/3d-models/3d-model-car-bumper.jpg&quot;);
                   "
@@ -323,9 +325,10 @@
                 data-tag="Finished part"
               >
                 <div
-                  class="cd-step-media reveal"
+                  class="cd-step-media reveal" data-fit
                   style="
                     background-image: url(&quot;assets/images/process/worker-spraying-carbon-element.jpg&quot;);
+                    --focus: 50% 30%;
                   "
                 ></div>
                 <span class="cd-step-num reveal">05</span>
@@ -396,5 +399,6 @@
     <script src="assets/js/parallax.js" defer></script>
     <script src="assets/js/composite.js" defer></script>
     <script src="assets/js/carousel.js" defer></script>
+    <script src="assets/js/media-fit.js" defer></script>
   </body>
 </html>

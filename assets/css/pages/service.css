@@ -32,7 +32,7 @@
   position: absolute;
   inset: -10% 0;
   background-size: cover;
-  background-position: center;
+  background-position: var(--focus, center);
   will-change: transform;
   z-index: 0;
 }
@@ -218,7 +218,7 @@
   position: absolute;
   inset: 0;
   background-size: cover;
-  background-position: center;
+  background-position: var(--focus, center);
   /* `scale` (hover zoom, eased) and `transform` (scroll drift, set per-frame by
      service-motion.js via --svc-shift) are kept on separate properties so the
      drift never inherits the zoom's transition lag. The 1.12 scale gives the
@@ -365,7 +365,7 @@
   position: relative;
   aspect-ratio: 16 / 10;
   background-size: cover;
-  background-position: center;
+  background-position: var(--focus, center);
 }
 
 .svc-frame-media::after {
@@ -444,7 +444,7 @@
   position: absolute;
   inset: 0;
   background-size: cover;
-  background-position: center;
+  background-position: var(--focus, center);
   transform: scale(1.01);
   transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }

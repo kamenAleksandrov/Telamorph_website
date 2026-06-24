@@ -9,7 +9,11 @@
       content="From tooling to finished parts. Telamorph manufactures advanced composite components through controlled processes, modern equipment and a production mindset built around repeatability."
     />
     <link rel="canonical" href="https://telamorph.com/manufacturing.html" />
-    <link rel="icon" type="image/png" href="assets/images/brand/logo-cropped.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="assets/images/brand/logo-cropped.png"
+    />
     <link rel="apple-touch-icon" href="assets/images/brand/logo-cropped.png" />
 
     <meta property="og:title" content="Manufacturing — Telamorph" />
@@ -36,6 +40,7 @@
     <link rel="stylesheet" href="assets/css/components/noscript.css" />
     <link rel="stylesheet" href="assets/css/components/streak.css" />
     <link rel="stylesheet" href="assets/css/components/carousel.css" />
+    <link rel="stylesheet" href="assets/css/components/media-fit.css" />
     <link rel="stylesheet" href="assets/css/pages/service.css" />
     <style>
       html,
@@ -77,14 +82,14 @@
       </div>
     </noscript>
 
-    <!-- NOTE: Picture*.jpg are placeholders — swap for real production / tooling /
-       process / equipment imagery when the client supplies them. -->
     <main>
       <!-- Hero (compact) -->
       <section class="svc-hero" id="top">
         <div
           class="svc-hero-bg parallax-bg"
-          style="background-image: url(&quot;assets/images/process/carbon-part-1.jpg&quot;)"
+          style="
+            background-image: url(&quot;assets/images/process/carbon-part-1.jpg&quot;);
+          "
         ></div>
         <div class="svc-hero-scrim"></div>
         <div class="container svc-hero-inner reveal-stagger">
@@ -111,13 +116,15 @@
       <section class="svc-step">
         <div class="container">
           <div class="svc-step-grid reveal-stagger">
-            <div class="svc-media reveal">
+            <div class="media-fit-slot">
+              <div class="svc-media reveal" data-fit>
               <div
                 class="svc-media-bg"
                 style="
-                  background-image: url(&quot;assets/images/process/finished-carbon-part.jpg&quot;);
+                  background-image: url(&quot;assets/images/process/finished-carbon-part.png&quot;);
                 "
               ></div>
+              </div>
             </div>
             <div class="svc-text reveal reveal-right">
               <span class="svc-step-eyebrow">01</span>
@@ -144,7 +151,8 @@
       <section class="svc-step svc-step--alt svc-step--reverse">
         <div class="container">
           <div class="svc-step-grid reveal-stagger">
-            <div class="svc-media reveal" data-carousel>
+            <div class="media-fit-slot">
+              <div class="svc-media reveal" data-carousel data-fit>
               <div
                 class="svc-media-bg is-active"
                 data-carousel-slide
@@ -157,6 +165,7 @@
                 data-carousel-slide
                 style="
                   background-image: url(&quot;assets/images/process/composite-manufacturing-process-image.jpg&quot;);
+                  --focus: 50% 70%;
                 "
               ></div>
               <div
@@ -180,6 +189,7 @@
                   background-image: url(&quot;assets/images/process/welding-instrument-measurements.jpg&quot;);
                 "
               ></div>
+              </div>
             </div>
             <div class="svc-text reveal reveal-left">
               <span class="svc-step-eyebrow">02</span>
@@ -214,7 +224,8 @@
       <section class="svc-step">
         <div class="container">
           <div class="svc-step-grid reveal-stagger">
-            <div class="svc-media reveal" data-carousel>
+            <div class="media-fit-slot">
+              <div class="svc-media reveal" data-carousel data-fit>
               <div
                 class="svc-media-bg is-active"
                 data-carousel-slide
@@ -234,8 +245,10 @@
                 data-carousel-slide
                 style="
                   background-image: url(&quot;assets/images/process/carbon-part-2.jpg&quot;);
+                  --focus: 50% 40%;
                 "
               ></div>
+              </div>
             </div>
             <div class="svc-text reveal reveal-right">
               <span class="svc-step-eyebrow">03</span>
@@ -271,13 +284,15 @@
       <section class="svc-step svc-step--alt svc-step--reverse">
         <div class="container">
           <div class="svc-step-grid reveal-stagger">
-            <div class="svc-media reveal">
+            <div class="media-fit-slot">
+              <div class="svc-media reveal" data-fit>
               <div
                 class="svc-media-bg"
                 style="
-                  background-image: url(&quot;assets/images/process/verifying-manufactured-product-measurements.jpg&quot;);
+                  background-image: url(&quot;assets/images/process/verifying-manufactured-product-measurements.png&quot;);
                 "
               ></div>
+              </div>
             </div>
             <div class="svc-text reveal reveal-left">
               <span class="svc-step-eyebrow">04</span>
@@ -337,6 +352,7 @@
                   data-carousel-slide
                   style="
                     background-image: url(&quot;assets/images/finished/furnaces.jpg&quot;);
+                    --focus: 50% 38%;
                   "
                 ></div>
                 <div
@@ -351,6 +367,8 @@
                   data-carousel-slide
                   style="
                     background-image: url(&quot;assets/images/finished/furnace-control-hmis.jpg&quot;);
+                    background-size: contain;
+                    background-repeat: no-repeat;
                   "
                 ></div>
               </div>
@@ -369,7 +387,7 @@
                   class="media-carousel-slide"
                   data-carousel-slide
                   style="
-                    background-image: url(&quot;assets/images/process/worker-painting-car-carbon-parts.jpg&quot;);
+                    background-image: url(&quot;assets/images/process/worker-painting-car-carbon-parts.png&quot;);
                   "
                 ></div>
               </div>
@@ -503,5 +521,6 @@
     <script src="assets/js/parallax.js" defer></script>
     <script src="assets/js/service-motion.js" defer></script>
     <script src="assets/js/carousel.js" defer></script>
+    <script src="assets/js/media-fit.js" defer></script>
   </body>
 </html>
