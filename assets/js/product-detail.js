@@ -79,9 +79,6 @@ function renderProduct(product) {
     `Quote Request: ${product.name}`,
   );
 
-  // Back link points to the product's own category landing
-  const categoryHref = "industrial.html";
-
   const heroImg = product.images?.[0] || product.thumbnail;
 
   const thumbs =
@@ -129,9 +126,6 @@ function renderProduct(product) {
 
         <div class="pd-actions">
           <a href="${mailto}" class="btn btn-accent btn-lg">Request a quote</a>
-          <a href="${categoryHref}" class="btn btn-outline-accent btn-lg">Back to ${escapeHTML(
-            product.category,
-          )}</a>
         </div>
       </div>
     </div>

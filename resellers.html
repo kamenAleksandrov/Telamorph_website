@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-glow="partner">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="assets/css/components/spec-table.css" />
     <link rel="stylesheet" href="assets/css/components/noscript.css" />
     <link rel="stylesheet" href="assets/css/components/streak.css" />
+    <link rel="stylesheet" href="assets/css/components/glow.css" />
     <style>
       html,
       body {
@@ -72,6 +73,9 @@
         };
       })();
     </script>
+
+    <!-- Seeds the cross-page glow slide before first paint (see glow.css). -->
+    <script src="assets/js/glow.js"></script>
   </head>
   <body>
     <div id="nav-placeholder"></div>

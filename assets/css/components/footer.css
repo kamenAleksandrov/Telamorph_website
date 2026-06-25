@@ -293,3 +293,26 @@
     border-top: 1px solid var(--border-color);
   }
 }
+
+/* Products & Company sit side by side (col-6) below md. Once each column drops
+   under ~200px wide the long labels ("Composite Development", and the
+   "Products & Services" heading) wrap to two lines while their Company
+   counterparts stay on one — so the pills, and the columns as a whole, ended up
+   different heights. Pin the headings and every pill to a uniform two-line box
+   and centre the text: all pills become the same size, the two link lists start
+   and end at the same y, and both columns match in width and height while the
+   text still fits the longest label. */
+@media (max-width: 475px) {
+  .footer-sitemap .footer-heading:not(.footer-brand) {
+    min-height: 3.1rem;
+    line-height: 1.25;
+  }
+
+  .footer-links a {
+    justify-content: center;
+    text-align: center;
+    min-height: 3.9rem;
+    padding-inline: 0.6rem;
+    line-height: 1.25;
+  }
+}

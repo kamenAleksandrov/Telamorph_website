@@ -414,13 +414,13 @@
   padding: 0.35rem 0.85rem;
 }
 
-/* --- Application grid (a few strong image tiles) --- */
+/* --- Application grid (centered text tiles) --- */
 .svc-appgrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(0.6rem, 1.5vw, 1rem);
   margin-top: clamp(2.25rem, 6vh, 3.5rem);
-  text-align: left;
+  text-align: center;
 }
 
 @media (min-width: 768px) {
@@ -432,49 +432,51 @@
 .svc-appgrid-item {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(7rem, 16vh, 9rem);
+  padding: clamp(1.25rem, 3vw, 2rem);
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-color);
+  background:
+    radial-gradient(
+      120% 140% at 50% 0%,
+      rgba(91, 168, 245, 0.08),
+      transparent 62%
+    ),
+    var(--bg-secondary);
   transition:
     border-color var(--transition),
-    box-shadow var(--transition);
+    box-shadow var(--transition),
+    transform var(--transition);
 }
 
-.svc-appgrid-bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: var(--focus, center);
-  transform: scale(1.01);
-  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
+/* Subtle accent line that grows in on hover */
 .svc-appgrid-item::after {
   content: "";
   position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(17, 18, 21, 0.78) 0%,
-    transparent 60%
-  );
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent-gradient);
+  transform: translateX(-50%);
+  transition: width var(--transition);
 }
 
 .svc-appgrid-item:hover {
   border-color: var(--accent-deep);
+  transform: translateY(-3px);
   box-shadow: 0 18px 40px -22px rgba(0, 0, 0, 0.75);
 }
 
-.svc-appgrid-item:hover .svc-appgrid-bg {
-  transform: scale(1.08);
+.svc-appgrid-item:hover::after {
+  width: 60%;
 }
 
 .svc-appgrid-label {
-  position: absolute;
-  left: 1rem;
-  bottom: 0.9rem;
-  z-index: 1;
-  font-size: 0.82rem;
+  font-size: clamp(0.86rem, 1.4vw, 0.95rem);
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-weight: 700;

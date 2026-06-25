@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-glow="about">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -36,63 +36,11 @@
     <link rel="stylesheet" href="assets/css/components/spec-table.css" />
     <link rel="stylesheet" href="assets/css/components/noscript.css" />
     <link rel="stylesheet" href="assets/css/components/streak.css" />
+    <link rel="stylesheet" href="assets/css/components/glow.css" />
     <style>
       html,
       body {
         background-color: #111215;
-      }
-
-      /* Composite-style ambient blue glow across the whole page.
-         <body> must be transparent for the negative-z sheen to show; the
-         `html body` selector (0,0,2) overrides the inline `html, body{#111215}`
-         (0,0,1) above, while <html> keeps the base colour (no white flash). */
-      html body {
-        background-color: transparent;
-      }
-
-      body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        z-index: -2;
-        pointer-events: none;
-        background-color: var(--bg-primary);
-      }
-
-      body::after {
-        content: "";
-        position: fixed;
-        inset: -25%;
-        z-index: -1;
-        pointer-events: none;
-        background-image:
-          radial-gradient(
-            40% 50% at 28% 22%,
-            rgba(91, 168, 245, 0.18),
-            transparent 70%
-          ),
-          radial-gradient(
-            45% 55% at 78% 82%,
-            rgba(61, 147, 237, 0.13),
-            transparent 70%
-          );
-        filter: blur(40px);
-        animation: about-sheen 26s ease-in-out infinite alternate;
-      }
-
-      @keyframes about-sheen {
-        from {
-          transform: translate3d(-9%, -6%, 0) scale(1.05);
-        }
-        to {
-          transform: translate3d(11%, 7%, 0) scale(1.2);
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        body::after {
-          animation: none;
-        }
       }
 
       /* --- Sticky stage: text shows first, then the image zooms up and
@@ -240,6 +188,9 @@
         };
       })();
     </script>
+
+    <!-- Seeds the cross-page glow slide before first paint (see glow.css). -->
+    <script src="assets/js/glow.js"></script>
   </head>
   <body>
     <div id="nav-placeholder"></div>

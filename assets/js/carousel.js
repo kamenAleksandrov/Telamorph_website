@@ -14,6 +14,7 @@
     "(prefers-reduced-motion: reduce)",
   ).matches;
   const DEFAULT_INTERVAL = 5000;
+  const FIRST_DELAY = 2500; // quicker first advance so it doesn't feel stalled
 
   function initCarousel(root) {
     const slides = Array.from(
@@ -56,43 +57,65 @@
     }
     show(index);
 
+    // The timer is a self-rescheduling setTimeout (not setInterval) so a pause
+    // can preserve how much of the current slide's time is left: hovering or
+    // focusing the tile freezes the countdown and leaving resumes it, rather
+    // than restarting the full wait. The first advance uses the shorter
+    // FIRST_DELAY; every advance after that uses the configured interval.
     let timer = null;
-    const advance = () => show(index + 1);
-    function start() {
-      if (reduceMotion || timer) return;
-      timer = setInterval(advance, interval);
-    }
-    function stop() {
+    let tickStart = 0; // when the current countdown began
+    let remaining = Math.min(FIRST_DELAY, interval); // ms left on this slide
+
+    function clearTimer() {
       if (timer) {
-        clearInterval(timer);
+        clearTimeout(timer);
         timer = null;
       }
     }
+    // Begin or resume counting down the time left on the current slide.
+    function play() {
+      if (reduceMotion || timer) return;
+      tickStart = Date.now();
+      timer = setTimeout(() => {
+        timer = null;
+        remaining = interval; // later slides use the full interval
+        show(index + 1);
+        play();
+      }, remaining);
+    }
+    // Freeze the countdown, keeping the remaining time for the next resume.
+    function pause() {
+      if (!timer) return;
+      remaining = Math.max(0, remaining - (Date.now() - tickStart));
+      clearTimer();
+    }
+    // Reset to a full interval and start over (used after a manual dot jump).
     function restart() {
-      stop();
-      start();
+      clearTimer();
+      remaining = interval;
+      play();
     }
 
-    // Pause while the user is interacting with the tile
-    root.addEventListener("mouseenter", stop);
-    root.addEventListener("mouseleave", start);
-    root.addEventListener("focusin", stop);
-    root.addEventListener("focusout", start);
+    // Pause (not reset) while the user is hovering or focused on the tile.
+    root.addEventListener("mouseenter", pause);
+    root.addEventListener("mouseleave", play);
+    root.addEventListener("focusin", pause);
+    root.addEventListener("focusout", play);
 
     // Only run while on screen
     if ("IntersectionObserver" in window) {
       const io = new IntersectionObserver(
         (entries) => {
           for (const entry of entries) {
-            if (entry.isIntersecting) start();
-            else stop();
+            if (entry.isIntersecting) play();
+            else pause();
           }
         },
         { threshold: 0.15 },
       );
       io.observe(root);
     } else {
-      start();
+      play();
     }
   }
 

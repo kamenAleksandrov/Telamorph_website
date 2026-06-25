@@ -79,15 +79,23 @@ body::after {
 }
 
 /* ----- Sticky media column ----- */
+/* The sticky element holds the full available viewport height and centres the
+   media inside it, so a short (landscape) stage settles in the middle instead
+   of clinging to the top while taller stages still fill the space. */
 .cd-sticky {
   position: sticky;
   top: calc(var(--nav-height, 72px) + 25px + 1.75rem);
+  height: calc(100vh - var(--nav-height, 72px) - 25px - 3.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cd-stage-media {
   position: relative;
   aspect-ratio: 4 / 5;
-  max-height: calc(100vh - var(--nav-height, 72px) - 25px - 5rem);
+  width: 100%;
+  max-height: 100%;
   margin-inline: auto;
   overflow: hidden;
   border-radius: var(--radius-lg);
@@ -107,11 +115,17 @@ body::after {
     opacity 0.75s ease,
     transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
+  /* Inactive layers stay stacked and hit-testable even at opacity:0, so the
+     last one (stage 5) would otherwise sit on top and swallow clicks meant for
+     the active stage — including the carousel dots. Only the active layer
+     receives pointer events. */
+  pointer-events: none;
 }
 
 .cd-stage-img.is-active {
   opacity: 1;
   transform: scale(1);
+  pointer-events: auto;
 }
 
 .cd-stage-media::after {

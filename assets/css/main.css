@@ -167,7 +167,9 @@ img {
    the reveal transition wholesale — dropping opacity/translate easing so image
    cards snapped ("popped") into view. Winning the cascade keeps the fade + rise.
    transform/scale/colour/shadow are listed at the normal hover speed so element
-   hovers still ease exactly as before. */
+   hovers still ease exactly as before. aspect-ratio (media-fit.css) is listed
+   here too — media-fit's own selectors are :where()-wrapped to stay below this
+   rule's specificity, so this is the rule that has to carry it. */
 html .reveal {
   opacity: 0;
   translate: 0 24px;
@@ -179,7 +181,8 @@ html .reveal {
     border-color var(--transition),
     box-shadow var(--transition),
     color var(--transition),
-    background-color var(--transition);
+    background-color var(--transition),
+    aspect-ratio 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, translate;
 }
 

@@ -46,7 +46,10 @@
   gap: 0.5rem;
   color: #fff;
   font-weight: 700;
-  font-size: 2.6rem;
+  /* Fluid instead of a hard breakpoint switch: shrinks continuously across
+     860–1600px (where it meets the floor/ceiling) so it never visibly snaps
+     mid-shrink and overlaps the centered .product-tabs just above 992px. */
+  font-size: clamp(1.35rem, -0.1rem + 2.7vw, 2.6rem);
   letter-spacing: 0.02em;
   text-decoration: none;
   flex-shrink: 0;
@@ -133,11 +136,9 @@
   }
 }
 
-/* Shrink brand text + tabs between 600–991px so the three tabs fit */
+/* Shrink tabs between 600–991px so the three tabs fit (brand text already
+   shrinks continuously via its own clamp() above) */
 @media (max-width: 991.98px) {
-  .navbar-telamorph .navbar-brand {
-    font-size: 1.35rem;
-  }
   .product-tab {
     font-size: clamp(0.78rem, 0.4rem + 1.4vw, 1.05rem);
     padding: 1.35rem clamp(0.3rem, 0.7vw, 0.7rem);

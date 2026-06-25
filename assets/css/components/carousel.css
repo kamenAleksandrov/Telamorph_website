@@ -22,16 +22,26 @@
 }
 
 /* Step media reuses the existing .svc-media-bg slides so the scroll drift and
-   hover zoom keep working; we only layer the crossfade on top. */
+   hover zoom keep working; we layer the crossfade on top. The incoming slide
+   also eases from slightly oversized down to the base zoom as it fades in —
+   mirroring the composite scrolly's settle so the swap reads as an intentional
+   move rather than a flat dissolve over a resizing frame. */
 .svc-media[data-carousel] .svc-media-bg {
   opacity: 0;
+  scale: 1.2;
   transition:
-    scale 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    scale 1.2s cubic-bezier(0.16, 1, 0.3, 1),
     opacity 0.8s ease;
 }
 
 .svc-media[data-carousel] .svc-media-bg.is-active {
   opacity: 1;
+  scale: 1.12;
+}
+
+/* Keep the hover zoom on the visible slide — must out-specify .is-active above. */
+.svc-media[data-carousel]:hover .svc-media-bg.is-active {
+  scale: 1.18;
 }
 
 /* --- Dots --- */

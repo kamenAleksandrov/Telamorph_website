@@ -16,9 +16,9 @@
       "Compatibility": "Platform-specific (see options)"
     },
     "images": [
-      "products/carbon-fiber-front-splitter/hero.webp"
+      "3d-models/placeholder-cropped-bg.png"
     ],
-    "thumbnail": "placeholder_cropped_bg.png",
+    "thumbnail": "3d-models/placeholder-cropped-bg.png",
     "quoteEmail": "sales@telamorph.com",
     "keywords": ["carbon fiber splitter", "front splitter", "body kit", "aero", "downforce"]
   },
@@ -41,9 +41,9 @@
       "Lock": "Dual-side keyed lock"
     },
     "images": [
-      "products/telamorph-roof-box-r1/hero.webp"
+      "3d-models/placeholder-cropped-bg.png"
     ],
-    "thumbnail": "placeholder_cropped_bg.png",
+    "thumbnail": "3d-models/placeholder-cropped-bg.png",
     "quoteEmail": "sales@telamorph.com",
     "keywords": ["roof box", "carbon fiber roof box", "sports car storage", "aerodynamic roof box"]
   },
@@ -65,9 +65,9 @@
       "Weight (head only)": "18 kg"
     },
     "images": [
-      "products/telescope-mount-eq8/hero.webp"
+      "3d-models/placeholder-cropped-bg.png"
     ],
-    "thumbnail": "placeholder_cropped_bg.png",
+    "thumbnail": "3d-models/placeholder-cropped-bg.png",
     "quoteEmail": "sales@telamorph.com",
     "keywords": ["telescope mount", "equatorial mount", "astrophotography", "observatory mount"]
   },
@@ -90,9 +90,9 @@
       "Weight": "1.2 kg"
     },
     "images": [
-      "products/placeholder_cropped_bg.png"
+      "3d-models/placeholder-cropped-bg.png"
     ],
-    "thumbnail": "products/placeholder_cropped_bg.png",
+    "thumbnail": "3d-models/placeholder-cropped-bg.png",
     "quoteEmail": "sales@telamorph.com",
     "keywords": ["torque sensor", "torque measurement", "inline torque", "industrial sensor"]
   },
@@ -113,9 +113,9 @@
       "Batch Size": "Prototype to 500+ units"
     },
     "images": [
-      "products/custom-jig-fixture/hero.webp"
+      "3d-models/placeholder-cropped-bg.png"
     ],
-    "thumbnail": "placeholder_cropped_bg.png",
+    "thumbnail": "3d-models/placeholder-cropped-bg.png",
     "quoteEmail": "sales@telamorph.com",
     "keywords": ["custom jig", "fixture design", "tooling", "reverse engineering", "CNC machining"]
   }
