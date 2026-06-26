@@ -168,8 +168,9 @@ img {
    cards snapped ("popped") into view. Winning the cascade keeps the fade + rise.
    transform/scale/colour/shadow are listed at the normal hover speed so element
    hovers still ease exactly as before. aspect-ratio (media-fit.css) is listed
-   here too — media-fit's own selectors are :where()-wrapped to stay below this
-   rule's specificity, so this is the rule that has to carry it. */
+   here too — media-fit's .svc-media/.cd-step-media rules deliberately omit
+   their own `transition` (they're commonly also `.reveal`), so this is the
+   only rule that carries it for those elements. */
 html .reveal {
   opacity: 0;
   translate: 0 24px;
@@ -370,6 +371,14 @@ button:focus-visible .icon-cycle {
     #000 85%,
     transparent
   );
+}
+
+.icon-cycle--left {
+  --icon-cycle-rotate: 135deg; /* left-pointing (mirror of the default right) */
+  --icon-cycle-shift-x: -150%;
+  --icon-cycle-shift-y: 0%;
+  --icon-cycle-nudge: -3px 0;
+  /* fade axis is still horizontal, so the default --icon-cycle-fade applies */
 }
 
 @media (prefers-reduced-motion: reduce) {

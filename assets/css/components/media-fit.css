@@ -6,20 +6,33 @@
    The selectors are element-qualified so they win over the page defaults
    regardless of stylesheet order. Fallback ratio applies before JS runs.
 
-   The element classes are wrapped in :where() so they contribute zero
-   specificity — these containers are also commonly `.reveal` (see main.css),
-   and a bare two-part selector here (class + [data-fit]) would outrank
-   `html .reveal`'s one-part (type + class), letting this rule's `transition`
-   replace the reveal fade/rise wholesale instead of adding to it. Keeping
-   this rule at [data-fit]-only specificity means html .reveal still wins and
-   governs `transition`, so `aspect-ratio` must also be listed there. */
+   .svc-media and .cd-step-media are also commonly `.reveal` (see main.css),
+   so their rules here declare ONLY `aspect-ratio` — no `transition`. That
+   keeps them out of the fight over the `transition` property: `html .reveal`
+   is the one rule that sets `transition` for those elements (its list
+   includes `aspect-ratio`, so the resize still animates), and this rule just
+   needs to outrank the page CSS's plain `.svc-media`/`.cd-step-media`
+   defaults (service.css/composite.css) for the `aspect-ratio` value itself —
+   which the two-part [class][data-fit] selector already does regardless of
+   stylesheet order. (Wrapping these in :where() — as a previous fix did —
+   drops them to the same specificity as the page CSS default, and since that
+   loads after this file, the static ratio wins the tie and the box stops
+   resizing. Don't reintroduce that.)
 
-:where(.svc-media, .split-media, .cd-step-media)[data-fit] {
+   .split-media and .cd-stage-media are never `.reveal`, so they carry their
+   own `transition` here as before. */
+
+.svc-media[data-fit],
+.cd-step-media[data-fit] {
+  aspect-ratio: var(--media-ratio, 4 / 3);
+}
+
+.split-media[data-fit] {
   aspect-ratio: var(--media-ratio, 4 / 3);
   transition: aspect-ratio 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-:where(.cd-stage-media)[data-fit] {
+.cd-stage-media[data-fit] {
   aspect-ratio: var(--media-ratio, 4 / 5);
   transition: aspect-ratio 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }

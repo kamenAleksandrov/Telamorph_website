@@ -42,6 +42,32 @@
     });
     root.appendChild(dotsWrap);
 
+    // Prev/next arrows — revealed on hover/focus by CSS for precise pointers;
+    // hidden outright on touch, where swipe (below) is the navigation path.
+    function makeArrow(direction, label) {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "media-carousel-arrow media-carousel-arrow--" + direction;
+      btn.setAttribute("aria-label", label);
+      const icon = document.createElement("span");
+      icon.className =
+        direction === "prev" ? "icon-cycle icon-cycle--left" : "icon-cycle";
+      icon.setAttribute("aria-hidden", "true");
+      btn.appendChild(icon);
+      root.appendChild(btn);
+      return btn;
+    }
+    const prevBtn = makeArrow("prev", "Previous image");
+    const nextBtn = makeArrow("next", "Next image");
+    prevBtn.addEventListener("click", () => {
+      show(index - 1);
+      restart();
+    });
+    nextBtn.addEventListener("click", () => {
+      show(index + 1);
+      restart();
+    });
+
     let index = slides.findIndex((s) => s.classList.contains("is-active"));
     if (index < 0) index = 0;
 
@@ -101,6 +127,41 @@
     root.addEventListener("mouseleave", play);
     root.addEventListener("focusin", pause);
     root.addEventListener("focusout", play);
+
+    // Swipe (touch): horizontal drag past the threshold advances/retreats.
+    // Listeners are passive (no preventDefault) so vertical page scroll is
+    // never hijacked — a diagonal gesture can scroll the page and change the
+    // slide at the same time, which is the expected trade-off here.
+    const SWIPE_THRESHOLD = 40; // px
+    let touchStartX = null;
+    let touchDeltaX = 0;
+
+    root.addEventListener(
+      "touchstart",
+      (e) => {
+        if (e.touches.length !== 1) return;
+        touchStartX = e.touches[0].clientX;
+        touchDeltaX = 0;
+        pause();
+      },
+      { passive: true },
+    );
+    root.addEventListener(
+      "touchmove",
+      (e) => {
+        if (touchStartX === null) return;
+        touchDeltaX = e.touches[0].clientX - touchStartX;
+      },
+      { passive: true },
+    );
+    root.addEventListener("touchend", () => {
+      if (touchStartX === null) return;
+      if (Math.abs(touchDeltaX) > SWIPE_THRESHOLD) {
+        show(index + (touchDeltaX < 0 ? 1 : -1));
+      }
+      touchStartX = null;
+      restart();
+    });
 
     // Only run while on screen
     if ("IntersectionObserver" in window) {
