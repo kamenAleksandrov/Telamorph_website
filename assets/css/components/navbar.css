@@ -4,7 +4,7 @@
    takes over once the bar leaves the viewport. */
 #nav-placeholder {
   position: absolute;
-  top: 10px;
+  top: 4px;
   left: 0;
   right: 0;
   z-index: 1030;
@@ -15,9 +15,11 @@
   /* The bar's height tracks the logo so a growing mark never spills over the
      top edge. --nav-pad-y is the breathing room above and below the logo:
      the top of the bar sits --nav-pad-y above the logo and the bottom streak
-     sits --nav-pad-y below it. */
+     sits --nav-pad-y below it. Kept tight so the bar doesn't outgrow the
+     top clearance pages reserve for it (var(--nav-height) + ~25px), which
+     was letting the logo clip into hero content on shorter viewports. */
   --nav-logo-size: clamp(80px, 40px + 4.2vw, 120px);
-  --nav-pad-y: 12px;
+  --nav-pad-y: 8px;
   background-color: transparent;
   border-bottom: 1px solid transparent;
   padding: 0;
@@ -37,15 +39,15 @@
    Pinned to the viewport so the logo stays in the upper-left at every scroll
    position, while the rest of the bar (centered tabs + hamburger) keeps its
    original scroll-away behaviour. `top`/`height` reproduce the brand's spot in
-   the bar: the placeholder sits at top:10px and the bar is --nav-height tall,
+   the bar: the placeholder sits at top:4px and the bar is --nav-height tall,
    so a matching fixed box with align-items:center lands the logo identically.
    z-index sits just above the bar (1030) but below the offcanvas (1040+), so
    the open side menu still covers it. */
 .navbar-telamorph .navbar-brand {
   position: fixed;
-  top: 10px;
+  top: 4px;
   left: 1rem;
-  /* Same height as the bar (both anchored at top:10px), so the logo centers
+  /* Same height as the bar (both anchored at top:6px), so the logo centers
      inside it with --nav-pad-y clearance top and bottom. */
   height: calc(var(--nav-logo-size) + var(--nav-pad-y) * 2);
   z-index: 1031;

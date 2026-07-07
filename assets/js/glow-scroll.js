@@ -1,12 +1,10 @@
 /* Scroll-driven ambient glow for the Manufacturing page.
 
-   The glow layer (glow.css, body::after) is fixed to the viewport. Here we
-   slide its blobs vertically as the page scrolls, so the glow appears to
-   travel down through the dark .svc-step bands (the lighter .svc-step--alt
-   bands are opaque and cover it). Position is mapped straight from scroll
-   progress and updated every frame — glow.css's 1.1s page-nav transition is
-   disabled for this page (see the inline :root override in manufacturing.html)
-   so the glow tracks the scroll instead of lagging behind it.
+   Reuses the smooth page-nav slide from glow.css — the same 1.1s ease that
+   moves the glow between About / Contact / Become a Partner — but triggers it
+   on scroll: as each dark, glow-visible .svc-step band crosses the viewport
+   centre, the two lobes glide to a fresh resting position. The opaque
+   .svc-step--alt bands cover the glow, so we ignore them.
 
    Falls back to the static seeded position under reduced-motion. */
 (() => {
@@ -14,35 +12,49 @@
 
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  // Vertical travel range (% of viewport) for each blob across the full
-  // scroll. Blob B trails A so the pair reads as one glow drifting down.
-  const A_FROM = 16,
-    A_TO = 84;
-  const B_FROM = 28,
-    B_TO = 96;
+  // The dark, transparent bands the glow shows through (steps 01, 03, 05).
+  const sections = [
+    ...document.querySelectorAll(".svc-step:not(.svc-step--alt)"),
+  ];
+  if (!sections.length) return;
 
-  let ticking = false;
+  // Resting layouts cycled across the bands, one per section. Pushed further
+  // toward the edges than the page-nav positions so the glow hugs the viewport
+  // sides. Lobe A is {ax, ay}, lobe B is {bx, by} — percentages of the viewport.
+  const RESTS = [
+    { ax: 16, ay: 20, bx: 84, by: 82 }, // diagonal  ↖ ↘
+    { ax: 84, ay: 20, bx: 16, by: 82 }, // diagonal  ↗ ↙
+    { ax: 50, ay: 12, bx: 50, by: 88 }, // vertical column, top/bottom edges
+  ];
 
-  function update() {
-    ticking = false;
-    const scrollable =
-      document.documentElement.scrollHeight - window.innerHeight;
-    let p = scrollable > 0 ? window.scrollY / scrollable : 0;
-    if (p < 0) p = 0;
-    else if (p > 1) p = 1;
+  // Same slide as glow.css's page-nav transition. Set inline so it overrides
+  // the page's first-paint `transition: none` seed. Interrupting a running
+  // slide re-targets from the current interpolated value, so fast scrolling
+  // stays smooth rather than snapping.
+  root.style.transition =
+    "--glow-a-x 1.1s ease, --glow-a-y 1.1s ease," +
+    "--glow-b-x 1.1s ease, --glow-b-y 1.1s ease";
 
-    root.style.setProperty("--glow-a-y", (A_FROM + p * (A_TO - A_FROM)).toFixed(1) + "%");
-    root.style.setProperty("--glow-b-y", (B_FROM + p * (B_TO - B_FROM)).toFixed(1) + "%");
-  }
+  const setPos = (p) => {
+    root.style.setProperty("--glow-a-x", p.ax + "%");
+    root.style.setProperty("--glow-a-y", p.ay + "%");
+    root.style.setProperty("--glow-b-x", p.bx + "%");
+    root.style.setProperty("--glow-b-y", p.by + "%");
+  };
 
-  function onScroll() {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(update);
-    }
-  }
-
-  update();
-  window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", onScroll, { passive: true });
+  // Fire when a band crosses the thin band at the viewport centre.
+  let active = -1;
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        const idx = sections.indexOf(e.target);
+        if (idx === active) continue;
+        active = idx;
+        setPos(RESTS[idx % RESTS.length]);
+      }
+    },
+    { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
+  );
+  sections.forEach((s) => io.observe(s));
 })();

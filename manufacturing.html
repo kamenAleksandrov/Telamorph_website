@@ -54,9 +54,11 @@
          shows through them; the lighter .svc-step--alt bands are opaque and
          cover it — so the glow lands only on the darker sections.
 
-         Override glow.css's 1.1s page-nav slide: here the position tracks the
-         scroll every frame, so it must respond immediately. Seed start (p=0)
-         coordinates so first paint matches the script. */
+         Disable glow.css's :root transition for first paint; the script
+         re-enables the same 1.1s slide inline and moves the glow to a new
+         resting position as each dark band reaches the viewport centre. Seed
+         the pre-scroll position (shown under the hero/intro) so first paint has
+         the glow in place. */
       :root {
         transition: none;
         --glow-a-x: 30%;
