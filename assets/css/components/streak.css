@@ -20,10 +20,12 @@
   .svc-catch,
   .cd-catch,
   .footer-links a,
-  .footer-contact-value
+  .footer-contact-value,
+  .pd-tab-nav
 )::before,
 .menu-list li a::after,
-.product-tab::after {
+.product-tab::after,
+.pd-tab-btn::after {
   content: "";
   position: absolute;
   left: var(--streak-left, 0);
@@ -64,14 +66,16 @@
   .svc-catch,
   .cd-catch,
   .footer-links a,
-  .footer-contact-value
+  .footer-contact-value,
+  .pd-tab-nav
 )::before {
   top: 0;
   z-index: var(--streak-z, 1);
 }
 
 .menu-list li a::after,
-.product-tab::after {
+.product-tab::after,
+.pd-tab-btn::after {
   bottom: var(--streak-bottom, 0);
   transform: scaleX(0.35);
   transform-origin: var(--streak-origin, center);
@@ -96,7 +100,8 @@
   .svc-catch,
   .cd-catch,
   .footer-links a,
-  .footer-contact-value
+  .footer-contact-value,
+  .pd-tab-nav
 ):hover::before,
 :where(
   .showcase-band,
@@ -121,13 +126,19 @@
 .navbar-telamorph:has(:focus-visible)::before,
 .menu-list li a:hover::after,
 .menu-list li a:focus-visible::after,
-.product-tab.active::after {
+.product-tab.active::after,
+.pd-tab-btn:hover::after,
+.pd-tab-btn:focus-visible::after,
+.pd-tab-btn.is-active::after {
   opacity: 1;
 }
 
 .menu-list li a:hover::after,
 .menu-list li a:focus-visible::after,
-.product-tab.active::after {
+.product-tab.active::after,
+.pd-tab-btn:hover::after,
+.pd-tab-btn:focus-visible::after,
+.pd-tab-btn.is-active::after {
   transform: scaleX(1);
 }
 
@@ -181,6 +192,29 @@
   --streak-height: 2px;
   --streak-left: clamp(0.3rem, 0.55vw, 1rem);
   --streak-right: clamp(0.3rem, 0.55vw, 1rem);
+}
+
+/* Product-detail tabs reuse the nav's streak: a 2px underline that lights the
+   active/hovered tab, plus a subtle cursor-tracked glow along the divider. */
+.pd-tab-btn {
+  --streak-height: 2px;
+}
+
+.pd-tab-nav {
+  --streak-height: 1px;
+}
+
+.pd-tab-nav::before {
+  top: auto;
+  bottom: 0;
+}
+
+/* Product cards keep overflow:visible (the image pops above the card), so the
+   top streak isn't clipped. Inset its ends to the corner radius so the bar ends
+   at the point the top edge goes straight instead of hanging past the curve. */
+.product-card {
+  --streak-left: var(--radius-lg);
+  --streak-right: var(--radius-lg);
 }
 
 .menu-list li a {

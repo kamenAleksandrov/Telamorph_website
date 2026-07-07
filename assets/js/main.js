@@ -116,6 +116,8 @@ const cursorStreakSelector = [
   ".footer-contact",
   ".navbar-telamorph",
   ".product-tab",
+  ".pd-tab-nav",
+  ".pd-tab-btn",
   ".footer-links a",
   ".footer-contact-value",
   ".menu-list li a",

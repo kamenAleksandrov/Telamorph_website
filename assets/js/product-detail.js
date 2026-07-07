@@ -143,7 +143,7 @@ function renderProduct(product) {
         <p class="pd-lead">${escapeHTML(product.description)}</p>
 
         <div class="pd-actions">
-          <a href="${mailto}" class="btn btn-accent btn-lg">Request a quote</a>
+          <a href="contact.html" class="btn btn-accent btn-lg">Request a quote</a>
         </div>
       </div>
     </div>
