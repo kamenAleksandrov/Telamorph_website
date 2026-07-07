@@ -17,40 +17,52 @@ Contact: info@telamorph.com | sales@telamorph.com
 - **Automotive Body Kits** — Carbon fiber splitters, diffusers, side skirts, and aero components for performance vehicles.
 - **Roof Box** — Aerodynamic carbon fiber roof boxes for sports cars and performance SUVs.
 - **Astronomy** — Precision telescope mounts, adapters, and optomechanical hardware for astrophotography and observatories.
-- **Industrial Solutions** — Torque sensors, force sensors, and custom measurement/test hardware.
+- **Industrial Solutions** — MPK composite curing ovens (Compact to Large Format), custom oven builds, and touchscreen curing control systems.
 - **Development & Production** — Custom jigs, fixtures, tooling, reverse engineering services, and low-to-mid volume production.
 
 ## Products
 
-### Carbon Fiber Front Splitter
-- Category: Automotive Body Kits
-- Description: Lightweight carbon fiber front splitter with CFD-optimised profile. Aerospace-grade prepreg, hand-finished.
-- Key Specs: Carbon fiber twill 2×2, 2.4 kg, gloss/matte finish, OEM attachment points.
-- URL: https://telamorph.com/product-detail.html?id=carbon-fiber-front-splitter
+### MPK Compact
+- Category: Composite Curing Oven
+- Description: Compact composite curing oven for small-to-medium parts, test panels, UAV components and precision production work.
+- Key Specs: Ambient to 220°C, up to 3°C/min, ±0.8°C stability, 2 vacuum ports, 1200/800/800 mm chamber.
+- URL: https://telamorph.com/product-detail.html?id=mpk-compact
 
-### Telamorph Roof Box R1
-- Category: Roof Box
-- Description: Flagship forged carbon fiber roof box. Wind-tunnel tested, UV-resistant, IP65 rated.
-- Key Specs: 420L capacity, 75 kg max load, 2100×840×340 mm, dual-side lock.
-- URL: https://telamorph.com/product-detail.html?id=telamorph-roof-box-r1
+### MPK Workshop
+- Category: Composite Curing Oven
+- Description: More working volume than the Compact with a practical footprint for everyday composite workshop use.
+- Key Specs: Ambient to 220°C, up to 3°C/min, ±0.8°C stability, 2–6 vacuum ports, 1200/1200/1800 mm chamber.
+- URL: https://telamorph.com/product-detail.html?id=mpk-workshop
 
-### EQ8 Precision Telescope Mount
-- Category: Astronomy
-- Description: Heavy-duty equatorial mount with harmonic drive gearing and sub-arcsecond tracking.
-- Key Specs: 50 kg payload, <0.5 arcsec RMS tracking, ASCOM/INDI, 12 VDC.
-- URL: https://telamorph.com/product-detail.html?id=telescope-mount-eq8
+### MPK Production
+- Category: Composite Curing Oven
+- Description: Production-focused curing oven for small-series manufacturing and larger technical components needing repeatable cures.
+- Key Specs: Ambient to 260°C, up to 3°C/min, ±0.8°C stability, 2–10 vacuum ports, 1200/1800/1800 mm chamber.
+- URL: https://telamorph.com/product-detail.html?id=mpk-production
 
-### Precision Torque Sensor PT-500
-- Category: Industrial Solutions
-- Description: Laboratory-grade inline torque sensor with full-bridge strain gauge and signal conditioning.
-- Key Specs: 0–500 Nm, ±0.1% FS, IP67, stainless steel, 4–20 mA / 0–10 V output.
-- URL: https://telamorph.com/product-detail.html?id=precision-torque-sensor-pt500
+### MPK Large Format
+- Category: Composite Curing Oven
+- Description: Built for oversized molds, body panels and structural composite parts in demanding production workflows.
+- Key Specs: Ambient to 260°C, up to 3°C/min, ±0.8°C stability, 2–10 vacuum ports, 2400/2000/1800 mm chamber.
+- URL: https://telamorph.com/product-detail.html?id=mpk-large-format
 
-### Custom Jig & Fixture Design
-- Category: Development & Production
-- Description: End-to-end custom tooling — from 3D scan to CNC-machined production fixtures.
-- Key Specs: ±0.02 mm tolerances, aluminium/steel/plastics, 2–4 week lead time.
-- URL: https://telamorph.com/product-detail.html?id=custom-jig-fixture-service
+### MPK Custom
+- Category: Composite Curing Oven
+- Description: Curing oven engineered around the client's exact part size, curing process, loading method and production workflow.
+- Key Specs: Ambient up to 350°C, ±0.2°C stability, ±0.65°C @ 300°C uniformity, configurable vacuum ports, built-to-spec chamber.
+- URL: https://telamorph.com/product-detail.html?id=mpk-custom
+
+### MPK CS (Control System)
+- Category: Control System
+- Description: Industrial touchscreen control unit for composite curing — build, run and monitor multi-stage temperature profiles in real time.
+- Key Specs: Multi-stage ramp/soak/cooling profiles, programmed vs. actual curves, PID control, software validation and process monitoring.
+- URL: https://telamorph.com/product-detail.html?id=mpk-cs
+
+### MPK CS + TU (Thermal Unit)
+- Category: Control + Thermal Unit
+- Description: Turns a customer's own insulated chamber into a fully controlled composite curing oven with integrated heating, airflow and PID control.
+- Key Specs: Touchscreen control, heating power, air circulation, PID regulation, programmable curing profiles, process monitoring.
+- URL: https://telamorph.com/product-detail.html?id=mpk-cs-tu
 
 ## Capabilities
 

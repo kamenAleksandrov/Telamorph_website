@@ -12,10 +12,16 @@
 
 .navbar-telamorph {
   position: relative; /* anchor for the bar-wide cursor streak (::before) */
+  /* The bar's height tracks the logo so a growing mark never spills over the
+     top edge. --nav-pad-y is the breathing room above and below the logo:
+     the top of the bar sits --nav-pad-y above the logo and the bottom streak
+     sits --nav-pad-y below it. */
+  --nav-logo-size: clamp(80px, 40px + 4.2vw, 120px);
+  --nav-pad-y: 12px;
   background-color: transparent;
   border-bottom: 1px solid transparent;
   padding: 0;
-  min-height: var(--nav-height);
+  min-height: calc(var(--nav-logo-size) + var(--nav-pad-y) * 2);
   display: flex;
   align-items: center;
 }
@@ -39,17 +45,21 @@
   position: fixed;
   top: 10px;
   left: 1rem;
-  height: var(--nav-height);
+  /* Same height as the bar (both anchored at top:10px), so the logo centers
+     inside it with --nav-pad-y clearance top and bottom. */
+  height: calc(var(--nav-logo-size) + var(--nav-pad-y) * 2);
   z-index: 1031;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
   color: #fff;
   font-weight: 700;
   /* Fluid instead of a hard breakpoint switch: shrinks continuously across
-     860–1600px (where it meets the floor/ceiling) so it never visibly snaps
-     mid-shrink and overlaps the centered .product-tabs just above 992px. */
-  font-size: clamp(1.35rem, -0.1rem + 2.7vw, 2.6rem);
+     the mid range (where it meets the floor/ceiling) so it never visibly snaps
+     mid-shrink and overlaps the centered .product-tabs just above 992px.
+     Tuned so the floor (≤~900px) and the tight 992px zone match the previous
+     sizing — the extra ~50% growth only unlocks on wide screens (~1920px hits
+     ~3.75rem, capping at 3.9rem ≥~1985px) where there's horizontal room. */
+  font-size: clamp(1.35rem, -0.75rem + 3.75vw, 3.9rem);
   letter-spacing: 0.02em;
   text-decoration: none;
   flex-shrink: 0;
@@ -80,11 +90,61 @@
   color: var(--accent);
 }
 
+/* Wraps just the logo + wordmark (not the taller fixed .navbar-brand box,
+   which carries extra --nav-pad-y clearance for positioning) so the scroll
+   scrim below hugs the visible mark tightly instead of the padded box. */
+.navbar-telamorph .brand-mark {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .nav-logo {
   border-radius: 6px;
   object-fit: contain;
-  width: 80px;
-  height: 80px;
+  /* Matches the brand text: holds the previous 80px below ~960px (small
+     screens stay exactly as before), then grows with width up to 120px
+     (+50%) at ~1920px where the hero has vertical room for the taller mark.
+     The bar's height is derived from this same --nav-logo-size (above), so the
+     logo always sits fully inside the bar as it grows. */
+  width: var(--nav-logo-size);
+  height: var(--nav-logo-size);
+  position: relative;
+  z-index: 1; /* above the scroll scrim (.brand-mark::before) */
+}
+
+/* Scroll scrim — a soft dark halo that fades in behind the logo + wordmark
+   once the page starts scrolling, so they stay legible over whatever imagery
+   passes beneath them. Sized in fixed px (not %) so it stays a tight, even
+   rectangle around the mark at every logo size, never a hard plate. */
+.navbar-telamorph .brand-mark::before {
+  content: "";
+  position: absolute;
+  inset: -6px -10px;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: var(--radius-lg);
+  background: rgba(17, 18, 21, 0.55);
+  filter: blur(14px);
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+/* The brand text sits above the scrim too. */
+.navbar-telamorph .navbar-brand .brand-text {
+  position: relative;
+  z-index: 1;
+}
+
+html.nav-scrolled .navbar-telamorph .brand-mark::before {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar-telamorph .brand-mark::before {
+    transition: none;
+  }
 }
 
 /* Product category tabs (desktop) — hidden by default, shown from 700px up.

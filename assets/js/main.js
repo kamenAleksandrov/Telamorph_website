@@ -19,12 +19,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 const shellCacheKeys = {
-  nav: "telamorph-shell-nav-v3",
+  nav: "telamorph-shell-nav-v4",
   footer: "telamorph-shell-footer-v2",
 };
 
 const shellPartialUrls = {
-  nav: "components/nav.html?v=20260622-partner",
+  nav: "components/nav.html?v=20260707-brandmark",
   footer: "components/footer.html?v=20260622-partner",
 };
 
@@ -313,11 +313,15 @@ function initScrollTopButton() {
   });
 
   let ticking = false;
+  const root = document.documentElement;
   const update = () => {
     btn.classList.toggle(
       "is-visible",
       window.scrollY > window.innerHeight * 0.6,
     );
+    // Fade in the scrim behind the fixed logo as soon as the page moves, so
+    // the mark stays legible over whatever scrolls beneath it (navbar.css).
+    root.classList.toggle("nav-scrolled", window.scrollY > 8);
     ticking = false;
   };
   window.addEventListener(

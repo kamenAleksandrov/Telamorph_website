@@ -1,17 +1,32 @@
 /* ==========================================================================
    Telamorph — Industrial listing (industrial.js)
-   A focused catalogue: search + a 3-across grid of product cards, paginated
-   at 12 (3 × 4) per page. No category filters — every item shown is industrial.
+   A focused catalogue: search + a responsive grid of product cards. Column
+   count and page size scale with viewport so each page stays ~4 rows tall and
+   smaller screens show fewer items (less scrolling). No category filters —
+   every item shown is industrial.
    ========================================================================== */
 
 const INDUSTRIAL_CATEGORY = "industrial-solutions";
-const ITEMS_PER_PAGE = 12; // 3 columns × 4 rows
+
+// Page size tracks the grid's column count (see row-cols-* in industrial.html)
+// so every page fills roughly the same number of rows:
+//   ≥1200px → 4 cols × 4 rows = 16   |   ≥992px → 3 cols × 4 rows = 12
+//    ≥576px → 2 cols × 4 rows =  8   |   < 576px → 1 col  × 6 rows =  6
+function getItemsPerPage() {
+  const w = window.innerWidth;
+  if (w >= 1200) return 16;
+  if (w >= 992) return 12;
+  if (w >= 576) return 8;
+  return 6;
+}
 
 let industrialAll = [];
 let industrialFiltered = [];
 let industrialPage = 1;
 let industrialSearch = "";
 let industrialSearchTimer = null;
+let industrialPerPage = getItemsPerPage();
+let industrialResizeTimer = null;
 
 document.addEventListener("DOMContentLoaded", initIndustrialPage);
 
@@ -26,7 +41,24 @@ async function initIndustrialPage() {
   industrialFiltered = industrialAll;
 
   bindIndustrialSearch();
+  bindIndustrialResize();
   renderIndustrial();
+}
+
+// Recompute page size on resize; only re-render when the tier actually changes,
+// keeping the viewer's first item visible across the layout switch.
+function bindIndustrialResize() {
+  window.addEventListener("resize", () => {
+    window.clearTimeout(industrialResizeTimer);
+    industrialResizeTimer = window.setTimeout(() => {
+      const next = getItemsPerPage();
+      if (next === industrialPerPage) return;
+      const firstItem = (industrialPage - 1) * industrialPerPage;
+      industrialPerPage = next;
+      industrialPage = Math.floor(firstItem / industrialPerPage) + 1;
+      renderIndustrial();
+    }, 160);
+  });
 }
 
 function bindIndustrialSearch() {
@@ -71,7 +103,7 @@ function renderIndustrial() {
   if (!grid) return;
 
   const total = industrialFiltered.length;
-  const totalPages = Math.max(1, Math.ceil(total / ITEMS_PER_PAGE));
+  const totalPages = Math.max(1, Math.ceil(total / industrialPerPage));
   industrialPage = Math.min(industrialPage, totalPages);
 
   if (count) {
@@ -87,8 +119,8 @@ function renderIndustrial() {
   }
   if (empty) empty.style.display = "none";
 
-  const start = (industrialPage - 1) * ITEMS_PER_PAGE;
-  const pageItems = industrialFiltered.slice(start, start + ITEMS_PER_PAGE);
+  const start = (industrialPage - 1) * industrialPerPage;
+  const pageItems = industrialFiltered.slice(start, start + industrialPerPage);
 
   pageItems.forEach((product) => {
     const card = createProductCard(product);

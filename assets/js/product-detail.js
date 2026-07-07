@@ -74,6 +74,11 @@ function renderProduct(product) {
     )
     .join("");
 
+  // Scannable feature list — the qualitative highlights for the product
+  const highlightItems = (product.highlights || [])
+    .map((item) => `<li>${escapeHTML(item)}</li>`)
+    .join("");
+
   const mailto = buildMailto(
     product.quoteEmail,
     `Quote Request: ${product.name}`,
@@ -98,6 +103,26 @@ function renderProduct(product) {
         </div>`
       : "";
 
+  // Detail sections live below the hero as tabs. Only the sections that have
+  // content become tabs (a product with no specs shows just Highlights).
+  const tabs = [];
+  if (highlightItems) {
+    tabs.push({
+      id: "highlights",
+      label: "Highlights",
+      body: `<ul class="pd-highlights">${highlightItems}</ul>`,
+    });
+  }
+  if (specRows) {
+    tabs.push({
+      id: "specs",
+      label: "Specifications",
+      body: `<dl class="pd-spec-list">${specRows}</dl>`,
+    });
+  }
+
+  const tabsMarkup = buildTabsMarkup(tabs);
+
   container.innerHTML = `
     <div class="pd-layout">
       <!-- Media -->
@@ -117,21 +142,93 @@ function renderProduct(product) {
         <h1 class="pd-title">${escapeHTML(product.name)}</h1>
         <p class="pd-lead">${escapeHTML(product.description)}</p>
 
-        ${
-          specRows
-            ? `<h2 class="pd-specs-title">Specifications</h2>
-               <dl class="pd-spec-list">${specRows}</dl>`
-            : ""
-        }
-
         <div class="pd-actions">
           <a href="${mailto}" class="btn btn-accent btn-lg">Request a quote</a>
         </div>
       </div>
     </div>
+
+    ${tabsMarkup}
   `;
+  bindProductTabs(container);
   window.initCursorStreaks?.(container);
   window.initRevealOnScroll?.(container);
+}
+
+/**
+ * Build the tabbed detail section markup from an array of {id, label, body}.
+ * Two or more tabs render a tab bar; a single section drops the bar and just
+ * shows its heading + content.
+ */
+function buildTabsMarkup(tabs) {
+  if (!tabs.length) return "";
+
+  if (tabs.length === 1) {
+    const t = tabs[0];
+    return `
+      <section class="pd-tabs pd-tabs-single reveal">
+        <h2 class="pd-tab-heading">${t.label}</h2>
+        <div class="pd-tab-panel is-active">${t.body}</div>
+      </section>`;
+  }
+
+  const nav = tabs
+    .map(
+      (t, i) =>
+        `<button type="button" role="tab" id="pd-tab-${t.id}"
+                 class="pd-tab-btn${i === 0 ? " is-active" : ""}"
+                 aria-controls="pd-panel-${t.id}"
+                 aria-selected="${i === 0 ? "true" : "false"}">${t.label}</button>`,
+    )
+    .join("");
+
+  const panels = tabs
+    .map(
+      (t, i) =>
+        `<div id="pd-panel-${t.id}" role="tabpanel" aria-labelledby="pd-tab-${t.id}"
+              class="pd-tab-panel${i === 0 ? " is-active" : ""}"${i === 0 ? "" : " hidden"}>${t.body}</div>`,
+    )
+    .join("");
+
+  return `
+    <section class="pd-tabs reveal">
+      <div class="pd-tab-nav" role="tablist" aria-label="Product details">${nav}</div>
+      <div class="pd-tab-panels">${panels}</div>
+    </section>`;
+}
+
+/**
+ * Wire up click/keyboard switching for the detail tabs.
+ */
+function bindProductTabs(container) {
+  const buttons = Array.from(container.querySelectorAll(".pd-tab-btn"));
+  if (buttons.length < 2) return;
+
+  const activate = (btn) => {
+    const panelId = btn.getAttribute("aria-controls");
+    buttons.forEach((b) => {
+      const isActive = b === btn;
+      b.classList.toggle("is-active", isActive);
+      b.setAttribute("aria-selected", isActive ? "true" : "false");
+    });
+    container.querySelectorAll(".pd-tab-panel").forEach((panel) => {
+      const isActive = panel.id === panelId;
+      panel.classList.toggle("is-active", isActive);
+      panel.hidden = !isActive;
+    });
+  };
+
+  buttons.forEach((btn, i) => {
+    btn.addEventListener("click", () => activate(btn));
+    btn.addEventListener("keydown", (e) => {
+      if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+      e.preventDefault();
+      const dir = e.key === "ArrowRight" ? 1 : -1;
+      const next = buttons[(i + dir + buttons.length) % buttons.length];
+      activate(next);
+      next.focus();
+    });
+  });
 }
 
 /**

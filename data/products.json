@@ -1,122 +1,246 @@
 [
   {
-    "id": "carbon-fiber-front-splitter",
-    "name": "Carbon Fiber Front Splitter",
-    "category": "Automotive Body Kits",
-    "categorySlug": "automotive-body-kits",
-    "subcategory": "Splitters",
-    "subcategorySlug": "splitters",
-    "shortDescription": "Lightweight carbon fiber front splitter designed for improved downforce and aggressive aesthetics.",
-    "description": "Engineered in-house using aerospace-grade carbon fiber prepreg, our front splitter delivers measurable aerodynamic downforce while maintaining a clean, OEM-integrated look. Each unit is designed using CFD analysis and hand-finished to exacting tolerances. Available for a range of performance platforms.",
-    "specifications": {
-      "Material": "Carbon Fiber (Twill 2×2)",
-      "Weight": "2.4 kg",
-      "Finish": "Gloss / Matte Clear Coat",
-      "Mounting": "OEM attachment points + hardware included",
-      "Compatibility": "Platform-specific (see options)"
-    },
-    "images": [
-      "3d-models/placeholder-cropped-bg.png"
-    ],
-    "thumbnail": "3d-models/placeholder-cropped-bg.png",
-    "quoteEmail": "sales@telamorph.com",
-    "keywords": ["carbon fiber splitter", "front splitter", "body kit", "aero", "downforce"]
-  },
-  {
-    "id": "telamorph-roof-box-r1",
-    "name": "Telamorph Roof Box R1",
-    "category": "Roof Box",
-    "categorySlug": "roof-box",
-    "subcategory": "Roof Boxes",
-    "subcategorySlug": "roof-boxes",
-    "shortDescription": "Aerodynamic carbon fiber roof box for sports cars and performance SUVs.",
-    "description": "The R1 is our flagship roof box — designed, prototyped, and manufactured entirely in-house. Built from forged carbon fiber with an aerodynamically optimised profile, it adds storage without compromising your vehicle's performance or silhouette. Wind-tunnel tested, UV-resistant, and IP65 rated.",
-    "specifications": {
-      "Material": "Forged Carbon Fiber",
-      "Capacity": "420 litres",
-      "Max Load": "75 kg",
-      "Dimensions": "2100 × 840 × 340 mm",
-      "Mounting": "Universal T-slot / crossbar compatible",
-      "Protection": "IP65",
-      "Lock": "Dual-side keyed lock"
-    },
-    "images": [
-      "3d-models/placeholder-cropped-bg.png"
-    ],
-    "thumbnail": "3d-models/placeholder-cropped-bg.png",
-    "quoteEmail": "sales@telamorph.com",
-    "keywords": ["roof box", "carbon fiber roof box", "sports car storage", "aerodynamic roof box"]
-  },
-  {
-    "id": "telescope-mount-eq8",
-    "name": "EQ8 Precision Telescope Mount",
-    "category": "Astronomy",
-    "categorySlug": "astronomy",
-    "subcategory": "Mounts",
-    "subcategorySlug": "mounts",
-    "shortDescription": "Heavy-duty equatorial mount with sub-arcsecond tracking for observatory-grade imaging.",
-    "description": "Designed for serious astrophotographers and remote observatory setups, the EQ8 mount combines a rigid steel framework with precision harmonic drive gearing and integrated GPS/autoguiding. The entire drive system is engineered and assembled in our facility, ensuring traceable quality and long-term reliability.",
-    "specifications": {
-      "Payload Capacity": "50 kg",
-      "Tracking Accuracy": "< 0.5 arcsec RMS",
-      "Drive": "Harmonic drive (RA + DEC)",
-      "Control": "ASCOM / INDI compatible",
-      "Power": "12 VDC, 3A",
-      "Weight (head only)": "18 kg"
-    },
-    "images": [
-      "3d-models/placeholder-cropped-bg.png"
-    ],
-    "thumbnail": "3d-models/placeholder-cropped-bg.png",
-    "quoteEmail": "sales@telamorph.com",
-    "keywords": ["telescope mount", "equatorial mount", "astrophotography", "observatory mount"]
-  },
-  {
-    "id": "precision-torque-sensor-pt500",
-    "name": "Precision Torque Sensor PT-500",
-    "category": "Industrial Solutions",
+    "id": "mpk-compact",
+    "name": "MPK Compact",
+    "category": "Composite Curing Oven",
     "categorySlug": "industrial-solutions",
-    "subcategory": "Sensors",
-    "subcategorySlug": "sensors",
-    "shortDescription": "High-accuracy torque measurement for industrial and test applications.",
-    "description": "The PT-500 Precision Torque Sensor delivers laboratory-grade accuracy in a rugged, industrial-ready package. Designed for inline and reaction torque measurement, it features a full-bridge strain gauge configuration with built-in signal conditioning. Ideal for automotive test rigs, production line QC, and R&D environments.",
-    "specifications": {
-      "Capacity": "0–500 Nm",
-      "Accuracy": "±0.1% FS",
-      "Output": "4–20 mA / 0–10 V",
-      "Operating Temp": "-20°C to +80°C",
-      "Protection": "IP67",
-      "Material": "Stainless Steel 17-4PH",
-      "Weight": "1.2 kg"
-    },
-    "images": [
-      "3d-models/placeholder-cropped-bg.png"
+    "subcategory": "MPK Series",
+    "subcategorySlug": "mpk-series",
+    "shortDescription": "For small-to-medium parts, this compact curing oven offers precise temperature control and programmable profiles.",
+    "description": "The Compact Composite Curing Oven is designed for small to medium composite parts, test panels, UAV components and precision production work.",
+    "highlights": [
+      "Precise temperature control",
+      "Programmable ramp & soak profiles",
+      "High-efficiency insulated chamber",
+      "Powerful heating system for fast thermal response",
+      "Built for continuous production use",
+      "Industrial touchscreen control interface"
     ],
-    "thumbnail": "3d-models/placeholder-cropped-bg.png",
+    "specifications": {
+      "Operating Range": "Ambient to 220°C",
+      "Heating Rate": "Up to 3°C/min",
+      "Temp Stability": "±0.8°C",
+      "Temp Uniformity": "±2.5°C @ 200°C",
+      "Vacuum Ports": "2 independent",
+      "Chamber (W/D/H)": "1200 / 800 / 800 mm"
+    },
+    "images": ["products/MPK-compact-no-bg.png"],
+    "thumbnail": "products/MPK-compact-no-bg.png",
     "quoteEmail": "sales@telamorph.com",
-    "keywords": ["torque sensor", "torque measurement", "inline torque", "industrial sensor"]
+    "keywords": [
+      "composite curing oven",
+      "compact oven",
+      "test panels",
+      "UAV components",
+      "precision production",
+      "MPK"
+    ]
   },
   {
-    "id": "custom-jig-fixture-service",
-    "name": "Custom Jig & Fixture Design",
-    "category": "Development & Production",
-    "categorySlug": "development-production",
-    "subcategory": "Jigs & Fixtures",
-    "subcategorySlug": "jigs-fixtures",
-    "shortDescription": "End-to-end design and manufacture of custom jigs, fixtures, and tooling.",
-    "description": "From concept sketch to production-ready tooling, our Development & Production team delivers precision jigs and fixtures tailored to your manufacturing workflow. Using 3D scanning, reverse engineering, and CNC machining, we ensure perfect fit and repeatable accuracy. Ideal for low-to-mid volume production runs.",
-    "specifications": {
-      "Process": "3D Scan → CAD → CNC / 3D Print",
-      "Materials": "Aluminium, Steel, Engineering Plastics",
-      "Tolerances": "±0.02 mm (CNC)",
-      "Lead Time": "2–4 weeks typical",
-      "Batch Size": "Prototype to 500+ units"
-    },
-    "images": [
-      "3d-models/placeholder-cropped-bg.png"
+    "id": "mpk-workshop",
+    "name": "MPK Workshop",
+    "category": "Composite Curing Oven",
+    "categorySlug": "industrial-solutions",
+    "subcategory": "MPK Series",
+    "subcategorySlug": "mpk-series",
+    "shortDescription": "More working volume than the Compact, with a practical footprint for everyday composite workshop use.",
+    "description": "The Workshop Composite Curing Oven is designed for composite manufacturers that need more working volume than the Compact model, while keeping a practical footprint for daily workshop use.",
+    "highlights": [
+      "Precise temperature control",
+      "Programmable ramp & soak profiles",
+      "High-efficiency insulated chamber",
+      "Powerful heating system for fast thermal response",
+      "Built for continuous production use",
+      "Industrial touchscreen control interface"
     ],
-    "thumbnail": "3d-models/placeholder-cropped-bg.png",
+    "specifications": {
+      "Operating Range": "Ambient to 220°C",
+      "Heating Rate": "Up to 3°C/min",
+      "Temp Stability": "±0.8°C",
+      "Temp Uniformity": "±2.5°C @ 200°C",
+      "Vacuum Ports": "2 standard (up to 6 on request)",
+      "Chamber (W/D/H)": "1200 / 1200 / 1800 mm"
+    },
+    "images": ["products/MPK-workshop-no-bg.png"],
+    "thumbnail": "products/MPK-workshop-no-bg.png",
     "quoteEmail": "sales@telamorph.com",
-    "keywords": ["custom jig", "fixture design", "tooling", "reverse engineering", "CNC machining"]
+    "keywords": [
+      "composite curing oven",
+      "workshop oven",
+      "composite manufacturing",
+      "vacuum bagging",
+      "MPK"
+    ]
+  },
+  {
+    "id": "mpk-production",
+    "name": "MPK Production",
+    "category": "Composite Curing Oven",
+    "categorySlug": "industrial-solutions",
+    "subcategory": "MPK Series",
+    "subcategorySlug": "mpk-series",
+    "shortDescription": "A production-focused curing oven for small-series manufacturing and larger technical components needing stable, repeatable cures.",
+    "description": "The Production Composite Curing Oven is designed for regular composite manufacturing, small-series production and larger technical components requiring stable and repeatable curing conditions.",
+    "highlights": [
+      "Precise temperature control",
+      "Programmable ramp & soak profiles",
+      "High-efficiency insulated chamber",
+      "Powerful heating system for fast thermal response",
+      "Built for continuous production use",
+      "Industrial touchscreen control interface"
+    ],
+    "specifications": {
+      "Operating Range": "Ambient to 260°C",
+      "Heating Rate": "Up to 3°C/min",
+      "Temp Stability": "±0.8°C",
+      "Temp Uniformity": "±3°C @ 240°C",
+      "Vacuum Ports": "2 standard (up to 10 on request)",
+      "Chamber (W/D/H)": "1200 / 1800 / 1800 mm"
+    },
+    "images": ["products/MPK-production-no-bg.png"],
+    "thumbnail": "products/MPK-production-no-bg.png",
+    "quoteEmail": "sales@telamorph.com",
+    "keywords": [
+      "composite curing oven",
+      "production oven",
+      "small-series production",
+      "technical components",
+      "MPK"
+    ]
+  },
+  {
+    "id": "mpk-large-format",
+    "name": "MPK Large Format",
+    "category": "Composite Curing Oven",
+    "categorySlug": "industrial-solutions",
+    "subcategory": "MPK Series",
+    "subcategorySlug": "mpk-series",
+    "shortDescription": "Built for oversized and demanding production workflows.",
+    "description": "The Large Format Composite Curing Oven is built for oversized molds, body panels, structural composite parts and demanding production workflows.",
+    "highlights": [
+      "Precise temperature control",
+      "Programmable ramp & soak profiles",
+      "High-efficiency insulated chamber",
+      "Powerful heating system for fast thermal response",
+      "Built for continuous production use",
+      "Industrial touchscreen control interface"
+    ],
+    "specifications": {
+      "Operating Range": "Ambient to 260°C",
+      "Heating Rate": "Up to 3°C/min",
+      "Temp Stability": "±0.8°C",
+      "Temp Uniformity": "±3°C @ 240°C",
+      "Vacuum Ports": "2 standard (up to 10 on request)",
+      "Chamber (W/D/H)": "2400 / 2000 / 1800 mm"
+    },
+    "images": ["products/MPK-production-no-bg.png"],
+    "thumbnail": "products/MPK-production-no-bg.png",
+    "quoteEmail": "sales@telamorph.com",
+    "keywords": [
+      "composite curing oven",
+      "large format oven",
+      "oversized molds",
+      "body panels",
+      "structural composites",
+      "MPK"
+    ]
+  },
+  {
+    "id": "mpk-custom",
+    "name": "MPK Custom",
+    "category": "Composite Curing Oven",
+    "categorySlug": "industrial-solutions",
+    "subcategory": "MPK Series",
+    "subcategorySlug": "mpk-series",
+    "shortDescription": "A curing oven engineered around your exact part size, process, loading method and production workflow.",
+    "description": "The Custom Composite Curing Oven is engineered around the client’s specific part size, curing process, loading method and production workflow.\n From extended chambers and custom vacuum layouts to higher temperature ranges, airflow configuration and advanced control options, each oven is built to match the exact requirements of the manufacturing process.",
+    "highlights": [
+      "Engineered around your part size, process & loading method",
+      "Extended chambers & custom vacuum layouts",
+      "Higher temperature ranges & airflow configuration",
+      "Advanced control options",
+      "High-efficiency insulated chamber",
+      "Powerful heating system for fast thermal response",
+      "Industrial touchscreen control interface"
+    ],
+    "specifications": {
+      "Operating Range": "Ambient up to 350°C",
+      "Temp Stability": "±0.2°C",
+      "Temp Uniformity": "±0.65°C @ 300°C",
+      "Vacuum Ports": "Independent, configurable",
+      "Chamber (W/D/H)": "Built to specification"
+    },
+    "images": ["products/MPK-custom-no-bg.png"],
+    "thumbnail": "products/MPK-custom-no-bg.png",
+    "quoteEmail": "sales@telamorph.com",
+    "keywords": [
+      "custom composite curing oven",
+      "bespoke oven",
+      "high temperature oven",
+      "airflow configuration",
+      "MPK"
+    ]
+  },
+  {
+    "id": "mpk-cs",
+    "name": "MPK CS",
+    "category": "Control System",
+    "categorySlug": "industrial-solutions",
+    "subcategory": "MPK Series",
+    "subcategorySlug": "mpk-series",
+    "shortDescription": "Industrial touchscreen control for composite curing — build, run and monitor multi-stage temperature profiles in real time.",
+    "description": "The MPK CS control unit features an industrial touchscreen interface designed for intuitive operation of composite curing cycles. Operators can create, edit and run multi-stage temperature profiles with programmable ramp, soak and cooling phases, while monitoring the full process in real time.The system visualizes both the programmed and actual temperature curves, displays cycle status, elapsed and remaining time, and uses PID control for accurate thermal regulation. Built-in software validation and process monitoring help ensure safe, repeatable and controlled curing performance for production use. ",
+    "highlights": [
+      "Industrial touchscreen interface",
+      "Create, edit & run multi-stage temperature profiles",
+      "Programmable ramp, soak & cooling phases",
+      "Real-time programmed vs. actual temperature curves",
+      "Cycle status with elapsed & remaining time",
+      "PID control for accurate thermal regulation",
+      "Built-in software validation & process monitoring"
+    ],
+    "specifications": {},
+    "images": ["products/MPK-control-system-no-bg.png"],
+    "thumbnail": "products/MPK-control-system-no-bg.png",
+    "quoteEmail": "sales@telamorph.com",
+    "keywords": [
+      "control system",
+      "curing controller",
+      "PID control",
+      "touchscreen interface",
+      "temperature profiles",
+      "MPK CS"
+    ]
+  },
+  {
+    "id": "mpk-cs-tu",
+    "name": "MPK CS + TU",
+    "category": "Control + Thermal Unit",
+    "categorySlug": "industrial-solutions",
+    "subcategory": "MPK Series",
+    "subcategorySlug": "mpk-series",
+    "shortDescription": "Turn your own insulated chamber into a fully controlled composite curing oven with integrated heating, airflow and PID control.",
+    "description": "The MPK CS Thermal Unit is designed for manufacturers who already have, or plan to build, their own insulated oven chamber according to predefined working dimensions. It integrates touchscreen control, heating power, air circulation, PID temperature regulation, programmable curing profiles and process monitoring to turn a custom-built chamber into a functional composite curing oven.",
+    "highlights": [
+      "Turns a custom-built chamber into a functional curing oven",
+      "For your own insulated chamber at predefined dimensions",
+      "Integrated touchscreen control",
+      "Heating power & air circulation",
+      "PID temperature regulation",
+      "Programmable curing profiles",
+      "Process monitoring"
+    ],
+    "specifications": {},
+    "images": ["products/MPK-control-system-no-bg.png"],
+    "thumbnail": "products/MPK-control-system-no-bg.png",
+    "quoteEmail": "sales@telamorph.com",
+    "keywords": [
+      "thermal unit",
+      "control system",
+      "retrofit oven",
+      "custom chamber",
+      "PID regulation",
+      "MPK CS TU"
+    ]
   }
 ]
