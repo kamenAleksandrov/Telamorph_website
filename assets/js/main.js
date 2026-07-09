@@ -222,7 +222,7 @@ function initHeroReveal() {
  */
 let revealObserver = null;
 
-function initRevealOnScroll(root = document) {
+function initRevealOnScroll(root = document, { immediate = false } = {}) {
   const matches = (el, sel) =>
     typeof el?.matches === "function" && el.matches(sel);
 
@@ -282,6 +282,22 @@ function initRevealOnScroll(root = document) {
   const items = [];
   if (matches(root, ".reveal")) items.push(root);
   items.push(...(root.querySelectorAll?.(".reveal") || []));
+
+  // Some groups (e.g. paginated product grids) shouldn't gate on scroll
+  // position at all — cards below the fold would stay invisible until
+  // scrolled to, and a user paging/filtering could miss items entirely.
+  if (immediate) {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        items.forEach((el) => {
+          el.dataset.revealReady = "true";
+          el.classList.add("is-visible");
+        });
+      });
+    });
+    return;
+  }
+
   items.forEach((el) => {
     if (el.dataset.revealReady) return;
     el.dataset.revealReady = "true";

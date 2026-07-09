@@ -129,7 +129,7 @@ function renderIndustrial() {
   });
 
   window.initCursorStreaks?.(grid);
-  window.initRevealOnScroll?.(grid);
+  window.initRevealOnScroll?.(grid, { immediate: true });
 
   renderIndustrialPagination(totalPages);
 }

@@ -12,9 +12,11 @@
       rel="canonical"
       href="https://telamorph.com/composite-development.html"
     />
-    <link rel="icon" type="image/png" href="assets/images/brand/logo.svg" />
+    <link rel="icon" type="image/svg+xml" href="assets/images/brand/logo.svg" />
     <link rel="apple-touch-icon" href="assets/images/brand/logo.svg" />
 
+    <meta property="og:site_name" content="Telamorph" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content="Composite Development — Telamorph" />
     <meta
       property="og:description"
@@ -25,6 +27,55 @@
       property="og:url"
       content="https://telamorph.com/composite-development.html"
     />
+    <meta
+      property="og:image"
+      content="https://telamorph.com/assets/images/process/worker-shaping-carbon-1.jpg"
+    />
+    <meta
+      property="og:image:alt"
+      content="A composite part being shaped by hand at Telamorph"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Composite Development — Telamorph" />
+    <meta
+      name="twitter:description"
+      content="We develop client-defined designs into production-ready composite parts: DFM, laminate definition, FEA simulation and tooling strategy."
+    />
+    <meta
+      name="twitter:image"
+      content="https://telamorph.com/assets/images/process/worker-shaping-carbon-1.jpg"
+    />
+    <meta name="theme-color" content="#111215" />
+
+    <!-- Structured Data: Service + Breadcrumb -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Service",
+            "name": "Composite Development",
+            "serviceType": "Composite part development and design-for-manufacturing",
+            "url": "https://telamorph.com/composite-development.html",
+            "description": "Turning client-owned designs — CAD models, 3D scans, existing parts or physical references — into production-ready composite parts: DFM review, part-split and mould strategy, material and laminate definition, and FEA simulation.",
+            "provider": {
+              "@id": "https://telamorph.com/#organization",
+              "@type": "Organization",
+              "name": "Telamorph",
+              "url": "https://telamorph.com/"
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://telamorph.com/" },
+              { "@type": "ListItem", "position": 2, "name": "Composite Development", "item": "https://telamorph.com/composite-development.html" }
+            ]
+          }
+        ]
+      }
+    </script>
 
     <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
@@ -100,7 +151,7 @@
       </section>
 
       <!-- Intro — the descriptive overview, kept off the hero image -->
-      <section class="svc-intro">
+      <section class="svc-intro" id="intro">
         <div class="container">
           <p class="svc-intro-lead reveal">
             A successful composite project starts long before the first layer is
@@ -109,6 +160,16 @@
             manufacturable composite parts — prepared for tooling, structure,
             fitment and repeatable production.
           </p>
+          <a
+            href="#stages"
+            class="svc-intro-cue hero-scroll-cue reveal"
+            aria-label="Go to next section"
+          >
+            <span class="hero-chevrons">
+              <span></span>
+              <span></span>
+            </span>
+          </a>
         </div>
       </section>
 
@@ -116,7 +177,7 @@
            The sticky media panel evolves while the stages scroll past it.
            Each step also carries its own inline image for the stacked mobile
            layout (.cd-step-media, shown only below 992px). -->
-      <section class="cd-scrolly">
+      <section class="cd-scrolly" id="stages">
         <div class="container">
           <div class="cd-scrolly-grid">
             <!-- Pinned media — swaps per active stage (driven by composite.js) -->

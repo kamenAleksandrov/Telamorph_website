@@ -9,13 +9,11 @@
       content="From tooling to finished parts. Telamorph manufactures advanced composite components through controlled processes, modern equipment and a production mindset built around repeatability."
     />
     <link rel="canonical" href="https://telamorph.com/manufacturing.html" />
-    <link
-      rel="icon"
-      type="image/png"
-      href="assets/images/brand/logo.svg"
-    />
+    <link rel="icon" type="image/svg+xml" href="assets/images/brand/logo.svg" />
     <link rel="apple-touch-icon" href="assets/images/brand/logo.svg" />
 
+    <meta property="og:site_name" content="Telamorph" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content="Manufacturing — Telamorph" />
     <meta
       property="og:description"
@@ -26,6 +24,55 @@
       property="og:url"
       content="https://telamorph.com/manufacturing.html"
     />
+    <meta
+      property="og:image"
+      content="https://telamorph.com/assets/images/process/composite-manufacturing-process-image.jpg"
+    />
+    <meta
+      property="og:image:alt"
+      content="Composite manufacturing in progress at Telamorph"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Manufacturing — Telamorph" />
+    <meta
+      name="twitter:description"
+      content="In-house composite manufacturing: tooling, vacuum infusion, prepreg, compression moulding, curing and finishing — from first article to series production."
+    />
+    <meta
+      name="twitter:image"
+      content="https://telamorph.com/assets/images/process/composite-manufacturing-process-image.jpg"
+    />
+    <meta name="theme-color" content="#111215" />
+
+    <!-- Structured Data: Service + Breadcrumb -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Service",
+            "name": "Composite Manufacturing",
+            "serviceType": "Composite component manufacturing and production",
+            "url": "https://telamorph.com/manufacturing.html",
+            "description": "In-house production of composite components: tooling and moulds, vacuum infusion, prepreg, compression moulding, curing, bonding, assembly and finishing — from first article to series production.",
+            "provider": {
+              "@id": "https://telamorph.com/#organization",
+              "@type": "Organization",
+              "name": "Telamorph",
+              "url": "https://telamorph.com/"
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://telamorph.com/" },
+              { "@type": "ListItem", "position": 2, "name": "Manufacturing", "item": "https://telamorph.com/manufacturing.html" }
+            ]
+          }
+        ]
+      }
+    </script>
 
     <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
@@ -117,7 +164,7 @@
       </section>
 
       <!-- Intro — the descriptive overview, kept off the hero image -->
-      <section class="svc-intro">
+      <section class="svc-intro" id="intro">
         <div class="container">
           <p class="svc-intro-lead reveal">
             Telamorph manufactures advanced composite components through
@@ -128,11 +175,21 @@
             is simple: composite parts that meet the requirements and can be
             produced again with confidence.
           </p>
+          <a
+            href="#process"
+            class="svc-intro-cue hero-scroll-cue reveal"
+            aria-label="Go to next section"
+          >
+            <span class="hero-chevrons">
+              <span></span>
+              <span></span>
+            </span>
+          </a>
         </div>
       </section>
 
       <!-- 01 — Production begins with the tool -->
-      <section class="svc-step">
+      <section class="svc-step" id="process">
         <div class="container">
           <div class="svc-step-grid reveal-stagger">
             <div class="media-fit-slot">

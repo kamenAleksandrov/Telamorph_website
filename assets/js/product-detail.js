@@ -26,26 +26,34 @@ function showNotFound() {
 }
 
 /**
- * Update page title and meta tags for SEO.
+ * Update page title and meta tags (SEO + social share) for the loaded product.
  */
 function updateMeta(product) {
+  const base = "https://telamorph.com";
+  const url = `${base}/product-detail.html?id=${product.id}`;
+  const heroImg = product.images?.[0] || product.thumbnail;
+  const imageUrl = heroImg ? `${base}/assets/images/${heroImg}` : "";
+
   document.title = `${product.name} — Telamorph`;
 
-  const desc = document.getElementById("page-description");
-  if (desc) desc.setAttribute("content", product.shortDescription);
+  const setAttr = (id, attr, value) => {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute(attr, value);
+  };
 
-  const canonical = document.getElementById("page-canonical");
-  if (canonical)
-    canonical.setAttribute(
-      "href",
-      `https://telamorph.com/product-detail.html?id=${product.id}`,
-    );
+  setAttr("page-description", "content", product.shortDescription);
+  setAttr("page-canonical", "href", url);
 
-  const ogTitle = document.getElementById("og-title");
-  if (ogTitle) ogTitle.setAttribute("content", product.name);
+  // Open Graph
+  setAttr("og-title", "content", product.name);
+  setAttr("og-description", "content", product.shortDescription);
+  setAttr("og-url", "content", url);
+  if (imageUrl) setAttr("og-image", "content", imageUrl);
 
-  const ogDesc = document.getElementById("og-description");
-  if (ogDesc) ogDesc.setAttribute("content", product.shortDescription);
+  // Twitter
+  setAttr("tw-title", "content", product.name);
+  setAttr("tw-description", "content", product.shortDescription);
+  if (imageUrl) setAttr("tw-image", "content", imageUrl);
 }
 
 function initBreadcrumb(product) {
@@ -245,26 +253,59 @@ function switchImage(thumb, imgPath) {
 }
 
 /**
- * Inject JSON-LD Product structured data for SEO.
+ * Inject JSON-LD structured data (Product + BreadcrumbList) for SEO and AI.
+ * Specs are emitted as PropertyValue entries so search engines and LLMs can
+ * read the technical data, not just the prose.
  */
 function injectStructuredData(product) {
   const el = document.getElementById("product-jsonld");
   if (!el) return;
 
-  const data = {
-    "@context": "https://schema.org",
+  const base = "https://telamorph.com";
+  const url = `${base}/product-detail.html?id=${product.id}`;
+  const images = (product.images || []).map(
+    (img) => `${base}/assets/images/${img}`,
+  );
+  const additionalProperty = Object.entries(product.specifications || {}).map(
+    ([name, value]) => ({ "@type": "PropertyValue", name, value }),
+  );
+
+  const productNode = {
     "@type": "Product",
+    "@id": `${url}#product`,
     name: product.name,
-    description: product.shortDescription,
-    brand: {
-      "@type": "Brand",
-      name: "Telamorph",
-    },
+    description: product.description || product.shortDescription,
+    sku: product.id,
     category: product.category,
-    image: product.images.map(
-      (img) => `https://telamorph.com/assets/images/${img}`,
-    ),
+    url,
+    brand: { "@type": "Brand", name: "Telamorph" },
+    manufacturer: {
+      "@id": `${base}/#organization`,
+      "@type": "Organization",
+      name: "Telamorph",
+      url: `${base}/`,
+    },
+  };
+  if (images.length) productNode.image = images;
+  if (additionalProperty.length)
+    productNode.additionalProperty = additionalProperty;
+
+  const breadcrumb = {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${base}/` },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Industrial",
+        item: `${base}/industrial.html`,
+      },
+      { "@type": "ListItem", position: 3, name: product.name, item: url },
+    ],
   };
 
-  el.textContent = JSON.stringify(data);
+  el.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [productNode, breadcrumb],
+  });
 }

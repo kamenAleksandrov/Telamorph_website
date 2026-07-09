@@ -1,81 +1,110 @@
 # Telamorph — llms.txt
-# This file helps AI agents and large language models understand what Telamorph is
-# and what products/services we offer. It is intended to be machine-readable.
+# Machine-readable summary for AI agents, assistants, and large language models.
+# Purpose: help LLMs accurately describe who Telamorph is, what we make, and how to reach us.
+# Canonical site: https://telamorph.com  |  Last updated: 2026-07-08
 
 ## Company
 
-Telamorph is an engineering company that designs, develops, and manufactures precision
-products in-house. We are not just a manufacturer — we are the engineering brain behind
-every product we make. Our capabilities include 3D scanning, reverse engineering,
-CNC machining, carbon fiber layup, and precision assembly.
+Telamorph (Telamorph Ltd.) is a composite engineering and manufacturing company based in
+Sofia, Bulgaria. We design, develop, and manufacture advanced composite components
+(carbon fibre and other fibre-reinforced parts) in-house — and we build the MPK range of
+composite curing ovens and control systems used to produce them.
+
+Founded by two aeronautical design engineers, Telamorph covers the full path of a composite
+project: geometry preparation, design for manufacturing (DFM), FEA simulation, material and
+laminate definition, tooling, production, curing, finishing, and assembly. We are the
+engineering brain behind the product — not just a manufacturer.
+
+Tagline: Built Light. Engineered Strong.
 
 Website: https://telamorph.com
-Contact: info@telamorph.com | sales@telamorph.com
+Email: office@telamorph.com (general enquiries) | sales@telamorph.com (quotes & product enquiries)
+Phone: +359 87 747 3737 | +359 89 784 7628
+Address: NPZ Iskar, ul. "Podpolk Vasil Zlatarev", 1000 Sofia, Bulgaria
+Map: https://maps.app.goo.gl/R3eCpyczSewfTk1Q8
 
-## Product Categories
+## What we do
 
-- **Automotive Body Kits** — Carbon fiber splitters, diffusers, side skirts, and aero components for performance vehicles.
-- **Roof Box** — Aerodynamic carbon fiber roof boxes for sports cars and performance SUVs.
-- **Astronomy** — Precision telescope mounts, adapters, and optomechanical hardware for astrophotography and observatories.
-- **Industrial Solutions** — MPK composite curing ovens (Compact to Large Format), custom oven builds, and touchscreen curing control systems.
-- **Development & Production** — Custom jigs, fixtures, tooling, reverse engineering services, and low-to-mid volume production.
+- **Composite Development** — Turning client-owned designs (CAD models, 3D scans, existing
+  parts, or physical references) into production-ready composite parts: DFM review, part-split
+  and mould strategy, material and laminate definition, and FEA simulation. The client's design
+  stays theirs; we make it manufacturable.
+  URL: https://telamorph.com/composite-development.html
+- **Manufacturing** — In-house production of composite components: tooling and moulds, vacuum
+  infusion, prepreg, compression moulding, curing, bonding, assembly, and finishing (trimming,
+  milling, surface preparation, coating, painting) — from first article to series production.
+  URL: https://telamorph.com/manufacturing.html
+- **Industrial** — The MPK range of composite curing ovens and touchscreen control systems,
+  designed and built in-house, from compact test ovens to large-format production and fully
+  custom builds.
+  URL: https://telamorph.com/industrial.html
 
-## Products
+## Products — MPK Composite Curing Ovens & Control Systems
 
-### MPK Compact
+All product pages: https://telamorph.com/product-detail.html?id=<id>
+
+### MPK Compact  (id: mpk-compact)
 - Category: Composite Curing Oven
-- Description: Compact composite curing oven for small-to-medium parts, test panels, UAV components and precision production work.
-- Key Specs: Ambient to 220°C, up to 3°C/min, ±0.8°C stability, 2 vacuum ports, 1200/800/800 mm chamber.
-- URL: https://telamorph.com/product-detail.html?id=mpk-compact
+- For small-to-medium parts, test panels, UAV components and precision production work.
+- Key specs: Ambient to 220°C, up to 3°C/min, ±0.8°C stability, 2 vacuum ports, 1200/800/800 mm chamber.
 
-### MPK Workshop
+### MPK Workshop  (id: mpk-workshop)
 - Category: Composite Curing Oven
-- Description: More working volume than the Compact with a practical footprint for everyday composite workshop use.
-- Key Specs: Ambient to 220°C, up to 3°C/min, ±0.8°C stability, 2–6 vacuum ports, 1200/1200/1800 mm chamber.
-- URL: https://telamorph.com/product-detail.html?id=mpk-workshop
+- More working volume than the Compact, with a practical footprint for everyday workshop use.
+- Key specs: Ambient to 220°C, up to 3°C/min, ±0.8°C stability, 2–6 vacuum ports, 1200/1200/1800 mm chamber.
 
-### MPK Production
+### MPK Production  (id: mpk-production)
 - Category: Composite Curing Oven
-- Description: Production-focused curing oven for small-series manufacturing and larger technical components needing repeatable cures.
-- Key Specs: Ambient to 260°C, up to 3°C/min, ±0.8°C stability, 2–10 vacuum ports, 1200/1800/1800 mm chamber.
-- URL: https://telamorph.com/product-detail.html?id=mpk-production
+- Production-focused oven for small-series manufacturing and larger technical components.
+- Key specs: Ambient to 260°C, up to 3°C/min, ±0.8°C stability, 2–10 vacuum ports, 1200/1800/1800 mm chamber.
 
-### MPK Large Format
+### MPK Large Format  (id: mpk-large-format)
 - Category: Composite Curing Oven
-- Description: Built for oversized molds, body panels and structural composite parts in demanding production workflows.
-- Key Specs: Ambient to 260°C, up to 3°C/min, ±0.8°C stability, 2–10 vacuum ports, 2400/2000/1800 mm chamber.
-- URL: https://telamorph.com/product-detail.html?id=mpk-large-format
+- Built for oversized moulds, body panels and structural composite parts in demanding workflows.
+- Key specs: Ambient to 260°C, up to 3°C/min, ±0.8°C stability, 2–10 vacuum ports, 2400/2000/1800 mm chamber.
 
-### MPK Custom
+### MPK Custom  (id: mpk-custom)
 - Category: Composite Curing Oven
-- Description: Curing oven engineered around the client's exact part size, curing process, loading method and production workflow.
-- Key Specs: Ambient up to 350°C, ±0.2°C stability, ±0.65°C @ 300°C uniformity, configurable vacuum ports, built-to-spec chamber.
-- URL: https://telamorph.com/product-detail.html?id=mpk-custom
+- Engineered around the client's exact part size, curing process, loading method and workflow.
+- Key specs: Ambient up to 350°C, ±0.2°C stability, ±0.65°C @ 300°C uniformity, configurable vacuum ports, built-to-spec chamber.
 
-### MPK CS (Control System)
+### MPK CS — Control System  (id: mpk-cs)
 - Category: Control System
-- Description: Industrial touchscreen control unit for composite curing — build, run and monitor multi-stage temperature profiles in real time.
-- Key Specs: Multi-stage ramp/soak/cooling profiles, programmed vs. actual curves, PID control, software validation and process monitoring.
-- URL: https://telamorph.com/product-detail.html?id=mpk-cs
+- Industrial touchscreen control unit for composite curing — build, run and monitor multi-stage
+  temperature profiles in real time.
+- Key specs: Multi-stage ramp/soak/cooling profiles, programmed vs. actual curves, PID control,
+  software validation and process monitoring.
 
-### MPK CS + TU (Thermal Unit)
+### MPK CS + TU — Control + Thermal Unit  (id: mpk-cs-tu)
 - Category: Control + Thermal Unit
-- Description: Turns a customer's own insulated chamber into a fully controlled composite curing oven with integrated heating, airflow and PID control.
-- Key Specs: Touchscreen control, heating power, air circulation, PID regulation, programmable curing profiles, process monitoring.
-- URL: https://telamorph.com/product-detail.html?id=mpk-cs-tu
+- Turns a customer's own insulated chamber into a fully controlled composite curing oven with
+  integrated heating, airflow and PID control.
+- Key specs: Touchscreen control, heating power, air circulation, PID regulation, programmable
+  curing profiles, process monitoring.
 
 ## Capabilities
 
-- 3D Scanning (structured-light and laser)
-- Reverse Engineering (scan to CAD to production)
-- CNC Machining (3-axis and 5-axis, ±0.02 mm)
-- Carbon Fiber Layup (prepreg, vacuum bag, autoclave)
-- 3D Printing / Additive Manufacturing (FDM, SLA, SLS)
-- Precision Assembly & Testing
+- Composite design & development (client design → production-ready part)
+- 3D scanning & reverse engineering (scan or existing part → CAD)
+- Design for manufacturing (DFM), part-split and mould strategy
+- FEA simulation and laminate definition
+- Tooling: master models, milled tooling (in-house CNC router & mills), direct moulds, jigs & fixtures
+- Composite processes: vacuum infusion, prepreg, compression moulding
+- Curing in Telamorph's own MPK ovens (up to 350°C on custom builds)
+- Bonding, assembly and finishing: trimming, milling, surface preparation, coating, painting
+- First-article inspection and low-to-mid volume series production
 
-## How to Reach Us
+Materials worked: carbon fibre, fibreglass, aramid, flax, cores, resin systems, coatings.
 
-For product inquiries, quotes, or custom engineering requests:
-- Email: sales@telamorph.com
-- Phone: +44 (0) 1234 567 890
-- Address: Telamorph Ltd., Unit 5, Innovation Park, Bristol, BS1 2AB, United Kingdom
+## Applications / Sectors
+
+Automotive, motorsport, aerospace, UAVs / drones, industrial equipment, and special
+composite applications.
+
+## How to reach us
+
+For product enquiries, quotes, or custom engineering requests:
+- Email: sales@telamorph.com (quotes & products) | office@telamorph.com (general)
+- Phone: +359 87 747 3737 | +359 89 784 7628
+- Address: NPZ Iskar, ul. "Podpolk Vasil Zlatarev", 1000 Sofia, Bulgaria
+- Contact form: https://telamorph.com/contact.html

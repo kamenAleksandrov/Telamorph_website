@@ -201,6 +201,76 @@ html .reveal {
   }
 }
 
+/* --- Hero scroll cue — stacked stylized chevrons ---
+   Shared by any hero-style section (.hero on the landing page, .svc-hero on
+   service pages) that sits over a dark image/scrim and benefits from a nudge
+   to keep scrolling. */
+.hero-scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 1.5rem;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: block;
+  color: rgba(234, 237, 240, 0.55);
+  transition: color var(--transition);
+}
+
+.hero-scroll-cue:hover {
+  color: var(--accent);
+}
+
+.hero-chevrons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* overlap the two chevrons into a tight double-arrow */
+  gap: 4px;
+}
+
+.hero-chevrons span {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-right: 2.5px solid currentColor;
+  border-bottom: 2.5px solid currentColor;
+  border-radius: 0 0 3px 0;
+  transform: rotate(45deg);
+  opacity: 0;
+  animation: hero-chevron 1.9s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.hero-chevrons span:nth-child(2) {
+  animation-delay: 0.18s;
+}
+
+@keyframes hero-chevron {
+  0% {
+    opacity: 0;
+    transform: rotate(45deg) translate(-3px, -3px);
+  }
+  45% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(45deg) translate(4px, 4px);
+  }
+}
+
+@media (max-width: 575.98px) {
+  .hero-scroll-cue {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-chevrons span {
+    animation: none;
+    opacity: 0.7;
+  }
+}
+
 /* --- Toast notifications (bottom-center, transient) --- */
 .toast-stack {
   position: fixed;

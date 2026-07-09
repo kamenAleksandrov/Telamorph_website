@@ -1,7 +1,28 @@
-# https://telamorph.com robots.txt
+# https://telamorph.com — robots.txt
 
+# Default: allow all crawlers to access the whole site.
 User-agent: *
 Allow: /
-Disallow: /components/
 
+# AI assistants & answer engines are explicitly welcome to read and cite this site.
+# (These control both AI search citation and, for some, training use — we allow both.)
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-Web
+User-agent: anthropic-ai
+User-agent: PerplexityBot
+User-agent: Google-Extended
+User-agent: Applebot
+User-agent: Applebot-Extended
+User-agent: CCBot
+Allow: /
+
+# XML sitemap for search engines.
 Sitemap: https://telamorph.com/sitemap.xml
+
+# AI-readable summary of this site: https://telamorph.com/llms.txt
+# Note: the raw HTML partials in /components/ are page fragments, not standalone
+# pages. They stay crawlable so search engines can render the nav/footer, but are
+# marked "noindex" via HTTP header (see firebase.json) so they never rank on their own.

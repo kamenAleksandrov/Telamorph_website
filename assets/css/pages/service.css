@@ -186,6 +186,17 @@
   padding: clamp(2.75rem, 8vh, 5rem) 0 clamp(0.5rem, 2vh, 1.5rem);
 }
 
+/* Scroll cue, relocated here from the hero: .hero-scroll-cue is normally an
+   absolute overlay pinned to a hero image, which this section doesn't have,
+   so re-anchor it into the normal document flow instead. */
+.svc-intro-cue {
+  position: static;
+  display: flex;
+  justify-content: center;
+  transform: none;
+  margin-top: clamp(2rem, 6vh, 3.5rem);
+}
+
 .svc-intro-lead {
   position: relative;
   margin: 0;

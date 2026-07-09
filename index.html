@@ -6,27 +6,49 @@
     <title>Telamorph — Engineering Beyond Manufacturing</title>
     <meta
       name="description"
-      content="Telamorph designs, engineers, and manufactures precision products — automotive body kits, roof boxes, astronomy equipment, industrial solutions, and custom development. We are the brain behind the product."
+      content="Telamorph is a Sofia-based composite engineering company. We design, develop and manufacture advanced carbon-fibre components in-house, and build the MPK range of composite curing ovens and control systems."
     />
     <link rel="canonical" href="https://telamorph.com/" />
-    <link rel="icon" type="image/png" href="assets/images/brand/logo.svg" />
+    <link rel="icon" type="image/svg+xml" href="assets/images/brand/logo.svg" />
     <link rel="apple-touch-icon" href="assets/images/brand/logo.svg" />
 
     <!-- Open Graph -->
+    <meta property="og:site_name" content="Telamorph" />
+    <meta property="og:locale" content="en_US" />
     <meta
       property="og:title"
       content="Telamorph — Engineering Beyond Manufacturing"
     />
     <meta
       property="og:description"
-      content="We don't just manufacture — we design, engineer, and build. Automotive body kits, roof boxes, astronomy hardware, industrial solutions."
+      content="Sofia-based composite engineering. We design, develop and manufacture advanced carbon-fibre components in-house — and build the MPK range of composite curing ovens."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://telamorph.com/" />
     <meta
       property="og:image"
-      content="https://telamorph.com/assets/images/og-home.jpg"
+      content="https://telamorph.com/assets/images/finished/manifactured-car-milky-way.png"
     />
+    <meta
+      property="og:image:alt"
+      content="A Telamorph carbon-fibre car photographed under a starlit sky"
+    />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Telamorph — Engineering Beyond Manufacturing"
+    />
+    <meta
+      name="twitter:description"
+      content="Sofia-based composite engineering. Advanced carbon-fibre components and the MPK range of composite curing ovens — designed and built in-house."
+    />
+    <meta
+      name="twitter:image"
+      content="https://telamorph.com/assets/images/finished/manifactured-car-milky-way.png"
+    />
+    <meta name="theme-color" content="#111215" />
 
     <!-- Preload critical CSS -->
     <link
@@ -49,19 +71,79 @@
     <link rel="stylesheet" href="assets/css/components/media-fit.css" />
     <link rel="stylesheet" href="assets/css/pages/home.css" />
 
-    <!-- Structured Data: Organization -->
+    <!-- Structured Data: Organization + LocalBusiness + WebSite.
+         TODO (SEO): once Telamorph's social profiles are live, add a
+         "sameAs": ["https://www.linkedin.com/company/...", "https://www.instagram.com/..."]
+         array inside the organization node below. Leave it out until the URLs are real. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Telamorph",
-        "url": "https://telamorph.com",
-        "description": "We design, engineer, and manufacture precision products — body kits, roof boxes, astronomy hardware, industrial solutions.",
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "email": "info@telamorph.com",
-          "contactType": "sales"
-        }
+        "@graph": [
+          {
+            "@type": ["Organization", "LocalBusiness"],
+            "@id": "https://telamorph.com/#organization",
+            "name": "Telamorph",
+            "legalName": "Telamorph Ltd.",
+            "url": "https://telamorph.com/",
+            "logo": "https://telamorph.com/assets/images/brand/logo.svg",
+            "image": "https://telamorph.com/assets/images/finished/manifactured-car-milky-way.png",
+            "slogan": "Built Light. Engineered Strong.",
+            "description": "Telamorph designs, develops and manufactures advanced composite components in-house, and builds the MPK range of composite curing ovens and control systems. Based in Sofia, Bulgaria.",
+            "email": "office@telamorph.com",
+            "telephone": "+359877473737",
+            "foundingLocation": "Sofia, Bulgaria",
+            "founder": [
+              { "@type": "Person", "name": "Yanislav" },
+              { "@type": "Person", "name": "Svetlozar" }
+            ],
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "NPZ Iskar, ul. \"Podpolk Vasil Zlatarev\"",
+              "addressLocality": "Sofia",
+              "postalCode": "1000",
+              "addressCountry": "BG"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 42.676407,
+              "longitude": 23.412165
+            },
+            "hasMap": "https://maps.app.goo.gl/R3eCpyczSewfTk1Q8",
+            "contactPoint": [
+              {
+                "@type": "ContactPoint",
+                "telephone": "+359877473737",
+                "email": "office@telamorph.com",
+                "contactType": "customer service",
+                "availableLanguage": ["en", "bg"]
+              },
+              {
+                "@type": "ContactPoint",
+                "telephone": "+359897847628",
+                "email": "sales@telamorph.com",
+                "contactType": "sales",
+                "availableLanguage": ["en", "bg"]
+              }
+            ],
+            "knowsAbout": [
+              "Composite manufacturing",
+              "Carbon fibre components",
+              "Composite curing ovens",
+              "Design for manufacturing",
+              "FEA simulation",
+              "Composite tooling and moulds",
+              "Reverse engineering"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://telamorph.com/#website",
+            "url": "https://telamorph.com/",
+            "name": "Telamorph",
+            "inLanguage": "en",
+            "publisher": { "@id": "https://telamorph.com/#organization" }
+          }
+        ]
       }
     </script>
     <style>
