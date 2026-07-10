@@ -220,6 +220,20 @@
   border: 1px solid var(--border-color);
   aspect-ratio: 4 / 3;
   box-shadow: 0 18px 40px -22px rgba(0, 0, 0, 0.7);
+  /* Opaque fill behind the absolutely-positioned .svc-media-bg slides. While
+     the box animates its aspect-ratio (a layout property) on a carousel swap,
+     the composited slide layers can trail the container's new bounds for a
+     frame; without a fill those uncovered slivers flash the near-black section
+     through the box — the "black rectangle blink" reported on mobile. */
+  background-color: var(--bg-secondary);
+  /* Promote the clip container to its own GPU layer so mobile browsers
+     (notably iOS Safari) clip the transformed / `will-change` slide layers to
+     the rounded corners and keep one stable backing store as the box resizes.
+     Without this the rounded clip and the child layers update out of sync each
+     frame, so the resize flickers instead of tweening smoothly. */
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
   transition:
     border-color var(--transition),
     box-shadow var(--transition);
@@ -238,6 +252,10 @@
   transform: translate3d(0, var(--svc-shift, 0%), 0);
   transition: scale 0.9s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform;
+  /* Stabilise this layer's backing store so it doesn't drop a black frame while
+     the parent box resizes underneath it on mobile GPUs. */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .svc-media::after {
