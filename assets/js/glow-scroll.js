@@ -11,6 +11,10 @@
   const root = document.documentElement;
 
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  // Touch phones: glow.css makes this layer static (no blur/animation) to
+  // ease GPU tile-memory pressure, so there's no point computing/writing new
+  // scroll-linked positions here.
+  if (matchMedia("(hover: none), (pointer: coarse)").matches) return;
 
   // The dark, transparent bands the glow shows through (steps 01, 03, 05).
   const sections = [

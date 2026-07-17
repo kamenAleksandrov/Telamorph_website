@@ -88,3 +88,18 @@ body::after {
   :root { transition: none; }
   body::after { animation: none; }
 }
+
+/* Touch phones only. This layer is a ~150%-of-viewport fixed, blurred,
+   scroll-animated background — a big contributor to the GPU tile-memory
+   pressure behind the black-rectangle flicker (see main.css/service.css).
+   Make it static: no sheen animation, no scroll-linked slide (glow-scroll.js
+   also bails out on this same query, so it never sets new positions), and
+   no blur — the radial gradients already fade to transparent, so the loss
+   is mostly the soft edge, not the effect itself. */
+@media (hover: none), (pointer: coarse) {
+  :root { transition: none; }
+  body::after {
+    animation: none;
+    filter: none;
+  }
+}

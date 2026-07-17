@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact — Telamorph Engineering</title>
+    <title>Contact Telamorph | Composite Engineering &amp; MPK Systems</title>
     <meta
       name="description"
-      content="Get in touch with Telamorph for product inquiries, quotes, and custom engineering solutions."
+      content="Contact Telamorph for composite development, manufacturing, MPK curing ovens, control systems, quotations and engineering support."
     />
     <link rel="canonical" href="https://telamorph.com/contact.html" />
     <link rel="icon" type="image/svg+xml" href="assets/images/brand/logo.svg" />
@@ -14,10 +14,10 @@
 
     <meta property="og:site_name" content="Telamorph" />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:title" content="Contact — Telamorph" />
+    <meta property="og:title" content="Contact Telamorph | Composite Engineering &amp; MPK Systems" />
     <meta
       property="og:description"
-      content="Product inquiries, quotes, and engineering support. Telamorph — Sofia, Bulgaria."
+      content="Contact Telamorph for composite development, manufacturing, MPK curing ovens, control systems, quotations and engineering support."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://telamorph.com/contact.html" />
@@ -31,16 +31,31 @@
     />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Contact — Telamorph" />
+    <meta name="twitter:title" content="Contact Telamorph | Composite Engineering &amp; MPK Systems" />
     <meta
       name="twitter:description"
-      content="Product inquiries, quotes, and engineering support. Telamorph — Sofia, Bulgaria."
+      content="Contact Telamorph for composite development, manufacturing, MPK curing ovens, control systems, quotations and engineering support."
     />
     <meta
       name="twitter:image"
       content="https://telamorph.com/assets/images/finished/manifactured-car-milky-way.png"
     />
     <meta name="theme-color" content="#111215" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "@id": "https://telamorph.com/contact.html#webpage",
+        "url": "https://telamorph.com/contact.html",
+        "name": "Contact Telamorph",
+        "description": "Contact Telamorph for composite development, manufacturing, MPK curing ovens, control systems, quotations and engineering support.",
+        "isPartOf": { "@id": "https://telamorph.com/#website" },
+        "about": { "@id": "https://telamorph.com/#organization" },
+        "inLanguage": "en"
+      }
+    </script>
 
     <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
@@ -184,36 +199,44 @@
       .contact-charcount.is-near {
         color: #e0a458;
       }
-    </style>
-    <script>
-      (() => {
-        const cacheKeys = {
-          nav: "telamorph-shell-nav-v4",
-          footer: "telamorph-shell-footer-v2",
-        };
 
-        window.__hydrateTelamorphShell = (targetId, slot) => {
-          try {
-            const target = document.getElementById(targetId);
-            const html = sessionStorage.getItem(cacheKeys[slot]);
-            if (!target || !html || target.innerHTML.trim()) return;
-            target.innerHTML = html;
-            target.dataset.shellHydrated = "true";
-          } catch {
-            // Ignore storage access failures.
-          }
-        };
-      })();
-    </script>
+      #other-description-field[hidden],
+      .contact-fallback-status {
+        display: none;
+      }
+
+      .contact-fallback-status:target {
+        display: block;
+      }
+
+      .contact-form-status {
+        min-height: 1.5em;
+        margin: 1rem 0 0;
+        color: var(--text-secondary);
+        text-align: center;
+      }
+
+      .contact-form-status.is-success {
+        color: #75d69c;
+      }
+
+      .contact-form-status.is-error {
+        color: #efad76;
+      }
+
+      .clipboard-fallback {
+        position: absolute;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+      }
+    </style>
 
     <!-- Seeds the cross-page glow slide before first paint (see glow.css). -->
     <script src="assets/js/glow.js"></script>
   </head>
   <body>
     <div id="nav-placeholder"></div>
-    <script>
-      window.__hydrateTelamorphShell?.("nav-placeholder", "nav");
-    </script>
 
     <main>
       <section class="contact-section">
@@ -226,11 +249,14 @@
               Full contact information and our location are in the footer below.
             </p>
 
-            <!-- NOTE: form is a placeholder until the email backend is live.
-                 Wiring: enable #submit-btn and POST the form to the endpoint. -->
-            <form id="contact-form" class="contact-form reveal">
+            <form
+              id="contact-form"
+              class="contact-form"
+              action="/api/sendContactEmail"
+              method="post"
+            >
               <!-- Honeypot: humans never see or reach this; bots tend to fill it.
-                   A filled value is flagged (not blocked) server-side. -->
+                   A filled value is silently discarded server-side. -->
               <div class="hp-field" aria-hidden="true">
                 <label for="contact_reason_2">Leave this field empty</label>
                 <input
@@ -267,7 +293,11 @@
                 </select>
               </div>
 
-              <div id="other-description-field" class="contact-field">
+              <div
+                id="other-description-field"
+                class="contact-field"
+                hidden
+              >
                 <label class="contact-label" for="other-description"
                   >Briefly describe your inquiry
                   <span class="contact-optional">(optional)</span></label
@@ -278,6 +308,7 @@
                   id="other-description"
                   name="other-description"
                   maxlength="200"
+                  disabled
                   placeholder="e.g. Partnership proposal, press inquiry, general question…"
                 />
               </div>
@@ -290,6 +321,7 @@
                   id="name"
                   name="name"
                   maxlength="120"
+                  autocomplete="name"
                   required
                 />
               </div>
@@ -305,6 +337,7 @@
                   id="company"
                   name="company"
                   maxlength="120"
+                  autocomplete="organization"
                 />
               </div>
 
@@ -316,6 +349,7 @@
                   id="email"
                   name="email"
                   maxlength="160"
+                  autocomplete="email"
                   required
                 />
               </div>
@@ -342,7 +376,7 @@
                   name="message"
                   rows="7"
                   maxlength="3000"
-                  placeholder="e.g. I need help developing a composite part for production. I have an initial CAD model, but I need DFM, FEA simulation, and guidance on materials and manufacturing. Estimated quantity: 10 units. JPEG references are attached."
+                  placeholder="e.g. I need help developing a composite part for production. I have an initial CAD model, but I need DFM, FEA simulation, and guidance on materials and manufacturing. Estimated quantity: 10 units."
                   required
                 ></textarea>
                 <p class="contact-charcount" id="message-count">
@@ -352,9 +386,16 @@
                   Please share as much relevant information as possible to help
                   us understand your project scope, technical requirements,
                   available data, production needs, and timeline. CAD files,
-                  scans, drawings, photos, or physical samples are also helpful.
+                  scans, drawings, photos, or physical samples are also helpful;
+                  please send files separately by email after submitting.
                 </p>
               </div>
+
+              <p class="contact-form-note">
+                Your message is emailed to Telamorph so the team can respond.
+                Do not include passwords, access keys, payment-card data, or
+                other secrets.
+              </p>
 
               <div class="contact-actions">
                 <button type="submit" id="submit-btn" class="btn btn-accent">
@@ -374,6 +415,50 @@
                   Copy email
                 </button>
               </div>
+
+              <p
+                id="contact-form-status"
+                class="contact-form-status"
+                role="status"
+                aria-live="polite"
+              ></p>
+
+              <p
+                id="message-sent"
+                class="contact-fallback-status contact-form-note"
+              >
+                Message sent successfully. We will get back to you shortly.
+              </p>
+              <p
+                id="message-invalid"
+                class="contact-fallback-status contact-form-note"
+              >
+                The message could not be submitted. Review the fields or email
+                <a href="mailto:office@telamorph.com">office@telamorph.com</a>.
+              </p>
+              <p
+                id="message-rate-limited"
+                class="contact-fallback-status contact-form-note"
+              >
+                Too many messages were submitted recently. Please wait or email
+                <a href="mailto:office@telamorph.com">office@telamorph.com</a>.
+              </p>
+              <p
+                id="message-failed"
+                class="contact-fallback-status contact-form-note"
+              >
+                Delivery is temporarily unavailable. Please email
+                <a href="mailto:office@telamorph.com">office@telamorph.com</a>.
+              </p>
+
+              <noscript>
+                <p class="contact-form-note">
+                  JavaScript is off. This form can still be submitted, or you
+                  can email
+                  <a href="mailto:office@telamorph.com">office@telamorph.com</a>
+                  directly.
+                </p>
+              </noscript>
             </form>
           </div>
         </div>
@@ -381,9 +466,6 @@
     </main>
 
     <div id="footer-placeholder"></div>
-    <script>
-      window.__hydrateTelamorphShell?.("footer-placeholder", "footer");
-    </script>
 
     <script
       src="assets/vendor/bootstrap/bootstrap.bundle.min.js"
@@ -391,144 +473,6 @@
     ></script>
     <script src="assets/js/utils.js" defer></script>
     <script src="assets/js/main.js?v=20260427" defer></script>
-    <script>
-      (() => {
-        const sel = document.getElementById("inquiry-type");
-        const field = document.getElementById("other-description-field");
-        if (!sel || !field) return;
-
-        const presetType = new URLSearchParams(location.search).get("type");
-        if (presetType && /^[a-z-]+$/.test(presetType)) {
-          const match = Array.from(sel.options).find(
-            (opt) => opt.value === presetType,
-          );
-          if (match) sel.value = presetType;
-        }
-
-        sel.addEventListener("change", () => {
-          field.classList.toggle("is-visible", sel.value === "other");
-        });
-      })();
-
-      (() => {
-        const btn = document.getElementById("copy-email-btn");
-        if (!btn) return;
-        const email = btn.dataset.email;
-        const original = btn.textContent.trim();
-        let resetTimer;
-
-        const flash = (label) => {
-          clearTimeout(resetTimer);
-          btn.textContent = label;
-          btn.classList.add("is-copied");
-          resetTimer = setTimeout(() => {
-            btn.textContent = original;
-            btn.classList.remove("is-copied");
-          }, 1800);
-        };
-
-        const fallbackCopy = () => {
-          const ta = document.createElement("textarea");
-          ta.value = email;
-          ta.setAttribute("readonly", "");
-          ta.style.position = "absolute";
-          ta.style.left = "-9999px";
-          document.body.appendChild(ta);
-          ta.select();
-          let ok = false;
-          try {
-            ok = document.execCommand("copy");
-          } catch {
-            ok = false;
-          }
-          document.body.removeChild(ta);
-          return ok;
-        };
-
-        btn.addEventListener("click", async () => {
-          let copied = false;
-          if (navigator.clipboard?.writeText) {
-            try {
-              await navigator.clipboard.writeText(email);
-              copied = true;
-            } catch {
-              copied = false;
-            }
-          }
-          if (!copied) copied = fallbackCopy();
-          flash(copied ? "Copied!" : email);
-          showToast(
-            copied
-              ? "Email copied to clipboard"
-              : "Couldn't copy — email shown instead",
-            { variant: copied ? "success" : undefined },
-          );
-        });
-      })();
-
-      (() => {
-        const form = document.getElementById("contact-form");
-        const btn = document.getElementById("submit-btn");
-        if (!form || !btn) return;
-
-        // When the form became interactive — used to flag suspiciously fast submits.
-        const renderedAt = Date.now();
-
-        // Live character counter for the message field.
-        const msg = form.querySelector("#message");
-        const countWrap = document.getElementById("message-count");
-        const countNum = document.getElementById("message-count-num");
-        if (msg && countWrap && countNum) {
-          const max = Number(msg.getAttribute("maxlength")) || 3000;
-          const updateCount = () => {
-            const n = msg.value.length;
-            countNum.textContent = n.toLocaleString();
-            countWrap.classList.toggle("is-near", n >= max * 0.9);
-          };
-          msg.addEventListener("input", updateCount);
-          updateCount();
-        }
-
-        form.addEventListener("submit", async (e) => {
-          e.preventDefault();
-          btn.disabled = true;
-          btn.textContent = "Sending…";
-
-          const data = {
-            "inquiry-type": form.querySelector('[name="inquiry-type"]').value,
-            "other-description": form.querySelector(
-              '[name="other-description"]',
-            ).value,
-            name: form.querySelector('[name="name"]').value,
-            company: form.querySelector('[name="company"]').value,
-            email: form.querySelector('[name="email"]').value,
-            subject: form.querySelector('[name="subject"]').value,
-            message: form.querySelector('[name="message"]').value,
-            // Soft-flag signals — server tags, never blocks, on these.
-            contact_reason_2: form.querySelector('[name="contact_reason_2"]')
-              .value,
-            elapsed_ms: Date.now() - renderedAt,
-          };
-
-          try {
-            const res = await fetch("/api/sendContactEmail", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(data),
-            });
-            if (!res.ok) throw new Error();
-            showToast("Message sent — we'll get back to you shortly", {
-              variant: "success",
-            });
-            form.reset();
-          } catch {
-            showToast("Something went wrong — please email us directly", {});
-          } finally {
-            btn.disabled = false;
-            btn.textContent = "Send message";
-          }
-        });
-      })();
-    </script>
+    <script src="assets/js/contact.js?v=20260715-security" defer></script>
   </body>
 </html>

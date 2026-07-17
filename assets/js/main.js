@@ -24,8 +24,8 @@ const shellCacheKeys = {
 };
 
 const shellPartialUrls = {
-  nav: "components/nav.html?v=20260707-brandmark",
-  footer: "components/footer.html?v=20260622-partner",
+  nav: "/components/nav.html?v=20260715-static-shell",
+  footer: "/components/footer.html?v=20260715-static-shell",
 };
 
 function readShellCache(cacheKey) {
@@ -69,13 +69,18 @@ function sanitizePartial(html) {
 async function loadNav() {
   const target = document.getElementById("nav-placeholder");
   if (!target) return;
-  const cachedHTML = hydratePartialFromCache(target, shellCacheKeys.nav);
+  const embeddedHTML = target.innerHTML.trim();
+  if (embeddedHTML) {
+    writeShellCache(shellCacheKeys.nav, embeddedHTML);
+  } else {
+    hydratePartialFromCache(target, shellCacheKeys.nav);
+  }
   try {
     const res = await fetch(shellPartialUrls.nav);
     if (!res.ok) throw new Error(`Nav load failed: ${res.status}`);
     const html = sanitizePartial(await res.text()).trim();
     if (!html) return;
-    if (html !== cachedHTML) {
+    if (html !== target.innerHTML.trim()) {
       target.innerHTML = html;
     }
     target.dataset.shellHydrated = "true";
@@ -91,13 +96,18 @@ async function loadNav() {
 async function loadFooter() {
   const target = document.getElementById("footer-placeholder");
   if (!target) return;
-  const cachedHTML = hydratePartialFromCache(target, shellCacheKeys.footer);
+  const embeddedHTML = target.innerHTML.trim();
+  if (embeddedHTML) {
+    writeShellCache(shellCacheKeys.footer, embeddedHTML);
+  } else {
+    hydratePartialFromCache(target, shellCacheKeys.footer);
+  }
   try {
     const res = await fetch(shellPartialUrls.footer);
     if (!res.ok) throw new Error(`Footer load failed: ${res.status}`);
     const html = sanitizePartial(await res.text()).trim();
     if (!html) return;
-    if (html !== cachedHTML) {
+    if (html !== target.innerHTML.trim()) {
       target.innerHTML = html;
     }
     target.dataset.shellHydrated = "true";
@@ -109,7 +119,7 @@ async function loadFooter() {
 
 function warmProductDataCache() {
   if (typeof prefetchJSON !== "function") return;
-  prefetchJSON("data/products.json");
+  prefetchJSON("/data/products.json");
 }
 
 const cursorStreakSelector = [
@@ -368,7 +378,7 @@ function highlightActiveTab() {
 
   if (servicePages.includes(page)) {
     document
-      .querySelector(`.product-tab[href="${page}"]`)
+      .querySelector(`.product-tab[href="/${page}"]`)
       ?.classList.add("active");
   }
 }

@@ -12,13 +12,7 @@ Telamorph Ltd. covers composite projects from geometry preparation and design fo
 
 ## Products
 
-- [MPK Compact](https://telamorph.com/products/mpk-compact.html): For small-to-medium parts, this compact curing oven offers precise temperature control and programmable profiles.
-- [MPK Workshop](https://telamorph.com/products/mpk-workshop.html): More working volume than the Compact, with a practical footprint for everyday composite workshop use.
-- [MPK Production](https://telamorph.com/products/mpk-production.html): A production-focused curing oven for small-series manufacturing and larger technical components needing stable, repeatable cures.
-- [MPK Large Format](https://telamorph.com/products/mpk-large-format.html): Built for oversized and demanding production workflows.
-- [MPK Custom](https://telamorph.com/products/mpk-custom.html): A curing oven engineered around your exact part size, process, loading method and production workflow.
-- [MPK CS](https://telamorph.com/products/mpk-cs.html): Industrial touchscreen control for composite curing — build, run and monitor multi-stage temperature profiles in real time.
-- [MPK CS + TU](https://telamorph.com/products/mpk-cs-tu.html): Turn your own insulated chamber into a fully controlled composite curing oven with integrated heating, airflow and PID control.
+@@PRODUCT_LINKS@@
 
 ## Capabilities
 

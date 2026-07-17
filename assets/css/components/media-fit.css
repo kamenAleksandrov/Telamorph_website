@@ -37,7 +37,7 @@
   transition: aspect-ratio 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
   [data-fit] {
     transition: none;
   }

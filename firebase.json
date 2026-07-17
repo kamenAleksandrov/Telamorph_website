@@ -1,0 +1,82 @@
+{
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "disallowLegacyRuntimeConfig": true,
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ]
+    }
+  ],
+  "hosting": {
+    "public": "dist",
+    "redirects": [
+      {
+        "source": "/index.html",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/product-detail.html",
+        "destination": "/industrial.html",
+        "type": 301
+      }
+    ],
+    "rewrites": [
+      {
+        "source": "/api/sendContactEmail",
+        "function": {
+          "functionId": "sendContactEmail",
+          "region": "us-central1",
+          "pinTag": true
+        }
+      }
+    ],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "headers": [
+      {
+        "source": "**",
+        "headers": [
+          { "key": "X-Content-Type-Options", "value": "nosniff" },
+          { "key": "X-Frame-Options", "value": "DENY" },
+          {
+            "key": "Referrer-Policy",
+            "value": "strict-origin-when-cross-origin"
+          },
+          {
+            "key": "Permissions-Policy",
+            "value": "accelerometer=(), autoplay=(), camera=(), display-capture=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), publickey-credentials-get=(), usb=()"
+          },
+          { "key": "X-DNS-Prefetch-Control", "value": "off" },
+          { "key": "X-Permitted-Cross-Domain-Policies", "value": "none" }
+        ]
+      },
+      {
+        "source": "/contact.html",
+        "headers": [
+          {
+            "key": "Content-Security-Policy",
+            "value": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'sha256-zER2g2pp9emTVxBMHa8Y1OHTjypLBVCDqEspmDeoq3U='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src https://www.google.com; media-src 'self'; worker-src 'none'; manifest-src 'self'; upgrade-insecure-requests"
+          }
+        ]
+      },
+      {
+        "source": "/components/**",
+        "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
+      },
+      {
+        "source": "/data/**",
+        "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
+      }
+    ]
+  }
+}

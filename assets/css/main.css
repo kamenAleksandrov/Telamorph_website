@@ -201,6 +201,28 @@ html .reveal {
   }
 }
 
+/* Touch phones (not just small viewports — a shrunk desktop window is
+   excluded) hit GPU tile-memory pressure that makes an animated
+   `aspect-ratio` (a layout property, forcing full re-rasterization of every
+   composited child each frame) drop tiles and flash black rectangles. Drop
+   it from the transition list and stop permanently pinning these ~40 layers
+   in memory via will-change — let the browser promote them only while an
+   animation is actually running. */
+@media (hover: none), (pointer: coarse) {
+  html .reveal {
+    transition:
+      opacity 1.5s ease,
+      translate 1.5s cubic-bezier(0.16, 1, 0.3, 1),
+      transform var(--transition),
+      scale var(--transition),
+      border-color var(--transition),
+      box-shadow var(--transition),
+      color var(--transition),
+      background-color var(--transition);
+    will-change: auto;
+  }
+}
+
 /* --- Hero scroll cue — stacked stylized chevrons ---
    Shared by any hero-style section (.hero on the landing page, .svc-hero on
    service pages) that sits over a dark image/scrim and benefits from a nudge

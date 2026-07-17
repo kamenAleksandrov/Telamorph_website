@@ -102,7 +102,7 @@ function createProductCard(product) {
   col.className = "col";
 
   const card = document.createElement("a");
-  card.href = `product-detail.html?id=${encodeURIComponent(product.id)}`;
+  card.href = `/products/${encodeURIComponent(product.id)}.html`;
   card.className = "product-card text-decoration-none";
 
   // Build category-based accent colour for the card bg on hover
@@ -112,7 +112,7 @@ function createProductCard(product) {
 
   card.innerHTML = `
     <div class="card-img-wrap" style="--card-accent: ${accentColor}">
-      <img src="assets/images/${product.thumbnail}" 
+      <img src="/assets/images/${product.thumbnail}"
            alt="${escapeHTML(product.name)}" 
            class="card-img-pop" 
            loading="lazy" 
