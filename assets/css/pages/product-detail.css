@@ -96,11 +96,25 @@
   font-size: clamp(1.05rem, 0.98rem + 0.35vw, 1.22rem);
   color: var(--text-secondary);
   line-height: 1.7;
-  margin: 0 0 clamp(2rem, 5vh, 2.75rem);
+  margin: 0 0 clamp(1.75rem, 4vh, 2.25rem);
   max-width: 58ch;
 }
 
-/* --- Tabbed detail sections (Highlights / Specifications) --- */
+/* --- Specifications --- */
+.pd-specifications {
+  max-width: 58ch;
+}
+
+.pd-detail-heading {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin: 0 0 clamp(1.25rem, 3vh, 1.75rem);
+}
+
+/* --- Tabbed detail sections (Highlights and future details) --- */
 .pd-tabs {
   margin-top: clamp(2.75rem, 7vh, 4.5rem);
 }
@@ -186,7 +200,7 @@
 .pd-highlights li {
   position: relative;
   padding-left: 1.6rem;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   font-size: 1rem;
   line-height: 1.5;
 }
@@ -207,7 +221,7 @@
 .pd-spec-list {
   margin: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   column-gap: clamp(2rem, 5vw, 4rem);
 }
 
@@ -238,8 +252,9 @@
 .pd-actions {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 0.85rem;
+  margin-top: clamp(2.75rem, 7vh, 4.5rem);
 }
 
 /* --- Reveal slide-in variants (paired with main.js IntersectionObserver) --- */

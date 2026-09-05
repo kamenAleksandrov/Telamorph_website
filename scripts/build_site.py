@@ -188,17 +188,27 @@ def render_breadcrumb(product: dict[str, object]) -> str:
             </nav>"""
 
 
-def render_product_tabs(product: dict[str, object]) -> str:
-    highlights = list(product.get("highlights") or [])
+def render_product_specifications(product: dict[str, object]) -> str:
     specifications = dict(product.get("specifications") or {})
-    highlight_items = "\n".join(
-        f"<li>{escaped(item)}</li>" for item in highlights
-    )
+    if not specifications:
+        return ""
+
     spec_rows = "\n".join(
         '<div class="pd-spec-row">'
         f"<dt>{escaped(name)}</dt><dd>{escaped(value)}</dd>"
         "</div>"
         for name, value in specifications.items()
+    )
+    return f'''<section class="pd-specifications">
+                    <h2 class="pd-detail-heading">Specifications</h2>
+                    <dl class="pd-spec-list">{spec_rows}</dl>
+                  </section>'''
+
+
+def render_product_tabs(product: dict[str, object]) -> str:
+    highlights = list(product.get("highlights") or [])
+    highlight_items = "\n".join(
+        f"<li>{escaped(item)}</li>" for item in highlights
     )
 
     sections: list[tuple[str, str, str]] = []
@@ -206,15 +216,11 @@ def render_product_tabs(product: dict[str, object]) -> str:
         sections.append(
             ("highlights", "Highlights", f'<ul class="pd-highlights">{highlight_items}</ul>')
         )
-    if spec_rows:
-        sections.append(
-            ("specs", "Specifications", f'<dl class="pd-spec-list">{spec_rows}</dl>')
-        )
     if not sections:
         return ""
     if len(sections) == 1:
         _, label, body = sections[0]
-        return f"""<section class="pd-tabs pd-tabs-single reveal">
+        return f"""<section class="pd-tabs pd-tabs-single">
               <h2 class="pd-tab-heading">{label}</h2>
               <div class="pd-tab-panel is-active">{body}</div>
             </section>"""
@@ -236,7 +242,7 @@ def render_product_tabs(product: dict[str, object]) -> str:
             f'class="pd-tab-panel{" is-active" if active else ""}"{hidden}>{body}</div>'
         )
 
-    return f"""<section class="pd-tabs reveal">
+    return f"""<section class="pd-tabs">
               <div class="pd-tab-nav" role="tablist" aria-label="Product details">
                 {' '.join(buttons)}
               </div>
@@ -277,10 +283,11 @@ def render_product_content(product: dict[str, object]) -> str:
                   <span class="pd-eyebrow">{escaped(product['category'])}</span>
                   <h1 class="pd-title">{name}</h1>
                   <p class="pd-lead">{escaped(product['description'])}</p>
-                  <div class="pd-actions">
-                    <a href="/contact.html" class="btn btn-accent btn-lg">Request a quote</a>
-                  </div>
+                  {render_product_specifications(product)}
                 </div>
+              </div>
+              <div class="pd-actions reveal">
+                <a href="/contact.html" class="btn btn-accent btn-lg">Request a quote</a>
               </div>
               {render_product_tabs(product)}
             </div>"""

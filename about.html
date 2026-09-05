@@ -109,14 +109,18 @@
       }
 
       /* Extra breathing room below the "About Telamorph" heading before the
-         lead box — the shared .section-title margin is too tight here. */
+         lead box — the shared .section-title margin is too tight here.
+         Font-size scales smoothly with viewport width (same clamp()
+         technique as the nav logo in navbar.css) instead of snapping at a
+         breakpoint. */
       .about-copy-wrap .section-title {
+        font-size: clamp(1.7rem, 1.4rem + 1.2vw, 2.6rem);
         margin-bottom: 1.75rem;
       }
 
       .about-copy p {
         color: var(--text-primary);
-        font-size: clamp(1.34rem, 1.1rem + 0.7vw, 1.55rem);
+        font-size: clamp(1rem, 0.83rem + 0.72vw, 1.55rem);
         line-height: 1.68;
         margin-bottom: 1.25rem;
       }
@@ -129,8 +133,8 @@
         /* Wider column so the copy runs across the page instead of stacking
            into a tall, narrow block — fewer lines, more comfortable read. */
         max-width: 100ch;
-        padding: 1.75rem 2.25rem;
-        text-align: left;
+        padding: clamp(1.25rem, 1rem + 0.8vw, 1.75rem) clamp(1.25rem, 0.75rem + 1.8vw, 2.25rem);
+        text-align: center;
         border-radius: var(--radius-lg);
         border: 1.5px solid rgba(255, 255, 255, 0.09);
         background-color: rgba(24, 26, 32, 0.45);
@@ -144,7 +148,7 @@
 
       .about-tagline {
         margin-top: 2rem;
-        font-size: clamp(2.6rem, 1.4rem + 4.5vw, 4.5rem);
+        font-size: clamp(2.2rem, 1.45rem + 3.75vw, 4.5rem);
         font-weight: 800;
         letter-spacing: 0.01em;
         line-height: 1.1;
@@ -205,8 +209,14 @@
       }
 
       /* Sticky scroll-zoom doesn't translate well to mobile — fall back to a
-         plain stacked read: centered text, then a static banner below. */
-      @media (max-width: 991px) {
+         plain stacked read: centered text, then a static banner below. Also
+         triggers on a short viewport (a small window, or the page zoomed
+         in shrinks the effective vh) — the desktop version pins the copy
+         to a fixed 100vh box, and if the text can't fit that box it spills
+         out through the top over the nav instead of scrolling. Bailing out
+         to the plain flow below removes that fixed-height box entirely, so
+         there's nothing left to overflow. */
+      @media (max-width: 991px), (max-height: 900px) {
         .about-stage {
           height: auto;
         }
