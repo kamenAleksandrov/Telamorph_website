@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang='en'>
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Telamorph | HMI Web Demo</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#101315;color:#f1f3f2;font:16px system-ui,sans-serif;display:grid;justify-content:center;padding:24px;gap:16px}button,input,select{font:inherit;color:inherit}button,select{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #b7d9ec;outline-offset:2px}button{border:1px solid #414b51;background:#30383d;border-radius:6px;min-height:48px;padding:8px 16px}button:disabled{cursor:default;opacity:.55}.screen{width:800px;height:480px;background:#171b1e;padding:0 16px 12px;display:flex;flex-direction:column;border-radius:6px;overflow:hidden}.sim{height:24px;font-size:11px;letter-spacing:1.5px;color:#bbc3c7;text-align:center;padding:4px}.header{border-top:3px solid #718ea1;border-bottom:1px solid #3a444a;height:56px;display:flex;align-items:center;gap:20px;flex-shrink:0}.header h1{font-size:24px;font-weight:600;margin:0;flex:1}.pill{font-size:13px;border:1px solid #718ea1;border-radius:16px;padding:5px 12px;color:#b8cbd6}.header .note{font-size:14px;color:#bbc3c7}.body{display:flex;gap:16px;flex:1;min-height:0;padding:12px 0}.rail{width:184px;flex-shrink:0;display:flex;flex-direction:column;gap:8px}.rail button{text-align:left;font-size:14px;background:transparent;border-color:transparent}.rail button.active{background:#285d7a;border-color:#467a98}.content{flex:1;min-width:0;display:flex;flex-direction:column;gap:8px}.content h2{font-size:20px;margin:0}.subtitle{color:#bbc3c7;font-size:13px;margin:0;min-height:18px}.rows{display:flex;flex-direction:column;gap:6px}.row{height:52px;min-height:52px;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#242a2e;border-radius:6px;padding:0 10px}.row .label{font-size:15px}.value{border:0;background:transparent;min-width:120px;text-align:right;padding:4px 6px}.row small{display:block;font-size:11px;color:#bbc3c7}.actions{display:flex;align-items:center;gap:8px;margin-top:auto}.actions .status{flex:1;color:#bbc3c7;font-size:12px}.primary{background:#285d7a;border-color:#467a98}.nav{height:56px;display:flex;background:#242a2e;border-radius:6px;flex-shrink:0;overflow:hidden}.nav span{flex:1;display:grid;place-content:center;font-size:15px;color:#bbc3c7}.nav .selected{background:#285d7a;color:#f1f3f2;box-shadow:inset 0 2px #6593ad}.outside{max-width:800px;color:#bbc3c7;font-size:14px;line-height:1.5}.outside p{margin:0 0 10px}.outside select{background:#242a2e;padding:8px;border:1px solid #414b51;border-radius:6px}.outside label{margin-right:16px}dialog{color:#f1f3f2;background:#242a2e;border:1px solid #59666e;border-radius:6px;width:430px;padding:24px}dialog::backdrop{background:#000a}dialog h2{margin:0 0 12px;font-size:22px}dialog p{color:#bbc3c7;font-size:14px;line-height:1.5}dialog input{width:100%;background:#171b1e;border:1px solid #71818b;border-radius:6px;min-height:48px;padding:10px;margin:8px 0 16px}dialog footer{display:flex;justify-content:flex-end;gap:8px}a{color:#a4cde3}
+.maintenance .row{height:48px;min-height:48px}.danger{color:#ffc2b9;border-color:#91534c;background:#4d302e}.warning{color:#efc18b}dialog footer{flex-wrap:wrap}
+
+.nav button{flex:1;border:0;border-radius:0;background:transparent;color:#bbc3c7}.nav button.selected{color:#f1f3f2}.header .note{border:0;background:transparent;padding:0 8px}.device-toolbar{display:flex;align-items:center;gap:6px;min-height:48px}.device-toolbar h2{flex:1;font-size:19px}.device-toolbar button{font-size:13px;padding:6px 10px}.device-toolbar .chosen{background:#285d7a;border-color:#467a98}.device-list{display:flex;flex-direction:column;gap:6px}.device-row{width:100%;min-height:52px;height:52px;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:8px;background:#242a2e;border:1px solid #30383d;padding:6px 10px}.device-row strong{font-size:14px;font-weight:500}.device-row small{display:block;color:#bbc3c7;font-size:11px;line-height:16px}.device-row .tag{font-size:12px;white-space:nowrap;text-align:right}.tone-due,.tone-soon{color:#efc18b}.tone-fault{color:#ffc2b9}.tone-ok{color:#b6d5c4}.tone-unknown{color:#bbc3c7}.device-footer{display:flex;align-items:center;gap:8px;margin-top:auto;min-height:48px}.device-footer span{flex:1;font-size:12px;color:#bbc3c7}.device-footer button{font-size:13px;padding:6px 12px}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.metric{background:#242a2e;border-radius:6px;padding:10px 8px}.metric strong{font-size:24px;display:block;font-weight:500}.metric span{font-size:12px;color:#bbc3c7;display:block}.metric small{font-size:10px;color:#bbc3c7}.device-empty{background:#242a2e;border-radius:6px;padding:18px;line-height:1.5;color:#bbc3c7}.validity{font-size:12px;color:#bbc3c7;margin:0}.device-detail-title{font-size:17px!important}.screen[data-validity="stale"] .header{border-top-color:#b89b70}.screen[data-validity="fault"] .header{border-top-color:#bf6f65}
+
+.program-toolbar{display:flex;align-items:center;gap:8px;height:48px;min-height:48px}.program-toolbar h2{flex:1;min-width:0;font-size:20px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.program-toolbar .page-label{flex:1;text-align:right;font-size:13px;color:#bbc3c7;padding-right:8px}.program-toolbar button{padding:8px 14px}.program-toolbar .icon-action{width:48px;min-width:48px;padding:6px;font-size:23px}.program-toolbar .delete-action{color:#ffc2b9;background:#4d302e;border-color:#78504b;font-size:14px}.program-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:8px;flex:1;min-height:0}.program-card{background:#242a2e;border:1px solid #3b454b;text-align:left;padding:10px 12px;display:flex;flex-direction:column;justify-content:center;gap:8px;min-height:0}.program-card:hover,.stage-card:hover{background:#2c3439;border-color:#6e8b9c}.program-card .program-name{font-size:20px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.program-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;font-size:14px;color:#bbc3c7;border-top:1px solid #39434a;padding-top:7px}.program-summary span+span{border-left:1px solid #465158;padding-left:12px}.program-summary span:last-child{text-align:right}.program-detail-columns{display:grid;grid-template-columns:minmax(0,56fr) minmax(0,44fr);gap:8px;flex:1;min-height:0}.program-graph{background:#20272b;border:1px solid #3b454b;min-height:0;display:flex;flex-direction:column;padding:8px}.program-graph-label{display:flex;justify-content:space-between;font-size:13px;color:#bbc3c7;flex-shrink:0;height:20px}.program-graph svg{width:100%;height:100%;min-height:0;overflow:visible;flex:1}.program-facts{background:#242a2e;border-radius:6px;padding:12px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:1fr 1fr 1fr;gap:8px;min-height:0}.program-fact{min-width:0;display:flex;flex-direction:column;justify-content:center}.program-fact span{font-size:13px;color:#bbc3c7}.program-fact strong{font-size:22px;font-weight:500}.program-fact.material{grid-column:1/-1;border-top:1px solid #3b454b;padding-top:6px}.program-fact.material strong{font-size:18px}.program-actions{display:flex;gap:8px;height:48px;min-height:48px}.program-actions button{flex:1}.stage-action{background:#493e2a;border-color:#9e8458;color:#f3d298}.stage-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:8px;flex:1;min-height:0}.stage-card{background:#242a2e;border:1px solid #3b454b;padding:7px 10px;text-align:left;display:flex;flex-direction:column;gap:3px;justify-content:center;min-height:0}.stage-top{display:flex;justify-content:space-between;align-items:center;gap:6px}.stage-top strong{font-weight:500;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.stage-number{border:1px solid currentColor;border-radius:4px;min-width:24px;text-align:center;font-size:14px;line-height:22px}.stage-meta{font-size:12px}.stage-target{display:flex;align-items:baseline;justify-content:space-between;gap:4px;color:#f1f3f2}.stage-target strong{font-size:20px;font-weight:500}.stage-target small{font-size:12px;color:#bbc3c7}.stage-heating{color:#e8a04b}.stage-hold{color:#a77bd1}.stage-cooling{color:#42b6a3}.graph-node{cursor:pointer}.graph-node:focus{outline:none;stroke:#f1f3f2;stroke-width:3}.program-favourite{color:#e8a04b!important;border-color:#9e8458!important}
+
+.home-layout{display:grid;grid-template-columns:25% minmax(0,1fr);gap:12px;flex:1;min-height:0}.quick-launch{background:#242a2e;padding:12px;border-radius:6px;display:flex;flex-direction:column;gap:6px;min-height:0}.quick-launch h2{font-size:20px}.quick-launch small{color:#bbc3c7;font-size:12px}.quick-launch button{font-size:14px;padding:6px 10px}.quick-launch .choose{margin-top:auto}.home-overview{display:flex;flex-direction:column;gap:8px;min-height:0}.home-readings{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:#242a2e;padding:12px;border-radius:6px}.home-readings small{display:block;color:#bbc3c7;font-size:13px}.home-readings strong{font-size:23px;font-weight:500}.home-readings .current strong{font-size:36px}.furnace-panel{background:#242a2e;border-radius:6px;flex:1;min-height:0;display:flex;align-items:center;gap:16px;padding:8px 16px}.furnace-panel svg{width:58%;height:100%;min-height:0}.furnace-status{display:flex;flex-direction:column;gap:10px}.furnace-status small{display:block;color:#bbc3c7;font-size:13px}.furnace-status strong{font-size:19px;font-weight:500}.run-title{display:flex;justify-content:space-between;align-items:center;min-height:28px;gap:12px}.run-title h2{font-size:20px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.run-title span{color:#e8a04b;font-size:14px;white-space:nowrap}.run-visuals{display:flex;flex:1;min-height:0;gap:8px}.run-visuals>.program-graph{flex:1;min-width:0}.run-visuals>.furnace-panel{flex:1;min-width:0}.run-readings{display:flex;justify-content:space-between;gap:8px;padding:4px 0;min-height:36px;font-size:13px;color:#bbc3c7}.run-readings span+span{border-left:1px solid #414b51;padding-left:10px}.run-controls{display:flex;gap:8px;min-height:56px}.run-controls button{min-height:56px}.run-controls .selectors{display:flex;flex:1;gap:0}.selectors button{flex:1;background:transparent;border:0;border-radius:0}.selectors .selected{color:#9cc9e4;box-shadow:inset 0 -2px #467a98}.pause-action{background:#6a4b26;color:#ffe0b0;border-color:#c79655}.editor-top{display:flex;gap:8px;align-items:center;min-height:48px}.editor-top h2{flex:1;font-size:19px;font-weight:500}.stage-types{display:flex;gap:8px;min-height:48px}.stage-types button{flex:1;background:#30383d;border-color:#465159}.stage-types .selected{color:#f1f3f2}.stage-types .stage-type-heating.selected{background:#e8a04b;border-color:#e8a04b}.stage-types .stage-type-hold.selected{background:#a77bd1;border-color:#a77bd1}.stage-types .stage-type-cooling.selected{background:#42b6a3;border-color:#42b6a3}.edit-fields{display:flex;flex-direction:column;gap:6px}.edit-field{display:flex;gap:8px;align-items:center;background:#242a2e;padding:4px 8px;min-height:52px;border-radius:6px}.edit-field label{flex:1;color:#bbc3c7;font-size:14px}.edit-field input,.edit-field select{color:#f1f3f2;background:#171b1e;border:1px solid #52616a;border-radius:4px;padding:6px;width:150px;height:44px;font-size:18px}.edit-field select{width:210px}.edit-field button{min-width:48px;padding:6px;background:#285d7a;border-color:#467a98;color:#f1f3f2}.edit-note{font-size:12px;color:#bbc3c7;min-height:16px;margin:0}.edit-note.error{color:#ffc2b9}.edit-actions{display:flex;gap:8px;margin-top:auto;min-height:48px}.edit-actions button{flex:1}.loading-note{font-size:13px;color:#bbc3c7;margin:0}.screen[data-run-state="running"] .header{border-top-color:#e8a04b}.screen[data-run-state="paused"] .header{border-top-color:#a77bd1}
+
+.screen{position:relative}#touch-keyboard[hidden]{display:none}#touch-keyboard{position:absolute;inset:80px 12px 12px;background:#20272b;border:1px solid #59666e;border-radius:6px;z-index:20;padding:12px;display:flex;flex-direction:column;gap:4px;box-shadow:0 -4px 24px #0007}.keyboard-heading{display:flex;justify-content:space-between;align-items:center;min-height:22px}.keyboard-heading h2{font-size:18px;margin:0}.keyboard-heading span{font-size:12px;color:#bbc3c7}.keyboard-input{height:48px;min-height:48px;background:#171b1e;border:1px solid #7895a7;border-radius:4px;color:#f1f3f2;padding:8px 12px;font:22px system-ui,sans-serif;width:100%}.keyboard-hint{font-size:12px;min-height:16px;color:#bbc3c7;margin:0}.keyboard-hint.error{color:#ffc2b9}.keyboard-layout{display:flex;flex-direction:column;gap:6px;margin-top:auto}.keyboard-row{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:6px}.keyboard-row button{min-height:48px;height:48px;font-size:18px;padding:4px}.keyboard-row .function-key{font-size:13px;background:#3b464d}.keyboard-row .shift-on{color:#b8dcf0;border-color:#6898b4;background:#285d7a}.keyboard-bottom{display:flex;gap:6px}.keyboard-bottom button{min-height:48px;font-size:14px;padding:6px 12px}.keyboard-bottom .space-key{flex:1}.keyboard-number-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}.keyboard-number-grid button{height:48px;min-height:48px;font-size:21px;padding:4px}.keyboard-number-grid .function-key{font-size:14px;background:#3b464d}.keyboard-number-actions{display:flex;gap:6px}.keyboard-number-actions button{flex:1;min-height:48px}.stage-name-entry{flex:1;background:transparent;border-color:transparent;font-size:19px;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.edit-field input[readonly]{cursor:pointer}
+.keyboard-input::selection{background:#285d7a;color:#f1f3f2}
+.program-toolbar h2{font-size:24px;text-align:left}
+.stage-action{background:#493e2a!important;border-color:#9e8458!important;color:#f1f3f2!important;opacity:1}
+.run-readings{display:grid;grid-template-columns:minmax(0,1.7fr) repeat(3,minmax(0,1fr));gap:8px;padding:6px 0;min-height:56px;font-size:13px;color:#bbc3c7}
+.run-readings>span,.run-readings>button{display:flex;align-items:center;justify-content:center;text-align:center;min-width:0;padding:6px 4px;background:#242a2e;border:0;border-radius:4px;white-space:nowrap}
+.run-readings span+span{border-left:0;padding-left:4px}
+.run-readings .run-time{background:transparent;border:1px solid #467a98;color:#f1f3f2;font-size:13px;gap:8px;min-height:44px}.run-readings .power-reading{flex-direction:column;gap:2px}
+/* Expo wrapper: the HMI remains a logical rectangle; only this outer layer fits it. */
+html,body{min-width:0;overflow-x:hidden}
+body{display:flex;flex-direction:column;align-items:center;padding:max(12px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));gap:12px}
+.demo-shell{width:min(100%,1024px);display:flex;flex-direction:column;align-items:stretch;gap:8px;min-width:0;background:#101315}
+#demo-document,#demo-source{width:100%;min-width:0}
+.expo-toolbar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;min-height:56px;padding:4px 0;color:#bbc3c7}
+.expo-toolbar button,.expo-toolbar select{min-height:48px;border-color:#414b51;background:#242a2e;font-size:13px;padding:8px 12px}
+.expo-toolbar button{white-space:nowrap}.expo-toolbar .toolbar-title{flex:1;min-width:150px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#d6dde0}
+.expo-toolbar .toolbar-status{font-size:12px;color:#bbc3c7;white-space:nowrap}.expo-toolbar .toolbar-status[data-mode=inspect]{color:#efc18b}
+.expo-toolbar .primary{background:#285d7a;border-color:#467a98}
+.viewport-area{width:100%;height:auto;display:flex;justify-content:center;align-items:flex-start;min-width:0;min-height:0;overflow:hidden;position:relative}
+.viewport-frame{position:relative;flex:none;width:800px;height:480px;overflow:visible}
+.viewport-frame>.screen{transform-origin:top left}
+.rotate-hint{display:none;margin:0;color:#bbc3c7;font-size:12px;text-align:center}
+.demo-shell:fullscreen,.demo-shell.is-fallback-fullscreen{width:100vw;height:100dvh;max-width:none;padding:max(8px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));background:#101315}
+.demo-shell:fullscreen .viewport-area,.demo-shell.is-fallback-fullscreen .viewport-area{flex:1;height:auto;align-items:center}
+.demo-shell:fullscreen .advanced-controls,.demo-shell.is-fallback-fullscreen .advanced-controls{max-height:32vh;overflow:auto}
+.advanced-controls{width:100%;color:#bbc3c7;font-size:14px;line-height:1.5}
+.advanced-controls summary{cursor:pointer;min-height:48px;padding:12px 0;color:#d6dde0}.advanced-controls .outside{max-width:none;padding:0 4px 8px}
+.advanced-controls .outside button,.advanced-controls .outside select{min-height:48px}.advanced-controls .outside p{margin:0 0 10px}
+#message{position:fixed;inset:auto;left:50%;top:50%;margin:0;transform:translate(-50%,-50%) scale(var(--message-scale,1));transform-origin:center;max-width:calc(100vw - 24px)}
+#message::backdrop{background:#000a}
+.inspect-mode{overflow:auto;justify-content:flex-start;align-items:flex-start}.inspect-mode .viewport-frame{width:var(--logical-width,800px)!important;height:var(--logical-height,480px)!important}.inspect-mode .viewport-frame>.screen{transform:none!important}
+@media (orientation:portrait) and (max-width:700px){.rotate-hint{display:block}.expo-toolbar{justify-content:center}.expo-toolbar .toolbar-title{flex-basis:100%;text-align:center}.viewport-area{max-height:calc(100dvh - 150px)}}
+@media (max-width:700px){.expo-toolbar{gap:4px}.expo-toolbar button,.expo-toolbar select{flex:1 1 auto}.expo-toolbar .toolbar-status{flex-basis:100%;text-align:center}.advanced-controls .outside{font-size:13px}}
+.advanced-controls .outside{max-width:none;padding:4px 0 14px}
+.scenario-intro{background:#20272b;border:1px solid #3b454b;border-radius:6px;padding:12px 14px;margin-bottom:10px}
+.scenario-intro strong{display:block;color:#f1f3f2;font-size:15px;margin-bottom:4px}
+.scenario-intro p{margin:0;color:#bbc3c7;font-size:13px}
+.scenario-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.scenario-group{min-width:0;background:#20272b;border:1px solid #3b454b;border-radius:6px;padding:10px}
+.scenario-group h3{margin:0 0 8px;color:#d6dde0;font-size:14px;font-weight:600}
+.scenario-buttons,.scenario-fields{display:grid;gap:8px}
+.scenario-buttons{grid-template-columns:repeat(2,minmax(0,1fr))}
+.scenario-buttons button{width:100%;min-height:52px;padding:8px 10px}
+.scenario-field{display:flex;flex-direction:column;gap:4px;color:#bbc3c7;font-size:12px}
+.scenario-field select{width:100%;min-height:48px;background:#242a2e}
+.scenario-note{margin:10px 0 0;color:#bbc3c7;font-size:12px}
+.scenario-note a{white-space:nowrap}
+@media (max-width:900px){.scenario-groups{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:700px){.scenario-groups{grid-template-columns:1fr}.scenario-buttons{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<section id='demo-document'>
+<div id='demo-source'>
+<script type='text/plain' id='demo-markup'>
+<div class='screen'>
+ <div class="sim">DESIGN CONCEPT · ILLUSTRATIVE VALUES</div>
+ <header class="header"><h1>Settings</h1><button class="note" id="open-notifications">Notifications</button><span class="pill">● Idle</span></header>
+ <div class="body"><nav class="rail" aria-label="Settings categories">
+  <button class="active" data-tab="program" aria-current="page">Program preferences</button>
+  <button data-tab="display">Display & interaction</button><button data-tab="time">Date & time</button><button data-tab="connections">Connections</button><button data-tab="maintenance">Maintenance</button>
+ </nav><main class="content" id="content"></main></div>
+ <nav class="nav" aria-label="Illustrative main navigation"><button id="nav-home">Home</button><button id="nav-programs">Programs</button><button id="nav-device">Device</button><button id="nav-settings" class="selected">Settings</button></nav>
+ <section id="touch-keyboard" role="dialog" aria-modal="true" aria-labelledby="keyboard-title" hidden></section>
+</div>
+<div class="outside">
+ <p><strong>HMI web demo:</strong> choose a category, edit values, and try Save / Discard. Changes last only until this page closes. Home, Programs, Device and Settings are clickable. Stage edits and demo runs are local to this page; reloading resets them.</p>
+ <button id="try-text-keyboard">Show letter keyboard</button> <button id="try-number-keyboard">Show numeric keypad</button><br>
+ <button id="demo-advance">Advance run 1 min</button> <button id="demo-example">Show running example</button><br>
+ <label>Program library <select id="program-fixture"><option value="full">Full library</option><option value="partial">Partial last page</option><option value="empty">Empty library</option></select></label><br>
+ <label>Device data <select id="device-fixture"><option value="current">Current / service attention</option><option value="healthy">No current attention</option><option value="fault">Active fault</option><option value="stale">Stale snapshot</option><option value="unavailable">Unavailable</option><option value="empty">No components configured</option></select></label><br>
+ <label>Concept viewport <select id="size"><option>800 × 480</option><option>800 × 640</option><option>1024 × 600</option></select></label>
+ <label>Connection fixture <select id="fixture"><option value="disabled">Disabled by configuration</option><option value="unsupported">Not supported</option><option value="unknown">Checking availability</option><option value="enabled">Enabled, not connected</option></select></label>
+ <p style="margin-top:12px"><label>Restart assessment <select id="restart-assessment"><option value="ok">OK now</option><option value="busy">Busy</option><option value="timeout">No response</option></select></label><label>Restart attempt result <select id="restart-result"><option value="accepted">Accepted</option><option value="rejected">Refused</option><option value="unknown">No final response</option><option value="unsent">Cannot send</option></select></label></p>
+ <p style="margin-top:12px">Development demo with simulated data. No furnace is connected. Changes reset when you reload this page.</p>
+</div>
+<dialog id="message"><h2 id="message-title"></h2><p id="message-text"></p><footer id="message-actions"></footer></dialog>
+</script>
+</div>
+</section>
+<script>
+let runTimeElapsed=false;
+'use strict';
+const $=id=>document.getElementById(id);
+// Keep the legacy HMI fragment inert until the bootstrap can place it inside the shared demo shell.
+const materializeDemoMarkup=()=>{const source=$('demo-markup');if(source){const holder=document.createElement('div');holder.innerHTML=source.textContent;source.replaceWith(...holder.childNodes);}};
+materializeDemoMarkup();
+const setupAdvancedScenarioMenu=()=>{
+ const outside=document.querySelector('.outside');if(!outside||outside.dataset.structured)return;
+ const textKeyboard=$('try-text-keyboard'),numberKeyboard=$('try-number-keyboard'),startRun=$('demo-example'),manualAdvance=$('demo-advance');
+ const programFixture=$('program-fixture'),deviceFixture=$('device-fixture'),connectionFixture=$('fixture'),size=$('size'),restartAssessment=$('restart-assessment'),restartResult=$('restart-result');
+ const notes=outside.querySelectorAll('p')[2];if(!textKeyboard||!numberKeyboard||!startRun||!manualAdvance||!programFixture||!deviceFixture||!connectionFixture||!size||!restartAssessment||!restartResult||!notes)return;
+ const field=(label,control)=>{const wrapper=node('label',undefined,'scenario-field');wrapper.htmlFor=control.id;wrapper.append(node('span',label),control);return wrapper;};
+ const group=(title,content)=>{const section=node('section',undefined,'scenario-group'),heading=node('h3',title);section.append(heading,content);return section;};
+ const actions=node('div',undefined,'scenario-buttons');actions.append(textKeyboard,numberKeyboard,startRun,manualAdvance);
+ const data=node('div',undefined,'scenario-fields');data.append(field('Program library',programFixture),field('Device data',deviceFixture),field('Connection fixture',connectionFixture));
+ const review=node('div',undefined,'scenario-fields');review.append(field('Concept viewport',size),field('Restart assessment',restartAssessment),field('Restart attempt result',restartResult));
+ const groups=node('div',undefined,'scenario-groups');groups.append(group('Actions',actions),group('Data fixtures',data),group('Review and recovery',review));
+ const intro=node('div',undefined,'scenario-intro');intro.append(node('strong','Advanced demo scenarios'),node('p','These controls are grouped by purpose and stay outside the faithful HMI rectangle. Program changes, fixtures and keyboard previews are local to this page.'));
+ notes.className='scenario-note';outside.replaceChildren(intro,groups,notes);outside.dataset.structured='true';
+};
+setupAdvancedScenarioMenu();
+const PROGRAM_MAX_TEMPERATURE_C=200,PROGRAM_MAX_RATE_TENTHS=30;
+const initial={rate:3,temperature:200,duration:720,brightness:80,dim:5,motion:'Off',view:'Split',format:'24-hour'};
+let mainPage='home',deviceTab='overview',deviceFilter='all',devicePage=0,selectedComponent=null;
+let saved={...initial},candidate={...saved},tab='program',displayPage=0,editing=null;
+const dirty=()=>Object.keys(saved).some(k=>saved[k]!==candidate[k]);
+const duration=v=>`${Math.floor(v/60)} h ${String(v%60).padStart(2,'0')} min`;
+function node(tag,text,className){const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(className)n.className=className;return n;}
+function button(text,fn,className){const b=node('button',text==='Backspace'?'Delete':text,className);b.type='button';b.onclick=fn;return b;}
+function tell(title,text){$('message-title').textContent=title;$('message-text').textContent=text;$('message-actions').replaceChildren(button('Close',()=>$('message').close(),'primary'));$('message').showModal();}
+function go(next){if(next===tab)return;if(dirty()){$('message-title').textContent='Unsaved preferences';$('message-text').textContent='Save your changes, discard them, or stay on this page.';$('message-actions').replaceChildren(button('Stay',()=>$('message').close()),button('Discard',()=>{candidate={...saved};$('message').close();tab=next;render();}),button('Save',()=>{saved={...candidate};$('message').close();tab=next;render();},'primary'));$('message').showModal();}else{tab=next;render();}}
+function edit(key,title,help,min,max,step){openNumericKeyboard(title,candidate[key],{min,max,step,help},value=>{candidate[key]=value;render();});}
+
+function row(rows,label,value,action,detail){const r=node('div',undefined,'row'),l=node('div',label,'label');if(detail)l.append(node('small',detail));r.append(l);r.append(action?button(value,action,'value'):node('span',value,'value'));rows.append(r);}
+function render(){if(touchKeyboard)closeTouchKeyboard(false);document.querySelector('.nav').style.display=(mainPage==='running'||mainPage==='stage-edit')?'none':'flex';if(programGraphObserver){programGraphObserver.disconnect();programGraphObserver=null;}if(mainPage==='home'){renderHome();return;}if(mainPage==='running'){renderRunning();return;}if(mainPage==='stage-edit'){renderStageEditor();return;}if(mainPage==='loading'){renderLoading();return;}if(mainPage==='programs'){renderPrograms();return;}if(mainPage==='device'){renderDevice();return;}mountShell('Settings',settingsCategories,tab,next=>go(next));document.querySelectorAll('[data-tab]').forEach(b=>{b.classList.toggle('active',b.dataset.tab===tab);if(b.dataset.tab===tab)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});const c=$('content');c.replaceChildren();const titles={program:'Program preferences',display:'Display & interaction',time:'Date & time',connections:'Connections',maintenance:'Maintenance'};c.append(node('h2',titles[tab]));const subtitles={program:'Your limits guide program editing.',display:'Adjust this display to suit your workspace.',time:'Date and time are supplied by the furnace controller.',connections:'Availability follows device configuration.',maintenance:'Reset, delete, or restart with explicit confirmation.'};c.append(node('p',subtitles[tab],'subtitle'));const rows=node('div',undefined,tab==='maintenance'?'rows maintenance':'rows');c.append(rows);
+ if(tab==='program'){
+  row(rows,'Maximum heating rate',`${candidate.rate.toFixed(1)} °C/min  ›`,()=>edit('rate','Maximum heating rate (°C/min)','Illustrative entry range only. The device will use current controller metadata separately.',0.1,PROGRAM_MAX_RATE_TENTHS/10,0.1));
+  row(rows,'Maximum temperature',`${candidate.temperature} °C  ›`,()=>edit('temperature','Maximum temperature (°C)','Illustrative entry range only; this is a preference, not a furnace protection limit.',1,PROGRAM_MAX_TEMPERATURE_C,1));
+  row(rows,'Maximum program duration',`${duration(candidate.duration)}  ›`,()=>edit('duration','Maximum program duration (minutes)','Planned duration preference. Does not enforce an actual run cutoff. Concept entry range: 1–59999 minutes.',1,59999,1));
+ }else if(tab==='display'&&displayPage===0){
+  row(rows,'Brightness',`${candidate.brightness}%  ›`,()=>edit('brightness','Brightness (%)','Concept only. Target brightness support must be verified.',10,100,1));
+  row(rows,'Dim when idle',`${candidate.dim} min  ›`,()=>edit('dim','Idle dim delay (minutes)','Proposed only: retain legibility during operation and faults.',1,60,1));
+  row(rows,'Reduced motion',candidate.motion,()=>{candidate.motion=candidate.motion==='Off'?'On':'Off';render();});
+ }else if(tab==='display'){
+  row(rows,'Default Running view',`${candidate.view}  ›`,()=>{const modes=['Graph','Split','Furnace'];candidate.view=modes[(modes.indexOf(candidate.view)+1)%3];render();});
+  row(rows,'Language / units','English / °C',null,'Initially supported options');row(rows,'Theme','Graphite',null,'Current visual theme');
+ }else if(tab==='time'){
+  row(rows,'Controller date','14 Sep 2026',()=>tell('Set date & time','The device will collect date/time in a dedicated form, then request controller acceptance. This concept does not change a clock.'),'Illustrative current value');
+  row(rows,'Controller time',candidate.format==='24-hour'?'14:32':'2:32 PM',()=>tell('Set date & time','Pending, accepted, rejected, and unknown outcomes must be shown separately. Time-source support and editing permissions remain to be defined.'),'Illustrative current value');
+  row(rows,'Display format',candidate.format,()=>{candidate.format=candidate.format==='24-hour'?'12-hour':'24-hour';render();});
+ }else if(tab==='maintenance'){
+  row(rows,'Reset settings','Review',resetScopes,'Choose which local preferences to reset');
+  row(rows,'Delete programs','Review',deletePrograms,'Controller-owned program library');
+  row(rows,'Restart display','Review',restartDisplay,'Restart this display only');
+  row(rows,'Attempt furnace restart','Check',assessRestart,'Ask the controller before confirmation');
+ }else{
+  const mode=$('fixture').value,status={disabled:'Disabled by configuration',unsupported:'Not supported',unknown:'Checking availability',enabled:'Not connected'}[mode];
+  for(const name of ['Server','Bluetooth'])row(rows,name,mode==='enabled'?'Set up  ›':status,mode==='enabled'?()=>tell(`${name} setup`,name==='Server'?'Connection details appear here only when supported and enabled. Endpoint, credentials, service purpose and owner remain to be defined.':'Pairing details appear here only when supported and enabled. Radio hardware, permissions and pairing flow remain to be defined.'):null,mode==='enabled'?status:undefined);
+  c.append(node('p','Server and Bluetooth status are separate from the furnace link.','subtitle'));
+ }
+ const actions=node('div',undefined,'actions'),status=node('span',tab==='maintenance'?'Each action has its own confirmation.':tab==='connections'?'Connection controls follow available permissions.':dirty()?'Unsaved changes':tab==='program'?'Saved programs are unchanged.':'Preferences for this display.','status');status.setAttribute('role','status');actions.append(status);
+ if(tab==='display')actions.append(button(displayPage===0?'More ›':'‹ Back',()=>{displayPage=1-displayPage;render();}));
+ if(tab!=='connections'&&tab!=='maintenance'){const discard=button('Discard',()=>{candidate={...saved};render();});discard.disabled=!dirty();const save=button('Save',()=>{saved={...candidate};render();tell('Concept preferences saved','These example preferences are kept in this browser page only. No program or controller configuration was changed.');},'primary');save.disabled=!dirty();actions.append(discard,save);}c.append(actions);
+}
+
+function confirmAction(title,text,label,action){
+ $('message-title').textContent=title;$('message-text').textContent=text;
+ const cancel=button('Cancel',()=>$('message').close());
+ const confirm=button(label,()=>{confirm.disabled=true;$('message').close();action();},'danger');
+ $('message-actions').replaceChildren(cancel,confirm);$('message').showModal();cancel.focus();
+}
+function resetScopes(){
+ $('message-title').textContent='Reset settings';
+ $('message-text').textContent='Choose the local preferences to reset. Controller configuration, programs, history, credentials and pairing are excluded. Defaults below are examples for this concept only.';
+ const cancel=button('Cancel',()=>$('message').close());
+ const choice=(label,keys,details)=>button(label,()=>{$('message').close();confirmAction('Reset '+label.toLowerCase()+'?',details+' These are illustrative defaults, not shipping values. Continue?', 'Reset preferences',()=>{for(const key of keys){saved[key]=initial[key];candidate[key]=initial[key];}render();tell('Concept reset complete','Only the chosen example preferences were reset in this page. No device data was changed.');});});
+ const displayKeys=['brightness','dim','motion','view','format'],programKeys=['rate','temperature','duration'];
+ const displayDefaults='Brightness 80%; idle dim 5 min; reduced motion Off; Running view Split; time format 24-hour.';
+ const programDefaults='Heating rate 3.0 degrees C/min; temperature 200 degrees C; program duration 12 h.';
+ $('message-actions').replaceChildren(cancel,choice('Display preferences',displayKeys,displayDefaults),choice('Program preferences',programKeys,programDefaults),choice('Both groups',[...displayKeys,...programKeys],displayDefaults+' '+programDefaults));$('message').showModal();cancel.focus();
+}
+function deletePrograms(){
+ $('message-title').textContent='Delete programs';$('message-text').textContent='Concept selection: Example program A and Example program B. A real review will show current program names, count and selection controls. Select the scope to preview confirmation.';
+ const cancel=button('Cancel',()=>$('message').close());
+ const choice=(label,scope)=>button(label,()=>{$('message').close();confirmAction('Delete '+scope+'?', 'This requests permanent deletion from the controller program library and cannot be undone. History and the active accepted run snapshot are excluded. The controller may refuse.','Request deletion',()=>tell('Deletion request preview','No programs were deleted. The device will show pending, accepted, rejected or unknown outcomes from the controller.'));});
+ $('message-actions').replaceChildren(cancel,choice('Selected (1)','Example program A'),choice('All programs (2)','Example program A and Example program B'));$('message').showModal();cancel.focus();
+}
+function restartDisplay(){confirmAction('Restart display?', 'The display and its controls will be temporarily unavailable. This does not request a furnace Stop. Unsaved edits and pending local writes must be resolved first; this concept has no pending device writes.', 'Restart display',()=>tell('Display restart preview','No device was restarted. After a real display restart, the HMI obtains current controller state and never replays old furnace commands.'));}
+function assessRestart(){
+ const assessment=$('restart-assessment').value;
+ const copies={ok:['Restart furnace controller?','The controller reports that restart is allowed now. Restart will temporarily interrupt communication. Continue?','Request restart'],busy:['Furnace is busy','The controller reports work in progress. Restarting may interrupt the program, leave work unfinished, lose unsaved data, or damage the load/equipment. Do you still want to request a restart? The controller can refuse.','Attempt restart'],timeout:['No response from furnace','Restart suitability could not be checked. The furnace may still be operating. Attempt a restart request if communication permits? The controller still decides whether to execute it.','Attempt restart']};
+ // The fixture stands in for a bounded read-only assessment; no transport exists.
+ const [title,text,label]=copies[assessment];confirmAction(title,text+' (Simulated assessment.)',label,attemptRestart);
+}
+function attemptRestart(){
+ const outcomes={accepted:['Restart accepted - preview','Simulated controller acceptance. The device would now wait for reconnection and verify the controller session and current state. No actual restart occurred.'],rejected:['Restart refused - preview','Simulated controller reason: operation in progress. The refusal is final for this request. Confirmation does not force a reset.'],unknown:['Restart outcome unknown - preview','No final response was received in this scenario. The device must read current controller state; it must not automatically repeat the restart request.'],unsent:['Could not send restart request - preview','No eligible communication path is available in this scenario. Nothing is queued for reconnect.']};
+ const [title,text]=outcomes[$('restart-result').value];tell(title,text);
+}
+
+
+// Developer-owned sample catalogue: add a part/task here, not a renderer branch.
+// All values and procedures below are synthetic review data, not manufacturer advice.
+const deviceCatalogue=[
+ {id:'cabinet_fan',name:'Cabinet fan',part:'FAN-DEMO',location:'Electrical cabinet',usage:'1,840 h',source:'Confirmed rotating time',instance:'fan-instance-01',tasks:[
+  {id:'fan_inspect',name:'Inspect fan',basis:'Fan runtime',interval:'800 h',remaining:'160 h remaining',state:'soon',last:'1,200 h',procedure:'Approved inspection procedure not yet supplied.'},
+  {id:'fan_calendar',name:'Scheduled inspection',basis:'Calendar',interval:'12 months',remaining:'Due 14 Sep 2026',state:'due',last:'14 Sep 2025',procedure:'Refer this task to service personnel.'}]},
+ {id:'air_filter',name:'Air filter',part:'FILTER-DEMO',location:'Cabinet air inlet',usage:'530 h',source:'Fan runtime since service',instance:'filter-instance-01',tasks:[
+  {id:'filter_inspect',name:'Inspect filter',basis:'Fan runtime',interval:'500 h',remaining:'30 h overdue',state:'due',last:'1,310 fan h',procedure:'Use the approved filter service procedure when available.'}]},
+ {id:'main_contactor',name:'Main contactor',part:'CONTACTOR-DEMO',location:'Electrical cabinet',usage:'12,400 cycles',source:'Controller switching count',instance:'contactor-instance-01',tasks:[
+  {id:'contactor_inspect',name:'Scheduled inspection',basis:'Switching cycles',interval:'20,000 cycles',remaining:'7,600 cycles remaining',state:'ok',last:'Installation',procedure:'Electrical service personnel only; approved procedure not yet supplied.'}]},
+ {id:'thermocouple',name:'Temperature sensor',part:'SENSOR-DEMO',location:'Chamber',usage:'1,286 h',source:'Program runtime',instance:'sensor-instance-01',tasks:[
+  {id:'sensor_check',name:'Check measurement chain',basis:'Calendar',interval:'12 months',remaining:'Due 10 Feb 2027',state:'ok',last:'10 Feb 2026',procedure:'Refer measurement verification to authorized service personnel.'}]},
+ {id:'heater_ssr',name:'Heater SSR',part:'SSR-DEMO',location:'Electrical cabinet',usage:'Not measured',source:'No dedicated counter',instance:'ssr-instance-01',tasks:[
+  {id:'ssr_inspect',name:'Condition inspection',basis:'Condition-based',interval:'No fixed interval',remaining:'No countdown',state:'condition',last:'No record',procedure:'No worker electrical tests. Refer the approved service procedure to service personnel.'}]},
+ {id:'door_seal',name:'Door seal',part:'SEAL-DEMO',location:'Chamber door',usage:'1,286 h',source:'Program runtime',instance:'seal-instance-01',tasks:[
+  {id:'seal_inspect',name:'Inspect seal condition',basis:'Condition-based',interval:'No fixed interval',remaining:'No countdown',state:'condition',last:'No record',procedure:'Approved worker inspection guidance not yet supplied.'}]},
+ {id:'power_supply',name:'Power supply',part:'PSU-DEMO',location:'Electrical cabinet',usage:'2,418 h',source:'Powered-on time',instance:'psu-instance-01',tasks:[
+  {id:'psu_inspect',name:'Scheduled inspection',basis:'Calendar',interval:'12 months',remaining:'Installation date missing',state:'unknown',last:'Unknown',procedure:'Service personnel must verify the baseline and approved schedule.'}]}
+];
+const serviceHistory=[
+ {title:'Air filter inspected',detail:'20 Aug 2026 / 1,310 fan h',kind:'Inspection',text:'Controller-recorded example. Task: filter_inspect. Recorded by Service team (illustrative). The worker cannot edit this record.'},
+ {title:'Service warning acknowledged',detail:'18 Aug 2026 / Service period 3',kind:'Acknowledgement',text:'Controller-recorded service-policy acknowledgement example. This is not a repair or inspection completion record and cannot clear a component task locally.'},
+ {title:'Temperature sensor replaced',detail:'10 Feb 2026 / sensor-instance-01',kind:'Replacement',text:'Illustrative installed-instance change. Furnace lifetime totals and the previous part history are retained.'},
+ {title:'Cabinet fan inspected',detail:'02 Feb 2026 / 1,200 fan h',kind:'Inspection',text:'Illustrative controller record. The runtime task baseline differs from the calendar task baseline.'}
+];
+const settingsCategories=[['program','Program preferences'],['display','Display & interaction'],['time','Date & time'],['connections','Connections'],['maintenance','Maintenance']];
+const deviceCategories=[['overview','Overview'],['components','Components'],['notifications','Notifications'],['history','Service history'],['info','Device info']];
+function fixture(){return $('device-fixture').value||'current';}
+function mountShell(title,categories,active,select){
+ document.querySelector('.header h1').textContent=title;
+ $('nav-home').classList.toggle('selected',mainPage==='home');$('nav-programs').classList.toggle('selected',mainPage==='programs'||mainPage==='loading'||mainPage==='stage-edit');$('nav-device').classList.toggle('selected',mainPage==='device');$('nav-settings').classList.toggle('selected',mainPage==='settings');
+ const rail=document.querySelector('.rail');rail.hidden=!['settings','device'].includes(mainPage);rail.style.display=rail.hidden?'none':'';rail.setAttribute('aria-label',title+' categories');
+ rail.replaceChildren(...categories.map(([id,name])=>{const b=button(name,()=>select(id));b.classList.toggle('active',active===id);if(active===id)b.setAttribute('aria-current','page');return b;}));
+ const state=fixture();document.querySelector('.screen').setAttribute('data-validity',state);
+ document.querySelector('.pill').textContent=state==='fault'?'\u25cf Fault':state==='stale'?'\u25cf Stale':state==='unavailable'?'\u25cf Unavailable':'\u25cf Idle';
+}
+function switchMain(page,nextTab){if(demoRun&&mainPage==='running'&&page!=='running')return;if(stageSession&&page!=='stage-edit'){leaveStageEditor();return;}
+ const finish=()=>{mainPage=page;if(nextTab){deviceTab=nextTab;deviceFilter='all';devicePage=0;selectedComponent=null;}render();};
+ if(mainPage==='settings'&&dirty()&&page!=='settings'){
+  $('message-title').textContent='Unsaved preferences';$('message-text').textContent='Save or discard Settings edits before leaving Settings.';
+  $('message-actions').replaceChildren(button('Stay',()=>$('message').close()),button('Discard',()=>{candidate={...saved};$('message').close();finish();}),button('Save',()=>{saved={...candidate};$('message').close();finish();},'primary'));$('message').showModal();
+ }else finish();
+}
+function chooseDevice(tabName,filter='all'){deviceTab=tabName;deviceFilter=filter;devicePage=0;selectedComponent=null;render();}
+function visibleCatalogue(){return fixture()==='empty'?[]:deviceCatalogue;}
+function effectiveTask(task){
+ if(fixture()==='healthy'&&['soon','due','unknown'].includes(task.state))return {...task,state:'ok',remaining:'No task currently due (fixture)'};
+ return task;
+}
+function componentSummary(part){const rank={due:0,unknown:1,soon:2,condition:3,ok:4};return part.tasks.map(effectiveTask).sort((a,b)=>rank[a.state]-rank[b.state])[0];}
+function stateLabel(state){return {due:'Due / overdue',soon:'Due soon',ok:'Up to date',condition:'Condition-based',unknown:'Unknown'}[state]||'Unknown';}
+function tone(state){return state==='fault'?'tone-fault':state==='due'||state==='soon'?'tone-due':state==='ok'?'tone-ok':'tone-unknown';}
+function deviceRow(parent,title,detail,tag,state,action){const b=button('',action,'device-row');const text=node('div');text.append(node('strong',title),node('small',detail));b.append(text,node('span',tag,'tag '+tone(state)));parent.append(b);return b;}
+function deviceToolbar(parent,title,filters=[]){const bar=node('div',undefined,'device-toolbar');bar.append(node('h2',title));for(const [id,label]of filters)bar.append(button(label,()=>{deviceFilter=id;devicePage=0;render();},deviceFilter===id?'chosen':''));parent.append(bar);}
+function pageList(parent,items,draw,emptyText){
+ const pages=Math.max(1,Math.ceil(items.length/3));devicePage=Math.min(devicePage,pages-1);
+ const list=node('div',undefined,'device-list');if(!items.length)list.append(node('div',emptyText,'device-empty'));else items.slice(devicePage*3,devicePage*3+3).forEach(x=>draw(list,x));parent.append(list);
+ const footer=node('div',undefined,'device-footer');footer.append(node('span',`${items.length} items \u00b7 ${devicePage+1} / ${pages}${fixture()==='stale'?' \u00b7 Last known':''}`));
+ const prev=button('Previous',()=>{devicePage--;render();});prev.disabled=devicePage===0;const next=button('Next',()=>{devicePage++;render();});next.disabled=devicePage===pages-1;footer.append(prev,next);parent.append(footer);
+}
+function taskDetails(part,original){const t=effectiveTask(original),stale=fixture()==='stale'?'LAST KNOWN SNAPSHOT, 2 minutes old. ':'';tell(part.name+' / '+t.name,stale+`${stateLabel(t.state)}. Basis: ${t.basis}. Example interval: ${t.interval}. ${t.remaining}. Last baseline: ${t.last}. ${t.procedure} Manufacturer reference: not supplied; all values are illustrative. Viewing this notice does not record service or clear a fault.`);}
+function partInfo(part){tell(part.name+' / Part info',`Example part: ${part.part}. Location: ${part.location}. Installed instance: ${part.instance}. Usage: ${part.usage} (${part.source}). Catalogue DEMO-1. Manufacturer/procedure references not supplied. Configuration and service baselines are read-only on this page.`);}
+function openPart(id){selectedComponent=id;devicePage=0;render();}
+function notifications(){
+ const list=[];
+ if(fixture()==='fault')list.push({kind:'error',title:'Temperature reading unavailable',detail:'Example E-DEMO-01 \u00b7 Active',tag:'Fault',state:'fault',open:()=>tell('E-DEMO-01 / Active fault','Synthetic controller report: temperature reading unavailable. No approved recovery procedure is supplied. Refer this code to service personnel. This screen cannot clear the fault or authorize continued operation.')});
+ for(const part of visibleCatalogue())for(const original of part.tasks){const t=effectiveTask(original);if(['due','soon','unknown'].includes(t.state))list.push({kind:'service',title:part.name,detail:t.name+' \u00b7 '+t.remaining,tag:stateLabel(t.state),state:t.state,open:()=>taskDetails(part,original)});}
+ const rank={fault:0,due:1,soon:2,unknown:3};return list.sort((a,b)=>rank[a.state]-rank[b.state]);
+}
+function renderDevice(){
+ mountShell('Device',deviceCategories,deviceTab,id=>chooseDevice(id));const c=$('content');c.replaceChildren();
+ if(fixture()==='unavailable'){
+  deviceToolbar(c,deviceCategories.find(x=>x[0]===deviceTab)[1]);c.append(node('div','Controller data unavailable. Runtime, components, service status and records cannot be verified. No zero totals or healthy status are assumed.','device-empty'));return;
+ }
+ if(fixture()==='stale')c.append(node('p','Last known snapshot \u00b7 2 min old \u00b7 Values are not updating','validity'));
+ if(deviceTab==='overview'){
+  c.append(node('h2','Runtime & service'),node('p','Controller-reported examples \u00b7 Inspection only','subtitle'));
+  const metrics=node('div',undefined,'metrics');for(const [name,value,basis]of [['Powered-on time','2,418 h','Furnace lifetime'],['Program runtime','1,286 h','Excludes Manual / pauses'],['Fan runtime','1,840 h','Confirmed rotation']]){const m=node('div',undefined,'metric');m.append(node('span',name),node('strong',value),node('small',basis));metrics.append(m);}c.append(metrics);
+  const notices=notifications(),service=notices.filter(x=>x.kind==='service'),faults=notices.filter(x=>x.kind==='error');const list=node('div',undefined,'device-list');
+  deviceRow(list,'Service attention',fixture()==='empty'?'No components configured':service.length?'Review due, upcoming and unknown tasks':'No scheduled task currently due',`${service.length} tasks`,service.length?'due':'unknown',()=>chooseDevice('notifications','service'));
+  deviceRow(list,fixture()==='stale'?'Last reported errors':'Current errors',faults.length?'Read the controller report and guidance':fixture()==='stale'?'No errors in the last snapshot':'No current reported errors',`${faults.length} active`,faults.length?'fault':'unknown',()=>chooseDevice('notifications','error'));c.append(list);
+ }else if(deviceTab==='components'&&selectedComponent){
+  const part=visibleCatalogue().find(x=>x.id===selectedComponent);if(!part){selectedComponent=null;renderDevice();return;}
+  const bar=node('div',undefined,'device-toolbar');bar.append(button('Back',()=>{selectedComponent=null;devicePage=0;render();}),node('h2',part.name,'device-detail-title'),button('Part info',()=>partInfo(part)));c.append(bar);
+  pageList(c,part.tasks,(list,t)=>{const current=effectiveTask(t);deviceRow(list,t.name,t.basis+' \u00b7 '+t.interval,current.remaining,current.state,()=>taskDetails(part,t));},'No service tasks configured.');
+ }else if(deviceTab==='components'){
+  deviceToolbar(c,'Components',[['all','All'],['attention','Attention']]);const parts=visibleCatalogue().filter(p=>deviceFilter==='all'||p.tasks.some(t=>['due','soon','unknown'].includes(effectiveTask(t).state)));
+  pageList(c,parts,(list,p)=>{const t=componentSummary(p);deviceRow(list,p.name,p.usage+' \u00b7 '+t.name,stateLabel(t.state),t.state,()=>openPart(p.id));},fixture()==='empty'?'No components configured.':'No components match this filter.');
+ }else if(deviceTab==='notifications'){
+  deviceToolbar(c,'Notifications',[['all','All'],['service','Service'],['error','Errors']]);const notices=notifications().filter(x=>deviceFilter==='all'||x.kind===deviceFilter);
+  pageList(c,notices,(list,n)=>deviceRow(list,n.title,n.detail,n.tag,n.state,n.open),'No current notices in this category.');
+ }else if(deviceTab==='history'){
+  deviceToolbar(c,'Service history');pageList(c,serviceHistory,(list,event)=>deviceRow(list,event.title,event.detail,event.kind,'unknown',()=>tell(event.title,event.text)),'No service records available.');
+ }else{
+  deviceToolbar(c,'Device info');const info=[
+   ['Device identity','FURNACE-DEMO / Serial DEMO-001','Synthetic product identity, not this furnace.'],
+   ['Firmware','HMI DEMO / Controller DEMO','Examples only. Production displays each processor version from its owner.'],
+   ['Controller link',fixture()==='stale'?'Stale / last snapshot 2 min ago':'Current example snapshot','Link state and snapshot validity are distinct from server and Bluetooth status.'],
+   ['Component catalogue','DEMO-1 / '+visibleCatalogue().length+' configured parts','Product-configured entries only. Manufacturer references must be verified before deployment.'],
+   ['Support / documentation','Not configured','Show approved support and document references when provided. No credentials are displayed.']
+  ];pageList(c,info,(list,item)=>deviceRow(list,item[0],item[1],'Details','unknown',()=>tell(item[0],item[2])),'No device information available.');
+ }
+}
+$('nav-device').onclick=()=>switchMain('device');$('nav-settings').onclick=()=>switchMain('settings');$('open-notifications').onclick=()=>{if(mainPage==='running'){runNotice=!runNotice;render();}else if(stageSession)tell('Notifications','Demo observations only. No real controller notices are received.');else switchMain('device','notifications');};
+$('device-fixture').onchange=()=>{devicePage=0;selectedComponent=null;if($('message').open)$('message').close();render();};
+
+
+// Snapshot of existing host-lab program_fixtures/program_stage content, 2026-09-14.
+// No new programs, execution semantics, persistence or thermal claims.
+const programCatalogue=[{"id":0,"name":"Ceramic test program","material":"Stoneware","energy":"3.40 kWh","count":5,"minutes":103,"maximum":160,"stages":[{"name":"Warm-up","kind":"Heating","target":34,"rateTenths":30,"minutes":3},{"name":"Drying hold","kind":"Hold","target":34,"rateTenths":0,"minutes":9},{"name":"Heating to 160 C","kind":"Heating","target":160,"rateTenths":30,"minutes":42},{"name":"Peak hold","kind":"Hold","target":160,"rateTenths":0,"minutes":11},{"name":"Controlled cooling","kind":"Cooling","target":47,"rateTenths":-30,"minutes":38}]},{"id":1,"name":"Bisque firing","material":"Earthenware","energy":"8.20 kWh","count":6,"minutes":271,"maximum":180,"stages":[{"name":"Heating","kind":"Heating","target":45,"rateTenths":7,"minutes":29},{"name":"Hold","kind":"Hold","target":45,"rateTenths":0,"minutes":43},{"name":"Heating","kind":"Heating","target":180,"rateTenths":24,"minutes":57},{"name":"Hold","kind":"Hold","target":180,"rateTenths":0,"minutes":43},{"name":"Hold","kind":"Hold","target":180,"rateTenths":0,"minutes":42},{"name":"Cooling","kind":"Cooling","target":45,"rateTenths":-24,"minutes":57}]},{"id":2,"name":"Cooling hold test","material":"Test coupon","energy":"2.10 kWh","count":4,"minutes":140,"maximum":140,"stages":[{"name":"Heating","kind":"Heating","target":35,"rateTenths":6,"minutes":16},{"name":"Hold","kind":"Hold","target":35,"rateTenths":0,"minutes":34},{"name":"Heating","kind":"Heating","target":140,"rateTenths":23,"minutes":45},{"name":"Cooling","kind":"Cooling","target":35,"rateTenths":-23,"minutes":45}]},{"id":3,"name":"Glaze firing","material":"Glazed ceramic","energy":"9.10 kWh","count":7,"minutes":350,"maximum":200,"stages":[{"name":"Heating","kind":"Heating","target":50,"rateTenths":8,"minutes":32},{"name":"Hold","kind":"Hold","target":50,"rateTenths":0,"minutes":45},{"name":"Heating","kind":"Heating","target":200,"rateTenths":21,"minutes":71},{"name":"Hold","kind":"Hold","target":200,"rateTenths":0,"minutes":44},{"name":"Hold","kind":"Hold","target":200,"rateTenths":0,"minutes":44},{"name":"Hold","kind":"Hold","target":200,"rateTenths":0,"minutes":44},{"name":"Cooling","kind":"Cooling","target":50,"rateTenths":-21,"minutes":70}]},{"id":4,"name":"Anneal profile","material":"Glass","energy":"4.00 kWh","count":4,"minutes":156,"maximum":120,"stages":[{"name":"Heating","kind":"Heating","target":30,"rateTenths":5,"minutes":10},{"name":"Hold","kind":"Hold","target":30,"rateTenths":0,"minutes":40},{"name":"Heating","kind":"Heating","target":120,"rateTenths":17,"minutes":53},{"name":"Cooling","kind":"Cooling","target":30,"rateTenths":-17,"minutes":53}]},{"id":5,"name":"Quick bisque","material":"Earthenware","energy":"3.40 kWh","count":5,"minutes":225,"maximum":180,"stages":[{"name":"Heating","kind":"Heating","target":45,"rateTenths":8,"minutes":26},{"name":"Hold","kind":"Hold","target":45,"rateTenths":0,"minutes":38},{"name":"Heating","kind":"Heating","target":180,"rateTenths":22,"minutes":62},{"name":"Hold","kind":"Hold","target":180,"rateTenths":0,"minutes":37},{"name":"Cooling","kind":"Cooling","target":45,"rateTenths":-22,"minutes":62}]},{"id":6,"name":"High-fire glaze","material":"Glazed ceramic","energy":"9.10 kWh","count":6,"minutes":300,"maximum":200,"stages":[{"name":"Heating","kind":"Heating","target":50,"rateTenths":8,"minutes":33},{"name":"Hold","kind":"Hold","target":50,"rateTenths":0,"minutes":47},{"name":"Heating","kind":"Heating","target":200,"rateTenths":24,"minutes":63},{"name":"Hold","kind":"Hold","target":200,"rateTenths":0,"minutes":47},{"name":"Hold","kind":"Hold","target":200,"rateTenths":0,"minutes":47},{"name":"Cooling","kind":"Cooling","target":50,"rateTenths":-24,"minutes":63}]},{"id":7,"name":"Kiln dry","material":"Test coupon","energy":"2.10 kWh","count":3,"minutes":135,"maximum":140,"stages":[{"name":"Heating","kind":"Heating","target":140,"rateTenths":20,"minutes":58},{"name":"Hold","kind":"Hold","target":140,"rateTenths":0,"minutes":26},{"name":"Cooling","kind":"Cooling","target":35,"rateTenths":-21,"minutes":51}]},{"id":8,"name":"Stoneware test","material":"Stoneware","energy":"9.10 kWh","count":5,"minutes":240,"maximum":200,"stages":[{"name":"Heating","kind":"Heating","target":51,"rateTenths":9,"minutes":30},{"name":"Hold","kind":"Hold","target":51,"rateTenths":0,"minutes":43},{"name":"Heating","kind":"Heating","target":200,"rateTenths":24,"minutes":62},{"name":"Hold","kind":"Hold","target":200,"rateTenths":0,"minutes":43},{"name":"Cooling","kind":"Cooling","target":51,"rateTenths":-24,"minutes":62}]},{"id":9,"name":"Glass anneal","material":"Glass","energy":"4.00 kWh","count":4,"minutes":222,"maximum":120,"stages":[{"name":"Heating","kind":"Heating","target":30,"rateTenths":3,"minutes":16},{"name":"Hold","kind":"Hold","target":30,"rateTenths":0,"minutes":56},{"name":"Heating","kind":"Heating","target":120,"rateTenths":12,"minutes":75},{"name":"Cooling","kind":"Cooling","target":30,"rateTenths":-12,"minutes":75}]},{"id":10,"name":"Long cooling","material":"Test coupon","energy":"2.10 kWh","count":3,"minutes":155,"maximum":120,"stages":[{"name":"Heating","kind":"Heating","target":120,"rateTenths":20,"minutes":47},{"name":"Hold","kind":"Hold","target":120,"rateTenths":0,"minutes":45},{"name":"Cooling","kind":"Cooling","target":30,"rateTenths":-14,"minutes":63}]},{"id":11,"name":"Production profile","material":"Stoneware","energy":"9.10 kWh","count":8,"minutes":400,"maximum":200,"stages":[{"name":"Heating","kind":"Heating","target":50,"rateTenths":7,"minutes":34},{"name":"Hold","kind":"Hold","target":50,"rateTenths":0,"minutes":49},{"name":"Heating","kind":"Heating","target":200,"rateTenths":23,"minutes":65},{"name":"Hold","kind":"Hold","target":200,"rateTenths":0,"minutes":48},{"name":"Hold","kind":"Hold","target":200,"rateTenths":0,"minutes":47},{"name":"Hold","kind":"Hold","target":200,"rateTenths":0,"minutes":47},{"name":"Hold","kind":"Hold","target":200,"rateTenths":0,"minutes":47},{"name":"Cooling","kind":"Cooling","target":50,"rateTenths":-24,"minutes":63}]}];
+let programGraphObserver=null;
+let programRoute='library',programPage=0,programStagePage=0,selectedProgram=0;
+const programFavourites=new Set();
+function visiblePrograms(){const kind=$('program-fixture').value;return kind==='empty'?[]:kind==='partial'?programCatalogue.slice(0,7):programCatalogue;}
+function openProgram(index){selectedProgram=index;programRoute='detail';programStagePage=0;render();}
+function stageEditorPreview(index){openStageEditor(index);}
+function programPager(bar,page,pages,set){bar.append(node('span',`Page ${page+1} of ${pages}`,'page-label'));const prev=button('Previous',()=>set(page-1)),next=button('Next',()=>set(page+1));prev.disabled=page===0;next.disabled=page===pages-1;bar.append(prev,next);}
+function graphElement(tag,attrs,text){const e=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const [k,v]of Object.entries(attrs||{}))e.setAttribute(k,v);if(text!==undefined)e.textContent=text;return e;}
+function programGraph(parent,p){
+ if(p.stages.some(s=>!Number.isFinite(s.minutes))){parent.append(node('div','Full trajectory unavailable: cooling duration is unknown.','device-empty'));return;}
+ const graph=node('div',undefined,'program-graph');const caption=node('div',undefined,'program-graph-label');caption.append(node('span','Temperature (C)'),node('span',mainPage==='running'?'Planned / Measured (demo)':'Planned'));graph.append(caption);
+ const svg=graphElement('svg',{viewBox:'0 0 420 170',preserveAspectRatio:'none',role:'img','aria-label':p.name+' planned temperature trajectory'});
+ const points=[{minutes:0,target:25}];let time=0;for(const stage of p.stages){time+=stage.minutes;points.push({minutes:time,target:stage.target});}
+ const min=Math.min(...points.map(x=>x.target)),max=Math.max(...points.map(x=>x.target)),span=Math.max(100,max-min),lo=min<0||min>Math.floor(span/10)?min-Math.floor(span/10):0,hi=max+Math.floor(span/8),endSeconds=Math.max(60,time*60+Math.floor(time*60/8)),end=endSeconds/60;
+ const plotBottom=128,plotHeight=114;const x=v=>54+v/end*350,y=v=>plotBottom-(v-lo)/(hi-lo)*plotHeight;
+ for(let i=0;i<5;i++){svg.append(graphElement('line',{x1:54,y1:14+i*28.5,x2:404,y2:14+i*28.5,stroke:'#3b484f','stroke-width':1}));}
+ for(let i=0;i<7;i++)svg.append(graphElement('line',{x1:54+i*350/6,y1:14,x2:54+i*350/6,y2:128,stroke:'#3b484f','stroke-width':1}));
+ for(const [value,yy]of [[hi,18],[lo+Math.floor((hi-lo)/2),73],[lo,130]])svg.append(graphElement('text',{x:2,y:yy,fill:'#bbc3c7','font-size':13},value+' C'));
+ svg.append(graphElement('text',{x:54,y:154,fill:'#bbc3c7','font-size':13},'Time (min)'),graphElement('text',{x:229,y:154,fill:'#bbc3c7','font-size':13,'text-anchor':'middle'},Math.floor(end/2)+' min'),graphElement('text',{x:404,y:154,fill:'#bbc3c7','font-size':13,'text-anchor':'end'},Math.floor(end)+' min'));
+ svg.append(graphElement('polyline',{points:points.map(pt=>x(pt.minutes)+','+y(pt.target)).join(' '),fill:'none',stroke:'#a4afb3','stroke-width':2,'vector-effect':'non-scaling-stroke'}));
+ if(mainPage==='running'&&demoRun){const samples=[];for(let t=0;t<demoRun.elapsed;t+=Math.max(1,demoRun.elapsed/120))samples.push({t,v:demoMeasured(p,t)});samples.push({t:demoRun.elapsed,v:demoMeasured(p,demoRun.elapsed)});svg.append(graphElement('polyline',{points:samples.map(pt=>x(pt.t)+','+y(pt.v)).join(' '),fill:'none',stroke:'#e8a04b','stroke-width':3,'vector-effect':'non-scaling-stroke'}));}
+ for(let i=0;i<p.stages.length&&mainPage!=='running'&&mainPage!=='stage-edit';i++){const stage=p.stages[i],pt=points[i],color={Heating:'#e8a04b',Hold:'#a77bd1',Cooling:'#42b6a3'}[stage.kind];const dot=graphElement('circle',{cx:x(pt.minutes),cy:y(pt.target),r:5,fill:color,tabindex:0,role:'button','aria-label':'Edit stage '+(i+1)+': '+stage.name,class:'graph-node'});dot.onclick=()=>stageEditorPreview(i);dot.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();stageEditorPreview(i);}};svg.append(dot);}
+ graph.append(svg);parent.append(graph);
+ // Keep glyphs and node markers at physical size while the plot fills its panel.
+ const fixed=[...svg.querySelectorAll('text,circle')].map(e=>({e,x:Number(e.getAttribute(e.tagName==='circle'?'cx':'x')),y:Number(e.getAttribute(e.tagName==='circle'?'cy':'y'))}));
+ programGraphObserver=new ResizeObserver(()=>{const box=svg.getBoundingClientRect();if(!box.width||!box.height)return;for(const {e,x,y}of fixed){e.setAttribute(e.tagName==='circle'?'cx':'x',0);e.setAttribute(e.tagName==='circle'?'cy':'y',0);e.setAttribute('transform',`translate(${x} ${y}) scale(${420/box.width} ${170/box.height})`);}});
+ programGraphObserver.observe(svg);
+}
+function renderPrograms(){
+ const title={library:'Programs',detail:'Program details',stages:'Program stages'}[programRoute];mountShell(title,[],null,()=>{});const c=$('content');c.replaceChildren();
+ const p=programCatalogue[selectedProgram],bar=node('div',undefined,'program-toolbar');c.append(bar);
+ if(programRoute==='library'){
+  const list=visiblePrograms(),pages=Math.max(1,Math.ceil(list.length/6));programPage=Math.min(programPage,pages-1);
+  bar.append(button('New program',()=>tell('New program','The existing native Program editor opens here. No authoring fields or save behavior are changed by this styling proposal.'),'primary'));
+  programPager(bar,programPage,pages,v=>{programPage=v;render();});const grid=node('div',undefined,'program-grid');
+  for(const item of list.slice(programPage*6,programPage*6+6)){const card=button('',()=>openProgram(item.id),'program-card');card.append(node('strong',item.name,'program-name'));const summary=node('div',undefined,'program-summary');summary.append(node('span',item.count+' stages'),node('span',(Number.isFinite(item.minutes)?item.minutes+' min':'Unknown')),node('span',item.maximum+' C'));card.append(summary);grid.append(card);}
+  if(!list.length){c.append(node('div','No programs. Choose New program.','device-empty'));return;}c.append(grid);
+ }else if(programRoute==='detail'){
+  bar.append(button('Back',()=>{programRoute='library';render();}),node('h2',p.name));
+  const favourite=button(programFavourites.has(p.id)?'\u2605':'\u2606',()=>{programFavourites.has(p.id)?programFavourites.delete(p.id):programFavourites.add(p.id);render();},'icon-action'+(programFavourites.has(p.id)?' program-favourite':''));favourite.setAttribute('aria-label',programFavourites.has(p.id)?'Remove favourite':'Add favourite');favourite.title=favourite.getAttribute('aria-label');
+  const rename=button('\u270e',()=>openTextKeyboard('Program name',p.name,value=>{p.name=value;render();}),'icon-action');rename.setAttribute('aria-label','Rename program');rename.title='Rename program';
+  bar.append(favourite,rename,button('Delete program',()=>confirmAction('Delete program?',p.name+' will be submitted for deletion only through the existing controller-validated workflow. This concept does not delete it.','Request deletion',()=>tell('Deletion request preview','No program was deleted.')),'delete-action'));
+  const columns=node('div',undefined,'program-detail-columns');programGraph(columns,p);const facts=node('div',undefined,'program-facts');for(const [label,value,cls]of [['View stages',p.count,''],['Duration',(Number.isFinite(p.minutes)?p.minutes+' min':'Unknown'),''],['Max. temp',p.maximum+' C',''],['Est. energy',p.energy,''],['Material',p.material,' material']]){const fact=node('div',undefined,'program-fact'+cls);fact.append(node('span',label),node('strong',String(value)));facts.append(fact);}columns.append(facts);c.append(columns);
+  const actions=node('div',undefined,'program-actions');actions.append(button('View stages',()=>{programRoute='stages';programStagePage=0;render();},'stage-action'),button('Load program',()=>loadDemoProgram(selectedProgram),'primary'));c.append(actions);
+ }else{
+  bar.append(button('Back',()=>{programRoute='detail';render();}),button('Add stage',()=>tell('Add stage','The existing native stage editor opens here. This concept does not insert a stage or change the program.'),'primary'));const pages=Math.max(1,Math.ceil(p.stages.length/9));programStagePage=Math.min(programStagePage,pages-1);programPager(bar,programStagePage,pages,v=>{programStagePage=v;render();});
+  const grid=node('div',undefined,'stage-grid');for(let i=programStagePage*9;i<Math.min(p.stages.length,programStagePage*9+9);i++){const stage=p.stages[i],card=button('',()=>stageEditorPreview(i),'stage-card');const top=node('div',undefined,'stage-top');top.append(node('strong',stage.name),node('span',String(i+1),'stage-number stage-'+stage.kind.toLowerCase()));card.append(top,node('div',stage.kind+' | '+(Number.isFinite(stage.minutes)?stage.minutes+' min':'Unknown duration'),'stage-meta stage-'+stage.kind.toLowerCase()));const target=node('div',undefined,'stage-target');if(stage.kind==='Hold')target.append(node('small','Inherited target'),node('strong','('+stage.target+' C)'));else target.append(node('strong',stage.target+' C'));card.append(target);grid.append(card);}c.append(grid);
+ }
+}
+$('nav-programs').onclick=()=>switchMain('programs');$('program-fixture').onchange=()=>{programRoute='library';programPage=0;render();};
+
+
+// Browser-only interactions. No controller transport or persistence is present.
+let stageSession=null,demoRun=null,runView='graph',runNotice=false;
+const demoRecent=[3,1,2];
+function furnaceIllustration(parent){
+ const panel=node('div',undefined,'furnace-panel');const svg=graphElement('svg',{viewBox:'0 0 230 220',role:'img','aria-label':'Illustrative furnace'});
+ for(const [tag,attrs]of [['polygon',{points:'35,35 175,35 200,15 62,15',fill:'#67767e'}],['polygon',{points:'175,35 200,15 200,190 175,211',fill:'#303c43'}],['rect',{x:35,y:35,width:140,height:176,fill:'#455159',stroke:'#829198'}],['rect',{x:51,y:52,width:108,height:144,rx:4,fill:'#22292d',stroke:'#bbc3c7'}],['rect',{x:65,y:69,width:80,height:92,rx:3,fill:'#161b1e'}],['rect',{x:153,y:141,width:4,height:28,fill:'#bbc3c7'}]])svg.append(graphElement(tag,attrs));
+ for(let y=89;y<=137;y+=24)svg.append(graphElement('line',{x1:73,y1:y,x2:137,y2:y,stroke:demoRun?'#bb8246':'#52616a','stroke-width':2}));
+ const status=node('div',undefined,'furnace-status');for(const [label,value]of [['Door',fixture()==='unavailable'?'Unknown':'Closed'],['Fan',demoRun?'1,450 rpm (demo)':'Unknown']]){const item=node('div');item.append(node('small',label),node('strong',value));status.append(item);}panel.append(svg,status);parent.append(panel);
+}
+function renderHome(){
+ mountShell('Home',[],null,()=>{});document.querySelector('.screen').removeAttribute('data-run-state');const c=$('content');c.replaceChildren();
+ const layout=node('div',undefined,'home-layout'),quick=node('div',undefined,'quick-launch');quick.append(node('h2','Quick launch'));
+ const fav=[...programFavourites].filter(id=>programCatalogue[id]).slice(0,3),recent=demoRecent.filter(id=>!fav.includes(id)).slice(0,3-fav.length);
+ if(fav.length)quick.append(node('small','Favourites'));for(const id of fav)quick.append(button(programCatalogue[id].name,()=>loadDemoProgram(id)));
+ if(recent.length)quick.append(node('small','Recent programs'));for(const id of recent)quick.append(button(programCatalogue[id].name,()=>loadDemoProgram(id)));
+ if(!fav.length&&!recent.length)quick.append(node('small','Add a favourite program'));
+ quick.append(button('Choose a program',()=>{programRoute='library';switchMain('programs');},'primary choose'));
+ const overview=node('div',undefined,'home-overview'),readings=node('div',undefined,'home-readings');for(const [label,value,cls]of [['Current temp',fixture()==='unavailable'?'Unknown':'24 C','current'],['Target','Unknown',''],['Remaining','Unknown','']]){const item=node('div',undefined,cls);item.append(node('small',label),node('strong',value));readings.append(item);}overview.append(readings);if(fixture()==='stale')overview.append(node('p','Last known snapshot - 2 min old','validity'));furnaceIllustration(overview);layout.append(quick,overview);c.append(layout);
+}
+function loadDemoProgram(id){if(stageSession||demoRun)return;selectedProgram=id;mainPage='loading';render();}
+function renderLoading(){
+ mountShell('Load program',[],null,()=>{});const c=$('content'),p=programCatalogue[selectedProgram];c.replaceChildren();const top=node('div',undefined,'program-toolbar');top.append(button('Back',()=>{mainPage='programs';programRoute='detail';render();}),node('h2',p.name));c.append(top);
+ const columns=node('div',undefined,'program-detail-columns');programGraph(columns,p);const facts=node('div',undefined,'program-facts');for(const [label,value]of [['Stages',p.count],['Duration',Number.isFinite(p.minutes)?p.minutes+' min':'Unknown'],['Max. temp',p.maximum+' C'],['Est. energy',p.energy],['Material',p.material]]){const f=node('div',undefined,'program-fact');f.append(node('span',label),node('strong',String(value)));facts.append(f);}columns.append(facts);c.append(columns);
+ c.append(node('p','Local simulation only. No furnace will be started.','loading-note'));const actions=node('div',undefined,'program-actions');const start=button('Start demo',()=>startDemo(),'primary');start.disabled=p.stages.some(s=>!Number.isFinite(s.minutes)||s.minutes<=0);actions.append(start);c.append(actions);
+}
+function startDemo(elapsed=0){
+ if(stageSession||demoRun)return;const p=programCatalogue[selectedProgram];if(p.stages.some(s=>!Number.isFinite(s.minutes)||s.minutes<=0))return;
+ demoRun={program:structuredClone(p),elapsed:Math.max(0,Math.min(elapsed,p.minutes)),paused:false};runView=saved.view.toLowerCase()==='furnace'?'furnace':saved.view.toLowerCase();
+ demoRecent.splice(0,demoRecent.length,selectedProgram,...demoRecent.filter(x=>x!==selectedProgram).slice(0,2));mainPage='running';render();updateExpoControls();
+}
+function plannedAt(p,t){let elapsed=0,start=25;for(const s of p.stages){if(t<=elapsed+s.minutes)return start+(s.target-start)*Math.max(0,(t-elapsed)/s.minutes);elapsed+=s.minutes;start=s.target;}return start;}
+function demoMeasured(p,t){return Math.round(plannedAt(p,t)-Math.min(8,t/4));}
+function runStage(){let elapsed=0;for(let i=0;i<demoRun.program.stages.length;i++){elapsed+=demoRun.program.stages[i].minutes;if(demoRun.elapsed<elapsed)return i;}return demoRun.program.stages.length-1;}
+function advanceDemo(minutes=1){if(!demoRun||demoRun.paused||demoFrozen||demoRun.elapsed>=demoRun.program.minutes)return;const next=Math.min(demoRun.program.minutes,demoRun.elapsed+minutes);if(next===demoRun.elapsed)return;demoRun.elapsed=next;render();updateExpoControls();}
+function tickDemoClock(){if(!demoRun||demoRun.paused||demoFrozen)return;advanceDemo(demoSpeed/60);}
+function startDemoClock(){if(demoClock===null)demoClock=window.setInterval(tickDemoClock,1000);}
+function stopDemo(){demoRun=null;runNotice=false;mainPage='home';$('message').close();render();updateExpoControls();}
+function renderRunning(){
+ mountShell('Running program',[],null,()=>{});const c=$('content');c.replaceChildren();const p=demoRun.program,complete=demoRun.elapsed>=p.minutes,index=runStage(),stage=p.stages[index];
+ document.querySelector('.screen').setAttribute('data-run-state',demoRun.paused?'paused':'running');document.querySelector('.pill').textContent=complete?'Demo complete':demoRun.paused?'Paused (demo)':'Running (demo)';
+ const title=node('div',undefined,'run-title');title.append(node('h2',p.name),node('span',`${index+1} / ${p.count} - ${stage.name}`));c.append(title);
+ if(runNotice)c.append(node('p','Demo only: no real controller notifications received.','validity'));const visuals=node('div',undefined,'run-visuals');if(runView!=='furnace')programGraph(visuals,p);if(runView!=='graph')furnaceIllustration(visuals);c.append(visuals);
+ const readings=node('div',undefined,'run-readings');const time=button((runTimeElapsed?'Elapsed':'Remaining')+' '+(runTimeElapsed?demoRun.elapsed:p.minutes-demoRun.elapsed)+' / '+p.minutes+' min',()=>{runTimeElapsed=!runTimeElapsed;render();},'run-time');time.setAttribute('aria-label',time.textContent+'. Show '+(runTimeElapsed?'remaining':'elapsed')+' time');time.title='Tap to switch elapsed and remaining time';readings.append(time);for(const text of ['Current: '+demoMeasured(p,demoRun.elapsed)+' C','Target: '+stage.target+' C'])readings.append(node('span',text));const power=node('span',undefined,'power-reading');power.append(node('div','Power: unavailable'));readings.append(power);c.append(readings);
+ const controls=node('div',undefined,'run-controls');if(!complete)controls.append(button(demoRun.paused?'Resume demo':'Pause demo',()=>{demoRun.paused=!demoRun.paused;render();},'pause-action'));controls.append(button(complete?'Return Home':'Stop demo',stopDemo,'danger'));const selectors=node('div',undefined,'selectors');for(const [id,label]of [['graph','Graph'],['split','Split'],['furnace','Furnace']])selectors.append(button(label,()=>{runView=id;render();},runView===id?'selected':''));controls.append(selectors);c.append(controls);
+}
+function openStageEditor(index){if(demoRun)return;stageSession={id:selectedProgram,index,source:programRoute,origin:mainPage,stages:structuredClone(programCatalogue[selectedProgram].stages)};mainPage='stage-edit';render();}
+function currentStage(){return stageSession.stages[stageSession.index];}
+function startTemperature(){return stageSession.index===0?25:stageSession.stages[stageSession.index-1].target;}
+function inheritTargets(){for(let i=0;i<stageSession.stages.length;i++)if(stageSession.stages[i].kind==='Hold')stageSession.stages[i].target=i?stageSession.stages[i-1].target:25;}
+function stageErrors(){const errors=[];let start=25;for(let i=0;i<stageSession.stages.length;i++){const t=stageSession.stages[i];if(!Number.isInteger(t.target)||t.target<0||t.target>PROGRAM_MAX_TEMPERATURE_C)errors.push(`Stage ${i+1}: target must be 0-200 C in this demo.`);if(t.kind==='Heating'&&t.target<=start)errors.push(`Stage ${i+1}: heating target must exceed its starting temperature.`);if(t.kind==='Cooling'&&t.target>=start)errors.push(`Stage ${i+1}: cooling target must be below its starting temperature.`);if(t.kind!=='Hold'&&t.rateTenths!==0&&(!Number.isInteger(t.rateTenths)||Math.abs(t.rateTenths)<1||Math.abs(t.rateTenths)>PROGRAM_MAX_RATE_TENTHS))errors.push(`Stage ${i+1}: invalid rate.`);if(t.kind==='Heating'&&t.rateTenths===0)errors.push(`Stage ${i+1}: enter a positive heating rate.`);if(!(t.kind==='Cooling'&&t.rateTenths===0)&&(!Number.isInteger(t.minutes)||t.minutes<1||t.minutes>59999))errors.push(`Stage ${i+1}: duration must be 1-59999 minutes.`);start=t.target;}return errors;}
+function changeStage(key,value,redraw=true){const beforeStarts=stageSession.stages.map((_,i)=>i?stageSession.stages[i-1].target:25);const t=currentStage();if(key==='kind'){t.kind=value;t.rateTenths=value==='Hold'?0:Math.max(1,Math.abs(t.rateTenths));if(!Number.isFinite(t.minutes))t.minutes=1;}else if(key==='mode'){t.rateTenths=value==='fastest'?0:10;t.minutes=value==='fastest'?null:Math.max(1,Math.ceil(Math.abs(t.target-startTemperature())/(t.rateTenths/10)));}else{
+ const v=Number(value);if(value===''||!Number.isFinite(v)){t[key]=NaN;}else if(key==='rateTenths'){t.rateTenths=Math.round(v*10);t.minutes=t.rateTenths>0?Math.max(1,Math.ceil(Math.abs(t.target-startTemperature())/(t.rateTenths/10))):NaN;}else{t[key]=v;if(t.kind==='Heating'){const delta=t.target-startTemperature();if(key==='minutes')t.rateTenths=v>0?Math.max(1,Math.ceil(delta*10/v)):NaN;else t.minutes=t.rateTenths>0?Math.max(1,Math.ceil(delta/(Math.abs(t.rateTenths)/10))):NaN;}else if(t.kind==='Cooling'&&t.rateTenths!==0)t.minutes=Math.max(1,Math.ceil(Math.abs(t.target-startTemperature())/(Math.abs(t.rateTenths)/10)));}}
+ inheritTargets();for(let j=stageSession.index+1;j<stageSession.stages.length;j++){const next=stageSession.stages[j],start=stageSession.stages[j-1].target;if(start!==beforeStarts[j]&&next.kind!=='Hold'&&next.rateTenths!==0)next.minutes=Math.max(1,Math.ceil(Math.abs(next.target-start)/(Math.abs(next.rateTenths)/10)));}if(redraw)render();else{
+ const errors=stageErrors(),note=document.querySelector('.edit-note');note.textContent=errors[0]||(t.kind==='Cooling'?(t.rateTenths===0?'Fastest cooling: duration is unknown.':'Calculated duration: '+t.minutes+' min (demo estimate).'):'Local unsaved edits. Values and calculations are demo-only.');note.classList.toggle('error',errors.length>0);document.querySelector('.edit-actions .primary').disabled=errors.length>0;
+ for(const field of ['target','rateTenths','minutes']){const input=document.getElementById('stage-'+field);if(input&&input!==document.activeElement){const value=field==='rateTenths'?Math.abs(t.rateTenths)/10:t[field];input.value=Number.isFinite(value)?value:'';}}
+ }
+}
+function editorField(parent,label,key,value,step=1,readonly=false){const line=node('div',undefined,'edit-field');const text=node('label',label);const id='stage-'+key;text.htmlFor=id;line.append(text);if(readonly){line.append(node('strong',value));}else{const input=node('input');input.id=id;input.type='number';input.step=step;input.value=Number.isFinite(value)?value:'';input.readOnly=true;input.setAttribute('aria-label','Edit '+label);input.onclick=()=>openNumericKeyboard(label,key==='rateTenths'?Math.abs(currentStage().rateTenths)/10:currentStage()[key],{min:key==='target'?0:step,max:key==='target'?PROGRAM_MAX_TEMPERATURE_C:key==='rateTenths'?PROGRAM_MAX_RATE_TENTHS/10:59999,step,help:'Demo authoring value; controller limits are not implemented.'},value=>changeStage(key,value));line.append(input);for(const [caption,delta]of [['-',-step],['+',step]]){const b=button(caption,()=>{const live=key==='rateTenths'?Math.abs(currentStage().rateTenths)/10:currentStage()[key];changeStage(key,Math.round(((Number.isFinite(live)?live:0)+delta)*10)/10);});b.setAttribute('aria-label',caption==='+'?'Increase '+label:'Decrease '+label);line.append(b);}}parent.append(line);}
+function renderStageEditor(){
+ mountShell('Edit stage',[],null,()=>{});const c=$('content');c.replaceChildren();const t=currentStage(),top=node('div',undefined,'editor-top');const prev=button('Previous',()=>{stageSession.index--;render();}),next=button('Next',()=>{stageSession.index++;render();});prev.disabled=stageSession.index===0;next.disabled=stageSession.index===stageSession.stages.length-1;const name=button(`${stageSession.index+1} / ${stageSession.stages.length} - ${t.name}`,()=>openTextKeyboard('Stage name',t.name,value=>{t.name=value;render();}),'stage-name-entry');name.setAttribute('aria-label','Rename stage');top.append(prev,name,next);c.append(top);
+ const types=node('div',undefined,'stage-types');for(const kind of ['Heating','Hold','Cooling'])types.append(button(kind,()=>changeStage('kind',kind),(kind===t.kind?'selected ':'')+'stage-type-'+kind.toLowerCase()));c.append(types);const fields=node('div',undefined,'edit-fields');editorField(fields,t.kind==='Hold'?'Inherited target (C)':'Target (C)','target',t.target,1,t.kind==='Hold');
+ if(t.kind==='Cooling'){const line=node('div',undefined,'edit-field');line.append(node('label','Cooling mode'));const select=node('select');select.setAttribute('aria-label','Cooling mode');for(const [value,label]of [['controlled','Controlled rate'],['fastest','Fastest permitted']]){const option=node('option',label);option.value=value;select.append(option);}select.value=t.rateTenths===0?'fastest':'controlled';select.onchange=()=>changeStage('mode',select.value);line.append(select);fields.append(line);}
+ if(t.kind!=='Hold'&&(t.kind!=='Cooling'||t.rateTenths!==0))editorField(fields,'Rate (C/min)','rateTenths',Math.abs(t.rateTenths)/10,0.1);
+ if(t.kind!=='Cooling')editorField(fields,'Duration (min)','minutes',t.minutes);c.append(fields);
+ const errors=stageErrors();let note=errors[0]||'Local unsaved edits. Values and calculations are demo-only.';if(!errors.length&&t.kind==='Cooling')note=t.rateTenths===0?'Fastest cooling: duration is unknown.':'Calculated duration: '+t.minutes+' min (demo estimate).';c.append(node('p',note,'edit-note'+(errors.length?' error':'')));
+ const actions=node('div',undefined,'edit-actions');actions.append(button('Discard changes',leaveStageEditor));const save=button('Save all changes',saveStageEditor,'primary');save.disabled=errors.length>0;actions.append(save);c.append(actions);
+}
+function closeStageEditor(){const route=stageSession.source,origin=stageSession.origin;stageSession=null;mainPage=origin==='loading'?'loading':'programs';programRoute=route;render();}
+function leaveStageEditor(){if(!stageSession)return;confirmAction('Discard stage changes?','All unsaved stage edits in this session will be discarded.','Discard changes',closeStageEditor);}
+function saveStageEditor(){if(!stageSession||stageErrors().length)return;const p=programCatalogue[stageSession.id];p.stages=structuredClone(stageSession.stages);p.count=p.stages.length;p.minutes=p.stages.every(s=>Number.isFinite(s.minutes))?p.stages.reduce((sum,s)=>sum+s.minutes,0):null;p.maximum=Math.max(...p.stages.map(s=>s.target));p.energy='Unavailable';closeStageEditor();tell('Saved to this demo','Stage edits are retained only in this browser page. No controller program was changed.');}
+$('nav-home').onclick=()=>switchMain('home');$('demo-advance').onclick=()=>advanceDemo();$('demo-example').onclick=()=>{if(stageSession||demoRun||dirty())return;selectedProgram=0;startDemo(26);};
+
+
+let touchKeyboard=null;
+function keyboardInert(value){for(const selector of ['.body','.nav','.header .note'])document.querySelector(selector).inert=value;}
+function closeTouchKeyboard(restoreFocus=true){if(!touchKeyboard)return;const focus=touchKeyboard.focus;touchKeyboard=null;$('touch-keyboard').hidden=true;$('touch-keyboard').replaceChildren();keyboardInert(false);if(restoreFocus&&focus?.isConnected)focus.focus();}
+function openTouchKeyboard(kind,title,value,options,commit){
+ if(demoRun||document.querySelector('dialog[open]'))return;
+ closeTouchKeyboard(false);touchKeyboard={kind,title,value:String(value??''),options,commit,shift:false,page:'letters',focus:document.activeElement};keyboardInert(true);drawTouchKeyboard();$('keyboard-input').focus();$('keyboard-input').select();
+}
+function openTextKeyboard(title,value,commit){openTouchKeyboard('text',title,value,{maxLength:32},commit);}
+function openNumericKeyboard(title,value,options,commit){openTouchKeyboard('number',title,value,options,commit);}
+function keyboardError(){
+ const k=touchKeyboard,v=$('keyboard-input').value;
+ if(k.kind==='text'){if(!v.trim())return 'Enter a name.';if(v.length>k.options.maxLength)return `Maximum ${k.options.maxLength} characters.`;if(/[\u0000-\u001f\u007f]/.test(v))return 'Control characters are not supported.';return '';}
+ if(v.length>24)return 'Maximum 24 characters.';
+ if(!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(v))return 'Enter a complete number.';
+ const n=Number(v),{min,max,step}=k.options;if(!Number.isFinite(n))return 'Enter a finite number.';if(n<min||n>max)return `Allowed range: ${min} to ${max}.`;if(Math.abs((n-min)/step-Math.round((n-min)/step))>1e-7)return `Use increments of ${step}.`;return '';
+}
+function updateKeyboardFeedback(){
+ const k=touchKeyboard;if(!k)return;k.value=$('keyboard-input').value;const error=keyboardError();$('keyboard-hint').textContent=error||(k.kind==='text'?'Changes are applied only when you choose Apply.':`Range ${k.options.min} to ${k.options.max} | Step ${k.options.step}`);$('keyboard-hint').classList.toggle('error',!!error);$('keyboard-apply').disabled=!!error;$('keyboard-count').textContent=k.kind==='text'?`${k.value.length} / ${k.options.maxLength}`:'Numeric entry';
+}
+function keyboardInsert(text){const input=$('keyboard-input'),start=input.selectionStart,end=input.selectionEnd;if(input.value.length-(end-start)+text.length>input.maxLength){$('keyboard-hint').textContent='Maximum input length reached.';return;}input.setRangeText(text,start,end,'end');updateKeyboardFeedback();}
+function keyboardBackspace(){const input=$('keyboard-input'),start=input.selectionStart,end=input.selectionEnd;if(start!==end)input.setRangeText('',start,end,'end');else if(start>0){const last=Array.from(input.value.slice(0,start)).pop();input.setRangeText('',start-last.length,start,'end');}updateKeyboardFeedback();}
+function keyboardMove(direction){const input=$('keyboard-input'),start=input.selectionStart,end=input.selectionEnd;let pos;if(start!==end)pos=direction<0?start:end;else if(direction<0)pos=start-(Array.from(input.value.slice(0,start)).pop()?.length||0);else pos=end+(Array.from(input.value.slice(end))[0]?.length||0);input.setSelectionRange(pos,pos);}
+function keyboardSign(){const input=$('keyboard-input');input.value=input.value.startsWith('-')?input.value.slice(1):'-'+input.value.replace(/^\+/,'');input.setSelectionRange(input.value.length,input.value.length);updateKeyboardFeedback();}
+function applyKeyboard(){if(!touchKeyboard||keyboardError())return;const k=touchKeyboard,value=k.kind==='number'?Number($('keyboard-input').value):$('keyboard-input').value.trim();closeTouchKeyboard(false);k.commit(value);}
+function keyboardKey(text,action,className='',disabled=false){const b=button(text,action,className);b.disabled=disabled;b.onmousedown=e=>e.preventDefault();return b;}
+function switchKeyboardPage(page){touchKeyboard.value=$('keyboard-input').value;const start=$('keyboard-input').selectionStart,end=$('keyboard-input').selectionEnd;touchKeyboard.page=page;drawTouchKeyboard();$('keyboard-input').focus();$('keyboard-input').setSelectionRange(start,end);}
+function drawTouchKeyboard(){
+ const k=touchKeyboard,panel=$('touch-keyboard');panel.hidden=false;panel.replaceChildren();const heading=node('div',undefined,'keyboard-heading');heading.append(node('h2',k.title));heading.firstChild.id='keyboard-title';const count=node('span');count.id='keyboard-count';heading.append(count);panel.append(heading);
+ const input=node('input',undefined,'keyboard-input');input.id='keyboard-input';input.type='text';input.inputMode='none';input.maxLength=k.kind==='text'?k.options.maxLength:24;input.autocomplete='off';input.spellcheck=false;input.value=k.value;input.setAttribute('aria-label',k.title);input.oninput=updateKeyboardFeedback;input.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();applyKeyboard();}else if(e.key==='Escape'){e.preventDefault();closeTouchKeyboard();}};panel.append(input);const hint=node('p',undefined,'keyboard-hint');hint.id='keyboard-hint';hint.setAttribute('role','status');panel.append(hint);
+ const layout=node('div',undefined,'keyboard-layout');
+ if(k.kind==='text'){
+  const rows=k.page==='letters'?['qwertyuiop','asdfghjkl','zxcvbnm']:k.page==='numbers'?['1234567890','@#$%&*()-','_+=/:;!?']:['[]{}<>^~`|','\\"\'.,:;!?','@#$%&*+'];
+  rows.forEach((chars,index)=>{const row=node('div',undefined,'keyboard-row');if(index===2)row.append(keyboardKey(k.page==='letters'?'↑':k.page==='numbers'?'#+=':'123',()=>{if(k.page==='letters'){k.shift=!k.shift;switchKeyboardPage(k.page);}else switchKeyboardPage(k.page==='numbers'?'symbols':'numbers');},'function-key'+(k.shift?' shift-on':'')));
+   for(const char of chars){const label=k.page==='letters'&&k.shift?char.toUpperCase():char;row.append(keyboardKey(label,()=>{keyboardInsert(label);if(k.page==='letters'&&k.shift){k.shift=false;switchKeyboardPage(k.page);}}));}
+   if(index===1)row.append(keyboardKey('Backspace',keyboardBackspace,'function-key'));if(index===2&&k.page==='letters'){row.append(keyboardKey("'",()=>keyboardInsert("'")),keyboardKey('.',()=>keyboardInsert('.')));}layout.append(row);
+  });
+  const bottom=node('div',undefined,'keyboard-bottom');bottom.append(keyboardKey(k.page==='letters'?'123 / #+=':'ABC',()=>switchKeyboardPage(k.page==='letters'?'numbers':'letters'),'function-key'),keyboardKey('Space',()=>keyboardInsert(' '),'space-key'),keyboardKey('\u2190',()=>keyboardMove(-1)),keyboardKey('\u2192',()=>keyboardMove(1)),keyboardKey('Clear',()=>{$('keyboard-input').value='';updateKeyboardFeedback();}),keyboardKey('Cancel',()=>closeTouchKeyboard()));const apply=keyboardKey('Apply',applyKeyboard,'primary');apply.id='keyboard-apply';bottom.append(apply);layout.append(bottom);
+ }else{
+  const grid=node('div',undefined,'keyboard-number-grid');for(const row of [['7','8','9','Backspace'],['4','5','6','Clear'],['1','2','3','+/-'],['0','.','\u2190','\u2192']])for(const key of row){const action=key==='Backspace'?keyboardBackspace:key==='Clear'?()=>{$('keyboard-input').value='';updateKeyboardFeedback();}:key==='+/-'?keyboardSign:key==='\u2190'?()=>keyboardMove(-1):key==='\u2192'?()=>keyboardMove(1):()=>keyboardInsert(key);const disabled=key==='+/-'&&k.options.min>=0||key==='.'&&Number.isInteger(k.options.step);grid.append(keyboardKey(key,action,/^\d$|^\.$/.test(key)?'':'function-key',disabled));}layout.append(grid);const bottom=node('div',undefined,'keyboard-number-actions');const apply=keyboardKey('Apply',applyKeyboard,'primary');apply.id='keyboard-apply';bottom.append(keyboardKey('Cancel',()=>closeTouchKeyboard()),apply);layout.append(bottom);
+ }
+ panel.append(layout);updateKeyboardFeedback();
+}
+// Keep physical keyboard focus within the visible touch panel.
+$('touch-keyboard').addEventListener('keydown',event=>{if(event.key==='Escape'){event.preventDefault();closeTouchKeyboard();}else if(event.key==='Tab'){const items=[...$('touch-keyboard').querySelectorAll('input,button:not([disabled])')];const first=items[0],last=items[items.length-1];if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}}});
+$('try-text-keyboard').onclick=()=>openTextKeyboard('Example text','Ceramic test program',value=>tell('Text entered',value+' (demo only)'));
+$('try-number-keyboard').onclick=()=>openNumericKeyboard('Signed number example',-12.5,{min:-9999,max:9999,step:0.1},value=>tell('Number entered',String(value)+' (demo only)'));
+
+document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>go(b.dataset.tab));
+$('fixture').onchange=()=>{if(tab==='connections')render();};
+$('size').onchange=()=>{const [w,h]=$('size').value.split(' × ').map(Number);const screen=document.querySelector('.screen');screen.style.width=`${w}px`;screen.style.height=`${h}px`;};
+// Viewport and expo controls are outside the faithful HMI rectangle.
+const demoViewport={width:800,height:480,mode:'fit',scale:1};
+let demoSpeed=60,demoFrozen=false,viewportObserver=null,demoClock=null;
+function expoButton(id,label,action,className){
+ const b=button(label,action,className);b.id=id;b.setAttribute('type','button');return b;
+}
+function updateExpoControls(){
+ const fullscreen=$('fullscreen-toggle'),mode=$('viewport-mode'),freeze=$('freeze-toggle'),next=$('next-stage'),back=$('return-to-run');
+ if(!fullscreen)return;
+ const shell=$('demo-shell'),full=document.fullscreenElement===shell||shell.classList.contains('is-fallback-fullscreen');
+ fullscreen.textContent=full?'Exit fullscreen':'Fullscreen';
+ mode.textContent=demoViewport.mode==='inspect'?'Fit screen':'Inspect / zoom';
+ freeze.textContent=demoFrozen?'Unfreeze simulation':'Freeze simulation';
+ freeze.setAttribute('aria-pressed',String(demoFrozen));
+ next.disabled=!demoRun;back.disabled=!demoRun;
+ const status=$('viewport-status');status.textContent=(demoViewport.mode==='inspect'?'Inspect':'Fit')+' - '+demoViewport.width+' x '+demoViewport.height+' @ '+Math.round(demoViewport.scale*100)+'%';status.dataset.mode=demoViewport.mode;
+}
+function positionNativeDialog(){
+ const dialog=$('message'),frame=$('viewport-frame');if(!dialog||!dialog.open||!frame)return;
+ const rect=frame.getBoundingClientRect();dialog.style.left=rect.left+rect.width/2+'px';dialog.style.top=rect.top+rect.height/2+'px';dialog.style.setProperty('--message-scale',String(demoViewport.mode==='inspect'?1:demoViewport.scale));
+}
+function updateDemoViewport(){
+ const area=$('viewport-area'),frame=$('viewport-frame'),screen=document.querySelector('.screen');if(!area||!frame||!screen)return;
+ const availableWidth=Math.max(1,area.clientWidth),availableHeight=Math.max(1,area.clientHeight||demoViewport.height);
+ demoViewport.scale=demoViewport.mode==='inspect'?1:Math.min(availableWidth/demoViewport.width,availableHeight/demoViewport.height);
+ if(!Number.isFinite(demoViewport.scale)||demoViewport.scale<=0)demoViewport.scale=1;
+ area.classList.toggle('inspect-mode',demoViewport.mode==='inspect');area.style.setProperty('--logical-width',demoViewport.width+'px');area.style.setProperty('--logical-height',demoViewport.height+'px');
+ frame.style.width=demoViewport.width*demoViewport.scale+'px';frame.style.height=demoViewport.height*demoViewport.scale+'px';
+ screen.style.width=demoViewport.width+'px';screen.style.height=demoViewport.height+'px';screen.style.transform=demoViewport.mode==='inspect'?'none':'scale('+demoViewport.scale+')';
+ updateExpoControls();positionNativeDialog();
+}
+function setDemoSize(){
+ const values=($('size').value.match(/\d+/g)||[]).map(Number);if(values.length<2)return;
+ demoViewport.width=values[0];demoViewport.height=values[1];const frame=$('viewport-frame');if(frame){frame.style.width=demoViewport.width+'px';frame.style.height=demoViewport.height+'px';}updateDemoViewport();
+}
+function toggleViewportMode(){demoViewport.mode=demoViewport.mode==='fit'?'inspect':'fit';updateDemoViewport();}
+async function toggleDemoFullscreen(){
+ const shell=$('demo-shell');if(document.fullscreenElement===shell){await document.exitFullscreen().catch(()=>{});return;}
+ if(shell.classList.contains('is-fallback-fullscreen')){shell.classList.remove('is-fallback-fullscreen');updateDemoViewport();return;}
+ if(!document.fullscreenEnabled||!shell.requestFullscreen){shell.classList.add('is-fallback-fullscreen');updateDemoViewport();return;}
+ try{await shell.requestFullscreen({navigationUI:'hide'});}catch(error){shell.classList.add('is-fallback-fullscreen');}
+ updateDemoViewport();
+}
+function nextDemoStage(){
+ if(!demoRun){tell('No active demo','Start a demo run before advancing to its next stage.');return;}
+ const next=runStage()+1;if(next>=demoRun.program.stages.length)demoRun.elapsed=demoRun.program.minutes;else{let elapsed=0;for(let i=0;i<=next;i++)elapsed+=demoRun.program.stages[i].minutes;demoRun.elapsed=Math.min(demoRun.program.minutes,elapsed);}render();updateExpoControls();
+}
+function returnToDemoRun(){
+ if(!demoRun){tell('No active demo','Start a demo run before returning to Running.');return;}
+ mainPage='running';render();updateExpoControls();
+}
+function resetDemoSession(){confirmAction('Reset demo session?','Reload the page and restore the premade examples, preferences and local demo state?','Reset demo session',()=>window.location.reload());}
+function setupDemoShell(){
+ if($('demo-shell'))return;
+ const screen=document.querySelector('.screen'),outside=document.querySelector('.outside'),dialog=$('message'),shell=document.createElement('div');shell.id='demo-shell';shell.className='demo-shell';
+ const toolbar=document.createElement('div');toolbar.className='expo-toolbar';toolbar.setAttribute('aria-label','Demo controls');
+ toolbar.append(node('span','Furnace HMI / browser demonstration','toolbar-title'));
+ toolbar.append(expoButton('fullscreen-toggle','Fullscreen',toggleDemoFullscreen,'primary'),expoButton('scenario-toggle','Scenarios',()=>{const details=$('advanced-controls');details.open=!details.open;if(details.open)details.querySelector('summary').focus();}));
+ const speed=document.createElement('select');speed.id='demo-speed';speed.setAttribute('aria-label','Simulation speed');for(const [value,label]of [['1','1x'],['10','10x'],['60','60x'],['300','300x']]){const option=node('option',label);option.value=value;if(value==='60')option.selected=true;speed.append(option);}speed.onchange=()=>{demoSpeed=Number(speed.value)||60;updateExpoControls();};toolbar.append(speed);
+ toolbar.append(expoButton('freeze-toggle','Freeze simulation',()=>{demoFrozen=!demoFrozen;updateExpoControls();}),expoButton('next-stage','Next stage',nextDemoStage),expoButton('return-to-run','Return to run',returnToDemoRun),expoButton('reset-demo-session','Reset demo session',resetDemoSession));
+ const viewportMode=expoButton('viewport-mode','Inspect / zoom',toggleViewportMode),status=node('span','Fit - 800 x 480','toolbar-status');status.id='viewport-status';toolbar.append(viewportMode,status);
+ const hint=node('p','Landscape is preferred for faithful HMI interaction.','rotate-hint');hint.id='rotate-hint';
+ const sourceParent=screen.parentNode;sourceParent.insertBefore(shell,screen);const area=document.createElement('div');area.id='viewport-area';area.className='viewport-area';const frame=document.createElement('div');frame.id='viewport-frame';frame.className='viewport-frame';frame.append(screen);area.append(frame);
+ const details=document.createElement('details');details.id='advanced-controls';details.className='advanced-controls';details.append(node('summary','Advanced scenarios and fixtures'),outside);
+ shell.append(toolbar,hint,area,details,dialog);
+ $('size').onchange=setDemoSize;document.addEventListener('fullscreenchange',()=>{if(document.fullscreenElement!==shell)shell.classList.remove('is-fallback-fullscreen');updateDemoViewport();});window.addEventListener('resize',updateDemoViewport);window.visualViewport?.addEventListener('resize',updateDemoViewport);
+ const nativeShowModal=dialog.showModal.bind(dialog);dialog.showModal=()=>{nativeShowModal();positionNativeDialog();requestAnimationFrame(positionNativeDialog);};dialog.addEventListener('close',()=>dialog.style.removeProperty('--message-scale'));
+ if(typeof ResizeObserver!=='undefined'){viewportObserver=new ResizeObserver(updateDemoViewport);viewportObserver.observe(area);}
+ setDemoSize();updateDemoViewport();
+}
+setupDemoShell();
+render();
+startDemoClock();
+</script>
+</body>
+</html>

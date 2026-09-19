@@ -304,3 +304,30 @@ does not guarantee crawling, citation, or ranking by any AI system.
 - [ ] PageSpeed Insights is recorded for representative mobile pages.
 - [ ] Search Console is checked weekly for indexing, security, and Core Web
       Vitals problems.
+
+## Unlinked HMI web demo
+
+The standalone client demo is served at `/hmi-web-demo.html`. It is deliberately
+absent from website navigation, sitemap and llms.txt, with noindex metadata and
+an X-Robots-Tag header. Anyone with the URL can still access it.
+
+The shared UI source lives in the Furnace HMI V2 repository. Refresh it alongside
+LVGL updates using:
+
+```powershell
+python scripts/sync_hmi_demo.py C:/dev/Furnance_project/furnace_hmi_version_2/docs/images/theme/hmi-web-demo.html
+python scripts/build_site.py
+python -m http.server 8000 --directory dist
+```
+
+Review `http://localhost:8000/hmi-web-demo.html`. Then publish using the existing
+workflow: `firebase.cmd deploy --only hosting --project telamorph`.
+The existing pinned contact-function revision can also be synchronized by this
+Hosting deployment. No new Firebase project, database or console setup is needed.
+
+Keep client-specific adaptations in `scripts/sync_hmi_demo.py`; the generated
+root HTML is committed so standalone website builds need no sibling checkout.
+Do not edit the copy in `dist/`. The current adaptation removes engineering
+links, adds a client title and simulation wording, and requests no indexing.
+The demo uses synthetic data and no furnace connection. Mobile polish remains
+future work; the current fixed-size presentation supports desktop review.

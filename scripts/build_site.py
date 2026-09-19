@@ -43,6 +43,7 @@ STATIC_SITEMAP_PATHS = (
 )
 
 COPY_DIRECTORIES = ("assets", "components", "data")
+STANDALONE_PAGES = ("hmi-web-demo.html",)
 PRODUCT_ID_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 LOCAL_REFERENCE_PATTERN = re.compile(
     r"(?:href|src)=[\"'](?P<url>[^\"'#]+)[\"']", re.IGNORECASE
@@ -426,6 +427,7 @@ def local_path_for_url(url: str, document_path: Path) -> Path | None:
 def validate_dist(products: list[dict[str, object]]) -> None:
     expected_top_level = {
         *STATIC_PAGES,
+        *STANDALONE_PAGES,
         *COPY_DIRECTORIES,
         "products",
         "robots.txt",
@@ -442,11 +444,13 @@ def validate_dist(products: list[dict[str, object]]) -> None:
     if len(generated_products) != len(products):
         raise RuntimeError("Generated product-page count does not match products.json")
 
-    html_files = [DIST / name for name in STATIC_PAGES] + generated_products
+    html_files = [DIST / name for name in (*STATIC_PAGES, *STANDALONE_PAGES)] + generated_products
     broken: list[str] = []
     for document_path in html_files:
         document = read_text(document_path)
-        if "navbar-telamorph" not in document or "footer-telamorph" not in document:
+        if document_path.name not in STANDALONE_PAGES and (
+            "navbar-telamorph" not in document or "footer-telamorph" not in document
+        ):
             broken.append(f"{document_path.relative_to(DIST)}: shell was not embedded")
         for match in LOCAL_REFERENCE_PATTERN.finditer(document):
             url = match.group("url")
@@ -470,6 +474,9 @@ def main() -> None:
 
     reset_dist()
     copy_production_directories()
+
+    for name in STANDALONE_PAGES:
+        shutil.copy2(ROOT / name, DIST / name)
 
     for name in STATIC_PAGES:
         document = read_text(ROOT / name)
