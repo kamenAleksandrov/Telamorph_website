@@ -5,15 +5,25 @@ the generated `dist/` directory configured in `firebase.json`.
 
 ## Build
 
-Run this after changing a page, component, product, or crawl file:
+The build needs Pillow for the WebP images. Install it once:
+
+```powershell
+python -m pip install -r requirements.txt
+```
+
+Run this after changing a page, component, product, image, or crawl file:
 
 ```powershell
 python scripts/build_site.py
+python -m http.server 8000 --directory dist, then open http://localhost:8000/.
 ```
 
 The build safely deletes and recreates only `dist/`. It then:
 
 - copies the production assets, components, and product data;
+- publishes a WebP copy of every JPEG/PNG in `assets/images/`, at most 1920 px
+  on the long edge, and points the pages, product pages, and the deployed
+  `products.json` at those copies (see "Images" below);
 - embeds `components/nav.html` and `components/footer.html` into every page;
 - puts all product cards in the catalogue's initial HTML;
 - generates one static HTML file per entry in `data/products.json`;
@@ -22,6 +32,33 @@ The build safely deletes and recreates only `dist/`. It then:
 
 `dist/` is intentionally ignored by Git because it duplicates the source image
 library. Firebase CLI still reads and deploys it from your local machine.
+
+## Images
+
+`assets/images/` holds the full-size originals. Keep adding and referencing
+those (`.jpg`/`.png`) in the source pages and `data/products.json`; never
+reference a `.webp` by hand.
+
+`scripts/optimize_images.py` makes the website copies: WebP, downscaled to at
+most 1920 px on the long edge, quality 82 for JPEG photos and 90 for PNG
+renders. They are cached in `build-cache/images/` (git-ignored), so only new or
+changed images are re-encoded. The build runs it automatically; run it on its
+own to see the savings per image and per page:
+
+```powershell
+python scripts/optimize_images.py          # summary
+python scripts/optimize_images.py --all    # every image
+```
+
+Oversized images were what made black rectangles flash while scrolling: each
+decoded image takes width × height × 4 bytes of GPU memory, and a 12-megapixel
+phone photo takes ~50 MB of it.
+
+Absolute `https://telamorph.com/...` image URLs (`og:image`, `twitter:image`,
+JSON-LD) are left pointing at the originals, because not every link-preview
+crawler accepts WebP. Those originals are the only ones deployed; the build
+drops every other full-size original from `dist/` and fails if a page still
+shows one.
 
 ## Add or update a product
 

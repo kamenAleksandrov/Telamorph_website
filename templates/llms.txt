@@ -30,6 +30,7 @@ Materials include carbon fibre, fibreglass, aramid, flax, cores, resin systems, 
 ## Company and contact
 
 - [About Telamorph](https://telamorph.com/about.html): Company background and engineering approach.
+- [Case Studies](https://telamorph.com/case-studies.html): Telamorph composite case studies: a 26 kg sports-car body, a certified light-aircraft monocoque, a UAV radome, an underwater-drone enclosure and an e-bike battery enclosure, engineered, tooled and built in-house.
 - [Contact Telamorph](https://telamorph.com/contact.html): Product enquiries, quotations, and custom engineering requests.
 - General email: office@telamorph.com
 - Sales email: sales@telamorph.com

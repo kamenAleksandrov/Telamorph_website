@@ -16,6 +16,8 @@ import shutil
 from pathlib import Path
 from urllib.parse import urlparse
 
+import optimize_images
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = (ROOT / "dist").resolve()
@@ -24,6 +26,7 @@ SITE_URL = "https://telamorph.com"
 STATIC_PAGES = (
     "index.html",
     "about.html",
+    "case-studies.html",
     "composite-development.html",
     "manufacturing.html",
     "industrial.html",
@@ -38,6 +41,7 @@ STATIC_SITEMAP_PATHS = (
     "/manufacturing.html",
     "/industrial.html",
     "/about.html",
+    "/case-studies.html",
     "/contact.html",
     "/resellers.html",
 )
@@ -48,6 +52,11 @@ PRODUCT_ID_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 LOCAL_REFERENCE_PATTERN = re.compile(
     r"(?:href|src)=[\"'](?P<url>[^\"'#]+)[\"']", re.IGNORECASE
 )
+# Any image reference, including inline-style url(...) and absolute site URLs.
+IMAGE_REFERENCE_PATTERN = re.compile(
+    r"assets/images/(?P<path>[\w./-]+?\.(?:jpe?g|png|webp|svg|gif))\b", re.IGNORECASE
+)
+TEXT_SUFFIXES = {".html", ".css", ".js", ".json"}
 
 
 def escaped(value: object) -> str:
@@ -344,8 +353,14 @@ def product_schema(product: dict[str, object]) -> str:
 
 
 def render_product_page(
-    template: str, product: dict[str, object], nav: str, footer: str
+    template: str,
+    product: dict[str, object],
+    site_product: dict[str, object],
+    nav: str,
+    footer: str,
 ) -> str:
+    """Render one product page; ``site_product`` carries the WebP image paths
+    shown on the page, ``product`` the originals used in share/SEO metadata."""
     images = list(product.get("images") or [])
     hero_image = str(images[0] if images else product["thumbnail"])
     title = f"{product['name']} {product['category']} | Telamorph"
@@ -359,7 +374,7 @@ def render_product_page(
         "@@PRODUCT_JSONLD@@": product_schema(product),
         "@@NAV@@": nav.strip(),
         "@@BREADCRUMB@@": render_breadcrumb(product),
-        "@@PRODUCT_CONTENT@@": render_product_content(product),
+        "@@PRODUCT_CONTENT@@": render_product_content(site_product),
         "@@FOOTER@@": footer.strip(),
     }
     document = template
@@ -403,7 +418,77 @@ def copy_production_directories() -> None:
         source = ROOT / name
         if not source.is_dir():
             raise FileNotFoundError(f"Missing production directory: {source}")
-        shutil.copytree(source, DIST / name)
+        # `private` folders (e.g. assets/pdfs/private) hold client source
+        # material for editing the site; they must never be published.
+        shutil.copytree(source, DIST / name, ignore=shutil.ignore_patterns("private"))
+
+
+def publish_web_images() -> dict[str, str]:
+    """Put the WebP copies into dist and map original paths to them.
+
+    Paths are relative to assets/images. The full-size originals stay in the
+    source tree; prune_replaced_images() later drops the ones no page needs.
+    """
+    web_images: dict[str, str] = {}
+    for result in optimize_images.optimize():
+        if result.webp:
+            target = DIST / "assets" / "images" / result.webp
+            shutil.copy2(optimize_images.CACHE / result.webp, target)
+            web_images[result.source] = result.webp
+    return web_images
+
+
+def use_web_images(text: str, web_images: dict[str, str]) -> str:
+    """Point page-rendered image references at their WebP copies.
+
+    Absolute https://telamorph.com/... URLs (og:image, JSON-LD) keep the
+    original, since not every link-preview crawler accepts WebP.
+    """
+
+    def replace(match: re.Match[str]) -> str:
+        return "assets/images/" + web_images.get(match.group(1), match.group(1))
+
+    return optimize_images.PAGE_IMAGE_PATTERN.sub(replace, text)
+
+
+def web_product(product: dict[str, object], web_images: dict[str, str]) -> dict[str, object]:
+    site_product = dict(product)
+    site_product["thumbnail"] = web_images.get(str(product["thumbnail"]), product["thumbnail"])
+    if product.get("images"):
+        site_product["images"] = [
+            web_images.get(str(path), path) for path in list(product["images"])
+        ]
+    return site_product
+
+
+def dist_text_files() -> list[Path]:
+    return [
+        path
+        for path in DIST.rglob("*")
+        if path.is_file() and path.suffix.lower() in TEXT_SUFFIXES
+    ]
+
+
+def referenced_images() -> set[str]:
+    referenced: set[str] = set()
+    for path in dist_text_files():
+        text = read_text(path)
+        referenced.update(m.group("path") for m in IMAGE_REFERENCE_PATTERN.finditer(text))
+    for product in json.loads(read_text(DIST / "data" / "products.json")):
+        referenced.add(str(product["thumbnail"]))
+        referenced.update(str(path) for path in list(product.get("images") or []))
+    return referenced
+
+
+def prune_replaced_images(web_images: dict[str, str]) -> int:
+    """Drop originals that have a WebP copy and are no longer referenced."""
+    referenced = referenced_images()
+    removed = 0
+    for source in web_images:
+        if source not in referenced:
+            (DIST / "assets" / "images" / source).unlink()
+            removed += 1
+    return removed
 
 
 def local_path_for_url(url: str, document_path: Path) -> Path | None:
@@ -424,7 +509,24 @@ def local_path_for_url(url: str, document_path: Path) -> Path | None:
     return candidate.resolve()
 
 
-def validate_dist(products: list[dict[str, object]]) -> None:
+def validate_images(web_images: dict[str, str]) -> list[str]:
+    broken: list[str] = []
+    images_root = DIST / "assets" / "images"
+    for path in referenced_images():
+        if not (images_root / path).is_file():
+            broken.append(f"missing image assets/images/{path}")
+    for document_path in dist_text_files():
+        text = read_text(document_path)
+        for match in optimize_images.PAGE_IMAGE_PATTERN.finditer(text):
+            if match.group(1) in web_images:
+                broken.append(
+                    f"{document_path.relative_to(DIST)} shows the full-size "
+                    f"{match.group(1)} instead of its WebP copy"
+                )
+    return broken
+
+
+def validate_dist(products: list[dict[str, object]], web_images: dict[str, str]) -> None:
     expected_top_level = {
         *STATIC_PAGES,
         *STANDALONE_PAGES,
@@ -458,8 +560,13 @@ def validate_dist(products: list[dict[str, object]]) -> None:
             if target is not None and not target.exists():
                 broken.append(f"{document_path.relative_to(DIST)} -> {url}")
 
+    broken.extend(validate_images(web_images))
+
     forbidden_names = {"functions", ".venv", ".agents", "client_explanation"}
     leaked = sorted(path for path in forbidden_names if (DIST / path).exists())
+    leaked += sorted(
+        str(path.relative_to(DIST)) for path in DIST.rglob("private") if path.is_dir()
+    )
     if leaked:
         broken.append(f"Forbidden deploy entries: {', '.join(leaked)}")
     if broken:
@@ -474,6 +581,14 @@ def main() -> None:
 
     reset_dist()
     copy_production_directories()
+    web_images = publish_web_images()
+    site_products = [web_product(product, web_images) for product in products]
+    write_text(
+        DIST / "data" / "products.json",
+        json.dumps(site_products, indent=2, ensure_ascii=False),
+    )
+    for stylesheet in (DIST / "assets" / "css").rglob("*.css"):
+        write_text(stylesheet, use_web_images(read_text(stylesheet), web_images))
 
     for name in STANDALONE_PAGES:
         shutil.copy2(ROOT / name, DIST / name)
@@ -481,12 +596,12 @@ def main() -> None:
     for name in STATIC_PAGES:
         document = read_text(ROOT / name)
         if name == "industrial.html":
-            document = inject_catalog(document, products)
+            document = inject_catalog(document, site_products)
         document = inline_shell(document, nav, footer, name)
-        write_text(DIST / name, document)
+        write_text(DIST / name, use_web_images(document, web_images))
 
-    for product in products:
-        document = render_product_page(product_template, product, nav, footer)
+    for product, site_product in zip(products, site_products):
+        document = render_product_page(product_template, product, site_product, nav, footer)
         write_text(DIST / "products" / f"{product['id']}.html", document)
 
     sitemap = generate_sitemap(products)
@@ -497,10 +612,15 @@ def main() -> None:
     write_text(DIST / "llms.txt", llms)
     shutil.copy2(ROOT / "robots.txt", DIST / "robots.txt")
 
-    validate_dist(products)
+    pruned = prune_replaced_images(web_images)
+    validate_dist(products, web_images)
     file_count = sum(1 for path in DIST.rglob("*") if path.is_file())
     size_mb = sum(path.stat().st_size for path in DIST.rglob("*") if path.is_file()) / (1024 * 1024)
     print(f"Built {file_count} deploy files ({size_mb:.1f} MB) in {DIST}")
+    print(
+        f"Published {len(web_images)} WebP images; dropped {pruned} unused "
+        f"full-size originals ({len(web_images) - pruned} kept for share/SEO links)"
+    )
     print(f"Generated {len(products)} static product pages")
     print("Validation passed: only the allowlisted production payload will deploy")
 

@@ -1,6 +1,6 @@
 /* Slides the ambient page glow (glow.css) from the previous page's position
    into this page's position when navigating between About / Contact / Become a
-   Partner. Falls back to a static glow on direct visits or when the referrer
+   Partner / Case Studies. Falls back to a static glow on direct visits or when the referrer
    isn't one of those pages.
 
    Loaded synchronously in <head> *after* glow.css, so it waits for that
@@ -14,6 +14,7 @@
   // Glow positions per page key — keep in sync with glow.css.
   const POS = {
     about: { ax: "28%", ay: "22%", bx: "78%", by: "82%" },
+    cases: { ax: "40%", ay: "20%", bx: "63%", by: "83%" },
     contact: { ax: "50%", ay: "18%", bx: "50%", by: "84%" },
     partner: { ax: "74%", ay: "20%", bx: "24%", by: "82%" },
   };
@@ -26,6 +27,8 @@
       switch (ref.pathname.split("/").pop()) {
         case "about.html":
           return "about";
+        case "case-studies.html":
+          return "cases";
         case "contact.html":
           return "contact";
         case "resellers.html":

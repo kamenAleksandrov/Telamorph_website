@@ -10,11 +10,11 @@ def main():
     parser.add_argument("source", type=Path, help="HMI docs/images/theme/hmi-web-demo.html")
     args = parser.parse_args()
     document = args.source.read_text(encoding="utf-8")
+    # The HMI page keeps its engineering-document links between these markers;
+    # the client page drops them and keeps the simulated-data note.
     document, count = re.subn(
-        r'<p style="margin-top:12px">These selectors are design-review controls.*?</p>',
-        '<p style="margin-top:12px">Development demo with simulated data. '
-        'No furnace is connected. Changes reset when you reload this page.</p>',
-        document, count=1, flags=re.DOTALL,
+        r'\s*<!-- engineering-links:begin.*?<!-- engineering-links:end -->',
+        '', document, count=1, flags=re.DOTALL,
     )
     if count != 1 or '.md"' in document:
         raise ValueError("Demo wrapper changed; review client adaptation before syncing")

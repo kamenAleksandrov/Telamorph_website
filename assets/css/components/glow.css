@@ -1,5 +1,6 @@
 /* ──────────────────────────────────────────────────────────────────────────
-   Ambient blue glow shared by About / Contact / Become a Partner.
+   Ambient blue glow shared by About / Case Studies / Contact / Become a
+   Partner.
 
    Two soft radial blobs sit on a fixed, negative-z layer behind everything.
    Their positions are driven by registered custom properties so they can be
@@ -40,6 +41,12 @@ html[data-glow="about"] {
 html[data-glow="contact"] {
   --glow-a-x: 50%; --glow-a-y: 18%;  /* top-center    */
   --glow-b-x: 50%; --glow-b-y: 84%;  /* bottom-center */
+}
+/* Between About and Contact, so About → Case Studies → Contact eases the
+   two lobes in towards the centre step by step. */
+html[data-glow="cases"] {
+  --glow-a-x: 40%; --glow-a-y: 20%;  /* top, left of centre     */
+  --glow-b-x: 63%; --glow-b-y: 83%;  /* bottom, right of centre */
 }
 html[data-glow="partner"] {
   --glow-a-x: 74%; --glow-a-y: 20%;  /* top-right   */

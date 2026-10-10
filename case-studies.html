@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en" data-glow="cases">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Composite Engineering Case Studies | Telamorph</title>
+    <meta
+      name="description"
+      content="Telamorph composite case studies: a 26 kg sports-car body, a certified light-aircraft monocoque, a UAV radome, an underwater-drone enclosure and an e-bike battery enclosure, engineered, tooled and built in-house."
+    />
+    <link rel="canonical" href="https://telamorph.com/case-studies.html" />
+    <link rel="icon" type="image/svg+xml" href="assets/images/brand/logo.svg" />
+    <link rel="apple-touch-icon" href="assets/images/brand/logo.svg" />
+
+    <meta property="og:site_name" content="Telamorph" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:title" content="Composite Engineering Case Studies | Telamorph" />
+    <meta
+      property="og:description"
+      content="Telamorph composite case studies, from a 26 kg sports-car body to a certified light-aircraft monocoque built for nearly 70 aircraft."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://telamorph.com/case-studies.html" />
+    <meta
+      property="og:image"
+      content="https://telamorph.com/assets/images/finished/manifactured-car-milky-way.png"
+    />
+    <meta
+      property="og:image:alt"
+      content="A Telamorph carbon-fibre car under a starlit sky"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Composite Engineering Case Studies | Telamorph" />
+    <meta
+      name="twitter:description"
+      content="Telamorph composite case studies, from a 26 kg sports-car body to a certified light-aircraft monocoque built for nearly 70 aircraft."
+    />
+    <meta
+      name="twitter:image"
+      content="https://telamorph.com/assets/images/finished/manifactured-car-milky-way.png"
+    />
+    <meta name="theme-color" content="#111215" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "@id": "https://telamorph.com/case-studies.html#webpage",
+        "url": "https://telamorph.com/case-studies.html",
+        "name": "Composite Engineering Case Studies | Telamorph",
+        "description": "Telamorph composite case studies, from a 26 kg sports-car body to a certified light-aircraft monocoque built for nearly 70 aircraft.",
+        "isPartOf": { "@id": "https://telamorph.com/#website" },
+        "about": { "@id": "https://telamorph.com/#organization" },
+        "inLanguage": "en",
+        "mainEntity": {
+          "@type": "ItemList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Complete composite body for a sports car",
+              "url": "https://telamorph.com/case-studies.html#sports-car-composite-body"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Composite monocoque and structure for a certified light aircraft",
+              "url": "https://telamorph.com/case-studies.html#light-aircraft-monocoque"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Radio-transparent radome insert for a UAV",
+              "url": "https://telamorph.com/case-studies.html#uav-radome-insert"
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "name": "Watertight composite enclosure for a compact underwater drone",
+              "url": "https://telamorph.com/case-studies.html#underwater-drone-enclosure"
+            },
+            {
+              "@type": "ListItem",
+              "position": 5,
+              "name": "Composite battery enclosure for an electric bicycle",
+              "url": "https://telamorph.com/case-studies.html#e-bike-battery-enclosure"
+            }
+          ]
+        }
+      }
+    </script>
+
+    <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/components/navbar.css" />
+    <link rel="stylesheet" href="assets/css/components/footer.css" />
+    <link rel="stylesheet" href="assets/css/components/buttons.css" />
+    <link rel="stylesheet" href="assets/css/components/section-header.css" />
+    <link rel="stylesheet" href="assets/css/components/noscript.css" />
+    <link rel="stylesheet" href="assets/css/components/streak.css" />
+    <link rel="stylesheet" href="assets/css/components/glow.css" />
+    <link rel="stylesheet" href="assets/css/pages/case-studies.css" />
+    <script>
+      (() => {
+        const cacheKeys = {
+          nav: "telamorph-shell-nav-v4",
+          footer: "telamorph-shell-footer-v2",
+        };
+
+        window.__hydrateTelamorphShell = (targetId, slot) => {
+          try {
+            const target = document.getElementById(targetId);
+            const html = sessionStorage.getItem(cacheKeys[slot]);
+            if (!target || !html || target.innerHTML.trim()) return;
+            target.innerHTML = html;
+            target.dataset.shellHydrated = "true";
+          } catch {
+            // Ignore storage access failures.
+          }
+        };
+      })();
+    </script>
+
+    <!-- Seeds the cross-page glow slide before first paint (see glow.css). -->
+    <script src="assets/js/glow.js"></script>
+  </head>
+  <body>
+    <div id="nav-placeholder"></div>
+    <script>
+      window.__hydrateTelamorphShell?.("nav-placeholder", "nav");
+    </script>
+
+    <main>
+      <section class="cs-hero">
+        <div class="container reveal-stagger">
+          <span class="cs-eyebrow reveal">Selected projects</span>
+          <h1 class="cs-title reveal">Case Studies</h1>
+          <p class="cs-lead reveal">
+            Projects across automotive, aviation, UAV, underwater and
+            e-mobility, each taken from the customer's requirements to a
+            tested composite part.
+          </p>
+        </div>
+      </section>
+
+      <!-- Case browser. Overview: one card row per case. Picking a card
+           collapses the rows into a tab strip and opens that case below.
+           Each case is addressable as case-studies.html#<slug> so a specific
+           one can be shared (e.g. from LinkedIn). To add a case: copy one
+           <li> card and one <article>, give both the same new slug, renumber,
+           and add it to the JSON-LD list in <head>.
+           Without JS every case simply renders in full, one after another. -->
+      <section class="cs-browser" id="cs-browser" data-cs-browser>
+        <div class="container">
+          <nav class="cs-index" aria-label="Case studies">
+            <a class="cs-all" href="#" data-cs-all>
+              <span class="cs-all-icon" aria-hidden="true"></span>
+              <span>All case studies</span>
+            </a>
+            <ul class="cs-cards reveal-stagger">
+              <li class="reveal">
+                <a class="cs-card" href="#sports-car-composite-body" data-case-link="sports-car-composite-body">
+                  <span class="cs-card-num" aria-hidden="true"><span class="cs-card-num-pad">0</span>1</span>
+                  <span class="cs-card-body">
+                    <span class="cs-card-sector">Automotive</span>
+                    <span class="cs-card-title">Complete composite body for a sports car</span>
+                    <span class="cs-card-fact">26 kg body · fitted to about 15 cars</span>
+                  </span>
+                  <span class="cs-card-cta">Read case study</span>
+                </a>
+              </li>
+              <li class="reveal">
+                <a class="cs-card" href="#light-aircraft-monocoque" data-case-link="light-aircraft-monocoque">
+                  <span class="cs-card-num" aria-hidden="true"><span class="cs-card-num-pad">0</span>2</span>
+                  <span class="cs-card-body">
+                    <span class="cs-card-sector">Aviation</span>
+                    <span class="cs-card-title">Composite monocoque and structure for a certified light aircraft</span>
+                    <span class="cs-card-fact">Certified · built for nearly 70 aircraft</span>
+                  </span>
+                  <span class="cs-card-cta">Read case study</span>
+                </a>
+              </li>
+              <li class="reveal">
+                <a class="cs-card" href="#uav-radome-insert" data-case-link="uav-radome-insert">
+                  <span class="cs-card-num" aria-hidden="true"><span class="cs-card-num-pad">0</span>3</span>
+                  <span class="cs-card-body">
+                    <span class="cs-card-sector">UAV</span>
+                    <span class="cs-card-title">Radio-transparent radome insert for a UAV</span>
+                    <span class="cs-card-fact">RF-transparent window · low-volume production</span>
+                  </span>
+                  <span class="cs-card-cta">Read case study</span>
+                </a>
+              </li>
+              <li class="reveal">
+                <a class="cs-card" href="#underwater-drone-enclosure" data-case-link="underwater-drone-enclosure">
+                  <span class="cs-card-num" aria-hidden="true"><span class="cs-card-num-pad">0</span>4</span>
+                  <span class="cs-card-body">
+                    <span class="cs-card-sector">Underwater</span>
+                    <span class="cs-card-title">Watertight composite enclosure for a compact underwater drone</span>
+                    <span class="cs-card-fact">Staged leak and hydrostatic pressure testing</span>
+                  </span>
+                  <span class="cs-card-cta">Read case study</span>
+                </a>
+              </li>
+              <li class="reveal">
+                <a class="cs-card" href="#e-bike-battery-enclosure" data-case-link="e-bike-battery-enclosure">
+                  <span class="cs-card-num" aria-hidden="true"><span class="cs-card-num-pad">0</span>5</span>
+                  <span class="cs-card-body">
+                    <span class="cs-card-sector">E-mobility</span>
+                    <span class="cs-card-title">Composite battery enclosure for an electric bicycle</span>
+                    <span class="cs-card-fact">Removable battery · small-series ready</span>
+                  </span>
+                  <span class="cs-card-cta">Read case study</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+          <div class="cs-cases">
+            <!-- ======================= 01 · Automotive ======================= -->
+            <article class="cs-case" id="sports-car-composite-body">
+              <header class="cs-case-head">
+                <span class="cs-eyebrow">Case study 01 · Automotive</span>
+                <h2 class="cs-case-title" tabindex="-1">Complete composite body for a sports car</h2>
+                <p class="cs-case-lead">We engineered and industrialised a complete composite body for a sports car, built to the customer's exterior design. The 26 kg body has been fitted to about 15 cars and is ready for a third production series.</p>
+                <ul class="cs-highlights">
+                  <li><strong>26 kg</strong> complete composite body</li>
+                  <li><strong>About 15 cars</strong> fitted with the body</li>
+                  <li><strong>Third series</strong> fully documented and ready to build</li>
+                </ul>
+              </header>
+
+              <div class="cs-split">
+                <div class="cs-col">
+                  <section class="cs-block">
+                    <h3 class="cs-block-title">The brief</h3>
+                    <p class="cs-text">The customer supplied the design data for the exterior. The body had to meet defined requirements for dimensional accuracy, fit, durability, reliability and structural performance, and it had to be repeatable in low-volume production.</p>
+                  </section>
+                  <section class="cs-block">
+                    <h3 class="cs-block-title">How it is built</h3>
+                    <p class="cs-text">The body is a hybrid of carbon fibre and carbon-Kevlar, optimised for manufacturability and high structural stiffness. It is designed to carry the defined service loads without permanent deformation, at minimum structural weight.</p>
+                  </section>
+                </div>
+                <section class="cs-block">
+                  <h3 class="cs-block-title">What we did</h3>
+                  <ol class="cs-steps">
+                    <li>Engineering of all exterior panels and selected interior components</li>
+                    <li>Material selection, structural design and sizing</li>
+                    <li>Component interfaces, joining solutions and body-to-chassis mounting</li>
+                    <li>Design for manufacture</li>
+                    <li>Design and manufacture of all tooling</li>
+                    <li>The first complete prototype body, validated against the requirements</li>
+                    <li>Industrialisation and low-volume production</li>
+                  </ol>
+                </section>
+              </div>
+
+              <div class="cs-outcome">
+                <dl class="cs-specs">
+                  <div><dt>Material</dt><dd>Hybrid carbon fibre and carbon-Kevlar</dd></div>
+                  <div><dt>Structure</dt><dd>Selected multi-layer laminates</dd></div>
+                  <div><dt>Process</dt><dd>Vacuum infusion, CNC trimming, bonding, fitting, finishing</dd></div>
+                  <div><dt>Scope</dt><dd>Complete body and selected interior components</dd></div>
+                </dl>
+                <section class="cs-block cs-result">
+                  <h3 class="cs-block-title">The result</h3>
+                  <p>A 26 kg complete composite body, fitted to approximately 15 vehicles. The project is fully documented and ready for a third manufacturing series.</p>
+                </section>
+              </div>
+            </article>
+
+            <!-- ======================= 02 · Aviation ======================= -->
+            <article class="cs-case" id="light-aircraft-monocoque">
+              <header class="cs-case-head">
+                <span class="cs-eyebrow">Case study 02 · Aviation</span>
+                <h2 class="cs-case-title" tabindex="-1">Composite monocoque and structure for a certified light aircraft</h2>
+                <p class="cs-case-lead">We developed and built the composite monocoque cockpit and structure for a certified light aircraft. After certification it went into series production, and it has been built for nearly 70 aircraft.</p>
+                <ul class="cs-highlights">
+                  <li><strong>Certified</strong> then taken into series production</li>
+                  <li><strong>Nearly 70 aircraft</strong> built with the structure</li>
+                  <li><strong>2,500+ flight hours</strong> on several aircraft, and over five years in service</li>
+                </ul>
+              </header>
+
+              <div class="cs-split">
+                <div class="cs-col">
+                  <section class="cs-block">
+                    <h3 class="cs-block-title">The brief</h3>
+                    <p class="cs-text">The customer's engineering team needed a composite cockpit and structure that would pass certification testing and then go into series production. The structure had to carry the loads from the engine, the propeller and other highly loaded assemblies.</p>
+                  </section>
+                  <section class="cs-block">
+                    <h3 class="cs-block-title">How it is built</h3>
+                    <p class="cs-text">Each component has a composite layup tailored to its own load case. Fibre orientation and laminate thickness vary locally within individual parts, and stiffening closing panels limit the deformation of lightly loaded aerodynamic surfaces. Honeycomb cores and reinforcement fabrics are chosen locally to balance stiffness, elasticity and weight.</p>
+                  </section>
+                </div>
+                <section class="cs-block">
+                  <h3 class="cs-block-title">What we did</h3>
+                  <ol class="cs-steps">
+                    <li>Contribution to the aerodynamic geometry, together with the customer's engineering team</li>
+                    <li>Structural architecture, including the load-bearing interfaces to the engine, propeller and other highly loaded assemblies</li>
+                    <li>Structural sizing and laminate definition</li>
+                    <li>Thermal design around high-temperature zones</li>
+                    <li>Assembly design and tolerance definition</li>
+                    <li>Design and manufacture of the tooling, and dimensional control</li>
+                    <li>The first complete prototype structure, built and assembled for certification testing</li>
+                    <li>Industrialisation and series production</li>
+                  </ol>
+                </section>
+              </div>
+
+              <div class="cs-outcome">
+                <dl class="cs-specs">
+                  <div><dt>Material</dt><dd>Carbon fibre, glass fibre, honeycomb cores</dd></div>
+                  <div><dt>Structure</dt><dd>Mass- and load-optimised composite structure</dd></div>
+                  <div><dt>Process</dt><dd>Vacuum infusion, prepreg, RTM</dd></div>
+                  <div><dt>Scope</dt><dd>Complete structure</dd></div>
+                </dl>
+                <section class="cs-block cs-result">
+                  <h3 class="cs-block-title">The result</h3>
+                  <p>A certified composite structure, taken into series production and built for nearly 70 aircraft. Several of these aircraft have passed 2,500 flight hours and more than five years in service.</p>
+                </section>
+              </div>
+            </article>
+
+            <!-- ======================= 03 · UAV ======================= -->
+            <article class="cs-case" id="uav-radome-insert">
+              <header class="cs-case-head">
+                <span class="cs-eyebrow">Case study 03 · UAV</span>
+                <h2 class="cs-case-title" tabindex="-1">Radio-transparent radome insert for a UAV</h2>
+                <p class="cs-case-lead">We engineered and built a compact radome that sits in the composite outer skin of an unmanned aerial vehicle and gives its antenna a controlled non-conductive window. After first-article validation, the part went into low-volume production.</p>
+                <ul class="cs-highlights">
+                  <li><strong>Kevlar-Nomex sandwich</strong> window with controlled wall thickness</li>
+                  <li><strong>Out-of-autoclave</strong> prepreg</li>
+                  <li><strong>Low-volume production</strong> after first-article validation</li>
+                </ul>
+              </header>
+
+              <div class="cs-split">
+                <div class="cs-col">
+                  <section class="cs-block">
+                    <h3 class="cs-block-title">The brief</h3>
+                    <p class="cs-text">The customer supplied the outer-mould-line geometry, the antenna envelope and the installation constraints. The radome had to keep the airframe's aerodynamic contour, give the antenna a non-conductive window and fit the surrounding structure.</p>
+                  </section>
+                  <section class="cs-block">
+                    <h3 class="cs-block-title">How it is built</h3>
+                    <p class="cs-text">The active window is a Kevlar-Nomex sandwich with an epoxy laminate, made with controlled fibre orientation, resin content and wall thickness. Non-conductive reinforcement is limited to the attachment perimeter, and conductive fasteners and the surrounding carbon-fibre structure stay outside the RF aperture. A bonded peripheral flange takes the local installation loads, and the outer surface has a lightweight dielectric coating suited to the laminate and the operating environment.</p>
+                  </section>
+                </div>
+                <section class="cs-block">
+                  <h3 class="cs-block-title">What we did</h3>
+                  <ol class="cs-steps">
+                    <li>Material selection, laminate and wall-thickness definition</li>
+                    <li>Peripheral flange and sealing design</li>
+                    <li>Structural checks for aerodynamic and vibration loads</li>
+                    <li>Manufacturing tolerances</li>
+                    <li>Joints, reinforcements and hardware placed outside the active RF window</li>
+                    <li>Preliminary electromagnetic assessment of the material system, laminate thickness and geometry</li>
+                    <li>Tooling and manufacturing route</li>
+                    <li>First article for dimensional inspection, airframe fit checks, sealing verification and customer-led RF testing</li>
+                  </ol>
+                </section>
+              </div>
+
+              <div class="cs-outcome">
+                <dl class="cs-specs">
+                  <div><dt>Material</dt><dd>Kevlar-Nomex sandwich, epoxy, dielectric coating</dd></div>
+                  <div><dt>Structure</dt><dd>Controlled-thickness RF window, reinforced perimeter</dd></div>
+                  <div><dt>Process</dt><dd>Out-of-autoclave prepreg with Nomex core, CNC trimming, bonding, sealing, inspection</dd></div>
+                  <div><dt>Scope</dt><dd>Complete radome insert</dd></div>
+                </dl>
+                <section class="cs-block cs-result">
+                  <h3 class="cs-block-title">The result</h3>
+                  <p>The first article kept the UAV's aerodynamic outer contour and gave a controlled non-conductive window for system-level antenna validation. The radome then went into low-volume production.</p>
+                </section>
+              </div>
+            </article>
+
+            <!-- ======================= 04 · Underwater ======================= -->
+            <article class="cs-case" id="underwater-drone-enclosure">
+              <header class="cs-case-head">
+                <span class="cs-eyebrow">Case study 04 · Underwater</span>
+                <h2 class="cs-case-title" tabindex="-1">Watertight composite enclosure for a compact underwater drone</h2>
+                <p class="cs-case-lead">We developed and built the pressure-resistant composite enclosure and internal support structure for a compact underwater vehicle, and defined how it is inspected and pressure-tested.</p>
+                <ul class="cs-highlights">
+                  <li><strong>Glass-fibre/epoxy shell</strong> with local carbon-fibre reinforcement</li>
+                  <li><strong>Bonded ring frames</strong> and an equipment cradle that keep the propulsion and sensors aligned</li>
+                  <li><strong>Staged testing</strong> for leaks and hydrostatic pressure</li>
+                </ul>
+              </header>
+
+              <div class="cs-split">
+                <div class="cs-col">
+                  <section class="cs-block">
+                    <h3 class="cs-block-title">The brief</h3>
+                    <p class="cs-text">The customer defined the external envelope and the internal equipment layout. The enclosure had to resist external pressure, stay sealed, take the propulsion unit and hold the batteries and control electronics in alignment, with access for maintenance.</p>
+                  </section>
+                  <section class="cs-block">
+                    <h3 class="cs-block-title">How it is built</h3>
+                    <p class="cs-text">The enclosure is a moulded glass-fibre/epoxy shell with local carbon-fibre reinforcement in highly loaded regions. Laminate thickness and fibre orientation vary around openings, mounting points and concentrated load paths. Bonded ring frames and a composite equipment cradle stabilise the shell and keep the enclosure, propulsion system and sensor interfaces aligned. The watertight joints use CNC-trimmed flanges and replaceable elastomeric seals, and metallic inserts are electrically isolated from the carbon reinforcement.</p>
+                  </section>
+                </div>
+                <section class="cs-block">
+                  <h3 class="cs-block-title">What we did</h3>
+                  <ol class="cs-steps">
+                    <li>Enclosure architecture and shell segmentation</li>
+                    <li>Laminate definition</li>
+                    <li>External-pressure and buckling assessment</li>
+                    <li>Sealing geometry and service access</li>
+                    <li>Reinforced interfaces for the propulsion unit</li>
+                    <li>Internal supports for the batteries and control electronics, designed for load transfer, alignment, assembly sequence and maintenance access</li>
+                    <li>Design and manufacture of the tooling</li>
+                    <li>The prototype, the dimensional inspection and a staged hydrostatic pressure-testing procedure</li>
+                  </ol>
+                </section>
+              </div>
+
+              <div class="cs-outcome">
+                <dl class="cs-specs">
+                  <div><dt>Material</dt><dd>Glass fibre, carbon fibre, epoxy</dd></div>
+                  <div><dt>Structure</dt><dd>Pressure-bearing shell, bonded frames, equipment cradle</dd></div>
+                  <div><dt>Process</dt><dd>Vacuum infusion, CNC trimming, bonding, sealing, testing</dd></div>
+                  <div><dt>Scope</dt><dd>Complete watertight enclosure</dd></div>
+                </dl>
+                <section class="cs-block cs-result">
+                  <h3 class="cs-block-title">The result</h3>
+                  <p>A compact, structurally integrated enclosure, verified through dimensional inspection, assembly checks and staged leak and pressure testing against the project requirements.</p>
+                </section>
+              </div>
+            </article>
+
+            <!-- ======================= 05 · E-mobility ======================= -->
+            <article class="cs-case" id="e-bike-battery-enclosure">
+              <header class="cs-case-head">
+                <span class="cs-eyebrow">Case study 05 · E-mobility</span>
+                <h2 class="cs-case-title" tabindex="-1">Composite battery enclosure for an electric bicycle</h2>
+                <p class="cs-case-lead">We developed and built a compact composite enclosure that integrates a removable battery module into an electric bicycle frame. The design and tooling were prepared for repeatable small-series production.</p>
+                <ul class="cs-highlights">
+                  <li><strong>Flame-retardant epoxy</strong> with insulating inner layers</li>
+                  <li><strong>Removable battery</strong> behind a replaceable seal</li>
+                  <li><strong>Small-series ready</strong> design and tooling</li>
+                </ul>
+              </header>
+
+              <div class="cs-split">
+                <div class="cs-col">
+                  <section class="cs-block">
+                    <h3 class="cs-block-title">The brief</h3>
+                    <p class="cs-text">The customer provided the battery envelope, the bicycle-frame geometry and the electrical interfaces. The enclosure had to take road vibration, handling loads and local impacts without passing concentrated loads into the battery module, keep conductive parts electrically isolated, and let the battery be removed for service.</p>
+                  </section>
+                  <section class="cs-block">
+                    <h3 class="cs-block-title">How it is built</h3>
+                    <p class="cs-text">The enclosure uses a glass-fibre-rich laminate with local carbon-fibre reinforcement, a flame-retardant epoxy system and electrically insulating inner layers around the battery module. Bonded inserts are isolated from the carbon laminate. An overlapping cover flange and a replaceable elastomeric seal protect the battery and keep it serviceable, while internal supports and elastomeric pads locate the module and spread the loads across the enclosure. A membrane vent equalises pressure without opening a path for moisture.</p>
+                  </section>
+                </div>
+                <section class="cs-block">
+                  <h3 class="cs-block-title">What we did</h3>
+                  <ol class="cs-steps">
+                    <li>Enclosure architecture and mounting concept</li>
+                    <li>Load transfer into the frame and internal battery supports</li>
+                    <li>Removable service access, sealing flanges, and cable and charging interfaces</li>
+                    <li>Tolerance definition and design for manufacture</li>
+                    <li>Electrical isolation around conductive composite layers and metallic inserts</li>
+                    <li>Thermal clearances, pressure equalisation and a controlled vent path, coordinated with the battery-system requirements</li>
+                    <li>Tooling, and prototype units for dimensional, assembly, sealing and functional checks</li>
+                  </ol>
+                </section>
+              </div>
+
+              <div class="cs-outcome">
+                <dl class="cs-specs">
+                  <div><dt>Material</dt><dd>Glass fibre, carbon fibre, epoxy, local inserts</dd></div>
+                  <div><dt>Structure</dt><dd>Sealed enclosure, reinforced mounts, isolated supports</dd></div>
+                  <div><dt>Process</dt><dd>Prepreg, CNC trimming, bonding, sealing, assembly</dd></div>
+                  <div><dt>Scope</dt><dd>Complete battery enclosure</dd></div>
+                </dl>
+                <section class="cs-block cs-result">
+                  <h3 class="cs-block-title">The result</h3>
+                  <p>The enclosure was integrated with the bicycle frame and electrical system. After checks of frame fit, fastener retention, gasket compression, connector access and basic water-ingress protection, the design and tooling were prepared for repeatable small-series manufacture.</p>
+                </section>
+              </div>
+            </article>
+          </div>
+
+          <!-- Filled by case-studies.js with previous / next links for the
+               open case. -->
+          <nav class="cs-pager" aria-label="More case studies" data-cs-pager hidden></nav>
+        </div>
+      </section>
+
+      <section class="cs-cta">
+        <div class="container reveal-stagger">
+          <h2 class="cs-cta-title reveal">Have a similar project?</h2>
+          <p class="cs-cta-text reveal">
+            Send us your idea. Our engineers will review it and propose the
+            material, tooling and production route.
+          </p>
+          <a href="contact.html" class="btn btn-accent btn-lg reveal"
+            >Talk to our engineers</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script>
+      window.__hydrateTelamorphShell?.("footer-placeholder", "footer");
+    </script>
+
+    <script
+      src="assets/vendor/bootstrap/bootstrap.bundle.min.js"
+      defer
+    ></script>
+    <script src="assets/js/utils.js" defer></script>
+    <script src="assets/js/main.js?v=20260427" defer></script>
+    <script src="assets/js/case-studies.js" defer></script>
+  </body>
+</html>

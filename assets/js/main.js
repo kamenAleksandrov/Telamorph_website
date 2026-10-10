@@ -24,8 +24,8 @@ const shellCacheKeys = {
 };
 
 const shellPartialUrls = {
-  nav: "/components/nav.html?v=20260715-static-shell",
-  footer: "/components/footer.html?v=20260715-static-shell",
+  nav: "/components/nav.html?v=20261010-case-studies",
+  footer: "/components/footer.html?v=20261010-case-studies",
 };
 
 function readShellCache(cacheKey) {

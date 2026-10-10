@@ -1,0 +1,901 @@
+/* ==========================================================================
+   Telamorph — Case Studies (case-studies.html)
+   A browsable list of project cards. Overview = full-width card rows.
+   Opening a case collapses the rows into a tab strip and shows the case
+   below it (see assets/js/case-studies.js). Cards carry no photos yet, so
+   they wear a faint engineering-drawing grid and an outlined case number.
+   Body copy stays at full text colour throughout: the page is read by
+   clients for detail, so clarity wins over muted styling.
+   ========================================================================== */
+
+.cs-eyebrow {
+  display: inline-block;
+  font-size: clamp(0.85rem, 0.8rem + 0.25vw, 1rem);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 0.9rem;
+}
+
+/* --- Hero --- */
+.cs-hero {
+  padding: calc(var(--nav-height, 72px) + 4.5rem) 0 clamp(2rem, 5vh, 3rem);
+}
+
+.cs-title {
+  font-size: clamp(2.3rem, 1.5rem + 3.2vw, 4.2rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+/* A case is open: shrink the hero so the case fills the screen. */
+.cs-open .cs-hero {
+  padding-bottom: 1.25rem;
+}
+
+.cs-open .cs-hero .cs-eyebrow,
+.cs-open .cs-lead {
+  display: none;
+}
+
+.cs-open .cs-title {
+  font-size: clamp(1.6rem, 1.3rem + 1.2vw, 2.3rem);
+  margin-bottom: 0;
+}
+
+.cs-lead {
+  max-width: 60ch;
+  font-size: clamp(1.05rem, 0.95rem + 0.45vw, 1.3rem);
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ==========================================================================
+   Cards — overview rows
+   ========================================================================== */
+.cs-browser {
+  padding-bottom: clamp(1.25rem, 3vh, 2rem);
+}
+
+.cs-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(0.75rem, 0.5rem + 0.6vw, 1rem);
+}
+
+.cs-cards > li {
+  display: flex;
+  min-width: 0;
+}
+
+/* Row: [ outlined number | sector · title · key fact | Read case study → ] */
+.cs-card {
+  --mx: 50%;
+  --my: 0%;
+  --cs-edge-radius: var(--radius-lg);
+  position: relative;
+  isolation: isolate;
+  flex: 1;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: clamp(1.25rem, 0.75rem + 2vw, 2.75rem);
+  padding: clamp(1.15rem, 0.9rem + 0.8vw, 1.6rem) clamp(1.25rem, 0.9rem + 1.5vw, 2.25rem);
+  border: 1px solid var(--border-color);
+  border-radius: var(--cs-edge-radius);
+  /* No overflow clipping: it would cut the top streak, which sits on the
+     border. The grid layer rounds its own corners instead. */
+  color: var(--text-primary);
+  background:
+    radial-gradient(
+      420px circle at var(--mx) var(--my),
+      rgba(91, 168, 245, 0.11),
+      transparent 60%
+    ),
+    linear-gradient(160deg, rgba(37, 39, 48, 0.92), rgba(24, 25, 29, 0.92));
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition),
+    transform var(--transition),
+    background-color var(--transition);
+}
+
+/* Engineering-drawing grid, fading in from the right-hand end. */
+.cs-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: calc(var(--cs-edge-radius) - 1px);
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(91, 168, 245, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(91, 168, 245, 0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(70% 140% at 100% 100%, #000 10%, transparent 70%);
+  mask-image: radial-gradient(70% 140% at 100% 100%, #000 10%, transparent 70%);
+}
+
+/* Top-edge streak (the site's cursor streak, see streak.css), drawn as a
+   border on the cards and the result panel: it runs along the top edge and
+   bends round both top corners, then stops where the corner curve ends
+   instead of running down the sides. The box is one corner-radius tall with
+   no bottom border; the mask cuts out its padding box so only the top +
+   corner border strokes remain. case-studies.js feeds --streak-x. */
+.cs-card::after,
+.cs-result::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  height: calc(var(--cs-edge-radius) + 1px);
+  border: 2px solid transparent;
+  border-bottom: 0;
+  border-radius: var(--cs-edge-radius) var(--cs-edge-radius) 0 0;
+  background: linear-gradient(
+      90deg,
+      rgba(91, 168, 245, 0.35) 0%,
+      rgba(91, 168, 245, 0.35) calc(var(--streak-x, 50%) - 26%),
+      var(--accent) calc(var(--streak-x, 50%) - 7%),
+      #c4e2ff var(--streak-x, 50%),
+      var(--accent) calc(var(--streak-x, 50%) + 7%),
+      rgba(91, 168, 245, 0.35) calc(var(--streak-x, 50%) + 26%),
+      rgba(91, 168, 245, 0.35) 100%
+    )
+    border-box;
+  -webkit-mask:
+    linear-gradient(#000 0 0) padding-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) padding-box exclude,
+    linear-gradient(#000 0 0);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition);
+}
+
+.cs-card:hover {
+  color: var(--text-primary);
+  border-color: var(--border-light);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.4);
+}
+
+.cs-card:hover::after,
+.cs-card:focus-visible::after,
+.cs-card.is-active::after,
+.cs-result:hover::after {
+  opacity: 1;
+}
+
+.cs-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Big outlined case number, its own column so nothing overlaps it. */
+.cs-card-num {
+  font-size: clamp(3rem, 2.2rem + 2.6vw, 4.75rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  min-width: 1.2em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(91, 168, 245, 0.45);
+  transition: -webkit-text-stroke-color var(--transition);
+}
+
+.cs-card:hover .cs-card-num {
+  -webkit-text-stroke-color: var(--accent);
+}
+
+.cs-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.cs-card-sector {
+  padding: 0.2rem 0.65rem;
+  border: 1px solid rgba(91, 168, 245, 0.35);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background-color: var(--accent-subtle);
+}
+
+.cs-card-title {
+  font-size: clamp(1.15rem, 1rem + 0.55vw, 1.45rem);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+/* The one fact a client should take from the card. */
+.cs-card-fact {
+  color: var(--text-primary);
+  font-size: 0.98rem;
+  line-height: 1.4;
+}
+
+.cs-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-weight: 600;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.cs-card-cta::after {
+  content: "\2192";
+  transition: translate var(--transition);
+}
+
+.cs-card:hover .cs-card-cta::after {
+  translate: 4px 0;
+}
+
+/* "All case studies" — only shown once a case is open. */
+.cs-all {
+  display: none;
+}
+
+/* Phones: tighter rows, the call to action shrinks to its arrow. */
+@media (max-width: 767px) {
+  .cs-card {
+    column-gap: 1rem;
+    padding: 1rem 1.1rem;
+  }
+
+  .cs-card-num {
+    font-size: 2.6rem;
+  }
+
+  .cs-card-fact {
+    font-size: 0.9rem;
+  }
+
+  .cs-card-cta {
+    align-self: start;
+    font-size: 0;
+    gap: 0;
+  }
+
+  .cs-card-cta::after {
+    font-size: 1.25rem;
+  }
+}
+
+/* ==========================================================================
+   Cards — collapsed into tabs once a case is open
+   ========================================================================== */
+.cs-browser.is-open .cs-index {
+  display: flex;
+  align-items: stretch;
+  gap: 0.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.cs-browser.is-open .cs-all {
+  flex: 0 0 auto;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  width: 5.5rem;
+  padding: 0.6rem 0.4rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  background-color: rgba(30, 32, 36, 0.7);
+  transition: border-color var(--transition);
+}
+
+.cs-browser.is-open .cs-all:hover {
+  border-color: var(--accent-deep);
+}
+
+/* 2×2 grid glyph */
+.cs-all-icon {
+  width: 16px;
+  height: 16px;
+  background:
+    linear-gradient(currentColor 0 0) 0 0 / 7px 7px no-repeat,
+    linear-gradient(currentColor 0 0) 100% 0 / 7px 7px no-repeat,
+    linear-gradient(currentColor 0 0) 0 100% / 7px 7px no-repeat,
+    linear-gradient(currentColor 0 0) 100% 100% / 7px 7px no-repeat;
+  border-radius: 1px;
+}
+
+.cs-browser.is-open .cs-cards {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.cs-browser.is-open .cs-cards > li {
+  flex: 1 1 0;
+}
+
+/* Tab: the title fills it; the case number sits in a cut in the top border,
+   like a label on a drawing. */
+.cs-browser.is-open .cs-card {
+  --cs-edge-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 4.4rem;
+  padding: 0.85rem 1rem 0.7rem;
+  background: rgba(30, 32, 36, 0.7);
+  box-shadow: none;
+  transform: none;
+}
+
+.cs-browser.is-open .cs-card-sector,
+.cs-browser.is-open .cs-card-fact,
+.cs-browser.is-open .cs-card-cta {
+  display: none;
+}
+
+/* The number centred on the top border line. Its background is a band just
+   as tall as the border (and the 2px streak on it), in the page colour, so
+   it cuts the line around the digits without patching anything else.
+   z-index lifts it over the streak (::after). */
+.cs-browser.is-open .cs-card-num {
+  position: absolute;
+  top: -0.5px;
+  left: 0.75rem;
+  z-index: 1;
+  translate: 0 -50%;
+  min-width: 0;
+  padding: 0 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  color: rgba(91, 168, 245, 0.7);
+  -webkit-text-stroke: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent calc(50% - 1.25px),
+    var(--bg-primary) calc(50% - 1.25px),
+    var(--bg-primary) calc(50% + 1.25px),
+    transparent calc(50% + 1.25px)
+  );
+  transition: color var(--transition);
+}
+
+.cs-browser.is-open .cs-card:hover .cs-card-num,
+.cs-browser.is-open .cs-card.is-active .cs-card-num {
+  color: var(--accent);
+}
+
+.cs-browser.is-open .cs-card-title {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: #c9ced5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color var(--transition);
+}
+
+.cs-browser.is-open .cs-card:hover .cs-card-title,
+.cs-browser.is-open .cs-card.is-active .cs-card-title {
+  color: var(--text-primary);
+}
+
+.cs-browser.is-open .cs-card.is-active {
+  border-color: var(--accent-deep);
+  background:
+    linear-gradient(180deg, rgba(91, 168, 245, 0.16), rgba(91, 168, 245, 0.05)),
+    rgba(30, 32, 36, 0.85);
+  box-shadow: 0 8px 24px -12px rgba(61, 147, 237, 0.55);
+}
+
+/* Phones / narrow tablets: the tab strip scrolls sideways. */
+@media (max-width: 767px) {
+  .cs-browser.is-open .cs-index {
+    margin-inline: calc(var(--bs-gutter-x, 1.5rem) * -0.5);
+    padding-inline: calc(var(--bs-gutter-x, 1.5rem) * 0.5);
+  }
+
+  /* A scrolling strip clips whatever pokes out of it, so leave room above
+     the tabs for the border numbers; the "All" box drops by the same amount
+     to stay level with them. */
+  .cs-browser.is-open .cs-cards {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding-top: 0.6rem;
+  }
+
+  .cs-browser.is-open .cs-all {
+    margin-top: 0.6rem;
+  }
+
+  .cs-browser.is-open .cs-cards::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cs-browser.is-open .cs-cards > li {
+    flex: 0 0 min(72vw, 260px);
+    scroll-snap-align: start;
+  }
+
+  .cs-browser.is-open .cs-all {
+    width: 4rem;
+    font-size: 0;
+    gap: 0;
+  }
+}
+
+/* View transition (card ↔ tab morph). */
+::view-transition-group(*) {
+  animation-duration: 0.45s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   Case detail
+   ========================================================================== */
+.cs-js .cs-case[hidden] {
+  display: none;
+}
+
+/* Without JS every case renders in sequence. */
+.cs-case {
+  padding-top: clamp(2rem, 4vh, 3rem);
+  scroll-margin-top: calc(clamp(80px, 40px + 4.2vw, 120px) + 32px);
+}
+
+.cs-case + .cs-case {
+  margin-top: clamp(3rem, 8vh, 5rem);
+  border-top: 1px solid var(--border-color);
+}
+
+.cs-js .cs-case + .cs-case {
+  margin-top: 0;
+  border-top: 0;
+}
+
+.cs-js .cs-case:not([hidden]) {
+  animation: cs-case-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes cs-case-in {
+  from {
+    opacity: 0;
+    translate: 0 18px;
+  }
+}
+
+/* Eyebrow, title and intro stack on the left; the three highlights fill the
+   right column over the same height, so both sides start and end level. */
+.cs-case-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  grid-template-rows: auto auto 1fr;
+  column-gap: clamp(1.75rem, 1rem + 3vw, 4rem);
+  margin-bottom: clamp(2.5rem, 6vh, 3.5rem);
+}
+
+.cs-case-head > .cs-eyebrow,
+.cs-case-title,
+.cs-case-lead {
+  grid-column: 1;
+}
+
+.cs-case-head > .cs-eyebrow {
+  justify-self: start;
+}
+
+.cs-case-head > .cs-highlights {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  grid-auto-rows: 1fr;
+}
+
+.cs-case-head > .cs-highlights > li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (max-width: 991px) {
+  .cs-case-head {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+  }
+
+  .cs-case-head > .cs-highlights {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}
+
+.cs-case-title {
+  font-size: clamp(1.9rem, 1.3rem + 2.2vw, 3rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.9rem;
+  max-width: 26ch;
+}
+
+.cs-case-title:focus {
+  outline: none;
+}
+
+.cs-case-lead {
+  max-width: 70ch;
+  font-size: clamp(1.05rem, 0.98rem + 0.3vw, 1.22rem);
+  color: var(--text-primary);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* --- Highlights: the three takeaways --- */
+.cs-highlights {
+  list-style: none;
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 991px) {
+  .cs-highlights {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 1.75rem;
+  }
+}
+
+.cs-highlights > li {
+  padding: 0.9rem 1.2rem;
+  border-left: 2px solid var(--accent-deep);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  background: linear-gradient(90deg, var(--accent-subtle), transparent 85%);
+  color: var(--text-primary);
+  line-height: 1.45;
+}
+
+.cs-highlights strong {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: clamp(1.15rem, 1rem + 0.5vw, 1.4rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  background: linear-gradient(90deg, #a9d4ff, var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (max-width: 767px) {
+  .cs-highlights {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  .cs-highlights > li {
+    padding: 0.85rem 1rem;
+  }
+}
+
+/* --- Outcome: the specs as four labelled columns, then the result panel
+   as the closing statement. --- */
+.cs-outcome {
+  margin-top: clamp(3rem, 7vh, 4.5rem);
+}
+
+.cs-specs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem clamp(1.25rem, 1rem + 1.5vw, 2.5rem);
+  margin: 0 0 clamp(2rem, 5vh, 3rem);
+  padding: 1.5rem clamp(0.5rem, 0.25rem + 1vw, 1.5rem) 0;
+  border-top: 1px solid var(--border-color);
+}
+
+.cs-specs dt {
+  margin-bottom: 0.45rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.cs-specs dd {
+  margin: 0;
+  font-size: clamp(1.02rem, 0.98rem + 0.2vw, 1.12rem);
+  line-height: 1.5;
+}
+
+@media (max-width: 991px) {
+  .cs-specs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 479px) {
+  .cs-specs {
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+}
+
+/* --- Section blocks --- */
+.cs-block-title {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.cs-block-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border-light), transparent);
+}
+
+.cs-block {
+  min-width: 0;
+}
+
+.cs-text {
+  margin: 0;
+  line-height: 1.7;
+  font-size: 1.02rem;
+}
+
+/* --- Brief + How it is built (one column) | What we did --- */
+.cs-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1.75rem, 1rem + 2.5vw, 3.5rem);
+  align-items: start;
+}
+
+.cs-col {
+  display: grid;
+  gap: clamp(1.75rem, 4vh, 2.5rem);
+  min-width: 0;
+}
+
+@media (max-width: 991px) {
+  .cs-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- What we did: numbered steps, in the order the work happened --- */
+.cs-steps {
+  list-style: none;
+  counter-reset: cs-step;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.cs-steps > li {
+  position: relative;
+  counter-increment: cs-step;
+  padding-left: 2.6rem;
+  line-height: 1.55;
+}
+
+.cs-steps > li::before {
+  content: counter(cs-step, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0.05rem;
+  width: 1.85rem;
+  height: 1.5rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(91, 168, 245, 0.35);
+  border-radius: var(--radius-sm);
+  background-color: var(--accent-subtle);
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+/* --- Result: the closing statement. Same surface as the case cards, with
+   the accent border and soft blue aura of .btn-accent (buttons.css). --- */
+.cs-result {
+  --cs-edge-radius: var(--radius-lg);
+  position: relative;
+  padding: clamp(1.6rem, 1.1rem + 1.6vw, 2.6rem) clamp(1.25rem, 0.75rem + 2.5vw, 3.5rem);
+  border: 1px solid var(--accent-deep);
+  border-radius: var(--cs-edge-radius);
+  text-align: center;
+  background: linear-gradient(160deg, rgba(37, 39, 48, 0.92), rgba(24, 25, 29, 0.92));
+  box-shadow:
+    0 6px 22px -8px rgba(61, 147, 237, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.cs-result .cs-block-title {
+  justify-content: center;
+  margin-bottom: 1.1rem;
+  font-size: clamp(1.05rem, 0.95rem + 0.45vw, 1.35rem);
+  letter-spacing: 0.2em;
+}
+
+.cs-result .cs-block-title::before,
+.cs-result .cs-block-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(270deg, rgba(255, 255, 255, 0.18), transparent);
+}
+
+.cs-result .cs-block-title::after {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.18), transparent);
+}
+
+.cs-result p {
+  margin: 0;
+  font-size: clamp(1.2rem, 1rem + 0.8vw, 1.6rem);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+}
+
+/* --- Previous / All / Next ---
+   The links hug their text; "All case studies" stays centred. */
+.cs-pager {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem 1.5rem;
+  margin-top: clamp(2.5rem, 6vh, 3.5rem);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.cs-pager[hidden] {
+  display: none;
+}
+
+.cs-pager-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  max-width: 100%;
+  padding: 0.8rem 1.1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: rgba(30, 32, 36, 0.6);
+  color: var(--text-primary);
+  transition: border-color var(--transition);
+}
+
+.cs-pager-link:hover {
+  color: var(--text-primary);
+  border-color: var(--accent-deep);
+}
+
+.cs-pager-link.is-prev {
+  grid-column: 1;
+  justify-self: start;
+}
+
+.cs-pager-link.is-next {
+  grid-column: 3;
+  justify-self: end;
+  text-align: right;
+}
+
+.cs-pager-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.cs-pager-link.is-prev .cs-pager-label::before {
+  content: "\2190  ";
+}
+
+.cs-pager-link.is-next .cs-pager-label::after {
+  content: "  \2192";
+}
+
+.cs-pager-title {
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.cs-pager-all {
+  grid-column: 2;
+  grid-row: 1;
+  font-weight: 600;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+/* Phones: stack — previous, next, then "All case studies". */
+@media (max-width: 767px) {
+  .cs-pager {
+    grid-template-columns: 1fr;
+  }
+
+  .cs-pager-link.is-prev,
+  .cs-pager-link.is-next {
+    grid-column: 1;
+    justify-self: stretch;
+    text-align: left;
+  }
+
+  .cs-pager-all {
+    grid-column: 1;
+    grid-row: auto;
+    order: 1;
+    justify-self: center;
+  }
+}
+
+/* --- Closing CTA --- */
+.cs-cta {
+  padding: clamp(1.75rem, 4vh, 2.75rem) 0 clamp(4rem, 10vh, 6rem);
+  text-align: center;
+}
+
+.cs-cta-title {
+  font-size: clamp(1.7rem, 1.3rem + 1.4vw, 2.4rem);
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+}
+
+.cs-cta-text {
+  max-width: 54ch;
+  margin: 0 auto 1.75rem;
+  color: var(--text-primary);
+  font-size: 1.08rem;
+  line-height: 1.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-js .cs-case:not([hidden]) {
+    animation: none;
+  }
+
+  .cs-card:hover {
+    transform: none;
+  }
+}
