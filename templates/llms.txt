@@ -27,10 +27,20 @@ Telamorph Ltd. covers composite projects from geometry preparation and design fo
 
 Materials include carbon fibre, fibreglass, aramid, flax, cores, resin systems, and coatings. Applications include automotive, motorsport, aerospace, UAVs, industrial equipment, and special composite projects.
 
+## Case studies
+
+Anonymised customer projects, each engineered, tooled and built by Telamorph from the customer's requirements to a tested composite part.
+
+- [Composite bodywork for an automotive project](https://telamorph.com/case-studies.html#automotive-composite-body): Structural design, tooling, prototype and industrialisation of a 26 kg hybrid carbon-fibre and carbon-Kevlar body, integrated into several vehicles and production-ready for a third series.
+- [Composite structure for an ultralight aircraft](https://telamorph.com/case-studies.html#ultralight-aircraft-structure): Structural architecture, laminates, thermal design, tooling and certification prototype; certified, in series production and built for dozens of aircraft with thousands of flight hours in service.
+- [RF-transparent radome insert for a UAV](https://telamorph.com/case-studies.html#uav-radome-insert): RF-transparent sandwich radome with an epoxy system, made by infusion and out-of-autoclave prepreg, set into a carbon-fibre UAV skin; in low-volume production.
+- [Watertight composite enclosure for a ship inspection drone](https://telamorph.com/case-studies.html#ship-inspection-drone-enclosure): Vacuum-infused glass-fibre/epoxy pressure enclosure with bonded ring frames and an equipment cradle, verified by staged leak and hydrostatic pressure testing.
+- [Composite battery enclosure for an electric bicycle](https://telamorph.com/case-studies.html#e-bike-battery-enclosure): Sealed enclosure integrating a removable battery into an e-bike frame, with design and tooling ready for small-series production.
+
 ## Company and contact
 
 - [About Telamorph](https://telamorph.com/about.html): Company background and engineering approach.
-- [Case Studies](https://telamorph.com/case-studies.html): Telamorph composite case studies: a 26 kg sports-car body, a certified light-aircraft monocoque, a UAV radome, an underwater-drone enclosure and an e-bike battery enclosure, engineered, tooled and built in-house.
+- [Case Studies](https://telamorph.com/case-studies.html): Telamorph composite case studies: a 26 kg automotive composite body, a certified ultralight-aircraft structure, a UAV radome, a ship-inspection-drone enclosure and an e-bike battery enclosure, engineered, tooled and built in-house.
 - [Contact Telamorph](https://telamorph.com/contact.html): Product enquiries, quotations, and custom engineering requests.
 - General email: office@telamorph.com
 - Sales email: sales@telamorph.com

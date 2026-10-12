@@ -22,6 +22,15 @@
     ]),
   );
   const slugs = [...cases.keys()];
+  // Retired slugs (data-case-aliases on an article) still open their case,
+  // so links shared before a rename keep working.
+  const aliases = new Map();
+  cases.forEach((article, slug) => {
+    article?.dataset.caseAliases
+      ?.split(/\s+/)
+      .filter(Boolean)
+      .forEach((alias) => aliases.set(alias, slug));
+  });
   const pager = browser.querySelector("[data-cs-pager]");
   const baseTitle = document.title;
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
@@ -46,6 +55,11 @@
       slug = decodeURIComponent(slug);
     } catch {
       return null;
+    }
+    if (aliases.has(slug)) {
+      slug = aliases.get(slug);
+      // Swap the retired hash for the current one without a history entry.
+      history.replaceState(history.state, "", `#${encodeURIComponent(slug)}`);
     }
     return cases.has(slug) ? slug : null;
   };
